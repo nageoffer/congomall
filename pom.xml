@@ -4,8 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.mall4j</groupId>
     <artifactId>mall4j-all</artifactId>
-    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>mall4j-framework</module>
+        <module>mall4j-gateway</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
@@ -15,11 +20,6 @@
 
         <spotless-maven-plugin.version>2.22.1</spotless-maven-plugin.version>
     </properties>
-
-    <modules>
-        <module>mall4j-framework</module>
-        <module>mall4j-gateway</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
