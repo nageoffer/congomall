@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>mall4j-customer-user</module>
         <module>mall4j-framework</module>
         <module>mall4j-gateway</module>
     </modules>
