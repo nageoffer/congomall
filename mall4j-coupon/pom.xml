@@ -9,7 +9,7 @@
     </parent>
     <artifactId>mall4j-coupon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -11,7 +11,7 @@
     <artifactId>mall4j-framework-all</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-
+    
     <modules>
         <!-- SpringBoot Starter -->
         <module>mall4j-base-spring-boot-starter</module>
