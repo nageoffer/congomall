@@ -15,6 +15,7 @@
         <module>mall4j-framework</module>
         <module>mall4j-gateway</module>
         <module>mall4j-order</module>
+        <module>mall4j-product</module>
     </modules>
 
     <properties>
