@@ -12,6 +12,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
+        <!-- SpringBoot Starter -->
         <module>mall4j-base-spring-boot-starter</module>
         <module>mall4j-cache-spring-boot-starter</module>
         <module>mall4j-common-spring-boot-starter</module>
@@ -21,5 +22,7 @@
         <module>mall4j-mybatisplus-spring-boot-starter</module>
         <module>mall4j-swagger-spring-boot-starter</module>
         <module>mall4j-web-spring-boot-starter</module>
+        <!-- Agent -->
+        <module>mall4j-flow-monitor-agent</module>
     </modules>
 </project>
