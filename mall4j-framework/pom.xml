@@ -15,6 +15,7 @@
         <module>mall4j-base-spring-boot-starter</module>
         <module>mall4j-common-spring-boot-starter</module>
         <module>mall4j-convention-spring-boot-starter</module>
+        <module>mall4j-distributedid-spring-boot-starter</module>
         <module>mall4j-log-spring-boot-starter</module>
         <module>mall4j-swagger-spring-boot-starter</module>
     </modules>
