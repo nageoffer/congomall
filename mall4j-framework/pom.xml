@@ -21,6 +21,7 @@
         <module>mall4j-httputil-spring-boot-starter</module>
         <module>mall4j-log-spring-boot-starter</module>
         <module>mall4j-mybatisplus-spring-boot-starter</module>
+        <module>mall4j-openfeign-spring-boot-starter</module>
         <module>mall4j-sensitive-spring-boot-starter</module>
         <module>mall4j-swagger-spring-boot-starter</module>
         <module>mall4j-web-spring-boot-starter</module>
