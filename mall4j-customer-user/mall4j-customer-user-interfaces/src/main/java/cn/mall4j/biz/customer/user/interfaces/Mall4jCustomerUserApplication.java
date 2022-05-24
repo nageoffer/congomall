@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user;
+package cn.mall4j.biz.customer.user.interfaces;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
