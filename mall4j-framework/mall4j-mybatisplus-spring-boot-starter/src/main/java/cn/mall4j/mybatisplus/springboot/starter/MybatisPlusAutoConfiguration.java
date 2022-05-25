@@ -37,6 +37,9 @@ public class MybatisPlusAutoConfiguration {
         return interceptor;
     }
     
+    /**
+     * 元数据填充
+     */
     @Bean
     public MyMetaObjectHandler myMetaObjectHandler() {
         return new MyMetaObjectHandler();
