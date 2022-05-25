@@ -10,4 +10,22 @@
     <groupId>cn.mall4j.framework</groupId>
     <artifactId>mall4j-mybatisplus-spring-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    
+    <properties>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.mall4j.framework</groupId>
+            <artifactId>mall4j-common-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
