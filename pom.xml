@@ -54,8 +54,8 @@
                 <version>${spring-cloud-starter-openfeign.version}</version>
                 <exclusions>
                     <exclusion>
-                        <artifactId>spring-cloud-netflix-archaius</artifactId>
                         <groupId>org.springframework.cloud</groupId>
+                        <artifactId>spring-cloud-netflix-archaius</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
