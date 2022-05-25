@@ -21,12 +21,21 @@
     </modules>
     
     <properties>
+        <!-- 编译 & 格式化 Start -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        
         <spotless-maven-plugin.version>2.22.1</spotless-maven-plugin.version>
+        <!-- 编译 & 格式化 End -->
+        <!-- 框架 Start -->
+        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
+        <!-- 框架 End -->
+        <!-- 工具类 Start -->
+        <lombok.version>1.18.24</lombok.version>
+        <hutool-all.version>5.8.0.M3</hutool-all.version>
+        <guava.version>31.1-jre</guava.version>
+        <!-- 工具类 End -->
     </properties>
     
     <dependencyManagement>
@@ -38,8 +47,40 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-starter-openfeign.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring-cloud-netflix-archaius</artifactId>
+                        <groupId>org.springframework.cloud</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

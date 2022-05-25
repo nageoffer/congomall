@@ -17,6 +17,6 @@
         <module>mall4j-customer-user-common</module>
         <module>mall4j-customer-user-domain</module>
         <module>mall4j-customer-user-infrastructure</module>
-        <module>mall4j-customer-user-interfaces</module>
+        <module>mall4j-customer-user-interface</module>
     </modules>
 </project>

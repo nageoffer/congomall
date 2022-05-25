@@ -15,15 +15,29 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.interfaces;
+package cn.mall4j.biz.customer.user.domain.dp;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import cn.hutool.core.util.PhoneUtil;
+import cn.hutool.core.util.StrUtil;
+import lombok.Data;
 
-@SpringBootApplication
-public class Mall4jCustomerUserApplication {
+/**
+ * C端用户注册手机号
+ */
+@Data
+public class CustomerUserPhone {
     
-    public static void main(String[] args) {
-        SpringApplication.run(Mall4jCustomerUserApplication.class, args);
+    /**￿
+     * 注册手机号
+     */
+    private final String phone;
+    
+    public CustomerUserPhone(String phone) {
+        if (StrUtil.isBlank(phone)) {
+            
+        } else if (PhoneUtil.isMobile(phone)) {
+            
+        }
+        this.phone = phone;
     }
 }
