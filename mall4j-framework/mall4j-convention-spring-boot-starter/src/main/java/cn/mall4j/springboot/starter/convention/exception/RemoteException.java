@@ -22,6 +22,10 @@ package cn.mall4j.springboot.starter.convention.exception;
  */
 public class RemoteException extends AbstractException {
     
+    public RemoteException(String message, IErrorCode errorCode) {
+        this(message, null, errorCode);
+    }
+    
     public RemoteException(String message, Throwable throwable, IErrorCode errorCode) {
         super(message, throwable, errorCode);
     }

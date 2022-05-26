@@ -22,6 +22,10 @@ package cn.mall4j.springboot.starter.convention.exception;
  */
 public class ServiceException extends AbstractException {
     
+    public ServiceException(String message, IErrorCode errorCode) {
+        this(message, null, errorCode);
+    }
+    
     public ServiceException(String message, Throwable throwable, IErrorCode errorCode) {
         super(message, throwable, errorCode);
     }
