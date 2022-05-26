@@ -28,5 +28,7 @@
         <module>mall4j-web-spring-boot-starter</module>
         <!-- Agent -->
         <module>mall4j-flow-monitor-agent</module>
+        <!-- DDD -->
+        <module>mall4j-ddd-framework-core</module>
     </modules>
 </project>
