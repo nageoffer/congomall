@@ -71,4 +71,15 @@ public final class Results {
                 .map(IErrorCode::message).orElse(BaseErrorCode.SERVICE_ERROR.message());
         return new Result<Void>().setCode(errorCode).setMessage(errorMessage);
     }
+    
+    /**
+     * 通过 errorCode、errorMessage 构建失败响应
+     *
+     * @param errorCode
+     * @param errorMessage
+     * @return
+     */
+    protected static Result<Void> failure(String errorCode, String errorMessage) {
+        return new Result<Void>().setCode(errorCode).setMessage(errorMessage);
+    }
 }
