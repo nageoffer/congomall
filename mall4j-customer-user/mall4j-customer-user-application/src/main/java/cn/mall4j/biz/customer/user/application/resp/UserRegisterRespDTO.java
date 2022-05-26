@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.api.req;
+package cn.mall4j.biz.customer.user.application.resp;
 
 import lombok.Data;
 
 /**
- * 用户注册
+ * 用户注册响应
  */
 @Data
-public class UserRegisterCommand {
+public class UserRegisterRespDTO {
     
     /**
      * 昵称
@@ -34,11 +34,6 @@ public class UserRegisterCommand {
      * 账号
      */
     private String accountNumber;
-    
-    /**
-     * 密码
-     */
-    private String password;
     
     /**
      * 手机号

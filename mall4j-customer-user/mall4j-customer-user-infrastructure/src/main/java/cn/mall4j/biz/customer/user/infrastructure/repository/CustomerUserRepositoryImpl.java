@@ -17,15 +17,36 @@
 
 package cn.mall4j.biz.customer.user.infrastructure.repository;
 
-import cn.mall4j.biz.customer.user.domain.entity.CustomerUserEntity;
+import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
 import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
+import cn.mall4j.biz.customer.user.infrastructure.converter.CustomerUserConverter;
+import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
+import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserRepositoryMapper;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 /**
- * C端用户仓储层实现
+ * C 端用户仓储层实现
  */
+@Repository
+@AllArgsConstructor
 public class CustomerUserRepositoryImpl implements CustomerUserRepository {
     
-    public void register(CustomerUserEntity customerUser) {
-        
+    private final CustomerUserRepositoryMapper customerUserRepositoryMapper;
+    
+    private final CustomerUserConverter customerUserConverter = CustomerUserConverter.INSTANCE;
+    
+    @Override
+    public CustomerUser find(Long customerUserId) {
+        CustomerUserDO customerUserDO = customerUserRepositoryMapper.selectById(customerUserId);
+        return customerUserConverter.doToCustomerUser(customerUserDO);
+    }
+    
+    @Override
+    public CustomerUser register(CustomerUser customerUser) {
+        CustomerUserDO customerUserDO = customerUserConverter.customerUserToDO(customerUser);
+        customerUserRepositoryMapper.insert(customerUserDO);
+        Long customerUserId = customerUserDO.getId();
+        return find(customerUserId);
     }
 }

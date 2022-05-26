@@ -15,27 +15,33 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.domain.repository;
+package cn.mall4j.biz.customer.user.application.assembler;
 
+import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
 
 /**
- * C 端用户仓储层
+ * C 端用户 Entity 转换 DTO
  */
-public interface CustomerUserRepository {
+@Mapper
+public interface CustomerUserToDTOAssembler {
+    
+    CustomerUserToDTOAssembler INSTANCE = Mappers.getMapper(CustomerUserToDTOAssembler.class);
     
     /**
-     * 根据 customerUserId 查询 C 端用户
-     *
-     * @param customerUserId
-     * @return
-     */
-    CustomerUser find(Long customerUserId);
-    
-    /**
-     * C 端用户注册
+     * C 端用户 Entity 转换用户注册返回 DTO
      *
      * @param customerUser
+     * @return
      */
-    CustomerUser register(CustomerUser customerUser);
+    @Mappings({
+            @Mapping(source = "customerUser.userName.username", target = "name"),
+            @Mapping(source = "customerUser.phone.phone", target = "phone"),
+            @Mapping(source = "customerUser.accountNumber.accountNumber", target = "accountNumber")
+    })
+    UserRegisterRespDTO customerUserToUserRegisterRespDTO(CustomerUser customerUser);
 }

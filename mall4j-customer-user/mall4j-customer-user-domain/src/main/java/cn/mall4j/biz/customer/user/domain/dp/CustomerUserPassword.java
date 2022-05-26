@@ -17,26 +17,20 @@
 
 package cn.mall4j.biz.customer.user.domain.dp;
 
-import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
 /**
- * C 端用户名称
+ * C 端用户密码
  */
 @Data
-public class CustomerUserName {
+public class CustomerUserPassword {
     
     /**
-     * 用户名
+     * 用户密码
      */
-    private final String username;
+    private String password;
     
-    public CustomerUserName(String username) {
-        if (StrUtil.isBlank(username)) {
-            
-        } else if (StrUtil.length(username) < 2) {
-            
-        }
-        this.username = username;
+    public CustomerUserPassword(String password) {
+        this.password = password;
     }
 }

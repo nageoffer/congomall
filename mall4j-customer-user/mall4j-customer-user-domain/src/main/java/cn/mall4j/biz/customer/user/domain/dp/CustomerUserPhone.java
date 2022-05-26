@@ -18,25 +18,25 @@
 package cn.mall4j.biz.customer.user.domain.dp;
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.mall4j.springboot.starter.convention.exception.BaseErrorCode;
+import cn.mall4j.springboot.starter.convention.exception.ClientException;
 import lombok.Data;
 
 /**
- * C端用户注册手机号
+ * C 端用户注册手机号
  */
 @Data
 public class CustomerUserPhone {
     
-    /**￿
+    /**
+     * ￿
      * 注册手机号
      */
     private final String phone;
     
     public CustomerUserPhone(String phone) {
-        if (StrUtil.isBlank(phone)) {
-            
-        } else if (PhoneUtil.isMobile(phone)) {
-            
+        if (!PhoneUtil.isMobile(phone)) {
+            throw new ClientException(BaseErrorCode.PHONE_VERIFY_ERROR);
         }
         this.phone = phone;
     }

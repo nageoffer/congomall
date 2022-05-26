@@ -15,27 +15,21 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.api.client;
+package cn.mall4j.biz.customer.user.application.service;
 
-import cn.mall4j.biz.customer.user.api.req.UserRegisterCommand;
-import cn.mall4j.springboot.starter.convention.Result;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
+import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 
 /**
- * C端用户接口
+ * C 端用户接口
  */
-@FeignClient("mall4j-customer-user")
-@RequestMapping("/api/mall4j-customer-user/v1/customer-user")
-public interface CustomerUserClient {
+public interface CustomerUserService {
     
     /**
-     * C端用户注册
+     * C 端用户注册
      *
      * @param requestParam
      * @return
      */
-    @PostMapping("/register")
-    Result<Void> register(UserRegisterCommand requestParam);
+    UserRegisterRespDTO register(UserRegisterCommand requestParam);
 }

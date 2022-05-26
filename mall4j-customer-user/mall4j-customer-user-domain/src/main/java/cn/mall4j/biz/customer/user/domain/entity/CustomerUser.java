@@ -15,28 +15,30 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.domain.dp;
+package cn.mall4j.biz.customer.user.domain.entity;
 
-import cn.hutool.core.util.StrUtil;
+import cn.mall4j.biz.customer.user.domain.dp.CustomerUserAccountNumber;
+import cn.mall4j.biz.customer.user.domain.dp.CustomerUserName;
+import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPassword;
+import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPhone;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Setter;
 
 /**
- * C 端用户名称
+ * C 端用户实体
  */
 @Data
-public class CustomerUserName {
+@Builder
+@Setter(AccessLevel.PRIVATE)
+public class CustomerUser {
     
-    /**
-     * 用户名
-     */
-    private final String username;
+    private CustomerUserName userName;
     
-    public CustomerUserName(String username) {
-        if (StrUtil.isBlank(username)) {
-            
-        } else if (StrUtil.length(username) < 2) {
-            
-        }
-        this.username = username;
-    }
+    private CustomerUserPhone phone;
+    
+    private CustomerUserPassword password;
+    
+    private CustomerUserAccountNumber accountNumber;
 }

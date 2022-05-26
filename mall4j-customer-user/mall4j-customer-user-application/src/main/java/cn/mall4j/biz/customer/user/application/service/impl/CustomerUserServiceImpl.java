@@ -15,39 +15,27 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.web.controller;
+package cn.mall4j.biz.customer.user.application.service.impl;
 
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
-import cn.mall4j.springboot.starter.convention.result.Result;
-import cn.mall4j.springboot.starter.web.Results;
+import cn.mall4j.ddd.framework.core.domain.CommandHandler;
 import lombok.AllArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
+import org.springframework.stereotype.Service;
 
 /**
- * C 端用户控制器
+ * C 端用户接口
  */
-@Validated
-@RestController
+@Service
 @AllArgsConstructor
-@RequestMapping("/api/mall4j-customer-user/v1/customer-user")
-public class CustomerUserController {
+public class CustomerUserServiceImpl implements CustomerUserService {
     
-    private final CustomerUserService customerUserService;
+    private final CommandHandler<UserRegisterCommand, UserRegisterRespDTO> customerUserRegisterCommandHandler;
     
-    /**
-     * C 端用户注册
-     */
-    @PostMapping("/register")
-    public Result<UserRegisterRespDTO> register(@RequestBody @Valid UserRegisterCommand requestParam) {
-        UserRegisterRespDTO result = customerUserService.register(requestParam);
-        return Results.success(result);
+    @Override
+    public UserRegisterRespDTO register(UserRegisterCommand requestParam) {
+        UserRegisterRespDTO result = customerUserRegisterCommandHandler.handler(requestParam);
+        return result;
     }
 }

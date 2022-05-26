@@ -15,28 +15,14 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.domain.dp;
+package cn.mall4j.biz.customer.user.infrastructure.dao;
 
-import cn.hutool.core.util.StrUtil;
-import lombok.Data;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * C 端用户名称
+ * C 端用户
  */
-@Data
-public class CustomerUserName {
-    
-    /**
-     * 用户名
-     */
-    private final String username;
-    
-    public CustomerUserName(String username) {
-        if (StrUtil.isBlank(username)) {
-            
-        } else if (StrUtil.length(username) < 2) {
-            
-        }
-        this.username = username;
-    }
+@Mapper
+public interface CustomerUserRepositoryMapper extends BaseMapper<CustomerUserDO> {
 }

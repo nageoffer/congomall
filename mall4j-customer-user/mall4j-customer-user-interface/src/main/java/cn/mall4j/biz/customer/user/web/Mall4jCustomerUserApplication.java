@@ -17,10 +17,12 @@
 
 package cn.mall4j.biz.customer.user.web;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "cn.mall4j.biz.customer.user")
+@MapperScan("cn.mall4j.biz.customer.user.infrastructure.dao")
 public class Mall4jCustomerUserApplication {
     
     public static void main(String[] args) {

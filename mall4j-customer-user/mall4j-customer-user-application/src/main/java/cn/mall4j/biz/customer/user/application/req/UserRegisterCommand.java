@@ -15,20 +15,39 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.domain.entity;
+package cn.mall4j.biz.customer.user.application.req;
 
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserName;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPhone;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
- * C端用户实体
+ * 用户注册
  */
 @Data
-public class CustomerUserEntity {
+public class UserRegisterCommand {
     
-    private CustomerUserName userName;
+    /**
+     * 昵称
+     */
+    @NotBlank(message = "昵称不允许为空")
+    private String name;
     
-    private CustomerUserPhone phone;
+    /**
+     * 账号
+     */
+    @NotBlank(message = "账号不允许为空")
+    private String accountNumber;
     
+    /**
+     * 密码
+     */
+    @NotBlank(message = "密码不允许为空")
+    private String password;
+    
+    /**
+     * 手机号
+     */
+    @NotBlank(message = "手机号不允许为空")
+    private String phone;
 }
