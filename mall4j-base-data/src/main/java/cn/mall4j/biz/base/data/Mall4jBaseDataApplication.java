@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.mall4j.mall4jbasedata;
+package cn.mall4j.biz.base.data;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
