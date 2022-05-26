@@ -15,44 +15,22 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.convention;
-
-import lombok.Data;
-import lombok.experimental.Accessors;
+package cn.mall4j.springboot.starter.convention.exception;
 
 /**
- * 全局返回对象
+ * 服务端异常
  */
-@Data
-@Accessors(chain = true)
-public class Result<T> {
+public class ServiceException extends AbstractException {
     
-    /**
-     * 正确返回码
-     */
-    public static final String SUCCESS_CODE = "0";
+    public ServiceException(String message, Throwable throwable, IErrorCode errorCode) {
+        super(message, throwable, errorCode);
+    }
     
-    /**
-     * 返回码
-     */
-    private String code;
-    
-    /**
-     * 返回消息
-     */
-    private String message;
-    
-    /**
-     * 响应数据
-     */
-    private T data;
-    
-    /**
-     * 请求ID
-     */
-    private String requestId;
-    
-    public boolean isSuccess() {
-        return SUCCESS_CODE.equals(code);
+    @Override
+    public String toString() {
+        return "ServiceException{" +
+                "code='" + errorCode.code() + "'," +
+                "message='" + errorCode.message() + "'" +
+                '}';
     }
 }

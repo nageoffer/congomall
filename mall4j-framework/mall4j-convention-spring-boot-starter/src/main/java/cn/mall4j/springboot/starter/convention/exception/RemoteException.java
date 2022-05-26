@@ -15,23 +15,22 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.convention;
-
-import lombok.Data;
+package cn.mall4j.springboot.starter.convention.exception;
 
 /**
- * 分页请求对象
+ * 远程服务调用异常
  */
-@Data
-public class PageRequest {
+public class RemoteException extends AbstractException {
     
-    /**
-     * 当前页
-     */
-    private Long current;
+    public RemoteException(String message, Throwable throwable, IErrorCode errorCode) {
+        super(message, throwable, errorCode);
+    }
     
-    /**
-     * 每页显示条数
-     */
-    private Long size;
+    @Override
+    public String toString() {
+        return "RemoteException{" +
+                "code='" + errorCode.code() + "'," +
+                "message='" + errorCode.message() + "'" +
+                '}';
+    }
 }
