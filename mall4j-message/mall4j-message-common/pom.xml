@@ -4,17 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.mall4j</groupId>
-        <artifactId>mall4j-all</artifactId>
+        <artifactId>mall4j-message</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>mall4j-message</artifactId>
-    <packaging>pom</packaging>
-    
-    <modules>
-        <module>mall4j-message-application</module>
-        <module>mall4j-message-common</module>
-        <module>mall4j-message-domain</module>
-        <module>mall4j-message-infrastructure</module>
-        <module>mall4j-message-interface</module>
-    </modules>
+    <artifactId>mall4j-message-common</artifactId>
 </project>

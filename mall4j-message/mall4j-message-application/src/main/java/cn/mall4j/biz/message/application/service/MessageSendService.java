@@ -15,15 +15,21 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.message;
+package cn.mall4j.biz.message.application.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import cn.mall4j.biz.message.rpc.req.MailSendCommand;
+import cn.mall4j.biz.message.rpc.resp.MessageSendRespDTO;
 
-@SpringBootApplication
-public class Mall4jMessageApplication {
+/**
+ * 消息发送
+ */
+public interface MessageSendService {
     
-    public static void main(String[] args) {
-        SpringApplication.run(Mall4jMessageApplication.class, args);
-    }
+    /**
+     * 邮箱消息发送
+     *
+     * @param mailSendCommand
+     * @return
+     */
+    MessageSendRespDTO mailMessageSend(MailSendCommand mailSendCommand);
 }
