@@ -20,7 +20,7 @@ package cn.mall4j.springboot.starter.web;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.mall4j.springboot.starter.convention.exception.AbstractException;
-import cn.mall4j.springboot.starter.convention.exception.BaseErrorCode;
+import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.result.Result;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
                 .map(FieldError::getDefaultMessage)
                 .orElse(StrUtil.EMPTY);
         log.error("[{}] {} [ex] {}", request.getMethod(), getUrl(request), exceptionStr);
-        return Results.failure(BaseErrorCode.CLIENT_ERROR.code(), exceptionStr);
+        return Results.failure(ErrorCode.CLIENT_ERROR.code(), exceptionStr);
     }
     
     /**

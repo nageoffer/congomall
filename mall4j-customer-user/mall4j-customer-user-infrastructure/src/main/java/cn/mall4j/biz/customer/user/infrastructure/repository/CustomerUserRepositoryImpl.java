@@ -22,7 +22,7 @@ import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
 import cn.mall4j.biz.customer.user.infrastructure.converter.CustomerUserConverter;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserRepositoryMapper;
-import cn.mall4j.springboot.starter.convention.exception.BaseErrorCode;
+import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.exception.ServiceException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -49,7 +49,7 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
         CustomerUserDO customerUserDO = customerUserConverter.customerUserToDO(customerUser);
         int insert = customerUserRepositoryMapper.insert(customerUserDO);
         if (insert < 1) {
-            throw new ServiceException(BaseErrorCode.USER_REGISTER_ERROR);
+            throw new ServiceException(ErrorCode.USER_REGISTER_ERROR);
         }
         Long customerUserId = customerUserDO.getId();
         return find(customerUserId);

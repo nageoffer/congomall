@@ -18,7 +18,7 @@
 package cn.mall4j.biz.customer.user.domain.dp;
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.mall4j.springboot.starter.convention.exception.BaseErrorCode;
+import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.exception.ClientException;
 import lombok.Data;
 
@@ -36,7 +36,7 @@ public class CustomerUserPhone {
     
     public CustomerUserPhone(String phone) {
         if (!PhoneUtil.isMobile(phone)) {
-            throw new ClientException(BaseErrorCode.PHONE_VERIFY_ERROR);
+            throw new ClientException(ErrorCode.PHONE_VERIFY_ERROR);
         }
         this.phone = phone;
     }

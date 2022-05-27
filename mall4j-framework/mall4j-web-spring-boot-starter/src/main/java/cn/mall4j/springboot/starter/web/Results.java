@@ -18,7 +18,7 @@
 package cn.mall4j.springboot.starter.web;
 
 import cn.mall4j.springboot.starter.convention.exception.AbstractException;
-import cn.mall4j.springboot.starter.convention.exception.BaseErrorCode;
+import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.exception.IErrorCode;
 import cn.mall4j.springboot.starter.convention.result.Result;
 
@@ -55,7 +55,7 @@ public final class Results {
      * @return
      */
     protected static Result<Void> failure() {
-        return new Result<Void>().setCode(BaseErrorCode.SERVICE_ERROR.code()).setMessage(BaseErrorCode.SERVICE_ERROR.message());
+        return new Result<Void>().setCode(ErrorCode.SERVICE_ERROR.code()).setMessage(ErrorCode.SERVICE_ERROR.message());
     }
     
     /**
@@ -66,9 +66,9 @@ public final class Results {
      */
     protected static Result<Void> failure(AbstractException abstractException) {
         String errorCode = Optional.ofNullable(abstractException.getErrorCode())
-                .map(IErrorCode::code).orElse(BaseErrorCode.SERVICE_ERROR.code());
+                .map(IErrorCode::code).orElse(ErrorCode.SERVICE_ERROR.code());
         String errorMessage = Optional.ofNullable(abstractException.getErrorCode())
-                .map(IErrorCode::message).orElse(BaseErrorCode.SERVICE_ERROR.message());
+                .map(IErrorCode::message).orElse(ErrorCode.SERVICE_ERROR.message());
         return new Result<Void>().setCode(errorCode).setMessage(errorMessage);
     }
     

@@ -20,7 +20,7 @@ package cn.mall4j.springboot.starter.convention.exception;
 /**
  * 基础错误码定义
  */
-public enum BaseErrorCode implements IErrorCode {
+public enum ErrorCode implements IErrorCode {
     
     // ========== 一级宏观错误码 客户端错误 ==========
     CLIENT_ERROR("A0001", "用户端错误"),
@@ -47,7 +47,7 @@ public enum BaseErrorCode implements IErrorCode {
     
     private final String message;
     
-    BaseErrorCode(String code, String message) {
+    ErrorCode(String code, String message) {
         this.code = code;
         this.message = message;
     }
