@@ -28,10 +28,10 @@ import javax.validation.constraints.NotBlank;
 public class UserRegisterCommand {
     
     /**
-     * 昵称
+     * 用户名
      */
-    @NotBlank(message = "昵称不允许为空")
-    private String name;
+    @NotBlank(message = "用户名不允许为空")
+    private String username;
     
     /**
      * 账号

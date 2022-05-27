@@ -44,7 +44,7 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
     @Override
     public UserRegisterRespDTO handler(UserRegisterCommand requestParam) {
         CustomerUser customerUser = CustomerUser.builder()
-                .userName(new CustomerUserName(requestParam.getName()))
+                .userName(new CustomerUserName(requestParam.getUsername()))
                 .phone(new CustomerUserPhone(requestParam.getPhone()))
                 .accountNumber(new CustomerUserAccountNumber(requestParam.getAccountNumber()))
                 .password(new CustomerUserPassword(requestParam.getPassword()))

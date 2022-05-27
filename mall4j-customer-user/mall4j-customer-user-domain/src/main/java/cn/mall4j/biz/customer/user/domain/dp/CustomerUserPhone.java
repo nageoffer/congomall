@@ -18,6 +18,7 @@
 package cn.mall4j.biz.customer.user.domain.dp;
 
 import cn.hutool.core.util.PhoneUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.exception.ClientException;
 import lombok.Data;
@@ -29,13 +30,14 @@ import lombok.Data;
 public class CustomerUserPhone {
     
     /**
-     * ￿
      * 注册手机号
      */
     private final String phone;
     
     public CustomerUserPhone(String phone) {
-        if (!PhoneUtil.isMobile(phone)) {
+        if (StrUtil.isBlank(phone)) {
+            throw new ClientException("手机号不能为空", ErrorCode.PHONE_VERIFY_ERROR);
+        } else if (!PhoneUtil.isMobile(phone)) {
             throw new ClientException(ErrorCode.PHONE_VERIFY_ERROR);
         }
         this.phone = phone;

@@ -18,6 +18,8 @@
 package cn.mall4j.biz.customer.user.domain.dp;
 
 import cn.hutool.core.util.StrUtil;
+import cn.mall4j.springboot.starter.convention.exception.ClientException;
+import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import lombok.Data;
 
 /**
@@ -31,11 +33,17 @@ public class CustomerUserName {
      */
     private final String username;
     
+    /**
+     * 用户名最少长度
+     */
+    private final static int MIN_USERNAME_LENGTH = 2;
+    
     public CustomerUserName(String username) {
+        username = StrUtil.trim(username);
         if (StrUtil.isBlank(username)) {
-            
-        } else if (StrUtil.length(username) < 2) {
-            
+            throw new ClientException("用户名不允许为空", ErrorCode.CLIENT_ERROR);
+        } else if (StrUtil.length(username) < MIN_USERNAME_LENGTH) {
+            throw new ClientException("用户名长度最少2位", ErrorCode.CLIENT_ERROR);
         }
         this.username = username;
     }
