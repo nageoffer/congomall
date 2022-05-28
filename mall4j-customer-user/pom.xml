@@ -12,7 +12,6 @@
     <packaging>pom</packaging>
     
     <modules>
-        <module>mall4j-customer-user-rpc</module>
         <module>mall4j-customer-user-application</module>
         <module>mall4j-customer-user-common</module>
         <module>mall4j-customer-user-domain</module>
