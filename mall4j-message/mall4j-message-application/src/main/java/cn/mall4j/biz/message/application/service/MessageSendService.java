@@ -17,8 +17,8 @@
 
 package cn.mall4j.biz.message.application.service;
 
-import cn.mall4j.biz.message.rpc.req.MailSendCommand;
-import cn.mall4j.biz.message.rpc.resp.MessageSendRespDTO;
+import cn.mall4j.biz.message.application.req.MailSendCommand;
+import cn.mall4j.biz.message.application.resp.MessageSendRespDTO;
 
 /**
  * 消息发送

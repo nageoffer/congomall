@@ -26,11 +26,5 @@
             <artifactId>mall4j-message-application</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        <dependency>
-            <groupId>cn.mall4j</groupId>
-            <artifactId>mall4j-message-rpc</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 </project>

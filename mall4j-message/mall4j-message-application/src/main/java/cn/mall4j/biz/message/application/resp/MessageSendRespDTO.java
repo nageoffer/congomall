@@ -1,4 +1,4 @@
-package cn.mall4j.biz.message.rpc.resp;
+package cn.mall4j.biz.message.application.resp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

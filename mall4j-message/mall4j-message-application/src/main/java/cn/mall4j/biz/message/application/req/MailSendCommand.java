@@ -1,4 +1,4 @@
-package cn.mall4j.biz.message.rpc.req;
+package cn.mall4j.biz.message.application.req;
 
 import lombok.Data;
 

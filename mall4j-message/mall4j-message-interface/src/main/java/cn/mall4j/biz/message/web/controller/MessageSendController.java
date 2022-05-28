@@ -17,10 +17,9 @@
 
 package cn.mall4j.biz.message.web.controller;
 
+import cn.mall4j.biz.message.application.req.MailSendCommand;
+import cn.mall4j.biz.message.application.resp.MessageSendRespDTO;
 import cn.mall4j.biz.message.application.service.MessageSendService;
-import cn.mall4j.biz.message.rpc.client.MessageSendClient;
-import cn.mall4j.biz.message.rpc.req.MailSendCommand;
-import cn.mall4j.biz.message.rpc.resp.MessageSendRespDTO;
 import cn.mall4j.springboot.starter.convention.result.Result;
 import cn.mall4j.springboot.starter.web.Results;
 import lombok.AllArgsConstructor;
@@ -39,12 +38,11 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @MapperScan("cn.mall4j.biz.message.infrastructure.dao")
 @RequestMapping("/mall4j-message/v1/message")
-public class MessageSendController implements MessageSendClient {
+public class MessageSendController {
     
     private final MessageSendService messageSendService;
     
     @PostMapping("/mail/send")
-    @Override
     public Result<MessageSendRespDTO> mailMessageSend(@RequestBody @Valid MailSendCommand mailSendCommand) {
         MessageSendRespDTO result = messageSendService.mailMessageSend(mailSendCommand);
         return Results.success(result);
