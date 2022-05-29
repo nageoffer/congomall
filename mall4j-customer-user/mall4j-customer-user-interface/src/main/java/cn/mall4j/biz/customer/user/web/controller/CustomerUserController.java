@@ -18,6 +18,7 @@
 package cn.mall4j.biz.customer.user.web.controller;
 
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
+import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
 import cn.mall4j.springboot.starter.convention.result.Result;
@@ -37,10 +38,19 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/mall4j-customer-user/v1/customer-user")
+@RequestMapping("/customer-user")
 public class CustomerUserController {
     
     private final CustomerUserService customerUserService;
+    
+    /**
+     * C 端用户验证发送
+     */
+    @PostMapping("/verify/code/send")
+    public Result<Void> verifyCodeSend(@RequestBody @Valid UserVerifyCodeCommand requestParam) {
+        customerUserService.verifyCodeSend(requestParam);
+        return Results.success();
+    }
     
     /**
      * C 端用户注册

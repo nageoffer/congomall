@@ -15,53 +15,56 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.application.req;
+package cn.mall4j.biz.customer.user.infrastructure.remote.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
- * 用户注册
+ * 邮件发送
  */
 @Data
-public class UserRegisterCommand {
+@Accessors(chain = true)
+public class MailSendRemoteCommand {
     
     /**
-     * 用户名
+     * 标题
      */
-    @NotBlank(message = "用户名不允许为空")
-    private String username;
+    @NotBlank(message = "邮箱标题不能为空")
+    private String title;
     
     /**
-     * 账号
-     */
-    @NotBlank(message = "账号不允许为空")
-    private String accountNumber;
-    
-    /**
-     * 密码
-     */
-    @NotBlank(message = "密码不允许为空")
-    private String password;
-    
-    /**
-     * 手机号
-     */
-    @NotBlank(message = "手机号不允许为空")
-    private String phone;
-    
-    /**
-     * 邮箱
+     * 发送者
      */
     @Email
-    @NotBlank(message = "邮箱不允许为空")
-    private String mail;
+    @NotBlank(message = "邮箱发送者不能为空")
+    private String sender;
     
     /**
-     * 邮箱验证码
+     * 接收者
      */
-    @NotBlank(message = "邮箱验证码不允许为空")
-    private String mailValidCode;
+    @Email
+    @NotBlank(message = "邮箱接收者不能为空")
+    private String receiver;
+    
+    /**
+     * 抄送
+     */
+    @Email
+    private String cc;
+    
+    /**
+     * 消息参数
+     */
+    private List<String> paramList;
+    
+    /**
+     * 模板ID
+     */
+    @NotBlank(message = "邮箱模板ID不能为空")
+    private String templateId;
 }

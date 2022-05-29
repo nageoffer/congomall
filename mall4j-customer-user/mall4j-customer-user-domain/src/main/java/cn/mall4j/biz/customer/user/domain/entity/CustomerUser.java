@@ -41,4 +41,8 @@ public class CustomerUser {
     private CustomerUserPassword password;
     
     private CustomerUserAccountNumber accountNumber;
+    
+    private String mail;
+    
+    private String mailValidCode;
 }

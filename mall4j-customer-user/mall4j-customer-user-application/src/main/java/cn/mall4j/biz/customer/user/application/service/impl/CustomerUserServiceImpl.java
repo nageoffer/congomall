@@ -18,6 +18,7 @@
 package cn.mall4j.biz.customer.user.application.service.impl;
 
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
+import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
 import cn.mall4j.ddd.framework.core.domain.CommandHandler;
@@ -32,6 +33,13 @@ import org.springframework.stereotype.Service;
 public class CustomerUserServiceImpl implements CustomerUserService {
     
     private final CommandHandler<UserRegisterCommand, UserRegisterRespDTO> customerUserRegisterCommandHandler;
+    
+    private final CommandHandler<UserVerifyCodeCommand, Boolean> customerUserVerifyCodeCommandHandler;
+    
+    @Override
+    public void verifyCodeSend(UserVerifyCodeCommand requestParam) {
+        customerUserVerifyCodeCommandHandler.handler(requestParam);
+    }
     
     @Override
     public UserRegisterRespDTO register(UserRegisterCommand requestParam) {

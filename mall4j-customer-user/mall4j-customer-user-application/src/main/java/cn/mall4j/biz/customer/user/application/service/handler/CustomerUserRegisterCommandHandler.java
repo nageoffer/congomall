@@ -48,6 +48,8 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
                 .phone(new CustomerUserPhone(requestParam.getPhone()))
                 .accountNumber(new CustomerUserAccountNumber(requestParam.getAccountNumber()))
                 .password(new CustomerUserPassword(requestParam.getPassword()))
+                .mail(requestParam.getMail())
+                .mailValidCode(requestParam.getMailValidCode())
                 .build();
         CustomerUser result = customerUserRepository.register(customerUser);
         return customerUserAssembler.customerUserToUserRegisterRespDTO(result);

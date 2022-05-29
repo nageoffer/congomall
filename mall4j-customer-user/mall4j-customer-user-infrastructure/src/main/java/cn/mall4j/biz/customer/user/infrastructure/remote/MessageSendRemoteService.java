@@ -15,29 +15,23 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.application.service;
+package cn.mall4j.biz.customer.user.infrastructure.remote;
 
-import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
-import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
-import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
+import cn.mall4j.biz.customer.user.infrastructure.remote.dto.MailSendRemoteCommand;
+import cn.mall4j.springboot.starter.convention.result.Result;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * C 端用户接口
+ * 消息发送远程服务调用
  */
-public interface CustomerUserService {
+@FeignClient("mall4j-message")
+public interface MessageSendRemoteService {
     
     /**
-     * C 端用户验证
-     *
-     * @param requestParam
+     * 邮箱消息发送
      */
-    void verifyCodeSend(UserVerifyCodeCommand requestParam);
-    
-    /**
-     * C 端用户注册
-     *
-     * @param requestParam
-     * @return
-     */
-    UserRegisterRespDTO register(UserRegisterCommand requestParam);
+    @PostMapping("/api/mall4j-message/message/send/mail")
+    Result<Void> mailMessageSend(@RequestBody MailSendRemoteCommand mailSendRemoteCommand);
 }

@@ -20,7 +20,11 @@ package cn.mall4j.biz.customer.user.web;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@EnableDiscoveryClient
+@EnableFeignClients("cn.mall4j.biz.customer.user.infrastructure.remote")
 @SpringBootApplication(scanBasePackages = "cn.mall4j.biz.customer.user")
 @MapperScan("cn.mall4j.biz.customer.user.infrastructure.dao")
 public class Mall4jCustomerUserApplication {
