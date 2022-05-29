@@ -47,10 +47,16 @@ public class CustomerUserVerifyCodeCommandHandler implements CommandHandler<User
     @Value("${customer.user.register.verify.template-id}")
     private String templateId;
     
+    /**
+     * 用户注册验证码超时时间
+     */
+    private static final long REGISTER_USER_VERIFY_CODE_TIMEOUT = 30000;
+    
     @Override
     public Boolean handler(UserVerifyCodeCommand requestParam) {
         String verifyCode = RandomUtil.randomNumbers(6);
-        distributedCache.put(REGISTER_USER_VERIFY_CODE, verifyCode);
+        // 验证码放入缓存，并设置超时时间
+        distributedCache.put(REGISTER_USER_VERIFY_CODE, verifyCode, REGISTER_USER_VERIFY_CODE_TIMEOUT);
         MailSendRemoteCommand remoteCommand = new MailSendRemoteCommand();
         remoteCommand.setTitle("Mall4J邮箱验证码提醒")
                 .setReceiver(requestParam.getReceiver())
