@@ -54,7 +54,7 @@ public class CustomerUserDO extends BaseDO {
     private String phone;
     
     /**
-     * 性别
+     * 年龄
      */
     private Integer age;
     
