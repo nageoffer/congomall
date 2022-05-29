@@ -36,7 +36,7 @@ public class CustomerUserPhone {
     
     public CustomerUserPhone(String phone) {
         if (StrUtil.isBlank(phone)) {
-            throw new ClientException("手机号不能为空", ErrorCode.PHONE_VERIFY_ERROR);
+            throw new ClientException("手机号不能为空");
         } else if (!PhoneUtil.isMobile(phone)) {
             throw new ClientException(ErrorCode.PHONE_VERIFY_ERROR);
         }

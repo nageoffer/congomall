@@ -33,8 +33,8 @@ public class RemoteException extends AbstractException {
     @Override
     public String toString() {
         return "RemoteException{" +
-                "code='" + errorCode.code() + "'," +
-                "message='" + errorCode.message() + "'" +
+                "code='" + errorCode + "'," +
+                "message='" + errorMessage + "'" +
                 '}';
     }
 }
