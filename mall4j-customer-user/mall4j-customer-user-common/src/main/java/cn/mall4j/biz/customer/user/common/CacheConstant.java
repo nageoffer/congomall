@@ -19,6 +19,9 @@ package cn.mall4j.biz.customer.user.common;
 
 /**
  * 缓存 Key
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public class CacheConstant {
     

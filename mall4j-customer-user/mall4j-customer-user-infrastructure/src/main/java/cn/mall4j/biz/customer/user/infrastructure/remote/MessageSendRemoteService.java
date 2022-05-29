@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 消息发送远程服务调用
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @FeignClient("mall4j-message")
 public interface MessageSendRemoteService {

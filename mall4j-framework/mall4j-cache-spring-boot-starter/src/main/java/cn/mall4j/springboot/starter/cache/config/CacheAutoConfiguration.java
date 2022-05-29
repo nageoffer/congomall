@@ -26,6 +26,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * 缓存配置自动装配
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @AllArgsConstructor
 @EnableConfigurationProperties(RedisDistributedProperties.class)

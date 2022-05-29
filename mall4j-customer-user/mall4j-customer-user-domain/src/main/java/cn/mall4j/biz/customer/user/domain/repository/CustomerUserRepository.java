@@ -21,6 +21,9 @@ import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
 
 /**
  * C 端用户仓储层
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public interface CustomerUserRepository {
     

@@ -24,6 +24,9 @@ import java.util.Optional;
 
 /**
  * 抽象 {@link ClientException}、{@link ServiceException}、{@link RemoteException}
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Getter
 public abstract class AbstractException extends RuntimeException {

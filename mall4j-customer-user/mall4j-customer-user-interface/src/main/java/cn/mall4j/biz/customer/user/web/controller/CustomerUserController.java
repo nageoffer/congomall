@@ -34,6 +34,9 @@ import javax.validation.Valid;
 
 /**
  * C 端用户控制器
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Validated
 @RestController

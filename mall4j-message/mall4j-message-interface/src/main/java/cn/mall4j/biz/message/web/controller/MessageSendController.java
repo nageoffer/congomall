@@ -23,7 +23,6 @@ import cn.mall4j.biz.message.application.service.MessageSendService;
 import cn.mall4j.springboot.starter.convention.result.Result;
 import cn.mall4j.springboot.starter.web.Results;
 import lombok.AllArgsConstructor;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +32,12 @@ import javax.validation.Valid;
 
 /**
  * 消息发送控制器
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @RestController
 @AllArgsConstructor
-@MapperScan("cn.mall4j.biz.message.infrastructure.dao")
 @RequestMapping("/message/send")
 public class MessageSendController {
     

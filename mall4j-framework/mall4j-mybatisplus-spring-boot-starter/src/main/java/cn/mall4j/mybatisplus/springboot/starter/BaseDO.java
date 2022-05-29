@@ -25,6 +25,9 @@ import java.util.Date;
 
 /**
  * 数据持久层基础属性
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class BaseDO {

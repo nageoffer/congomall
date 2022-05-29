@@ -25,6 +25,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * Redis 缓存代理
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @RequiredArgsConstructor
 public class RedisTemplateProxy implements DistributedCache {

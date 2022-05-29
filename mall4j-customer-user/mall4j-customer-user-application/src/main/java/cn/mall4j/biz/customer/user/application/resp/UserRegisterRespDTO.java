@@ -21,6 +21,9 @@ import lombok.Data;
 
 /**
  * 用户注册响应
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class UserRegisterRespDTO {

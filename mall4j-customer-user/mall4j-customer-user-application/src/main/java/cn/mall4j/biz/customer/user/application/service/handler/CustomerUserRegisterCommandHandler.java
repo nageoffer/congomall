@@ -36,6 +36,9 @@ import static cn.mall4j.biz.customer.user.common.CacheConstant.REGISTER_USER_VER
 
 /**
  * C 端用户注册处理器
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Component
 @AllArgsConstructor

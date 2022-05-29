@@ -23,6 +23,9 @@ import lombok.Data;
 
 /**
  * C 端用户数据对象
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @TableName("customer_user")

@@ -24,6 +24,9 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * C 端用户 Entity 转换 DO
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Mapper
 public interface MailSendMessageConverter {

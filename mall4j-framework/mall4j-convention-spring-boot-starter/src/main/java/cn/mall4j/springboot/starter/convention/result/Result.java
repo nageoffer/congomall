@@ -22,6 +22,9 @@ import lombok.experimental.Accessors;
 
 /**
  * 全局返回对象
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @Accessors(chain = true)

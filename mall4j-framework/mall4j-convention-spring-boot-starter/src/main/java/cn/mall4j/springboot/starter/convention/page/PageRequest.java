@@ -21,6 +21,9 @@ import lombok.Data;
 
 /**
  * 分页请求对象
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class PageRequest {

@@ -21,6 +21,9 @@ import lombok.Data;
 
 /**
  * 用户验证码
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class UserVerifyCodeCommand {

@@ -23,6 +23,9 @@ import lombok.Data;
 
 /**
  * 邮件消息发送 DO
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @TableName("mail_send_record")

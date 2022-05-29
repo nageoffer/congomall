@@ -24,6 +24,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 分布式缓存配置
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @ConfigurationProperties(prefix = RedisDistributedProperties.PREFIX)

@@ -26,6 +26,9 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * C 端用户 Entity 转换 DTO
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Mapper
 public interface CustomerUserToDTOAssembler {

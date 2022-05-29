@@ -21,6 +21,9 @@ import cn.mall4j.biz.message.domain.entity.MessageSend;
 
 /**
  * 邮件发送
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cns
  */
 public interface MailMessageProduce {
     

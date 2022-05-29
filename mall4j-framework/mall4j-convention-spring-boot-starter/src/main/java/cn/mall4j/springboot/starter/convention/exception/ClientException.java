@@ -19,6 +19,9 @@ package cn.mall4j.springboot.starter.convention.exception;
 
 /**
  * 客户端异常
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public class ClientException extends AbstractException {
     

@@ -22,6 +22,9 @@ import lombok.Data;
 
 /**
  * 消息发送返回实体
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @AllArgsConstructor

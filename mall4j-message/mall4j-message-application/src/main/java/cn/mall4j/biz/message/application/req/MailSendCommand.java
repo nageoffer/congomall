@@ -25,6 +25,9 @@ import java.util.List;
 
 /**
  * 邮件发送
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class MailSendCommand {

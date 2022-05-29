@@ -21,6 +21,9 @@ import lombok.Data;
 
 /**
  * C 端用户密码
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class CustomerUserPassword {

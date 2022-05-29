@@ -23,6 +23,9 @@ import lombok.Data;
 
 /**
  * 邮件模板
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @TableName("mail_template")

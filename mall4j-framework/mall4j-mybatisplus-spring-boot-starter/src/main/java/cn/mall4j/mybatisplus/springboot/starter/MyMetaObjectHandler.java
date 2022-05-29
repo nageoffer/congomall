@@ -25,6 +25,9 @@ import java.util.Date;
 
 /**
  * 元数据处理器
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public class MyMetaObjectHandler implements MetaObjectHandler {
     
@@ -33,6 +36,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      *
      * @param metaObject
      */
+    @Override
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "updateTime", Date.class, new Date());
@@ -44,6 +48,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      *
      * @param metaObject
      */
+    @Override
     public void updateFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, "updateTime", Date.class, new Date());
     }

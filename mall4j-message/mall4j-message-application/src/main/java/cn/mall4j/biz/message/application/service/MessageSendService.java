@@ -22,6 +22,9 @@ import cn.mall4j.biz.message.application.resp.MessageSendRespDTO;
 
 /**
  * 消息发送
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public interface MessageSendService {
     

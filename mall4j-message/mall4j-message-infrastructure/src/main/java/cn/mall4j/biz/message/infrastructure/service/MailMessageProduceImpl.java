@@ -42,6 +42,9 @@ import java.util.Map;
 
 /**
  * 邮箱消息发送
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Slf4j
 @Component

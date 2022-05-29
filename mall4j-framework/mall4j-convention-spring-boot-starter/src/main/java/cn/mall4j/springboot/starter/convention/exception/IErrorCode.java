@@ -19,6 +19,9 @@ package cn.mall4j.springboot.starter.convention.exception;
 
 /**
  * 平台错误码
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public interface IErrorCode {
     

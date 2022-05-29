@@ -19,6 +19,9 @@ package cn.mall4j.springboot.starter.cache;
 
 /**
  * 多级缓存
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 public interface MultistageCache extends Cache {
 }

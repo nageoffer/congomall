@@ -22,6 +22,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 邮件模板
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Mapper
 public interface MailTemplateMapper extends BaseMapper<MailTemplateDO> {

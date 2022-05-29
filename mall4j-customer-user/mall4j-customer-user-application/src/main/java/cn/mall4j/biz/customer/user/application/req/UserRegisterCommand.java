@@ -24,6 +24,9 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * 用户注册
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class UserRegisterCommand {

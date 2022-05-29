@@ -25,6 +25,9 @@ import lombok.Data;
 
 /**
  * C 端用户注册手机号
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class CustomerUserPhone {

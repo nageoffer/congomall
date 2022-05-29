@@ -30,6 +30,9 @@ import lombok.Setter;
 
 /**
  * C 端用户实体
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 @Builder

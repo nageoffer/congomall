@@ -23,6 +23,9 @@ import lombok.Data;
 
 /**
  * C 端用户名称
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Data
 public class CustomerUserName {

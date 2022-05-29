@@ -36,6 +36,9 @@ import java.util.Optional;
 
 /**
  * 全局异常处理器
+ *
+ * @author chen.ma
+ * @github https://github.com/longtai-cn
  */
 @Slf4j
 @RestControllerAdvice
