@@ -11,15 +11,10 @@
     <artifactId>mall4j-convention-spring-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     
-    <properties>
-        <hibernate-validator.version>7.0.4.Final</hibernate-validator.version>
-    </properties>
-    
     <dependencies>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate-validator.version}</version>
         </dependency>
         
         <dependency>

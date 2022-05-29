@@ -33,10 +33,12 @@
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
+        <fastjson2.version>2.0.5</fastjson2.version>
         <lombok.version>1.18.24</lombok.version>
         <hutool-all.version>5.8.0.M3</hutool-all.version>
         <guava.version>31.1-jre</guava.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <hibernate-validator.version>7.0.4.Final</hibernate-validator.version>
         <!-- 工具类 End -->
     </properties>
     
@@ -87,6 +89,12 @@
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     
@@ -107,6 +115,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson2.version}</version>
         </dependency>
     </dependencies>
     <build>
