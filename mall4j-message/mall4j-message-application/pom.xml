@@ -23,12 +23,6 @@
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j</groupId>
-            <artifactId>mall4j-message-rpc</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <dependency>
             <groupId>cn.mall4j.framework</groupId>
             <artifactId>mall4j-ddd-framework-core</artifactId>
             <version>${project.version}</version>
