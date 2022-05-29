@@ -17,8 +17,19 @@
 
 package cn.mall4j.springboot.starter.cache;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 分布式缓存
  */
 public interface DistributedCache extends Cache {
+    
+    /**
+     * 放入缓存，自定义超时时间
+     *
+     * @param key
+     * @param value
+     * @param timeout
+     */
+    void put(@NotBlank(message = "缓存 Key 不能为空") String key, Object value, long timeout);
 }
