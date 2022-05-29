@@ -17,54 +17,12 @@
 
 package cn.mall4j.biz.message.infrastructure.dao;
 
-import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 邮件消息发送 DO
+ * 邮件发送记录 Mapper
  */
-@Data
-@TableName("mail_send_message")
-public class MailSendMessageDO extends BaseDO {
-    
-    /**
-     * id
-     */
-    private Long id;
-    
-    /**
-     * 消息发送id
-     */
-    private String messageSendId;
-    
-    /**
-     * 模板id
-     */
-    private String templateId;
-    
-    /**
-     * 发送者
-     */
-    private String sender;
-    
-    /**
-     * 接收者
-     */
-    private String receiver;
-    
-    /**
-     * 抄送者
-     */
-    private String cc;
-    
-    /**
-     * 文本参数
-     */
-    private String textParam;
-    
-    /**
-     * 状态 0：失败 1：成功
-     */
-    private Integer status;
+@Mapper
+public interface MailSendRecordMapper extends BaseMapper<MailSendRecordDO> {
 }

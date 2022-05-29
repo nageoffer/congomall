@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class MessageSendServiceImpl implements MessageSendService {
+public class SendMessageServiceImpl implements MessageSendService {
     
     private final MessageSendRepository messageSendRepository;
     

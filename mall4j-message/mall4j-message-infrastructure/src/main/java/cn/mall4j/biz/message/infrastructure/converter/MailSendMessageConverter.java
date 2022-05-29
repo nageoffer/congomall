@@ -18,7 +18,7 @@
 package cn.mall4j.biz.message.infrastructure.converter;
 
 import cn.mall4j.biz.message.domain.entity.MessageSend;
-import cn.mall4j.biz.message.infrastructure.dao.MailSendMessageDO;
+import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -36,5 +36,5 @@ public interface MailSendMessageConverter {
      * @param customerUser
      * @return
      */
-    MailSendMessageDO customerUserToDO(MessageSend customerUser);
+    MailSendRecordDO customerUserToDO(MessageSend customerUser);
 }

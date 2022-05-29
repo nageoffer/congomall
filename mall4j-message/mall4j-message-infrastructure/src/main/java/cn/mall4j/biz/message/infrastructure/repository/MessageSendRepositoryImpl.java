@@ -21,8 +21,8 @@ import cn.hutool.json.JSONUtil;
 import cn.mall4j.biz.message.domain.entity.MessageSend;
 import cn.mall4j.biz.message.domain.repository.MessageSendRepository;
 import cn.mall4j.biz.message.infrastructure.converter.MailSendMessageConverter;
-import cn.mall4j.biz.message.infrastructure.dao.MailSendMessageDO;
-import cn.mall4j.biz.message.infrastructure.dao.MailSendMessageMapper;
+import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
+import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordMapper;
 import cn.mall4j.springboot.starter.common.StatusEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -34,15 +34,15 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class MessageSendRepositoryImpl implements MessageSendRepository {
     
-    private final MailSendMessageMapper mailSendMessageMapper;
+    private final MailSendRecordMapper mailSendRecordMapper;
     
     private final MailSendMessageConverter mailSendMessageConverter = MailSendMessageConverter.INSTANCE;
     
     @Override
     public void mailMessageSave(MessageSend messageSend) {
-        MailSendMessageDO mailSendMessageDO = mailSendMessageConverter.customerUserToDO(messageSend);
-        mailSendMessageDO.setStatus(messageSend.getSendResult() ? StatusEnum.SUCCESS.code() : StatusEnum.FAIL.code());
-        mailSendMessageDO.setTextParam(JSONUtil.toJsonStr(messageSend.getParamList()));
-        mailSendMessageMapper.insert(mailSendMessageDO);
+        MailSendRecordDO mailSendRecordDO = mailSendMessageConverter.customerUserToDO(messageSend);
+        mailSendRecordDO.setStatus(messageSend.getSendResult() ? StatusEnum.SUCCESS.code() : StatusEnum.FAIL.code());
+        mailSendRecordDO.setTextParam(JSONUtil.toJsonStr(messageSend.getParamList()));
+        mailSendRecordMapper.insert(mailSendRecordDO);
     }
 }
