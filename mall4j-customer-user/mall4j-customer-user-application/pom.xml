@@ -40,5 +40,11 @@
             <artifactId>mall4j-ddd-framework-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>cn.mall4j.framework</groupId>
+            <artifactId>mall4j-cache-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
