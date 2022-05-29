@@ -37,13 +37,13 @@ import javax.validation.Valid;
 @RestController
 @AllArgsConstructor
 @MapperScan("cn.mall4j.biz.message.infrastructure.dao")
-@RequestMapping("/mall4j-message/v1/message")
+@RequestMapping("/message/send")
 public class MessageSendController {
     
     private final MessageSendService messageSendService;
     
-    @PostMapping("/mail/send")
-    public Result<MessageSendRespDTO> mailMessageSend(@RequestBody @Valid MailSendCommand mailSendCommand) {
+    @PostMapping("/mail")
+    public Result<MessageSendRespDTO> sendMailMessage(@RequestBody @Valid MailSendCommand mailSendCommand) {
         MessageSendRespDTO result = messageSendService.mailMessageSend(mailSendCommand);
         return Results.success(result);
     }
