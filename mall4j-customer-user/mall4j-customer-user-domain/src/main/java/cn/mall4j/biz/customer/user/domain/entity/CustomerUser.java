@@ -17,10 +17,13 @@
 
 package cn.mall4j.biz.customer.user.domain.entity;
 
+import cn.hutool.core.util.StrUtil;
 import cn.mall4j.biz.customer.user.domain.dp.CustomerUserAccountNumber;
 import cn.mall4j.biz.customer.user.domain.dp.CustomerUserName;
 import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPassword;
 import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPhone;
+import cn.mall4j.springboot.starter.convention.exception.ClientException;
+import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -42,7 +45,18 @@ public class CustomerUser {
     
     private CustomerUserAccountNumber accountNumber;
     
-    private String mail;
+    private String receiver;
     
-    private String mailValidCode;
+    private String verifyCode;
+    
+    public void checkoutValidCode(String verifyCode) {
+        if (StrUtil.isBlank(verifyCode)) {
+            throw new ClientException("验证码已失效", ErrorCode.CLIENT_ERROR);
+        }
+        verifyCode = StrUtil.trim(verifyCode);
+        this.verifyCode = StrUtil.trim(this.verifyCode);
+        if (!StrUtil.equals(verifyCode, this.verifyCode)) {
+            throw new ClientException("验证码错误", ErrorCode.CLIENT_ERROR);
+        }
+    }
 }

@@ -23,6 +23,7 @@ import cn.mall4j.biz.customer.user.infrastructure.remote.MessageSendRemoteServic
 import cn.mall4j.biz.customer.user.infrastructure.remote.dto.MailSendRemoteCommand;
 import cn.mall4j.ddd.framework.core.domain.CommandHandler;
 import cn.mall4j.springboot.starter.cache.DistributedCache;
+import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +57,7 @@ public class CustomerUserVerifyCodeCommandHandler implements CommandHandler<User
     public Boolean handler(UserVerifyCodeCommand requestParam) {
         String verifyCode = RandomUtil.randomNumbers(6);
         // 验证码放入缓存，并设置超时时间
-        distributedCache.put(REGISTER_USER_VERIFY_CODE, verifyCode, REGISTER_USER_VERIFY_CODE_TIMEOUT);
+        distributedCache.put(CacheUtil.buildKey(REGISTER_USER_VERIFY_CODE, requestParam.getReceiver()), verifyCode, REGISTER_USER_VERIFY_CODE_TIMEOUT);
         MailSendRemoteCommand remoteCommand = new MailSendRemoteCommand();
         remoteCommand.setTitle("Mall4J邮箱验证码提醒")
                 .setReceiver(requestParam.getReceiver())

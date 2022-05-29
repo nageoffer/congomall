@@ -27,8 +27,12 @@ import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPhone;
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
 import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
 import cn.mall4j.ddd.framework.core.domain.CommandHandler;
+import cn.mall4j.springboot.starter.cache.DistributedCache;
+import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import static cn.mall4j.biz.customer.user.common.CacheConstant.REGISTER_USER_VERIFY_CODE;
 
 /**
  * C 端用户注册处理器
@@ -41,6 +45,8 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
     
     private final CustomerUserToDTOAssembler customerUserAssembler = CustomerUserToDTOAssembler.INSTANCE;
     
+    private final DistributedCache distributedCache;
+    
     @Override
     public UserRegisterRespDTO handler(UserRegisterCommand requestParam) {
         CustomerUser customerUser = CustomerUser.builder()
@@ -48,9 +54,13 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
                 .phone(new CustomerUserPhone(requestParam.getPhone()))
                 .accountNumber(new CustomerUserAccountNumber(requestParam.getAccountNumber()))
                 .password(new CustomerUserPassword(requestParam.getPassword()))
-                .mail(requestParam.getMail())
-                .mailValidCode(requestParam.getMailValidCode())
+                .receiver(requestParam.getMail())
+                .verifyCode(requestParam.getMailValidCode())
                 .build();
+        // 获取缓存中的验证码
+        String verifyCode = distributedCache.get(CacheUtil.buildKey(REGISTER_USER_VERIFY_CODE, customerUser.getReceiver()), String.class);
+        // 检查验证码正确性
+        customerUser.checkoutValidCode(verifyCode);
         CustomerUser result = customerUserRepository.register(customerUser);
         return customerUserAssembler.customerUserToUserRegisterRespDTO(result);
     }
