@@ -31,6 +31,7 @@
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <spring-cloud-alibaba-dependencies.version>2.2.6.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
+        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <fastjson2.version>2.0.5</fastjson2.version>
