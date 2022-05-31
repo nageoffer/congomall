@@ -1,7 +1,7 @@
 
 ## 系统架构
 
-![](https://images-machen.oss-cn-beijing.aliyuncs.com/20220601_Mall4J.png)
+![](https://gitcode.net/ProgrammerProgress/mall4j/-/blob/main/dev-support/static/20220601_Mall4J.png)
 
 ## 模块分类
 
