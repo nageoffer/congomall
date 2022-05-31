@@ -1,7 +1,7 @@
 
 ## 系统架构
 
-![](https://gitcode.net/ProgrammerProgress/mall4j/-/blob/main/dev-support/static/20220601_Mall4J.png)
+![20220601_Mall4J](https://user-images.githubusercontent.com/77398366/171228042-7d28cbc0-e312-4f2b-a5a4-e893400022b4.png)
 
 ## 模块分类
 
