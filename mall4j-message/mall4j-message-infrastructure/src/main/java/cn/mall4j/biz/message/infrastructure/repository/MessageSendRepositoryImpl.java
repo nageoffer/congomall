@@ -17,13 +17,13 @@
 
 package cn.mall4j.biz.message.infrastructure.repository;
 
-import cn.hutool.json.JSONUtil;
 import cn.mall4j.biz.message.domain.entity.MessageSend;
 import cn.mall4j.biz.message.domain.repository.MessageSendRepository;
 import cn.mall4j.biz.message.infrastructure.converter.MailSendMessageConverter;
 import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
 import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordMapper;
 import cn.mall4j.springboot.starter.common.StatusEnum;
+import com.alibaba.fastjson2.JSON;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -45,7 +45,7 @@ public class MessageSendRepositoryImpl implements MessageSendRepository {
     public void mailMessageSave(MessageSend messageSend) {
         MailSendRecordDO mailSendRecordDO = mailSendMessageConverter.customerUserToDO(messageSend);
         mailSendRecordDO.setStatus(messageSend.getSendResult() ? StatusEnum.SUCCESS.code() : StatusEnum.FAIL.code());
-        mailSendRecordDO.setTextParam(JSONUtil.toJsonStr(messageSend.getParamList()));
+        mailSendRecordDO.setTextParam(JSON.toJSONString(messageSend.getParamList()));
         mailSendRecordMapper.insert(mailSendRecordDO);
     }
 }
