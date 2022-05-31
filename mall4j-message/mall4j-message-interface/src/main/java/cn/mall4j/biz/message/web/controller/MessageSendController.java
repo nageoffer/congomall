@@ -22,6 +22,8 @@ import cn.mall4j.biz.message.application.resp.MessageSendRespDTO;
 import cn.mall4j.biz.message.application.service.MessageSendService;
 import cn.mall4j.springboot.starter.convention.result.Result;
 import cn.mall4j.springboot.starter.web.Results;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,12 +40,14 @@ import javax.validation.Valid;
  */
 @RestController
 @AllArgsConstructor
+@Api(tags = "消息发送")
 @RequestMapping("/message/send")
 public class MessageSendController {
     
     private final MessageSendService messageSendService;
     
     @PostMapping("/mail")
+    @ApiOperation("邮箱消息发送")
     public Result<MessageSendRespDTO> sendMailMessage(@RequestBody @Valid MailSendCommand mailSendCommand) {
         MessageSendRespDTO result = messageSendService.mailMessageSend(mailSendCommand);
         return Results.success(result);

@@ -17,6 +17,8 @@
 
 package cn.mall4j.biz.message.application.req;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -30,42 +32,31 @@ import java.util.List;
  * @github https://github.com/longtai-cn
  */
 @Data
+@ApiModel("邮箱发送")
 public class MailSendCommand {
     
-    /**
-     * 标题
-     */
+    @ApiModelProperty(value = "标题", example = "Mall4J邮箱验证码提醒")
     @NotBlank(message = "邮箱标题不能为空")
     private String title;
     
-    /**
-     * 发送者
-     */
     @Email
+    @ApiModelProperty(value = "发送者", example = "mall4j_tech@163.com")
     @NotBlank(message = "邮箱发送者不能为空")
     private String sender;
     
-    /**
-     * 接收者
-     */
     @Email
+    @ApiModelProperty(value = "接收者", example = "m7798432@163.com")
     @NotBlank(message = "邮箱接收者不能为空")
     private String receiver;
     
-    /**
-     * 抄送
-     */
     @Email
+    @ApiModelProperty("抄送者")
     private String cc;
     
-    /**
-     * 消息参数
-     */
+    @ApiModelProperty(value = "消息参数")
     private List<String> paramList;
     
-    /**
-     * 模板ID
-     */
+    @ApiModelProperty(value = "模板ID", example = "userRegisterVerification")
     @NotBlank(message = "邮箱模板ID不能为空")
     private String templateId;
 }
