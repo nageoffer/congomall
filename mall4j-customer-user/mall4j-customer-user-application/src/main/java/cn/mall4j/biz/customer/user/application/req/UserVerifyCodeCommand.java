@@ -17,6 +17,8 @@
 
 package cn.mall4j.biz.customer.user.application.req;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -26,15 +28,12 @@ import lombok.Data;
  * @github https://github.com/longtai-cn
  */
 @Data
+@ApiModel("用户验证码")
 public class UserVerifyCodeCommand {
     
-    /**
-     * 验证类型
-     */
+    @ApiModelProperty(value = "验证类型", example = "mail")
     private String type;
     
-    /**
-     * 接收者
-     */
+    @ApiModelProperty(value = "接收者", example = "m7798432@163.com")
     private String receiver;
 }

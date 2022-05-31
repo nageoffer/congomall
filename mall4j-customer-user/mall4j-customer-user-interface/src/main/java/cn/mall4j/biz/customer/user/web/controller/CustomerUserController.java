@@ -23,6 +23,8 @@ import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
 import cn.mall4j.springboot.starter.convention.result.Result;
 import cn.mall4j.springboot.starter.web.Results;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,23 +43,20 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @AllArgsConstructor
+@Api(tags = "C 端用户")
 @RequestMapping("/customer-user")
 public class CustomerUserController {
     
     private final CustomerUserService customerUserService;
     
-    /**
-     * C 端用户验证发送
-     */
+    @ApiOperation("C 端用户验证发送")
     @PostMapping("/verify/code/send")
     public Result<Void> verifyCodeSend(@RequestBody @Valid UserVerifyCodeCommand requestParam) {
         customerUserService.verifyCodeSend(requestParam);
         return Results.success();
     }
     
-    /**
-     * C 端用户注册
-     */
+    @ApiOperation("C 端用户注册")
     @PostMapping("/register")
     public Result<UserRegisterRespDTO> register(@RequestBody @Valid UserRegisterCommand requestParam) {
         UserRegisterRespDTO result = customerUserService.register(requestParam);

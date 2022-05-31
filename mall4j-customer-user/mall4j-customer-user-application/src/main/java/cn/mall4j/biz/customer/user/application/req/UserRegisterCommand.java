@@ -17,6 +17,8 @@
 
 package cn.mall4j.biz.customer.user.application.req;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -29,42 +31,31 @@ import javax.validation.constraints.NotBlank;
  * @github https://github.com/longtai-cn
  */
 @Data
+@ApiModel("用户注册")
 public class UserRegisterCommand {
     
-    /**
-     * 用户名
-     */
+    @ApiModelProperty(value = "用户名", example = "小马哥")
     @NotBlank(message = "用户名不允许为空")
     private String username;
     
-    /**
-     * 账号
-     */
+    @ApiModelProperty(value = "账号", example = "15601166692")
     @NotBlank(message = "账号不允许为空")
     private String accountNumber;
     
-    /**
-     * 密码
-     */
+    @ApiModelProperty(value = "密码", example = "xiao-ma-ge")
     @NotBlank(message = "密码不允许为空")
     private String password;
     
-    /**
-     * 手机号
-     */
+    @ApiModelProperty(value = "手机号", example = "15601166692")
     @NotBlank(message = "手机号不允许为空")
     private String phone;
     
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com")
     @Email
     @NotBlank(message = "邮箱不允许为空")
     private String mail;
     
-    /**
-     * 邮箱验证码
-     */
+    @ApiModelProperty(value = "邮箱验证码", example = "123456")
     @NotBlank(message = "邮箱验证码不允许为空")
     private String mailValidCode;
 }
