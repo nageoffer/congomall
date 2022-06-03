@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Import;
  * @github https://github.com/longtai-cn
  */
 @Import(ApplicationContextHolder.class)
-public class DistributedIdAutoConfig {
+public class DistributedIdAutoConfiguration {
     
     @Bean
     @ConditionalOnProperty("spring.redis.host")
