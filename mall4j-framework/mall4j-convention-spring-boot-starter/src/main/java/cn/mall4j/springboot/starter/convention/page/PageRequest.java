@@ -23,7 +23,7 @@ import lombok.Data;
  * 分页请求对象
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Data
 public class PageRequest {

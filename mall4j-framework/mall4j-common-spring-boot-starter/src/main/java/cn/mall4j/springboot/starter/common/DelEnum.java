@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.common;
  * 删除标记枚举
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 public enum DelEnum {
     

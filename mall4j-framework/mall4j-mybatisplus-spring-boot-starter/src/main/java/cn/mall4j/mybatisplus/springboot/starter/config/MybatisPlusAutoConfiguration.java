@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Bean;
  * MybatisPlus 配置文件
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 public class MybatisPlusAutoConfiguration {
     

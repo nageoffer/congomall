@@ -37,7 +37,7 @@ import javax.validation.Valid;
  * 消息发送控制器
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @MLog
 @RestController

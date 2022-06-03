@@ -25,7 +25,7 @@ import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
  * C 端用户接口
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 public interface CustomerUserService {
     

@@ -28,7 +28,7 @@ import java.util.List;
  * 消息发送 Entity
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Data
 @Builder

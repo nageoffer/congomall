@@ -23,7 +23,7 @@ import lombok.Data;
  * C 端用户密码
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Data
 public class CustomerUserPassword {

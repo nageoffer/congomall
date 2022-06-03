@@ -23,7 +23,7 @@ import cn.mall4j.biz.message.domain.entity.MessageSend;
  * 消息发送仓储层
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 public interface MessageSendRepository {
     

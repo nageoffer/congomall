@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
  * 消息发送 Repository
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Repository
 @AllArgsConstructor

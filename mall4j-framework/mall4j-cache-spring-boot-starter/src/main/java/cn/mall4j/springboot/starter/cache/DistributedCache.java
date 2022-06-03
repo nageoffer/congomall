@@ -23,7 +23,7 @@ import javax.validation.constraints.NotBlank;
  * 分布式缓存
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 public interface DistributedCache extends Cache {
     

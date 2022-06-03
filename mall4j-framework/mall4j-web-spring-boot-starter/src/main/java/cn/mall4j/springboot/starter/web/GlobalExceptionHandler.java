@@ -38,7 +38,7 @@ import java.util.Optional;
  * 全局异常处理器
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Slf4j
 @RestControllerAdvice

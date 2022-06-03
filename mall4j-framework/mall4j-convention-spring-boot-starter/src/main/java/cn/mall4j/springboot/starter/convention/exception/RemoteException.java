@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.convention.exception;
  * 远程服务调用异常
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 public class RemoteException extends AbstractException {
     

@@ -25,7 +25,7 @@ import org.mapstruct.Mapper;
  * C 端用户 Entity 转换 DO
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Mapper(componentModel = "spring")
 public interface MailSendMessageConverter {

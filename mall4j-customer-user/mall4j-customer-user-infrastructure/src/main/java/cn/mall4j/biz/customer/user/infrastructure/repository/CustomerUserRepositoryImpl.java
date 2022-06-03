@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
  * C 端用户仓储层实现
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Repository
 @AllArgsConstructor

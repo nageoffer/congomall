@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Import;
  * 分布式 ID 自动装配
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Import(ApplicationContextHolder.class)
 public class DistributedIdAutoConfiguration {

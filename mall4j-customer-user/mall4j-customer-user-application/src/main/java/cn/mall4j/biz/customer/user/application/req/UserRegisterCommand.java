@@ -28,7 +28,7 @@ import javax.validation.constraints.NotBlank;
  * 用户注册
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Data
 @ApiModel("用户注册")

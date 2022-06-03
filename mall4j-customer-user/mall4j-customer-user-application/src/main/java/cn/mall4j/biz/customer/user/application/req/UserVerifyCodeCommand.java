@@ -25,7 +25,7 @@ import lombok.Data;
  * 用户验证码
  *
  * @author chen.ma
- * @github https://github.com/longtai-cn
+ * @github https://github.com/mabaiwan
  */
 @Data
 @ApiModel("用户验证码")
