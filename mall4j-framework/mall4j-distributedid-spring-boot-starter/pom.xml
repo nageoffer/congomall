@@ -10,4 +10,23 @@
     <groupId>cn.mall4j.framework</groupId>
     <artifactId>mall4j-distributedid-spring-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.mall4j.framework</groupId>
+            <artifactId>mall4j-base-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+    </dependencies>
 </project>
