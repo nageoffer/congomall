@@ -15,9 +15,12 @@
  * limitations under the License.
  */
 
-package cn.mall4j.mybatisplus.springboot.starter;
+package cn.mall4j.mybatisplus.springboot.starter.config;
 
+import cn.mall4j.mybatisplus.springboot.starter.CustomIdGenerator;
+import cn.mall4j.mybatisplus.springboot.starter.MyMetaObjectHandler;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -46,5 +49,13 @@ public class MybatisPlusAutoConfiguration {
     @Bean
     public MyMetaObjectHandler myMetaObjectHandler() {
         return new MyMetaObjectHandler();
+    }
+    
+    /**
+     * 自定义雪花算法 ID 生成器
+     */
+    @Bean
+    public IdentifierGenerator idGenerator() {
+        return new CustomIdGenerator();
     }
 }
