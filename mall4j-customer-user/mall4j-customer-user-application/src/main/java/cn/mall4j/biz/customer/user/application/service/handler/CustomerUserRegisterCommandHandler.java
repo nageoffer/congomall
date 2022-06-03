@@ -46,7 +46,7 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
     
     private final CustomerUserRepository customerUserRepository;
     
-    private final CustomerUserToDTOAssembler customerUserAssembler = CustomerUserToDTOAssembler.INSTANCE;
+    private final CustomerUserToDTOAssembler customerUserAssembler;
     
     private final DistributedCache distributedCache;
     

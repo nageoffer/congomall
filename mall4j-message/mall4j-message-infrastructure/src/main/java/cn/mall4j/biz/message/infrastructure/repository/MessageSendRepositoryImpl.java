@@ -39,7 +39,7 @@ public class MessageSendRepositoryImpl implements MessageSendRepository {
     
     private final MailSendRecordMapper mailSendRecordMapper;
     
-    private final MailSendMessageConverter mailSendMessageConverter = MailSendMessageConverter.INSTANCE;
+    private final MailSendMessageConverter mailSendMessageConverter;
     
     @Override
     public void mailMessageSave(MessageSend messageSend) {

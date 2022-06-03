@@ -22,7 +22,6 @@ import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
 
 /**
  * C 端用户 Entity 转换 DO
@@ -30,10 +29,8 @@ import org.mapstruct.factory.Mappers;
  * @author chen.ma
  * @github https://github.com/longtai-cn
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CustomerUserConverter {
-    
-    CustomerUserConverter INSTANCE = Mappers.getMapper(CustomerUserConverter.class);
     
     /**
      * C 端用户 Entity 转换 DO

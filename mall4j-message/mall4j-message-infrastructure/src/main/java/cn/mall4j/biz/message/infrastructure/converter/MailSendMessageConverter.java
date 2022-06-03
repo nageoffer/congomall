@@ -20,7 +20,6 @@ package cn.mall4j.biz.message.infrastructure.converter;
 import cn.mall4j.biz.message.domain.entity.MessageSend;
 import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 /**
  * C 端用户 Entity 转换 DO
@@ -28,10 +27,8 @@ import org.mapstruct.factory.Mappers;
  * @author chen.ma
  * @github https://github.com/longtai-cn
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MailSendMessageConverter {
-    
-    MailSendMessageConverter INSTANCE = Mappers.getMapper(MailSendMessageConverter.class);
     
     /**
      * C 端用户 Entity 转换 DO

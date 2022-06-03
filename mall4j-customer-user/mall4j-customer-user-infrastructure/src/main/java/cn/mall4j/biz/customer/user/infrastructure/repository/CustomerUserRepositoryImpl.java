@@ -39,7 +39,7 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
     
     private final CustomerUserRepositoryMapper customerUserRepositoryMapper;
     
-    private final CustomerUserConverter customerUserConverter = CustomerUserConverter.INSTANCE;
+    private final CustomerUserConverter customerUserConverter;
     
     @Override
     public CustomerUser find(Long customerUserId) {

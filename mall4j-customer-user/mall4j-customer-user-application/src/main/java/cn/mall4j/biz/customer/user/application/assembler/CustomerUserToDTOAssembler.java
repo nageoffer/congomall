@@ -22,7 +22,6 @@ import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
 
 /**
  * C 端用户 Entity 转换 DTO
@@ -30,10 +29,8 @@ import org.mapstruct.factory.Mappers;
  * @author chen.ma
  * @github https://github.com/longtai-cn
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CustomerUserToDTOAssembler {
-    
-    CustomerUserToDTOAssembler INSTANCE = Mappers.getMapper(CustomerUserToDTOAssembler.class);
     
     /**
      * C 端用户 Entity 转换用户注册返回 DTO
