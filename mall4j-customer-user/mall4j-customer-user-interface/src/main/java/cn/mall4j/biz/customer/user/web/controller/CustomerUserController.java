@@ -22,11 +22,11 @@ import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
 import cn.mall4j.springboot.starter.convention.result.Result;
+import cn.mall4j.springboot.starter.log.annotation.MLog;
 import cn.mall4j.springboot.starter.web.Results;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +40,7 @@ import javax.validation.Valid;
  * @author chen.ma
  * @github https://github.com/longtai-cn
  */
-@Validated
+@MLog
 @RestController
 @AllArgsConstructor
 @Api(tags = "C 端用户")
@@ -63,3 +63,4 @@ public class CustomerUserController {
         return Results.success(result);
     }
 }
+
