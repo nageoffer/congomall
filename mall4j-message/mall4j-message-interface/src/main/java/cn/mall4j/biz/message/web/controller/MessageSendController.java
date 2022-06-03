@@ -21,6 +21,7 @@ import cn.mall4j.biz.message.application.req.MailSendCommand;
 import cn.mall4j.biz.message.application.resp.MessageSendRespDTO;
 import cn.mall4j.biz.message.application.service.MessageSendService;
 import cn.mall4j.springboot.starter.convention.result.Result;
+import cn.mall4j.springboot.starter.log.annotation.MLog;
 import cn.mall4j.springboot.starter.web.Results;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +39,7 @@ import javax.validation.Valid;
  * @author chen.ma
  * @github https://github.com/longtai-cn
  */
+@MLog
 @RestController
 @AllArgsConstructor
 @Api(tags = "消息发送")
