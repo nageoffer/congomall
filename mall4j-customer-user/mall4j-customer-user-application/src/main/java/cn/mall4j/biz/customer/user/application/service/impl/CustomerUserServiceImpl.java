@@ -21,7 +21,10 @@ import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
 import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
+import cn.mall4j.biz.customer.user.application.service.handler.verify.LoginMailVerifyCommandHandler;
+import cn.mall4j.biz.customer.user.application.service.handler.verify.RegisterMailVerifyCommandHandler;
 import cn.mall4j.ddd.framework.core.domain.CommandHandler;
+import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +40,18 @@ public class CustomerUserServiceImpl implements CustomerUserService {
     
     private final CommandHandler<UserRegisterCommand, UserRegisterRespDTO> customerUserRegisterCommandHandler;
     
-    private final CommandHandler<UserVerifyCodeCommand, Boolean> customerUserVerifyCodeCommandHandler;
+    private final AbstractStrategyChoose abstractStrategyChoose;
     
     @Override
     public void verifyCodeSend(UserVerifyCodeCommand requestParam) {
-        customerUserVerifyCodeCommandHandler.handler(requestParam);
+        String mark = requestParam.getType() + "_" + requestParam.getPlatform();
+        /**
+         * site
+         * {@link LoginMailVerifyCommandHandler}
+         * {@link RegisterMailVerifyCommandHandler}
+         * ...
+         */
+        abstractStrategyChoose.ChooseAndExecute(mark, requestParam);
     }
     
     @Override

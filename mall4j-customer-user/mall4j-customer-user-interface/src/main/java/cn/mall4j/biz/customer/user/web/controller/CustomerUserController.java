@@ -49,7 +49,7 @@ public class CustomerUserController {
     
     private final CustomerUserService customerUserService;
     
-    @ApiOperation("C 端用户验证发送")
+    @ApiOperation(value = "C 端用户验证发送", notes = "包含注册验证码、登录验证等")
     @PostMapping("/verify/code/send")
     public Result<Void> verifyCodeSend(@RequestBody @Valid UserVerifyCodeCommand requestParam) {
         customerUserService.verifyCodeSend(requestParam);

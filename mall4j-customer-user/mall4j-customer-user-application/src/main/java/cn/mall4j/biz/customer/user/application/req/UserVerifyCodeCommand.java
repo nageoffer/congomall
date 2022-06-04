@@ -31,8 +31,11 @@ import lombok.Data;
 @ApiModel("用户验证码")
 public class UserVerifyCodeCommand {
     
-    @ApiModelProperty(value = "验证类型", example = "mail")
+    @ApiModelProperty(value = "验证类型", notes = "登录验证码，注册认证验证码等", example = "login")
     private String type;
+    
+    @ApiModelProperty(value = "验证平台", notes = "手机短信，邮箱，电话等", example = "mail")
+    private String platform;
     
     @ApiModelProperty(value = "接收者", example = "m7798432@163.com")
     private String receiver;
