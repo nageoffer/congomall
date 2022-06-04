@@ -18,10 +18,8 @@
 package cn.mall4j.biz.customer.user.domain.entity;
 
 import cn.hutool.core.util.StrUtil;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserAccountNumber;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserName;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPassword;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPhone;
+import cn.mall4j.biz.customer.user.domain.dp.*;
+import cn.mall4j.biz.customer.user.domain.toolkit.JWTUtil;
 import cn.mall4j.springboot.starter.convention.exception.ClientException;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -39,9 +37,13 @@ import lombok.Setter;
 @Setter(AccessLevel.PRIVATE)
 public class CustomerUser {
     
-    private CustomerUserName userName;
+    private Long customerUserId;
+    
+    private CustomerUserName username;
     
     private CustomerUserPhone phone;
+    
+    private CustomerUserMail mail;
     
     private CustomerUserPassword password;
     
@@ -60,5 +62,25 @@ public class CustomerUser {
         if (!StrUtil.equals(verifyCode, this.verifyCode)) {
             throw new ClientException("验证码错误");
         }
+    }
+    
+    public String generateAccessToken() {
+        return JWTUtil.generateAccessToken(this);
+    }
+    
+    public String getUsername() {
+        return this.username.getUsername();
+    }
+    
+    public String getAccountNumber() {
+        return this.accountNumber.getAccountNumber();
+    }
+    
+    public String getMail() {
+        return this.mail.getMail();
+    }
+    
+    public String getPhone() {
+        return this.phone.getPhone();
     }
 }

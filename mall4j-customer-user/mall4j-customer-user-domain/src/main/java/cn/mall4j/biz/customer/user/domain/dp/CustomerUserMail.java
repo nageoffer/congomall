@@ -15,47 +15,30 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.domain.repository;
+package cn.mall4j.biz.customer.user.domain.dp;
 
-import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
+import cn.hutool.core.util.StrUtil;
+import cn.mall4j.springboot.starter.convention.exception.ClientException;
+import lombok.Data;
 
 /**
- * C 端用户仓储层
+ * C 端用户邮箱
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public interface CustomerUserRepository {
+@Data
+public class CustomerUserMail {
     
     /**
-     * 根据 customerUserId 查询 C 端用户
-     *
-     * @param customerUserId
-     * @return
+     * 邮箱
      */
-    CustomerUser find(Long customerUserId);
+    private final String mail;
     
-    /**
-     * 根据 mail 查询 C 端用户
-     *
-     * @param mail
-     * @return
-     */
-    CustomerUser findByMail(String mail);
-    
-    /**
-     * 根据 accountNumber 查询 C 端用户
-     *
-     * @param accountNumber
-     * @return
-     */
-    CustomerUser findByAccountNumber(String accountNumber);
-    
-    /**
-     * C 端用户注册
-     *
-     * @param customerUser
-     * @return
-     */
-    CustomerUser register(CustomerUser customerUser);
+    public CustomerUserMail(String mail) {
+        if (StrUtil.isBlank(mail)) {
+            throw new ClientException("邮箱不能为空");
+        }
+        this.mail = mail;
+    }
 }

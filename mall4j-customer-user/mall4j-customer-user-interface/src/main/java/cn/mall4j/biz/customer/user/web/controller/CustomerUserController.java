@@ -17,8 +17,10 @@
 
 package cn.mall4j.biz.customer.user.web.controller;
 
+import cn.mall4j.biz.customer.user.application.req.UserLoginCommand;
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
 import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
+import cn.mall4j.biz.customer.user.application.resp.UserLoginRespDTO;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
 import cn.mall4j.springboot.starter.convention.result.Result;
@@ -49,17 +51,24 @@ public class CustomerUserController {
     
     private final CustomerUserService customerUserService;
     
-    @ApiOperation(value = "C 端用户验证发送", notes = "包含注册验证码、登录验证等")
+    @ApiOperation(value = "验证发送", notes = "包含注册验证码、登录验证等")
     @PostMapping("/verify/code/send")
     public Result<Void> verifyCodeSend(@RequestBody @Valid UserVerifyCodeCommand requestParam) {
         customerUserService.verifyCodeSend(requestParam);
         return Results.success();
     }
     
-    @ApiOperation("C 端用户注册")
+    @ApiOperation("注册")
     @PostMapping("/register")
     public Result<UserRegisterRespDTO> register(@RequestBody @Valid UserRegisterCommand requestParam) {
         UserRegisterRespDTO result = customerUserService.register(requestParam);
+        return Results.success(result);
+    }
+    
+    @ApiOperation("登录")
+    @PostMapping("/login")
+    public Result<UserLoginRespDTO> login(@RequestBody @Valid UserLoginCommand requestParam) {
+        UserLoginRespDTO result = customerUserService.login(requestParam);
         return Results.success(result);
     }
 }

@@ -39,10 +39,10 @@ public interface CustomerUserConverter {
      * @return
      */
     @Mappings({
-            @Mapping(source = "customerUser.userName.username", target = "name"),
-            @Mapping(source = "customerUser.phone.phone", target = "phone"),
+            @Mapping(source = "customerUser.username", target = "name"),
+            @Mapping(source = "customerUser.phone", target = "phone"),
             @Mapping(source = "customerUser.password.password", target = "password"),
-            @Mapping(source = "customerUser.accountNumber.accountNumber", target = "accountNumber")
+            @Mapping(source = "customerUser.accountNumber", target = "accountNumber")
     })
     CustomerUserDO customerUserToDO(CustomerUser customerUser);
     
@@ -53,7 +53,9 @@ public interface CustomerUserConverter {
      * @return
      */
     @Mappings({
-            @Mapping(source = "name", target = "userName.username"),
+            @Mapping(source = "id", target = "customerUserId"),
+            @Mapping(source = "name", target = "username.username"),
+            @Mapping(source = "mail", target = "mail.mail"),
             @Mapping(source = "phone", target = "phone.phone"),
             @Mapping(source = "password", target = "password.password"),
             @Mapping(source = "accountNumber", target = "accountNumber.accountNumber")

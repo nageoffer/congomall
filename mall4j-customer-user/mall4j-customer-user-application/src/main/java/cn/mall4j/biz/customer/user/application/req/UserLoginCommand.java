@@ -15,64 +15,40 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.infrastructure.dao;
+package cn.mall4j.biz.customer.user.application.req;
 
-import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
+
 /**
- * C 端用户数据对象
+ * 用户登录
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Data
-@TableName("customer_user")
-public class CustomerUserDO extends BaseDO {
+@ApiModel("用户登录")
+public class UserLoginCommand {
     
-    /**
-     * id
-     */
-    private Long id;
+    @ApiModelProperty(value = "登录方式", notes = "邮箱验证码、账号密码、手机号验证码、微信二维码等", example = "customer_user_login_mail")
+    private String loginType;
     
-    /**
-     * 昵称
-     */
-    private String name;
-    
-    /**
-     * 账号
-     */
+    @ApiModelProperty(value = "账号", example = "15601166692")
     private String accountNumber;
     
-    /**
-     * 密码
-     */
+    @ApiModelProperty(value = "密码", example = "xiao-ma-ge")
     private String password;
     
-    /**
-     * 手机号
-     */
+    @ApiModelProperty(value = "手机号", example = "15601166692")
     private String phone;
     
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com")
+    @Email
     private String mail;
     
-    /**
-     * 年龄
-     */
-    private Integer age;
-    
-    /**
-     * 性别
-     */
-    private Integer gender;
-    
-    /**
-     * 头像
-     */
-    private String avatar;
+    @ApiModelProperty(value = "邮箱验证码", example = "123456")
+    private String mailValidCode;
 }

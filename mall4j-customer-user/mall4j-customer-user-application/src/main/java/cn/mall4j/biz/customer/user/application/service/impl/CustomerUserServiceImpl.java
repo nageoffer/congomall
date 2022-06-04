@@ -17,12 +17,15 @@
 
 package cn.mall4j.biz.customer.user.application.service.impl;
 
+import cn.mall4j.biz.customer.user.application.req.UserLoginCommand;
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
 import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
+import cn.mall4j.biz.customer.user.application.resp.UserLoginRespDTO;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 import cn.mall4j.biz.customer.user.application.service.CustomerUserService;
-import cn.mall4j.biz.customer.user.application.service.handler.verify.LoginMailVerifyCommandHandler;
-import cn.mall4j.biz.customer.user.application.service.handler.verify.RegisterMailVerifyCommandHandler;
+import cn.mall4j.biz.customer.user.application.service.handler.login.MailLoginCommandHandler;
+import cn.mall4j.biz.customer.user.application.service.handler.verify.MailLoginVerifyCommandHandler;
+import cn.mall4j.biz.customer.user.application.service.handler.verify.MailRegisterVerifyCommandHandler;
 import cn.mall4j.ddd.framework.core.domain.CommandHandler;
 import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
 import lombok.AllArgsConstructor;
@@ -47,16 +50,25 @@ public class CustomerUserServiceImpl implements CustomerUserService {
         String mark = requestParam.getType() + "_" + requestParam.getPlatform();
         /**
          * site
-         * {@link LoginMailVerifyCommandHandler}
-         * {@link RegisterMailVerifyCommandHandler}
+         * {@link MailLoginVerifyCommandHandler}
+         * {@link MailRegisterVerifyCommandHandler}
          * ...
          */
-        abstractStrategyChoose.ChooseAndExecute(mark, requestParam);
+        abstractStrategyChoose.chooseAndExecute(mark, requestParam);
     }
     
     @Override
     public UserRegisterRespDTO register(UserRegisterCommand requestParam) {
         UserRegisterRespDTO result = customerUserRegisterCommandHandler.handler(requestParam);
         return result;
+    }
+    
+    @Override
+    public UserLoginRespDTO login(UserLoginCommand requestParam) {
+        /**
+         * site
+         * {@link MailLoginCommandHandler}
+         */
+        return abstractStrategyChoose.chooseAndExecuteResp(requestParam.getLoginType(), requestParam);
     }
 }

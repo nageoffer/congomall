@@ -39,9 +39,9 @@ public interface CustomerUserToDTOAssembler {
      * @return
      */
     @Mappings({
-            @Mapping(source = "customerUser.userName.username", target = "name"),
-            @Mapping(source = "customerUser.phone.phone", target = "phone"),
-            @Mapping(source = "customerUser.accountNumber.accountNumber", target = "accountNumber")
+            @Mapping(source = "customerUser.username", target = "name"),
+            @Mapping(source = "customerUser.phone", target = "phone"),
+            @Mapping(source = "customerUser.accountNumber", target = "accountNumber")
     })
     UserRegisterRespDTO customerUserToUserRegisterRespDTO(CustomerUser customerUser);
 }

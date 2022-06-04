@@ -20,10 +20,7 @@ package cn.mall4j.biz.customer.user.application.service.handler;
 import cn.mall4j.biz.customer.user.application.assembler.CustomerUserToDTOAssembler;
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserAccountNumber;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserName;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPassword;
-import cn.mall4j.biz.customer.user.domain.dp.CustomerUserPhone;
+import cn.mall4j.biz.customer.user.domain.dp.*;
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
 import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
 import cn.mall4j.ddd.framework.core.domain.CommandHandler;
@@ -53,10 +50,11 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
     @Override
     public UserRegisterRespDTO handler(UserRegisterCommand requestParam) {
         CustomerUser customerUser = CustomerUser.builder()
-                .userName(new CustomerUserName(requestParam.getUsername()))
+                .username(new CustomerUserName(requestParam.getUsername()))
                 .phone(new CustomerUserPhone(requestParam.getPhone()))
                 .accountNumber(new CustomerUserAccountNumber(requestParam.getAccountNumber()))
                 .password(new CustomerUserPassword(requestParam.getPassword()))
+                .mail(new CustomerUserMail(requestParam.getMail()))
                 .receiver(requestParam.getMail())
                 .verifyCode(requestParam.getMailValidCode())
                 .build();

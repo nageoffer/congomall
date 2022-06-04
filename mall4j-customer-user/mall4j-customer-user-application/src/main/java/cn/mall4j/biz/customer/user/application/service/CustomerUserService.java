@@ -17,8 +17,10 @@
 
 package cn.mall4j.biz.customer.user.application.service;
 
+import cn.mall4j.biz.customer.user.application.req.UserLoginCommand;
 import cn.mall4j.biz.customer.user.application.req.UserRegisterCommand;
 import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
+import cn.mall4j.biz.customer.user.application.resp.UserLoginRespDTO;
 import cn.mall4j.biz.customer.user.application.resp.UserRegisterRespDTO;
 
 /**
@@ -43,4 +45,12 @@ public interface CustomerUserService {
      * @return
      */
     UserRegisterRespDTO register(UserRegisterCommand requestParam);
+    
+    /**
+     * C 端用户登录
+     *
+     * @param requestParam
+     * @return
+     */
+    UserLoginRespDTO login(UserLoginCommand requestParam);
 }

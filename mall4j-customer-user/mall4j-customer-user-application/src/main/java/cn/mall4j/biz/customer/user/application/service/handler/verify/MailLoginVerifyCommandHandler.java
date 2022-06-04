@@ -20,7 +20,6 @@ package cn.mall4j.biz.customer.user.application.service.handler.verify;
 import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
 import cn.mall4j.biz.customer.user.common.CacheConstant;
 import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractExecuteStrategy;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,12 +29,11 @@ import org.springframework.stereotype.Component;
  * @github https://github.com/mabaiwan
  */
 @Component
-@RequiredArgsConstructor
 public class MailLoginVerifyCommandHandler extends AbstractMailVerifySender implements AbstractExecuteStrategy<UserVerifyCodeCommand, Void> {
     
     @Override
     public String mark() {
-        return "customer_user_login_mail";
+        return "customer_user_login_verify_mail";
     }
     
     @Override

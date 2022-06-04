@@ -41,6 +41,7 @@
         <guava.version>31.1-jre</guava.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <hibernate-validator.version>7.0.4.Final</hibernate-validator.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <!-- 工具类 End -->
     </properties>
     
