@@ -38,7 +38,7 @@ public interface AbstractExecuteStrategy<REQUEST, RESPONSE> {
      * @param requestParam
      */
     default void execute(REQUEST requestParam) {
-    
+        
     }
     
     /**
