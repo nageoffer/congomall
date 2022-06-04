@@ -63,4 +63,3 @@ public class CustomerUserController {
         return Results.success(result);
     }
 }
-
