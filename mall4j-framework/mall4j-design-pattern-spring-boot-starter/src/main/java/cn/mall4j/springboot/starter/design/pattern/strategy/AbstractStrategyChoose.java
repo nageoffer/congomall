@@ -46,24 +46,44 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationRe
      * @return
      */
     public AbstractExecuteStrategy choose(String mark) {
-        return Optional.ofNullable(abstractExecuteStrategyMap.get(mark)).orElseThrow(() -> new ServiceException(String.format("%s 策略未定义", mark)));
+        return Optional.ofNullable(abstractExecuteStrategyMap.get(mark)).orElseThrow(() -> new ServiceException(String.format("[%s] 策略未定义", mark)));
     }
     
     /**
-     * 根据 mark 查询具体策略，并执行
+     * 根据 mark 查询具体策略并执行
      *
      * @param mark
      * @param requestParam
-     * @param <T>
+     * @param <REQUEST>
      */
-    public <T> void ChooseAndExecute(String mark, T requestParam) {
+    public <REQUEST> void chooseAndExecute(String mark, REQUEST requestParam) {
         AbstractExecuteStrategy executeStrategy = choose(mark);
         executeStrategy.execute(requestParam);
+    }
+    
+    /**
+     * 根据 mark 查询具体策略并执行，带返回结果
+     *
+     * @param mark
+     * @param requestParam
+     * @param <REQUEST>
+     * @param <RESPONSE>
+     * @return
+     */
+    public <REQUEST, RESPONSE> RESPONSE chooseAndExecuteResp(String mark, REQUEST requestParam) {
+        AbstractExecuteStrategy executeStrategy = choose(mark);
+        return (RESPONSE) executeStrategy.executeResp(requestParam);
     }
     
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         Map<String, AbstractExecuteStrategy> actual = ApplicationContextHolder.getBeansOfType(AbstractExecuteStrategy.class);
-        actual.forEach((beanName, bean) -> abstractExecuteStrategyMap.put(bean.mark(), bean));
+        actual.forEach((beanName, bean) -> {
+            AbstractExecuteStrategy beanExist = abstractExecuteStrategyMap.get(bean.mark());
+            if (beanExist != null) {
+                throw new ServiceException(String.format("[%s] Duplicate execution policy", bean.mark()));
+            }
+            abstractExecuteStrategyMap.put(bean.mark(), bean);
+        });
     }
 }

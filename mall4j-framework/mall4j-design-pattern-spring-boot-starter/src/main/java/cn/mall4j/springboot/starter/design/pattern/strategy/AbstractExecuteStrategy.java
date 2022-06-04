@@ -23,7 +23,7 @@ package cn.mall4j.springboot.starter.design.pattern.strategy;
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public interface AbstractExecuteStrategy<T> {
+public interface AbstractExecuteStrategy<REQUEST, RESPONSE> {
     
     /**
      * 执行策略标识
@@ -37,5 +37,17 @@ public interface AbstractExecuteStrategy<T> {
      *
      * @param requestParam
      */
-    void execute(T requestParam);
+    default void execute(REQUEST requestParam) {
+    
+    }
+    
+    /**
+     * 执行策略，带返回值
+     *
+     * @param requestParam
+     * @return
+     */
+    default RESPONSE executeResp(REQUEST requestParam) {
+        return null;
+    }
 }
