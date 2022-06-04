@@ -43,4 +43,15 @@ public class CacheUtil {
         Stream.of(keys).forEach(each -> Optional.ofNullable(Strings.emptyToNull(each)).orElseThrow(() -> new RuntimeException("构建缓存 key 不允许为空")));
         return Joiner.on(SPLICING_OPERATOR).join(keys);
     }
+    
+    /**
+     * 判断结果是否为空或空的字符串
+     *
+     * @param cacheVal
+     * @return
+     */
+    public static boolean isNullOrBlank(Object cacheVal) {
+        boolean result = cacheVal == null || (cacheVal instanceof String && Strings.isNullOrEmpty((String) cacheVal));
+        return result;
+    }
 }

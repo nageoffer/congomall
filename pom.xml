@@ -33,6 +33,7 @@
         <spring-cloud-alibaba-dependencies.version>2.2.6.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <fastjson2.version>2.0.5</fastjson2.version>
@@ -123,6 +124,12 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson-spring-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

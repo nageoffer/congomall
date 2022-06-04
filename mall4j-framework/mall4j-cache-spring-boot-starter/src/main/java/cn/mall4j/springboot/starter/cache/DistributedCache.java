@@ -17,6 +17,8 @@
 
 package cn.mall4j.springboot.starter.cache;
 
+import cn.mall4j.springboot.starter.cache.core.CacheLoader;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -28,6 +30,30 @@ import javax.validation.constraints.NotBlank;
 public interface DistributedCache extends Cache {
     
     /**
+     * 获取缓存，如查询结果为空，调用 cacheLoader 加载缓存
+     *
+     * @param key
+     * @param clazz
+     * @param cacheLoader
+     * @param timeout
+     * @param <T>
+     * @return
+     */
+    <T> T get(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout);
+    
+    /**
+     * 以一种"安全"的方式获取缓存，如查询结果为空，调用 cacheLoader 加载缓存
+     *
+     * @param key
+     * @param clazz
+     * @param cacheLoader
+     * @param timeout
+     * @param <T>
+     * @return
+     */
+    <T> T secureGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout);
+    
+    /**
      * 放入缓存，自定义超时时间
      *
      * @param key
@@ -35,5 +61,4 @@ public interface DistributedCache extends Cache {
      * @param timeout
      */
     void put(@NotBlank String key, Object value, long timeout);
-    
 }

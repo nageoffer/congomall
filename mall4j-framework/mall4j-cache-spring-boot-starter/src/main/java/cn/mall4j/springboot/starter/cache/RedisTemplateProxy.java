@@ -18,10 +18,16 @@
 package cn.mall4j.springboot.starter.cache;
 
 import cn.mall4j.springboot.starter.cache.config.RedisDistributedProperties;
+import cn.mall4j.springboot.starter.cache.core.CacheLoader;
+import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import cn.mall4j.springboot.starter.cache.toolkit.FastJson2Util;
 import com.alibaba.fastjson2.JSON;
 import lombok.RequiredArgsConstructor;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * Redis 缓存代理
@@ -35,6 +41,8 @@ public class RedisTemplateProxy implements DistributedCache {
     private final StringRedisTemplate stringRedisTemplate;
     
     private final RedisDistributedProperties redisProperties;
+    
+    private final RedissonClient redissonClient;
     
     @Override
     public <T> T get(String key, Class<T> clazz) {
@@ -51,8 +59,45 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
+    public <T> T get(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
+        T result = get(key, clazz);
+        if (!CacheUtil.isNullOrBlank(result)) {
+            return result;
+        }
+        return loadAndSet(key, cacheLoader, timeout);
+    }
+    
+    @Override
+    public <T> T secureGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
+        T result = get(key, clazz);
+        if (!CacheUtil.isNullOrBlank(result)) {
+            return result;
+        }
+        RLock lock = redissonClient.getLock(CacheUtil.buildKey("distributed_lock_lock_get", key));
+        lock.lock();
+        try {
+            result = get(key, clazz);
+            if (CacheUtil.isNullOrBlank(result)) {
+                result = loadAndSet(key, cacheLoader, timeout);
+            }
+        } finally {
+            lock.unlock();
+        }
+        return result;
+    }
+    
+    @Override
     public void put(String key, Object value, long timeout) {
         String actual = value instanceof String ? (String) value : JSON.toJSONString(value);
         stringRedisTemplate.opsForValue().set(key, actual, timeout, redisProperties.getValueTimeUnit());
+    }
+    
+    private <T> T loadAndSet(String key, CacheLoader<T> cacheLoader, long timeout) {
+        T result = cacheLoader.load();
+        if (CacheUtil.isNullOrBlank(result)) {
+            return result;
+        }
+        put(key, result, timeout);
+        return result;
     }
 }

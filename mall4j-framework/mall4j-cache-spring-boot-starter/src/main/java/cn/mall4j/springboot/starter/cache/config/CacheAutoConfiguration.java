@@ -20,6 +20,7 @@ package cn.mall4j.springboot.starter.cache.config;
 import cn.mall4j.springboot.starter.cache.RedisKeySerializer;
 import cn.mall4j.springboot.starter.cache.RedisTemplateProxy;
 import lombok.AllArgsConstructor;
+import org.redisson.api.RedissonClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -44,8 +45,8 @@ public class CacheAutoConfiguration {
     }
     
     @Bean
-    public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer, StringRedisTemplate stringRedisTemplate) {
+    public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer, StringRedisTemplate stringRedisTemplate, RedissonClient redissonClient) {
         stringRedisTemplate.setKeySerializer(redisKeySerializer);
-        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties);
+        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient);
     }
 }
