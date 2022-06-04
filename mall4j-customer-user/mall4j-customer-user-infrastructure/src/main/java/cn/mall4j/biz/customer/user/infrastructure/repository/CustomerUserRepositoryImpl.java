@@ -22,7 +22,6 @@ import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
 import cn.mall4j.biz.customer.user.infrastructure.converter.CustomerUserConverter;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserRepositoryMapper;
-import cn.mall4j.springboot.starter.common.DelEnum;
 import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -52,16 +51,14 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
     
     @Override
     public CustomerUser findByMail(String mail) {
-        LambdaQueryWrapper<CustomerUserDO> queryWrapper = Wrappers.lambdaQuery(CustomerUserDO.class).eq(CustomerUserDO::getMail, mail)
-                .eq(CustomerUserDO::getDelFlag, DelEnum.NORMAL.code());
+        LambdaQueryWrapper<CustomerUserDO> queryWrapper = Wrappers.lambdaQuery(CustomerUserDO.class).eq(CustomerUserDO::getMail, mail);
         CustomerUserDO customerUserDO = customerUserRepositoryMapper.selectOne(queryWrapper);
         return customerUserConverter.doToCustomerUser(customerUserDO);
     }
     
     @Override
     public CustomerUser findByAccountNumber(String accountNumber) {
-        LambdaQueryWrapper<CustomerUserDO> queryWrapper = Wrappers.lambdaQuery(CustomerUserDO.class).eq(CustomerUserDO::getAccountNumber, accountNumber)
-                .eq(CustomerUserDO::getDelFlag, DelEnum.NORMAL.code());
+        LambdaQueryWrapper<CustomerUserDO> queryWrapper = Wrappers.lambdaQuery(CustomerUserDO.class).eq(CustomerUserDO::getAccountNumber, accountNumber);
         CustomerUserDO customerUserDO = customerUserRepositoryMapper.selectOne(queryWrapper);
         return customerUserConverter.doToCustomerUser(customerUserDO);
     }
