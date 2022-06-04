@@ -24,18 +24,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * 用户登录使用邮箱验证
+ * 用户注册使用邮箱验证
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Component
 @RequiredArgsConstructor
-public class LoginMailVerifyCommandHandler extends AbstractMailVerifySender implements AbstractExecuteStrategy<UserVerifyCodeCommand> {
+public class MailRegisterVerifyCommandHandler extends AbstractMailVerifySender implements AbstractExecuteStrategy<UserVerifyCodeCommand, Void> {
     
     @Override
     public String mark() {
-        return "customer_user_login_mail";
+        return "customer_user_register_mail";
     }
     
     @Override
@@ -45,6 +45,6 @@ public class LoginMailVerifyCommandHandler extends AbstractMailVerifySender impl
     
     @Override
     protected String getCachePrefixKey() {
-        return CacheConstant.LOGIN_USER_VERIFY_CODE;
+        return CacheConstant.REGISTER_USER_VERIFY_CODE;
     }
 }
