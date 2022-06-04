@@ -29,4 +29,9 @@ public class CacheConstant {
      * 注册用户验证码 Key
      */
     public final static String REGISTER_USER_VERIFY_CODE = "register_user_verify_code";
+    
+    /**
+     * 登录用户验证码 Key
+     */
+    public final static String LOGIN_USER_VERIFY_CODE = "login_user_verify_code";
 }
