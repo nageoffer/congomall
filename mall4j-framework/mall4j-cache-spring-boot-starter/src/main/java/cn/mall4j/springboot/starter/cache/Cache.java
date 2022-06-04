@@ -35,7 +35,7 @@ public interface Cache {
      * @param <T>
      * @return
      */
-    <T> T get(@NotBlank(message = "缓存 Key 不能为空") String key, Class<T> clazz);
+    <T> T get(@NotBlank String key, Class<T> clazz);
     
     /**
      * 放入缓存
@@ -43,5 +43,5 @@ public interface Cache {
      * @param key
      * @param value
      */
-    void put(@NotBlank(message = "缓存 Key 不能为空") String key, Object value);
+    void put(@NotBlank String key, Object value);
 }

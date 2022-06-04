@@ -34,5 +34,6 @@ public interface DistributedCache extends Cache {
      * @param value
      * @param timeout
      */
-    void put(@NotBlank(message = "缓存 Key 不能为空") String key, Object value, long timeout);
+    void put(@NotBlank String key, Object value, long timeout);
+    
 }
