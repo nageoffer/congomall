@@ -53,9 +53,9 @@ public class CacheAutoConfiguration {
      */
     @Bean
     public RBloomFilter<String> cachePenetrationBloomFilter(RedissonClient redissonClient, BloomFilterPenetrateProperties bloomFilterPenetrateProperties) {
-        RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter(bloomFilterPenetrateProperties.getName());
-        bloomFilter.tryInit(bloomFilterPenetrateProperties.getExpectedInsertions(), bloomFilterPenetrateProperties.getFalseProbability());
-        return bloomFilter;
+        RBloomFilter<String> cachePenetrationBloomFilter = redissonClient.getBloomFilter(bloomFilterPenetrateProperties.getName());
+        cachePenetrationBloomFilter.tryInit(bloomFilterPenetrateProperties.getExpectedInsertions(), bloomFilterPenetrateProperties.getFalseProbability());
+        return cachePenetrationBloomFilter;
     }
     
     /**
