@@ -47,4 +47,11 @@ public class DistributedCacheTest {
         String actual = distributedCache.get("test", String.class);
         Assert.assertEquals(actual, "test_value");
     }
+    
+    @Test
+    public void assertBloomFilterSecureGet() {
+        for (int i = 0; i < 2; i++) {
+            distributedCache.secureGet("test", String.class, () -> "", 5000);
+        }
+    }
 }

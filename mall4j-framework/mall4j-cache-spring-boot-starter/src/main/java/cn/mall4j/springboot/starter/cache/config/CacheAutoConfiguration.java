@@ -20,6 +20,7 @@ package cn.mall4j.springboot.starter.cache.config;
 import cn.mall4j.springboot.starter.cache.RedisKeySerializer;
 import cn.mall4j.springboot.starter.cache.RedisTemplateProxy;
 import lombok.AllArgsConstructor;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,11 +33,14 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @github https://github.com/mabaiwan
  */
 @AllArgsConstructor
-@EnableConfigurationProperties(RedisDistributedProperties.class)
+@EnableConfigurationProperties({RedisDistributedProperties.class, BloomFilterPenetrateProperties.class})
 public class CacheAutoConfiguration {
     
     private final RedisDistributedProperties redisDistributedProperties;
     
+    /**
+     * 创建 redis key 序列化器，可自定义 key prefix
+     */
     @Bean
     public RedisKeySerializer redisKeySerializer() {
         String prefix = redisDistributedProperties.getPrefix();
@@ -44,9 +48,25 @@ public class CacheAutoConfiguration {
         return new RedisKeySerializer(prefix, prefixCharset);
     }
     
+    /**
+     * 防止缓存穿透的布隆过滤器
+     */
     @Bean
-    public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer, StringRedisTemplate stringRedisTemplate, RedissonClient redissonClient) {
+    public RBloomFilter<String> cachePenetrationBloomFilter(RedissonClient redissonClient, BloomFilterPenetrateProperties bloomFilterPenetrateProperties) {
+        RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter(bloomFilterPenetrateProperties.getName());
+        bloomFilter.tryInit(bloomFilterPenetrateProperties.getExpectedInsertions(), bloomFilterPenetrateProperties.getFalseProbability());
+        return bloomFilter;
+    }
+    
+    /**
+     * redis 客户端代理类增强
+     */
+    @Bean
+    public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer,
+                                                 StringRedisTemplate stringRedisTemplate,
+                                                 RedissonClient redissonClient,
+                                                 RBloomFilter<String> cachePenetrationBloomFilter) {
         stringRedisTemplate.setKeySerializer(redisKeySerializer);
-        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient);
+        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient, cachePenetrationBloomFilter);
     }
 }

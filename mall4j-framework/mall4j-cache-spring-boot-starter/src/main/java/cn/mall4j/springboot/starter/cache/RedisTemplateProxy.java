@@ -23,6 +23,7 @@ import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import cn.mall4j.springboot.starter.cache.toolkit.FastJson2Util;
 import com.alibaba.fastjson2.JSON;
 import lombok.RequiredArgsConstructor;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -43,6 +44,8 @@ public class RedisTemplateProxy implements DistributedCache {
     private final RedisDistributedProperties redisProperties;
     
     private final RedissonClient redissonClient;
+    
+    private final RBloomFilter<String> cachePenetrationBloomFilter;
     
     @Override
     public <T> T get(String key, Class<T> clazz) {
@@ -73,12 +76,19 @@ public class RedisTemplateProxy implements DistributedCache {
         if (!CacheUtil.isNullOrBlank(result)) {
             return result;
         }
+        // 判断布隆过滤器是否存在，存在返回空
+        if (cachePenetrationBloomFilter.contains(key)) {
+            return null;
+        }
         RLock lock = redissonClient.getLock(CacheUtil.buildKey("distributed_lock_lock_get", key));
         lock.lock();
         try {
-            result = get(key, clazz);
-            if (CacheUtil.isNullOrBlank(result)) {
-                result = loadAndSet(key, cacheLoader, timeout);
+            // 双重判定锁，减轻数据库访问压力
+            if (CacheUtil.isNullOrBlank(result = get(key, clazz))) {
+                // 通过 load 接口加载为空，触发缓存穿透条件，把 key 放入布隆过滤器
+                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout))) {
+                    cachePenetrationBloomFilter.add(key);
+                }
             }
         } finally {
             lock.unlock();
