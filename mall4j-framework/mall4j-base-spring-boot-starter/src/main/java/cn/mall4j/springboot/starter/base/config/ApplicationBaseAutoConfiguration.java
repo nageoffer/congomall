@@ -15,27 +15,27 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.design.pattern.config;
+package cn.mall4j.springboot.starter.base.config;
 
-import cn.mall4j.springboot.starter.base.config.ApplicationBaseAutoConfiguration;
-import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import cn.mall4j.springboot.starter.base.ApplicationContextHolder;
+import cn.mall4j.springboot.starter.base.init.ApplicationContentPostProcessor;
 import org.springframework.context.annotation.Bean;
 
 /**
- * 设计模式自动装配
+ * 应用基础自动装配
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@ImportAutoConfiguration(ApplicationBaseAutoConfiguration.class)
-public class DesignPatternAutoConfiguration {
+public class ApplicationBaseAutoConfiguration {
     
-    /**
-     * 策略模式选择器
-     */
     @Bean
-    public AbstractStrategyChoose abstractStrategyChoose() {
-        return new AbstractStrategyChoose();
+    public ApplicationContextHolder applicationContextHolder() {
+        return new ApplicationContextHolder();
+    }
+    
+    @Bean
+    public ApplicationContentPostProcessor applicationContentPostProcessor() {
+        return new ApplicationContentPostProcessor();
     }
 }

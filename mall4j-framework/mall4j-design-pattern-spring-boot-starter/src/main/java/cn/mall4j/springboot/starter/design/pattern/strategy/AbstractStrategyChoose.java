@@ -18,8 +18,8 @@
 package cn.mall4j.springboot.starter.design.pattern.strategy;
 
 import cn.mall4j.springboot.starter.base.ApplicationContextHolder;
+import cn.mall4j.springboot.starter.base.init.ApplicationInitializingEvent;
 import cn.mall4j.springboot.starter.convention.exception.ServiceException;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 
 import java.util.HashMap;
@@ -32,7 +32,7 @@ import java.util.Optional;
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public class AbstractStrategyChoose implements ApplicationListener<ApplicationReadyEvent> {
+public class AbstractStrategyChoose implements ApplicationListener<ApplicationInitializingEvent> {
     
     /**
      * 执行策略集合
@@ -76,7 +76,7 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationRe
     }
     
     @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
+    public void onApplicationEvent(ApplicationInitializingEvent event) {
         Map<String, AbstractExecuteStrategy> actual = ApplicationContextHolder.getBeansOfType(AbstractExecuteStrategy.class);
         actual.forEach((beanName, bean) -> {
             AbstractExecuteStrategy beanExist = abstractExecuteStrategyMap.get(bean.mark());

@@ -15,27 +15,34 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.design.pattern.config;
+package cn.mall4j.springboot.starter.base.init;
 
-import cn.mall4j.springboot.starter.base.config.ApplicationBaseAutoConfiguration;
-import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
+
+import javax.annotation.Resource;
 
 /**
- * 设计模式自动装配
+ * 应用初始化后置处理器，防止 spring 事件被多次执行
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@ImportAutoConfiguration(ApplicationBaseAutoConfiguration.class)
-public class DesignPatternAutoConfiguration {
+public class ApplicationContentPostProcessor implements ApplicationListener<ApplicationReadyEvent> {
     
-    /**
-     * 策略模式选择器
-     */
-    @Bean
-    public AbstractStrategyChoose abstractStrategyChoose() {
-        return new AbstractStrategyChoose();
+    @Resource
+    private ApplicationContext applicationContext;
+    
+    private boolean executeOnlyOnce = true;
+    
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
+        synchronized (ApplicationContentPostProcessor.class) {
+            if (executeOnlyOnce) {
+                applicationContext.publishEvent(new ApplicationInitializingEvent(this));
+                executeOnlyOnce = false;
+            }
+        }
     }
 }

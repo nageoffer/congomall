@@ -15,27 +15,25 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.design.pattern.config;
+package cn.mall4j.springboot.starter.base.init;
 
-import cn.mall4j.springboot.starter.base.config.ApplicationBaseAutoConfiguration;
-import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ApplicationEvent;
 
 /**
- * 设计模式自动装配
+ * 应用初始化事件
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@ImportAutoConfiguration(ApplicationBaseAutoConfiguration.class)
-public class DesignPatternAutoConfiguration {
+public class ApplicationInitializingEvent extends ApplicationEvent {
     
     /**
-     * 策略模式选择器
+     * Create a new {@code ApplicationEvent}.
+     *
+     * @param source the object on which the event initially occurred or with
+     *               which the event is associated (never {@code null})
      */
-    @Bean
-    public AbstractStrategyChoose abstractStrategyChoose() {
-        return new AbstractStrategyChoose();
+    public ApplicationInitializingEvent(Object source) {
+        super(source);
     }
 }
