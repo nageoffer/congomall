@@ -71,7 +71,7 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
-    public <T> T secureGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
+    public <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
         T result = get(key, clazz);
         if (!CacheUtil.isNullOrBlank(result)) {
             return result;

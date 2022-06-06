@@ -51,7 +51,7 @@ public interface DistributedCache extends Cache {
      * @param <T>
      * @return
      */
-    <T> T secureGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout);
+    <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout);
     
     /**
      * 放入缓存，自定义超时时间

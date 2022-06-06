@@ -43,7 +43,7 @@ public class DistributedCacheTest {
     
     @Test
     public void assertSecureGet() {
-        distributedCache.secureGet("test", String.class, () -> "test_value", 5000);
+        distributedCache.safeGet("test", String.class, () -> "test_value", 5000);
         String actual = distributedCache.get("test", String.class);
         Assert.assertEquals(actual, "test_value");
     }
@@ -51,7 +51,7 @@ public class DistributedCacheTest {
     @Test
     public void assertBloomFilterSecureGet() {
         for (int i = 0; i < 2; i++) {
-            distributedCache.secureGet("test", String.class, () -> "", 5000);
+            distributedCache.safeGet("test", String.class, () -> "", 5000);
         }
     }
 }
