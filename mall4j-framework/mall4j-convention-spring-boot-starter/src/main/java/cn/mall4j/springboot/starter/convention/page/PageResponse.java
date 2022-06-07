@@ -25,11 +25,14 @@ import java.util.List;
 /**
  * 分页返回对象
  *
+ * <p> {@link PageRequest}、{@link PageResponse}
+ * 可以理解是防腐层的一种实现，不论底层 ORM 框架，对外分页参数属性不变
+ *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Data
-public class Page<T> {
+public class PageResponse<T> {
     
     /**
      * 当前页
@@ -51,11 +54,11 @@ public class Page<T> {
      */
     private List<T> records = Collections.emptyList();
     
-    public Page(long current, long size) {
+    public PageResponse(long current, long size) {
         this(current, size, 0);
     }
     
-    public Page(long current, long size, long total) {
+    public PageResponse(long current, long size, long total) {
         if (current > 1) {
             this.current = current;
         }
