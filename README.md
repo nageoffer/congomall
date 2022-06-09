@@ -56,6 +56,7 @@ mall4j-message 消息发送
 - 邮箱消息发送
 
 mall4j-customer-user C端用户
+- 用户验证
 - 用户注册
 - 用户登录
 
