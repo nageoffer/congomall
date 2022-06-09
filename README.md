@@ -1,7 +1,65 @@
-
 ## 系统架构
 
-![20220601_Mall4J](https://user-images.githubusercontent.com/77398366/171228042-7d28cbc0-e312-4f2b-a5a4-e893400022b4.png)
+https://www.processon.com/view/link/62984d1b0e3e74603c573306
+
+## 功能完成列表
+
+### 基础架构
+mall4j-base-spring-boot-starter
+- 应用上下文初始化后置处理器封装
+- 应用上下文封装，方便在非 spring 类中获取 bean
+
+mall4j-cache-spring-boot-starter
+- redis 分布式缓存封装
+- redis 分布式缓存自定义 key 前缀
+- 缓存穿透问题解决方案
+- 缓存击穿问题解决方案
+
+mall4j-convention-spring-boot-starter
+- 定义异常抽象，封装客户端、服务端、远程调用异常
+- 基础异常码定义
+- 分页请求、返回对象定义
+- 全局返回对象定义
+
+mall4j-ddd-framework-core
+- ddd 核心代码定义
+
+mall4j-design-pattern-spring-boot-starter
+- 抽象策略模式容器
+
+mall4j-distributedid-spring-boot-starter
+- 解决雪花算法在集群环境生成重复问题
+
+mall4j-log-spring-boot-starter
+- 定义日志注解，打印入参、出参、方法名和执行时间
+
+mall4j-mybatisplus-spring-boot-starter
+- 引入 mysql 连接
+- 引入 spring jdbc 引用
+- 引入 mybatis-plus starter
+- 定义基础 DO 对象
+- 自定义 id 生成器
+- mybatis-plus 元数据填充器
+- mybatis-plus 分页对象定义
+
+mall4j-swagger-spring-boot-starter
+- 引入 swagger + knife4j
+- 自定义默认 docket
+- 项目启动后打印 knife4j docs api 地址
+
+mall4j-web-spring-boot-starter
+- 全局返回对象构建器
+- 全局异常拦截器定义
+
+### 业务模块
+mall4j-message 消息发送
+- 邮箱消息发送
+
+mall4j-customer-user C端用户
+- 用户注册
+- 用户登录
+
+mall4j-gateway 外部网关
 
 ## 模块分类
 
