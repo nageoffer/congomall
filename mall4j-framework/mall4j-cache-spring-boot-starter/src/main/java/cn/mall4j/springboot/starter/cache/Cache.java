@@ -44,4 +44,12 @@ public interface Cache {
      * @param value
      */
     void put(@NotBlank String key, Object value);
+    
+    /**
+     * 删除缓存
+     *
+     * @param key
+     * @return
+     */
+    boolean delete(@NotBlank String key);
 }

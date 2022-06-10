@@ -62,6 +62,11 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
+    public boolean delete(String key) {
+        return stringRedisTemplate.delete(key);
+    }
+    
+    @Override
     public <T> T get(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
         T result = get(key, clazz);
         if (!CacheUtil.isNullOrBlank(result)) {
