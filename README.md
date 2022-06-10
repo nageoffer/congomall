@@ -5,8 +5,11 @@ https://www.processon.com/view/link/62984d1b0e3e74603c573306
 ## 功能完成列表
 
 ### 核心技术
-mall4j-customer-user C端用户
+mall4j-message 消息发送
 - 使用 sharding sphere 自动时间段分片算法，对 mail_send_record 表按年进行分片
+
+mall4j-customer-user C端用户
+- 使用 sharding sphere 哈希取模分片算法，对 customer_user 表进行哈希分片
 
 
 ### 基础架构
