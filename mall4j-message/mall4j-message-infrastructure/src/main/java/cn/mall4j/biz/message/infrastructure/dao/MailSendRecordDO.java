@@ -21,6 +21,8 @@ import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 邮件消息发送 DO
  *
@@ -70,4 +72,9 @@ public class MailSendRecordDO extends BaseDO {
      * 状态 0：失败 1：成功
      */
     private Integer status;
+    
+    /**
+     * 发送时间
+     */
+    private Date sendTime;
 }

@@ -27,6 +27,8 @@ import com.alibaba.fastjson2.JSON;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 /**
  * 消息发送 Repository
  *
@@ -46,6 +48,7 @@ public class MessageSendRepositoryImpl implements MessageSendRepository {
         MailSendRecordDO mailSendRecordDO = mailSendMessageConverter.customerUserToDO(messageSend);
         mailSendRecordDO.setStatus(messageSend.getSendResult() ? StatusEnum.SUCCESS.code() : StatusEnum.FAIL.code());
         mailSendRecordDO.setTextParam(JSON.toJSONString(messageSend.getParamList()));
+        mailSendRecordDO.setSendTime(new Date());
         mailSendRecordMapper.insert(mailSendRecordDO);
     }
 }
