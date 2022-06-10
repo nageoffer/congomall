@@ -4,6 +4,11 @@ https://www.processon.com/view/link/62984d1b0e3e74603c573306
 
 ## 功能完成列表
 
+### 核心技术
+mall4j-customer-user C端用户
+- 使用 sharding sphere 自动时间段分片算法，对 mail_send_record 表按年进行分片
+
+
 ### 基础架构
 mall4j-base-spring-boot-starter
 - 应用上下文初始化后置处理器封装
