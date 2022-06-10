@@ -59,10 +59,13 @@ public class CustomerUserRegisterCommandHandler implements CommandHandler<UserRe
                 .verifyCode(requestParam.getMailValidCode())
                 .build();
         // 获取缓存中的验证码
-        String verifyCode = distributedCache.get(CacheUtil.buildKey(REGISTER_USER_VERIFY_CODE, customerUser.getReceiver()), String.class);
+        String buildKey = CacheUtil.buildKey(REGISTER_USER_VERIFY_CODE, customerUser.getReceiver());
+        String verifyCode = distributedCache.get(buildKey, String.class);
         // 检查验证码正确性
         customerUser.checkoutValidCode(verifyCode);
         CustomerUser result = customerUserRepository.register(customerUser);
+        // 删除缓存验证码
+        distributedCache.delete(buildKey);
         return customerUserAssembler.customerUserToUserRegisterRespDTO(result);
     }
 }
