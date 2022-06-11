@@ -10,7 +10,7 @@ mall4j-message 消息发送
 
 mall4j-customer-user C端用户
 - 使用 sharding sphere 哈希取模分片算法，对 customer_user 表进行哈希分片
-
+- 使用 sharding sphere 完成 AES 加密算法，对 customer_user phone、mail 字段进行加密
 
 ### 基础架构
 mall4j-base-spring-boot-starter
