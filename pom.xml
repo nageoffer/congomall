@@ -28,13 +28,14 @@
         <spotless-maven-plugin.version>2.22.1</spotless-maven-plugin.version>
         <!-- 编译 & 格式化 End -->
         <!-- 框架 Start -->
-        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
         <spring-cloud-dependencies.version>Hoxton.SR9</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2.2.6.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
         <shardingsphere-jdbc-core-spring-boot-starter.version>5.1.1</shardingsphere-jdbc-core-spring-boot-starter.version>
+        <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <fastjson2.version>2.0.5</fastjson2.version>
@@ -42,7 +43,8 @@
         <hutool-all.version>5.8.2</hutool-all.version>
         <guava.version>31.1-jre</guava.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <hibernate-validator.version>7.0.4.Final</hibernate-validator.version>
+        <hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
         <jjwt.version>0.9.1</jjwt.version>
         <!-- 工具类 End -->
     </properties>
@@ -98,15 +100,27 @@
             </dependency>
             
             <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+                <version>${spring-cloud-starter-stream-rocketmq.version}</version>
+            </dependency>
+            
+            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
             
             <dependency>
-                <groupId>org.hibernate.validator</groupId>
+                <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
             </dependency>
             
             <dependency>
