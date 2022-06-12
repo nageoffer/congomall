@@ -20,8 +20,7 @@ package cn.mall4j.biz.customer.user.application.req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import javax.validation.constraints.Email;
+import org.hibernate.validator.constraints.Email;
 
 /**
  * 用户登录

@@ -20,9 +20,8 @@ package cn.mall4j.biz.customer.user.application.req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 用户注册
@@ -50,8 +49,8 @@ public class UserRegisterCommand {
     @NotBlank(message = "手机号不允许为空")
     private String phone;
     
-    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com")
     @Email
+    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com")
     @NotBlank(message = "邮箱不允许为空")
     private String mail;
     

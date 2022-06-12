@@ -20,6 +20,7 @@ package cn.mall4j.biz.customer.user.application.req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 用户验证码
@@ -37,6 +38,7 @@ public class UserVerifyCodeCommand {
     @ApiModelProperty(value = "验证平台", notes = "手机短信，邮箱，电话等", example = "mail")
     private String platform;
     
+    @NotBlank(message = "接收者不能为空")
     @ApiModelProperty(value = "接收者", example = "m7798432@163.com")
     private String receiver;
 }
