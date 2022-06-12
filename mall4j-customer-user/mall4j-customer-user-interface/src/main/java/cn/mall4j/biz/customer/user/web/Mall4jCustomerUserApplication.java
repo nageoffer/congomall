@@ -22,8 +22,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.cloud.stream.messaging.Source;
 
 @EnableDiscoveryClient
+@EnableBinding({Source.class, Sink.class})
 @EnableFeignClients("cn.mall4j.biz.customer.user.infrastructure.remote")
 @SpringBootApplication(scanBasePackages = "cn.mall4j.biz.customer.user")
 @MapperScan("cn.mall4j.biz.customer.user.infrastructure.dao")
