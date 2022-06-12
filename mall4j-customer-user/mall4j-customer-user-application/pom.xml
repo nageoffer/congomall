@@ -13,12 +13,6 @@
     <dependencies>
         <dependency>
             <groupId>cn.mall4j</groupId>
-            <artifactId>mall4j-customer-user-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>cn.mall4j</groupId>
             <artifactId>mall4j-customer-user-domain</artifactId>
             <version>${project.version}</version>
         </dependency>

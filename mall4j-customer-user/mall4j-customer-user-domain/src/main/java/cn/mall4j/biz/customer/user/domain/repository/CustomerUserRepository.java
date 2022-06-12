@@ -58,4 +58,11 @@ public interface CustomerUserRepository {
      * @return
      */
     CustomerUser register(CustomerUser customerUser);
+    
+    /**
+     * 保存用户操作日志
+     *
+     * @param customerUser
+     */
+    void saveOperationLog(CustomerUser customerUser);
 }

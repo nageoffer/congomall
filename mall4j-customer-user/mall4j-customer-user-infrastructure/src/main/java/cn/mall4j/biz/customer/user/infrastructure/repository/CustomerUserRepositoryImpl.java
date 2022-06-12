@@ -17,13 +17,20 @@
 
 package cn.mall4j.biz.customer.user.infrastructure.repository;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
 import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
+import cn.mall4j.biz.customer.user.domain.vo.CustomerOperationLogVO;
+import cn.mall4j.biz.customer.user.domain.vo.CustomerUserVO;
 import cn.mall4j.biz.customer.user.infrastructure.converter.CustomerUserConverter;
+import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerOperationLogDO;
+import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerOperationLogMapper;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserRepositoryMapper;
+import cn.mall4j.biz.customer.user.infrastructure.mq.produce.CustomerUserOperationLogProduce;
 import cn.mall4j.springboot.starter.convention.exception.ErrorCode;
 import cn.mall4j.springboot.starter.convention.exception.ServiceException;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
@@ -42,6 +49,10 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
     private final CustomerUserRepositoryMapper customerUserRepositoryMapper;
     
     private final CustomerUserConverter customerUserConverter;
+    
+    private final CustomerUserOperationLogProduce customerUserOperationLogProduce;
+    
+    private final CustomerOperationLogMapper customerOperationLogMapper;
     
     @Override
     public CustomerUser find(Long customerUserId) {
@@ -71,6 +82,18 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
             throw new ServiceException(ErrorCode.USER_REGISTER_ERROR);
         }
         Long customerUserId = customerUserDO.getId();
+        // 异步记录操作日志
+        customerUserOperationLogProduce.recordCustomerUserOperationLog(new CustomerOperationLogVO(BeanUtil.toBean(customerUserDO, CustomerUserVO.class)));
         return find(customerUserId);
+    }
+    
+    @Override
+    public void saveOperationLog(CustomerUser customerUser) {
+        CustomerOperationLogVO customerOperationLogVO = customerUser.getCustomerOperationLogVO();
+        CustomerOperationLogDO customerOperationLogDO = new CustomerOperationLogDO(JSON.toJSONString(customerOperationLogVO.getAfterCustomerUser()));
+        if (customerOperationLogVO.getBeforeCustomerUser() != null) {
+            customerOperationLogDO.setBeforeContent(JSON.toJSONString(customerOperationLogVO.getBeforeCustomerUser()));
+        }
+        customerOperationLogMapper.insert(customerOperationLogDO);
     }
 }

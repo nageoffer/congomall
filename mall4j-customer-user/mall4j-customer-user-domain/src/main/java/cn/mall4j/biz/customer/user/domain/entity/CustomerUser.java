@@ -20,11 +20,9 @@ package cn.mall4j.biz.customer.user.domain.entity;
 import cn.hutool.core.util.StrUtil;
 import cn.mall4j.biz.customer.user.domain.dp.*;
 import cn.mall4j.biz.customer.user.domain.toolkit.JWTUtil;
+import cn.mall4j.biz.customer.user.domain.vo.CustomerOperationLogVO;
 import cn.mall4j.springboot.starter.convention.exception.ClientException;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * C 端用户实体
@@ -34,6 +32,8 @@ import lombok.Setter;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 public class CustomerUser {
     
@@ -45,13 +45,15 @@ public class CustomerUser {
     
     private CustomerUserMail mail;
     
-    private CustomerUserPassword password;
+    private transient CustomerUserPassword password;
     
     private CustomerUserAccountNumber accountNumber;
     
     private String receiver;
     
     private String verifyCode;
+    
+    private CustomerOperationLogVO customerOperationLogVO;
     
     public void checkoutValidCode(String verifyCode) {
         if (StrUtil.isBlank(verifyCode)) {

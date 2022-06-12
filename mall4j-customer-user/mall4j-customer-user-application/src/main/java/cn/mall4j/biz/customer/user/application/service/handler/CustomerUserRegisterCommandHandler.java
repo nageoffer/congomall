@@ -29,7 +29,7 @@ import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static cn.mall4j.biz.customer.user.common.CacheConstant.REGISTER_USER_VERIFY_CODE;
+import static cn.mall4j.biz.customer.user.domain.common.CacheConstant.REGISTER_USER_VERIFY_CODE;
 
 /**
  * C 端用户注册处理器

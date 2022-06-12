@@ -27,7 +27,7 @@ import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractExecuteStrat
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static cn.mall4j.biz.customer.user.common.CacheConstant.LOGIN_USER_VERIFY_CODE;
+import static cn.mall4j.biz.customer.user.domain.common.CacheConstant.LOGIN_USER_VERIFY_CODE;
 
 /**
  * 邮箱登录

@@ -20,7 +20,6 @@ package cn.mall4j.biz.customer.user.infrastructure.remote.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -43,21 +42,18 @@ public class MailSendRemoteCommand {
     /**
      * 发送者
      */
-    @Email
     @NotBlank(message = "邮箱发送者不能为空")
     private String sender;
     
     /**
      * 接收者
      */
-    @Email
     @NotBlank(message = "邮箱接收者不能为空")
     private String receiver;
     
     /**
      * 抄送
      */
-    @Email
     private String cc;
     
     /**

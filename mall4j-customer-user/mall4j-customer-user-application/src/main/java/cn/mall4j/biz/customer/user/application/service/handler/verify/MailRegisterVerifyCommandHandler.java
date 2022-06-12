@@ -18,7 +18,7 @@
 package cn.mall4j.biz.customer.user.application.service.handler.verify;
 
 import cn.mall4j.biz.customer.user.application.req.UserVerifyCodeCommand;
-import cn.mall4j.biz.customer.user.common.CacheConstant;
+import cn.mall4j.biz.customer.user.domain.common.CacheConstant;
 import cn.mall4j.springboot.starter.design.pattern.strategy.AbstractExecuteStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
