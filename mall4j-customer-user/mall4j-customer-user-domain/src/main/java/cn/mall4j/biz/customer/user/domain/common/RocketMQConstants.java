@@ -15,23 +15,18 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.common;
+package cn.mall4j.biz.customer.user.domain.common;
 
 /**
- * 缓存 Key
+ * RocketMQ 常量
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public class CacheConstant {
+public class RocketMQConstants {
     
     /**
-     * 注册用户验证码 Key
+     * C 端用户操作日志 TAG
      */
-    public final static String REGISTER_USER_VERIFY_CODE = "register_user_verify_code";
-    
-    /**
-     * 登录用户验证码 Key
-     */
-    public final static String LOGIN_USER_VERIFY_CODE = "login_user_verify_code";
+    public static final String CUSTOMER_USER_OPERATION_LOG_TAG = "mall-4j_customer-user_operation-log_tag";
 }

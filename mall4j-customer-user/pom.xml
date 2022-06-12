@@ -13,7 +13,6 @@
     
     <modules>
         <module>mall4j-customer-user-application</module>
-        <module>mall4j-customer-user-common</module>
         <module>mall4j-customer-user-domain</module>
         <module>mall4j-customer-user-infrastructure</module>
         <module>mall4j-customer-user-interface</module>
