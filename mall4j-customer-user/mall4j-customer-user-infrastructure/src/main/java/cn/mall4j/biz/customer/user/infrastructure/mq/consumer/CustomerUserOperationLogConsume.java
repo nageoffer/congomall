@@ -48,7 +48,10 @@ public class CustomerUserOperationLogConsume {
     public void customerUserOperationLog(@Payload CustomerOperationLogVO customerOperationLogVO, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
         try {
-            CustomerUser customerUser = CustomerUser.builder().customerOperationLogVO(customerOperationLogVO).build();
+            CustomerUser customerUser = CustomerUser.builder()
+                    .customerUserId(customerOperationLogVO.getAfterCustomerUser().getId())
+                    .customerOperationLogVO(customerOperationLogVO)
+                    .build();
             customerUserRepository.saveOperationLog(customerUser);
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,

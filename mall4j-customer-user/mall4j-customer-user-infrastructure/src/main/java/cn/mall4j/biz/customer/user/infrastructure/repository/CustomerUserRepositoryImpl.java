@@ -94,6 +94,7 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
         if (customerOperationLogVO.getBeforeCustomerUser() != null) {
             customerOperationLogDO.setBeforeContent(JSON.toJSONString(customerOperationLogVO.getBeforeCustomerUser()));
         }
+        customerOperationLogDO.setCustomerUserId(customerUser.getCustomerUserId());
         customerOperationLogMapper.insert(customerOperationLogDO);
     }
 }

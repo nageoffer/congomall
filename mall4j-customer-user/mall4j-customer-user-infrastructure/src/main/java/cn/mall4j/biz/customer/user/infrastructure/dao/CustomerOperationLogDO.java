@@ -34,6 +34,11 @@ import lombok.NoArgsConstructor;
 public class CustomerOperationLogDO extends BaseDO {
     
     /**
+     * C端用户ID
+     */
+    private Long customerUserId;
+    
+    /**
      * 修改前
      */
     private String beforeContent;
