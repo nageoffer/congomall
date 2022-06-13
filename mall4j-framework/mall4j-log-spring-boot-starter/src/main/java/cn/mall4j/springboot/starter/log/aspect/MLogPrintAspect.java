@@ -28,6 +28,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +72,14 @@ public class MLogPrintAspect {
                 if (logAnnotation.output()) {
                     logPrint.setOutputParams(result);
                 }
-                log.info("[{}] executeTime: {}ms, info: {}", joinPoint.getSignature().getName(), System.currentTimeMillis() - startTime, JSON.toJSONString(logPrint, MapSortField));
+                String methodType = "", requestURI = "";
+                try {
+                    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+                    methodType = servletRequestAttributes.getRequest().getMethod();
+                    requestURI = servletRequestAttributes.getRequest().getRequestURI();
+                } catch (Exception ignored) {
+                }
+                log.info("[{}] {}, executeTime: {}ms, info: {}", methodType, requestURI, System.currentTimeMillis() - startTime, JSON.toJSONString(logPrint, MapSortField));
             }
         }
         return result;
