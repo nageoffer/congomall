@@ -67,6 +67,7 @@ mall4j-customer-user C端用户
 - 用户验证
 - 用户注册
 - 用户登录
+- 用户操作记录日志
 
 mall4j-gateway 外部网关
 
