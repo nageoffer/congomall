@@ -12,7 +12,6 @@
     
     <modules>
         <module>mall4j-message-application</module>
-        <module>mall4j-message-common</module>
         <module>mall4j-message-domain</module>
         <module>mall4j-message-infrastructure</module>
         <module>mall4j-message-interface</module>
