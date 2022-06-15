@@ -18,8 +18,8 @@
 package cn.mall4j.biz.customer.user.infrastructure.mq.consumer;
 
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
+import cn.mall4j.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
-import cn.mall4j.biz.customer.user.domain.vo.CustomerOperationLogVO;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,17 +45,17 @@ public class CustomerUserOperationLogConsume {
     private final CustomerUserRepository customerUserRepository;
     
     @StreamListener(Sink.INPUT)
-    public void customerUserOperationLog(@Payload CustomerOperationLogVO customerOperationLogVO, @Headers Map headers) {
+    public void customerUserOperationLog(@Payload CustomerOperationLogEvent customerOperationLogEvent, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
         try {
             CustomerUser customerUser = CustomerUser.builder()
-                    .customerUserId(customerOperationLogVO.getAfterCustomerUser().getId())
-                    .customerOperationLogVO(customerOperationLogVO)
+                    .customerUserId(customerOperationLogEvent.getAfterCustomerUser().getId())
+                    .customerOperationLogEvent(customerOperationLogEvent)
                     .build();
             customerUserRepository.saveOperationLog(customerUser);
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
-                    JSON.toJSONString(customerOperationLogVO));
+                    JSON.toJSONString(customerOperationLogEvent));
         }
     }
 }

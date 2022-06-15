@@ -19,9 +19,9 @@ package cn.mall4j.biz.customer.user.infrastructure.repository;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
+import cn.mall4j.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import cn.mall4j.biz.customer.user.domain.repository.CustomerUserRepository;
-import cn.mall4j.biz.customer.user.domain.vo.CustomerOperationLogVO;
-import cn.mall4j.biz.customer.user.domain.vo.CustomerUserVO;
+import cn.mall4j.biz.customer.user.domain.dto.CustomerUserDTO;
 import cn.mall4j.biz.customer.user.infrastructure.converter.CustomerUserConverter;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerOperationLogDO;
 import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerOperationLogMapper;
@@ -83,16 +83,16 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
         }
         Long customerUserId = customerUserDO.getId();
         // 异步记录操作日志
-        customerUserOperationLogProduce.recordCustomerUserOperationLog(new CustomerOperationLogVO(BeanUtil.toBean(customerUserDO, CustomerUserVO.class)));
+        customerUserOperationLogProduce.recordCustomerUserOperationLog(new CustomerOperationLogEvent(BeanUtil.toBean(customerUserDO, CustomerUserDTO.class)));
         return find(customerUserId);
     }
     
     @Override
     public void saveOperationLog(CustomerUser customerUser) {
-        CustomerOperationLogVO customerOperationLogVO = customerUser.getCustomerOperationLogVO();
-        CustomerOperationLogDO customerOperationLogDO = new CustomerOperationLogDO(JSON.toJSONString(customerOperationLogVO.getAfterCustomerUser()));
-        if (customerOperationLogVO.getBeforeCustomerUser() != null) {
-            customerOperationLogDO.setBeforeContent(JSON.toJSONString(customerOperationLogVO.getBeforeCustomerUser()));
+        CustomerOperationLogEvent customerOperationLogEvent = customerUser.getCustomerOperationLogEvent();
+        CustomerOperationLogDO customerOperationLogDO = new CustomerOperationLogDO(JSON.toJSONString(customerOperationLogEvent.getAfterCustomerUser()));
+        if (customerOperationLogEvent.getBeforeCustomerUser() != null) {
+            customerOperationLogDO.setBeforeContent(JSON.toJSONString(customerOperationLogEvent.getBeforeCustomerUser()));
         }
         customerOperationLogDO.setCustomerUserId(customerUser.getCustomerUserId());
         customerOperationLogMapper.insert(customerOperationLogDO);

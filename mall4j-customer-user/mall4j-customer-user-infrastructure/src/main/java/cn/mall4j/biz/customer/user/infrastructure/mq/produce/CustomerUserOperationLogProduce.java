@@ -18,7 +18,7 @@
 package cn.mall4j.biz.customer.user.infrastructure.mq.produce;
 
 import cn.mall4j.biz.customer.user.domain.common.RocketMQConstants;
-import cn.mall4j.biz.customer.user.domain.vo.CustomerOperationLogVO;
+import cn.mall4j.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,12 +46,12 @@ public class CustomerUserOperationLogProduce {
     /**
      * 记录 C 用户用户变更日志
      *
-     * @param customerOperationLogVO
+     * @param customerOperationLogEvent
      */
-    public void recordCustomerUserOperationLog(CustomerOperationLogVO customerOperationLogVO) {
+    public void recordCustomerUserOperationLog(CustomerOperationLogEvent customerOperationLogEvent) {
         String keys = UUID.randomUUID().toString();
         Message<?> message = MessageBuilder
-                .withPayload(JSON.toJSONString(customerOperationLogVO))
+                .withPayload(JSON.toJSONString(customerOperationLogEvent))
                 .setHeader(MessageConst.PROPERTY_KEYS, keys)
                 .setHeader(MessageConst.PROPERTY_TAGS, RocketMQConstants.CUSTOMER_USER_OPERATION_LOG_TAG)
                 .build();
@@ -60,7 +60,7 @@ public class CustomerUserOperationLogProduce {
         try {
             sendResult = output.send(message, 2000L);
         } finally {
-            log.info("C 端用户保存用户日志，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, System.currentTimeMillis() - startTime, JSON.toJSONString(customerOperationLogVO));
+            log.info("C 端用户保存用户日志，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, System.currentTimeMillis() - startTime, JSON.toJSONString(customerOperationLogEvent));
         }
     }
 }

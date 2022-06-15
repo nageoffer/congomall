@@ -15,37 +15,56 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.domain.vo;
+package cn.mall4j.biz.customer.user.domain.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * C 端用户操作日志记录
+ * C 端用户
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Data
-@NoArgsConstructor
-public class CustomerOperationLogVO {
+public class CustomerUserDTO {
     
     /**
-     * 之前的
+     * id
      */
-    private CustomerUserVO beforeCustomerUser;
+    private Long id;
     
     /**
-     * 操作后
+     * 昵称
      */
-    private CustomerUserVO afterCustomerUser;
+    private String name;
     
-    public CustomerOperationLogVO(CustomerUserVO afterCustomerUser) {
-        this.afterCustomerUser = afterCustomerUser;
-    }
+    /**
+     * 账号
+     */
+    private String accountNumber;
     
-    public CustomerOperationLogVO(CustomerUserVO beforeCustomerUser, CustomerUserVO afterCustomerUser) {
-        this.beforeCustomerUser = beforeCustomerUser;
-        this.afterCustomerUser = afterCustomerUser;
-    }
+    /**
+     * 手机号
+     */
+    private String phone;
+    
+    /**
+     * 邮箱
+     */
+    private String mail;
+    
+    /**
+     * 年龄
+     */
+    private Integer age;
+    
+    /**
+     * 性别
+     */
+    private Integer gender;
+    
+    /**
+     * 头像
+     */
+    private String avatar;
 }
