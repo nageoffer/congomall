@@ -21,13 +21,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.mall4j.biz.customer.user.domain.dp.*;
 import cn.mall4j.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import cn.mall4j.biz.customer.user.domain.toolkit.JWTUtil;
-import cn.mall4j.springboot.starter.base.ApplicationContextHolder;
+import cn.mall4j.springboot.starter.common.toolkit.EnvironmentUtil;
 import cn.mall4j.springboot.starter.convention.exception.ClientException;
-import com.google.common.collect.Lists;
 import lombok.*;
-import org.springframework.core.env.ConfigurableEnvironment;
-
-import java.util.List;
 
 /**
  * C 端用户实体
@@ -61,24 +57,16 @@ public class CustomerUser {
     private CustomerOperationLogEvent customerOperationLogEvent;
     
     public void checkoutValidCode(String verifyCode) {
-        if (isFilterValid()) {
-            return;
+        if (EnvironmentUtil.isProdEnvironment()) {
+            if (StrUtil.isBlank(verifyCode)) {
+                throw new ClientException("验证码已失效");
+            }
+            verifyCode = StrUtil.trim(verifyCode);
+            this.verifyCode = StrUtil.trim(this.verifyCode);
+            if (!StrUtil.equals(verifyCode, this.verifyCode)) {
+                throw new ClientException("验证码错误");
+            }
         }
-        if (StrUtil.isBlank(verifyCode)) {
-            throw new ClientException("验证码已失效");
-        }
-        verifyCode = StrUtil.trim(verifyCode);
-        this.verifyCode = StrUtil.trim(this.verifyCode);
-        if (!StrUtil.equals(verifyCode, this.verifyCode)) {
-            throw new ClientException("验证码错误");
-        }
-    }
-    
-    private boolean isFilterValid() {
-        List<String> filterValidActive = Lists.newArrayList("dev", "test");
-        ConfigurableEnvironment configurableEnvironment = ApplicationContextHolder.getBean(ConfigurableEnvironment.class);
-        String property = configurableEnvironment.getProperty("spring.profiles.active", "dev");
-        return filterValidActive.contains(property);
     }
     
     public String generateAccessToken() {
