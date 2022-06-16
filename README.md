@@ -20,6 +20,7 @@ mall4j-customer-user C端用户
 mall4j-base-spring-boot-starter
 - 应用上下文初始化后置处理器封装
 - 应用上下文封装，方便在非 spring 类中获取 bean
+- 封装单例对象存储容器
 
 mall4j-cache-spring-boot-starter
 - redis 分布式缓存封装
