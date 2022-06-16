@@ -20,6 +20,7 @@ package cn.mall4j.springboot.starter.cache;
 import cn.mall4j.springboot.starter.cache.core.CacheLoader;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 分布式缓存
@@ -61,4 +62,12 @@ public interface DistributedCache extends Cache {
      * @param timeout
      */
     void put(@NotBlank String key, Object value, long timeout);
+    
+    /**
+     * 统计指定 key 的存在数量
+     *
+     * @param keys
+     * @return
+     */
+    Long countExistingKeys(@NotNull String... keys);
 }

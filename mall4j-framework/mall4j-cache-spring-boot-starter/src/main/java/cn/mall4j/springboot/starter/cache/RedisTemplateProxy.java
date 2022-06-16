@@ -22,6 +22,7 @@ import cn.mall4j.springboot.starter.cache.core.CacheLoader;
 import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import cn.mall4j.springboot.starter.cache.toolkit.FastJson2Util;
 import com.alibaba.fastjson2.JSON;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
@@ -29,6 +30,8 @@ import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
  * Redis 缓存代理
@@ -62,8 +65,18 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
-    public boolean delete(String key) {
+    public Boolean putIfAllAbsent(@NotNull Collection<String> keys) {
+        return false;
+    }
+    
+    @Override
+    public Boolean delete(String key) {
         return stringRedisTemplate.delete(key);
+    }
+    
+    @Override
+    public Long delete(Collection<String> keys) {
+        return stringRedisTemplate.delete(keys);
     }
     
     @Override
@@ -105,6 +118,16 @@ public class RedisTemplateProxy implements DistributedCache {
     public void put(String key, Object value, long timeout) {
         String actual = value instanceof String ? (String) value : JSON.toJSONString(value);
         stringRedisTemplate.opsForValue().set(key, actual, timeout, redisProperties.getValueTimeUnit());
+    }
+    
+    @Override
+    public Boolean hasKey(String key) {
+        return stringRedisTemplate.hasKey(key);
+    }
+    
+    @Override
+    public Long countExistingKeys(String... keys) {
+        return stringRedisTemplate.countExistingKeys(Lists.newArrayList(keys));
     }
     
     private <T> T loadAndSet(String key, CacheLoader<T> cacheLoader, long timeout) {
