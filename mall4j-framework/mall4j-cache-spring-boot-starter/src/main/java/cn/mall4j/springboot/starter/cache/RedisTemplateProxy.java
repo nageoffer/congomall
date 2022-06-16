@@ -17,6 +17,7 @@
 
 package cn.mall4j.springboot.starter.cache;
 
+import cn.mall4j.springboot.starter.base.Singleton;
 import cn.mall4j.springboot.starter.cache.config.RedisDistributedProperties;
 import cn.mall4j.springboot.starter.cache.core.CacheLoader;
 import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
@@ -27,7 +28,10 @@ import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.scripting.support.ResourceScriptSource;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -66,7 +70,15 @@ public class RedisTemplateProxy implements DistributedCache {
     
     @Override
     public Boolean putIfAllAbsent(@NotNull Collection<String> keys) {
-        return false;
+        String scriptPathKey = "lua/putIfAllAbsent.lua";
+        DefaultRedisScript actual = Singleton.get(scriptPathKey, () -> {
+            DefaultRedisScript redisScript = new DefaultRedisScript();
+            redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(scriptPathKey)));
+            redisScript.setResultType(Boolean.class);
+            return redisScript;
+        });
+        Object result = stringRedisTemplate.execute(actual, Lists.newArrayList(keys), redisProperties.getValueTimout().toString());
+        return result == null ? false : (Boolean) result;
     }
     
     @Override

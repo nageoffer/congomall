@@ -17,12 +17,15 @@
 
 package cn.mall4j.springboot.starter.cache;
 
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.List;
 
 /**
  * 分布式缓存测试
@@ -53,5 +56,18 @@ public class DistributedCacheTest {
         for (int i = 0; i < 2; i++) {
             distributedCache.safeGet("test", String.class, () -> "", 5000);
         }
+    }
+    
+    @Test
+    public void assertPutIfAllAbsent() {
+        List<String> keys = Lists.newArrayList("name", "age");
+        Boolean result = distributedCache.putIfAllAbsent(keys);
+        Assert.assertTrue(result);
+        keys.forEach(each -> {
+            String name = distributedCache.get("name", String.class);
+            Assert.assertEquals(name, "default");
+        });
+        Boolean resultFalse = distributedCache.putIfAllAbsent(keys);
+        Assert.assertFalse(resultFalse);
     }
 }
