@@ -22,6 +22,10 @@ mall4j-base-spring-boot-starter
 - 应用上下文封装，方便在非 spring 类中获取 bean
 - 封装单例对象存储容器
 
+mall4j-common-spring-boot-starter
+- 添加状态、删除、操作类型公共枚举
+- 封装 spring 环境工具类
+
 mall4j-cache-spring-boot-starter
 - redis 分布式缓存封装
 - redis 分布式缓存自定义 key 前缀
