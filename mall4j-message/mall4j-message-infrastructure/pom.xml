@@ -24,6 +24,12 @@
         
         <dependency>
             <groupId>cn.mall4j.framework</groupId>
+            <artifactId>mall4j-base-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.mall4j.framework</groupId>
             <artifactId>mall4j-convention-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>

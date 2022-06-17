@@ -24,6 +24,8 @@ import cn.mall4j.biz.message.domain.acl.MailMessageProduce;
 import cn.mall4j.biz.message.domain.entity.MessageSend;
 import cn.mall4j.biz.message.infrastructure.dao.MailTemplateDO;
 import cn.mall4j.biz.message.infrastructure.dao.MailTemplateMapper;
+import cn.mall4j.springboot.starter.base.Singleton;
+import cn.mall4j.springboot.starter.base.init.ApplicationInitializingEvent;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
@@ -31,12 +33,17 @@ import freemarker.template.Template;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.util.ResourceUtils;
 
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +56,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class MailMessageProduceImpl implements MailMessageProduce {
+public class MailMessageProduceImpl implements ApplicationListener<ApplicationInitializingEvent>, MailMessageProduce {
     
     private final MailTemplateMapper mailTemplateMapper;
     
@@ -78,7 +85,14 @@ public class MailMessageProduceImpl implements MailMessageProduce {
                     model.put(mailTemplateDOS.get(i).getTemplateParam(), messageSend.getParamList().get(i));
                 }
             }
-            Template template = configuration.getTemplate(messageSend.getTemplateId() + ".ftl");
+            String templateKey = messageSend.getTemplateId() + ".ftl";
+            Template template = Singleton.get(templateKey, () -> {
+                try {
+                    return configuration.getTemplate(templateKey);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
             helper.setText(html, true);
             javaMailSender.send(mimeMessage);
@@ -87,5 +101,18 @@ public class MailMessageProduceImpl implements MailMessageProduce {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * 初始化邮箱模板
+     */
+    @SneakyThrows
+    @Override
+    public void onApplicationEvent(ApplicationInitializingEvent event) {
+        Resource[] resources = new PathMatchingResourcePatternResolver().getResources(ResourceUtils.CLASSPATH_URL_PREFIX + "templates/*.ftl");
+        for (Resource resource : resources) {
+            String templateName = resource.getFilename();
+            Singleton.put(templateName, configuration.getTemplate(templateName));
+        }
     }
 }
