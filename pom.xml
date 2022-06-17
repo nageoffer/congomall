@@ -36,6 +36,7 @@
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
         <shardingsphere-jdbc-core-spring-boot-starter.version>5.1.1</shardingsphere-jdbc-core-spring-boot-starter.version>
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
+        <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <fastjson2.version>2.0.5</fastjson2.version>
@@ -103,6 +104,12 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
                 <version>${spring-cloud-starter-stream-rocketmq.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${spring-cloud-starter-alibaba-sentinel.version}</version>
             </dependency>
             
             <dependency>
