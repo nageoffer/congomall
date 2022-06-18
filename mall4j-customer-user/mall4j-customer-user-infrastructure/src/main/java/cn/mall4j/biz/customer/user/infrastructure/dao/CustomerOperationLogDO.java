@@ -18,9 +18,12 @@
 package cn.mall4j.biz.customer.user.infrastructure.dao;
 
 import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
 
 /**
  * C 端用户操作日志
@@ -32,6 +35,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("customer_user_operation_log")
 public class CustomerOperationLogDO extends BaseDO {
+    
+    /**
+     * id
+     */
+    @TableId(type = AUTO)
+    private Long id;
     
     /**
      * C端用户ID
