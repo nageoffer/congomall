@@ -10,11 +10,13 @@ https://www.apifox.cn/apidoc/project-1038592/api-21806863
 
 ### 核心技术
 mall4j-message 消息发送
-- 使用 sharding sphere 自动时间段分片算法，对 mail_send_record 表按年进行分片
+- sharding sphere 自动时间段分片算法，对 mail_send_record 表按年进行分片
+- rocketMQ 异步解耦邮箱消息发送
 
 mall4j-customer-user C端用户
-- 使用 sharding sphere 哈希取模分片算法，对 customer_user 表进行哈希分片
-- 使用 sharding sphere 完成 AES 加密算法，对 customer_user phone、mail 字段进行加密
+- sharding sphere 哈希取模分片算法，对 customer_user 表进行哈希分片
+- sharding sphere 完成 AES 加密算法，对 customer_user phone、mail 字段进行加密
+- C 端用户新增后，使用 rocketMQ 解耦合，添加用户新增操作日志
 
 ### 基础架构
 mall4j-base-spring-boot-starter
@@ -69,6 +71,8 @@ mall4j-web-spring-boot-starter
 - 全局异常拦截器定义
 
 ### 业务模块
+mall4j-gateway 外部网关
+
 mall4j-message 消息发送
 - 邮箱消息发送
 
@@ -77,8 +81,6 @@ mall4j-customer-user C端用户
 - 用户注册
 - 用户登录
 - 用户操作记录日志
-
-mall4j-gateway 外部网关
 
 ## 模块分类
 
