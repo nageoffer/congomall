@@ -26,14 +26,14 @@ package cn.mall4j.springboot.starter.common;
 public enum StatusEnum {
     
     /**
-     * 失败
-     */
-    FAIL(0),
-    
-    /**
      * 成功
      */
-    SUCCESS(1);
+    SUCCESS(0),
+    
+    /**
+     * 失败
+     */
+    FAIL(1);
     
     private final Integer statusCode;
     
