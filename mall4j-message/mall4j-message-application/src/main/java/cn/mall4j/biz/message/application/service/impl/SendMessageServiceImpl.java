@@ -39,7 +39,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SendMessageServiceImpl implements MessageSendService {
-
+    
     private final MessageSendProduce messageSendProduce;
     
     @Override
