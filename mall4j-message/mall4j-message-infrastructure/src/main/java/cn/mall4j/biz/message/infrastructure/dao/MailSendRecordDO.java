@@ -66,7 +66,7 @@ public class MailSendRecordDO extends BaseDO {
     /**
      * 文本参数
      */
-    private String textParam;
+    private String paramList;
     
     /**
      * 状态 0：失败 1：成功

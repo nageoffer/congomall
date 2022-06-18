@@ -17,10 +17,7 @@
 
 package cn.mall4j.biz.message.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -32,6 +29,8 @@ import java.util.List;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 public class MessageSend {
     

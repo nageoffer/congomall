@@ -17,13 +17,14 @@
 
 package cn.mall4j.biz.message.application.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.mall4j.biz.message.application.service.MessageSendService;
-import cn.mall4j.biz.message.domain.acl.MailMessageProduce;
-import cn.mall4j.biz.message.domain.entity.MessageSend;
-import cn.mall4j.biz.message.domain.repository.MessageSendRepository;
 import cn.mall4j.biz.message.application.req.MailSendCommand;
 import cn.mall4j.biz.message.application.resp.MessageSendRespDTO;
+import cn.mall4j.biz.message.application.service.MessageSendService;
+import cn.mall4j.biz.message.domain.entity.MessageSend;
+import cn.mall4j.biz.message.domain.event.MailMessageSendEvent;
+import cn.mall4j.biz.message.infrastructure.mq.produce.MessageSendProduce;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,10 +39,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class SendMessageServiceImpl implements MessageSendService {
-    
-    private final MessageSendRepository messageSendRepository;
-    
-    private final MailMessageProduce mailMessageProduce;
+
+    private final MessageSendProduce messageSendProduce;
     
     @Override
     public MessageSendRespDTO mailMessageSend(MailSendCommand mailSendCommand) {
@@ -55,9 +54,7 @@ public class SendMessageServiceImpl implements MessageSendService {
                 .messageSendId(messageSendId)
                 .templateId(mailSendCommand.getTemplateId())
                 .build();
-        boolean sendResult = mailMessageProduce.send(messageSend);
-        messageSend.setSendResult(sendResult);
-        messageSendRepository.mailMessageSave(messageSend);
+        messageSendProduce.mailMessageSend(BeanUtil.toBean(messageSend, MailMessageSendEvent.class));
         return new MessageSendRespDTO(messageSendId);
     }
 }

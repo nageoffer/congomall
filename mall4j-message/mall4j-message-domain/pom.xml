@@ -8,4 +8,12 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>mall4j-message-domain</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>cn.mall4j.framework</groupId>
+            <artifactId>mall4j-ddd-framework-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

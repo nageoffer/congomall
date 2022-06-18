@@ -17,12 +17,16 @@
 
 package cn.mall4j.biz.message.web;
 
+import cn.mall4j.biz.message.infrastructure.mq.messaging.MessageSink;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 
 @EnableDiscoveryClient
+@EnableBinding({Source.class, MessageSink.class})
 @MapperScan("cn.mall4j.biz.message.infrastructure.dao")
 @SpringBootApplication(scanBasePackages = "cn.mall4j.biz.message")
 public class Mall4jMessageApplication {

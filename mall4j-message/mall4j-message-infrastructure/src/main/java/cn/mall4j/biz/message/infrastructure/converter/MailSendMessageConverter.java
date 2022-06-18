@@ -19,7 +19,11 @@ package cn.mall4j.biz.message.infrastructure.converter;
 
 import cn.mall4j.biz.message.domain.entity.MessageSend;
 import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
+import com.alibaba.fastjson2.JSON;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import java.util.List;
 
 /**
  * C 端用户 Entity 转换 DO
@@ -36,5 +40,16 @@ public interface MailSendMessageConverter {
      * @param customerUser
      * @return
      */
+    @Mapping(target = "paramList", expression = "java(paramListConvert(customerUser.getParamList()))")
     MailSendRecordDO customerUserToDO(MessageSend customerUser);
+    
+    /**
+     * 参数集合转换
+     *
+     * @param paramList
+     * @return
+     */
+    default String paramListConvert(List<String> paramList) {
+        return JSON.toJSONString(paramList);
+    }
 }
