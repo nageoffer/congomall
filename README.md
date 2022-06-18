@@ -12,11 +12,21 @@ https://www.apifox.cn/apidoc/project-1038592/api-21806863
 mall4j-message 消息发送
 - sharding sphere 自动时间段分片算法，对 mail_send_record 表按年进行分片
 - rocketMQ 异步解耦邮箱消息发送
+- sentinel 限流组件
 
 mall4j-customer-user C端用户
 - sharding sphere 哈希取模分片算法，对 customer_user 表进行哈希分片
 - sharding sphere 完成 AES 加密算法，对 customer_user phone、mail 字段进行加密
 - C 端用户新增后，使用 rocketMQ 解耦合，添加用户新增操作日志
+- sentinel 限流组件
+
+### 设计模式
+模板方法模式
+- mall4j-distributedid-spring-boot-starter
+
+策略模式
+- mall4j-design-pattern-spring-boot-starter
+- mall4j-customer-user
 
 ### 基础架构
 mall4j-base-spring-boot-starter
