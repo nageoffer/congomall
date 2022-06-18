@@ -48,7 +48,7 @@ public class LocalRedisWorkIdChoose extends AbstractWorkIdChooseTemplate impleme
     @Override
     public WorkIdWrapper chooseWorkId() {
         DefaultRedisScript redisScript = new DefaultRedisScript();
-        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("redis/chooseWorkIdLua.lua")));
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/chooseWorkIdLua.lua")));
         List<Long> luaResultList = null;
         try {
             redisScript.setResultType(List.class);

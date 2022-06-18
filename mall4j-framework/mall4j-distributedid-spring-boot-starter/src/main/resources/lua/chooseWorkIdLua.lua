@@ -30,4 +30,4 @@ elseif (dataCenterId ~= max) then
 
 end
 
-return { resultDataCenterId, resultWorkId }
+return { resultWorkId, resultDataCenterId }
