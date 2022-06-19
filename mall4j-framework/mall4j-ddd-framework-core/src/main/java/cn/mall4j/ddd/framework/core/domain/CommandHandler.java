@@ -23,7 +23,7 @@ package cn.mall4j.ddd.framework.core.domain;
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public interface CommandHandler<R, T> {
+public interface CommandHandler<T, R> {
     
     /**
      * 命令执行
@@ -31,5 +31,5 @@ public interface CommandHandler<R, T> {
      * @param requestParam
      * @return
      */
-    T handler(R requestParam);
+    R handler(T requestParam);
 }
