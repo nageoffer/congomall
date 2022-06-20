@@ -19,6 +19,8 @@ package cn.mall4j.springboot.starter.base.config;
 
 import cn.mall4j.springboot.starter.base.ApplicationContextHolder;
 import cn.mall4j.springboot.starter.base.init.ApplicationContentPostProcessor;
+import cn.mall4j.springboot.starter.base.safa.FastJsonSafeMode;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -37,5 +39,11 @@ public class ApplicationBaseAutoConfiguration {
     @Bean
     public ApplicationContentPostProcessor applicationContentPostProcessor() {
         return new ApplicationContentPostProcessor();
+    }
+    
+    @Bean
+    @ConditionalOnProperty(value = "fastjson.safa-mode", havingValue = "true")
+    public FastJsonSafeMode fastJsonSafeMode() {
+        return new FastJsonSafeMode();
     }
 }
