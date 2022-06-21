@@ -12,6 +12,6 @@ public class FastJsonSafeMode implements InitializingBean {
     
     @Override
     public void afterPropertiesSet() throws Exception {
-        ParserConfig.getGlobalInstance().setSafeMode(true);
+    
     }
 }
