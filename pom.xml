@@ -40,7 +40,7 @@
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
-        <fastjson2.version>2.0.5</fastjson2.version>
+        <fastjson2.version>2.0.7</fastjson2.version>
         <lombok.version>1.18.24</lombok.version>
         <hutool-all.version>5.8.2</hutool-all.version>
         <guava.version>31.1-jre</guava.version>
