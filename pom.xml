@@ -35,9 +35,11 @@
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
-        <shardingsphere-jdbc-core-spring-boot-starter.version>5.1.2</shardingsphere-jdbc-core-spring-boot-starter.version>
+        <shardingsphere-jdbc-core-spring-boot-starter.version>5.1.2
+        </shardingsphere-jdbc-core-spring-boot-starter.version>
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
+        <minio.verion>8.4.2</minio.verion>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <fastjson2.version>2.0.7</fastjson2.version>
@@ -48,6 +50,7 @@
         <hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <okhttp3.version>4.9.3</okhttp3.version>
         <!-- 工具类 End -->
     </properties>
     
@@ -159,6 +162,12 @@
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
                 <version>${shardingsphere-jdbc-core-spring-boot-starter.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
