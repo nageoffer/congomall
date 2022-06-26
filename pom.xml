@@ -18,6 +18,7 @@
         <module>mall4j-order</module>
         <module>mall4j-pay</module>
         <module>mall4j-product</module>
+        <module>mall4j-test</module>
     </modules>
     
     <properties>
