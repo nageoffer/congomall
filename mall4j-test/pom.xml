@@ -12,5 +12,6 @@
     
     <modules>
         <module>mall4j-oom-test</module>
+        <module>mall4j-yaml-test</module>
     </modules>
 </project>
