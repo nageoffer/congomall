@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <scope>1.30</scope>
+            <version>1.30</version>
         </dependency>
         
         <dependency>
