@@ -19,6 +19,8 @@ package cn.mall4j.springboot.starter.cache;
 
 import cn.mall4j.springboot.starter.base.Singleton;
 import cn.mall4j.springboot.starter.cache.config.RedisDistributedProperties;
+import cn.mall4j.springboot.starter.cache.core.CacheGetFilter;
+import cn.mall4j.springboot.starter.cache.core.CacheGetIfAbsent;
 import cn.mall4j.springboot.starter.cache.core.CacheLoader;
 import cn.mall4j.springboot.starter.cache.toolkit.CacheUtil;
 import cn.mall4j.springboot.starter.cache.toolkit.FastJson2Util;
@@ -36,6 +38,7 @@ import org.springframework.scripting.support.ResourceScriptSource;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Redis 缓存代理
@@ -102,23 +105,23 @@ public class RedisTemplateProxy implements DistributedCache {
     
     @Override
     public <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
+        return safeGet(key, clazz, cacheLoader, timeout, null, null);
+    }
+    
+    @Override
+    public <T> T safeGet(String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, CacheGetFilter<String> cacheGetFilter, CacheGetIfAbsent<String> cacheGetIfAbsent) {
         T result = get(key, clazz);
-        if (!CacheUtil.isNullOrBlank(result)) {
+        // 缓存不等于空返回；缓存为空判断布隆过滤器是否存在，不存在返回空；如果前两者都不成立，通过函数判断是否返回空
+        if (!CacheUtil.isNullOrBlank(result) || !cachePenetrationBloomFilter.contains(key) || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)) {
             return result;
-        }
-        // 判断布隆过滤器是否存在，存在返回空
-        if (cachePenetrationBloomFilter.contains(key)) {
-            return null;
         }
         RLock lock = redissonClient.getLock(CacheUtil.buildKey("distributed_lock_lock_get", key));
         lock.lock();
         try {
             // 双重判定锁，减轻数据库访问压力
             if (CacheUtil.isNullOrBlank(result = get(key, clazz))) {
-                // 通过 load 接口加载为空，触发缓存穿透条件，把 key 放入布隆过滤器
-                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout))) {
-                    cachePenetrationBloomFilter.add(key);
-                }
+                // 如果访问数据库为空，通过函数执行后置操作
+                Optional.ofNullable(cacheGetIfAbsent).ifPresent(each -> each.execute(key));
             }
         } finally {
             lock.unlock();
@@ -130,6 +133,13 @@ public class RedisTemplateProxy implements DistributedCache {
     public void put(String key, Object value, long timeout) {
         String actual = value instanceof String ? (String) value : JSON.toJSONString(value);
         stringRedisTemplate.opsForValue().set(key, actual, timeout, redisProperties.getValueTimeUnit());
+    }
+    
+    @Override
+    public void safePut(String key, Object value, long timeout) {
+        put(key, value, timeout);
+        // key 放入步隆过滤器
+        cachePenetrationBloomFilter.add(key);
     }
     
     @Override

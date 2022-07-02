@@ -17,6 +17,8 @@
 
 package cn.mall4j.springboot.starter.cache;
 
+import cn.mall4j.springboot.starter.cache.core.CacheGetFilter;
+import cn.mall4j.springboot.starter.cache.core.CacheGetIfAbsent;
 import cn.mall4j.springboot.starter.cache.core.CacheLoader;
 
 import javax.validation.constraints.NotBlank;
@@ -55,6 +57,20 @@ public interface DistributedCache extends Cache {
     <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout);
     
     /**
+     * 以一种"安全"的方式获取缓存，如查询结果为空，调用 cacheLoader 加载缓存
+     *
+     * @param key
+     * @param clazz
+     * @param cacheLoader
+     * @param timeout
+     * @param cacheCheckFilter
+     * @param cacheGetIfAbsent
+     * @param <T>
+     * @return
+     */
+    <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, CacheGetFilter<String> cacheCheckFilter, CacheGetIfAbsent<String> cacheGetIfAbsent);
+    
+    /**
      * 放入缓存，自定义超时时间
      *
      * @param key
@@ -62,6 +78,16 @@ public interface DistributedCache extends Cache {
      * @param timeout
      */
     void put(@NotBlank String key, Object value, long timeout);
+    
+    /**
+     * 放入缓存，自定义超时时间
+     * 并将 key 加入步隆过滤器，配置 {@link DistributedCache#safeGet(String, Class, CacheLoader, long)}
+     *
+     * @param key
+     * @param value
+     * @param timeout
+     */
+    void safePut(@NotBlank String key, Object value, long timeout);
     
     /**
      * 统计指定 key 的存在数量
