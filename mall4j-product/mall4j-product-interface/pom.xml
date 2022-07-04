@@ -26,5 +26,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        
+        <dependency>
+            <groupId>cn.mall4j.framework</groupId>
+            <artifactId>mall4j-web-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.mall4j</groupId>
+            <artifactId>mall4j-product-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

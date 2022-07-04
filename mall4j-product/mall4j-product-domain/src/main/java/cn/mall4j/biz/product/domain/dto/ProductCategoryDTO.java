@@ -15,19 +15,56 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.interfaces;
+package cn.mall4j.biz.product.domain.dto;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import lombok.Data;
 
-@EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "cn.mall4j.biz.product")
-@MapperScan("cn.mall4j.biz.product.infrastructure.dao")
-public class Mall4jProductApplication {
+/**
+ * 商品分类
+ *
+ * @author chen.ma
+ * @github https://github.com/mabaiwan
+ */
+@Data
+public class ProductCategoryDTO {
     
-    public static void main(String[] args) {
-        SpringApplication.run(Mall4jProductApplication.class, args);
-    }
+    /**
+     * id
+     */
+    private Long id;
+    
+    /**
+     * 分类名称
+     */
+    private String name;
+    
+    /**
+     * 父级id
+     */
+    private Long parentId;
+    
+    /**
+     * 层级
+     */
+    private Integer level;
+    
+    /**
+     * 图标url
+     */
+    private String iconUrl;
+    
+    /**
+     * 排序
+     */
+    private Integer sort;
+    
+    /**
+     * 跳转地址
+     */
+    private String url;
+    
+    /**
+     * 状态 0：展示 1：隐藏
+     */
+    private Integer status;
 }

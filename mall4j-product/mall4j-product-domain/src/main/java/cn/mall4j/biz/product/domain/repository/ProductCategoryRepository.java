@@ -15,19 +15,22 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.interfaces;
+package cn.mall4j.biz.product.domain.repository;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import cn.mall4j.biz.product.domain.entity.ProductCategory;
 
-@EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "cn.mall4j.biz.product")
-@MapperScan("cn.mall4j.biz.product.infrastructure.dao")
-public class Mall4jProductApplication {
+/**
+ * 商品分类仓储层
+ *
+ * @author chen.ma
+ * @github https://github.com/mabaiwan
+ */
+public interface ProductCategoryRepository {
     
-    public static void main(String[] args) {
-        SpringApplication.run(Mall4jProductApplication.class, args);
-    }
+    /**
+     * 查询所有商品分类信息
+     *
+     * @return
+     */
+    ProductCategory listAllProductCategory();
 }
