@@ -15,22 +15,56 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.domain.repository;
+package cn.mall4j.biz.product.domain.category.dto;
 
-import cn.mall4j.biz.product.domain.entity.ProductCategory;
+import lombok.Data;
 
 /**
- * 商品分类仓储层
+ * 商品分类
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public interface ProductCategoryRepository {
+@Data
+public class ProductCategoryDTO {
     
     /**
-     * 查询所有商品分类信息
-     *
-     * @return
+     * id
      */
-    ProductCategory listAllProductCategory();
+    private Long id;
+    
+    /**
+     * 分类名称
+     */
+    private String name;
+    
+    /**
+     * 父级id
+     */
+    private Long parentId;
+    
+    /**
+     * 层级
+     */
+    private Integer level;
+    
+    /**
+     * 图标url
+     */
+    private String iconUrl;
+    
+    /**
+     * 排序
+     */
+    private Integer sort;
+    
+    /**
+     * 跳转地址
+     */
+    private String url;
+    
+    /**
+     * 状态 0：展示 1：隐藏
+     */
+    private Integer status;
 }

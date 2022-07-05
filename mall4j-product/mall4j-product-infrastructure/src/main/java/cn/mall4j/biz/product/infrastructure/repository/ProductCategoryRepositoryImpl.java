@@ -18,9 +18,9 @@
 package cn.mall4j.biz.product.infrastructure.repository;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.mall4j.biz.product.domain.dto.ProductCategoryDTO;
-import cn.mall4j.biz.product.domain.entity.ProductCategory;
-import cn.mall4j.biz.product.domain.repository.ProductCategoryRepository;
+import cn.mall4j.biz.product.domain.category.dto.ProductCategoryDTO;
+import cn.mall4j.biz.product.domain.category.entity.ProductCategory;
+import cn.mall4j.biz.product.domain.category.repository.ProductCategoryRepository;
 import cn.mall4j.biz.product.infrastructure.dao.ProductCategoryDO;
 import cn.mall4j.biz.product.infrastructure.dao.ProductCategoryMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

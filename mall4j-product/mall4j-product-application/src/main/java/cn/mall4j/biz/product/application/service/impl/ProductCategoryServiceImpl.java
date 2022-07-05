@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.application.category.service.impl;
+package cn.mall4j.biz.product.application.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.mall4j.biz.product.application.category.resp.ProductCategoryRespDTO;
-import cn.mall4j.biz.product.application.category.service.ProductCategoryService;
-import cn.mall4j.biz.product.domain.entity.ProductCategory;
-import cn.mall4j.biz.product.domain.repository.ProductCategoryRepository;
+import cn.mall4j.biz.product.application.resp.ProductCategoryRespDTO;
+import cn.mall4j.biz.product.application.service.ProductCategoryService;
+import cn.mall4j.biz.product.domain.category.entity.ProductCategory;
+import cn.mall4j.biz.product.domain.category.repository.ProductCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

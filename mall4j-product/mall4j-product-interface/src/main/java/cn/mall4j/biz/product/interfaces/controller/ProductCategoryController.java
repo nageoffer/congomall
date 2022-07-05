@@ -17,8 +17,8 @@
 
 package cn.mall4j.biz.product.interfaces.controller;
 
-import cn.mall4j.biz.product.application.category.resp.ProductCategoryRespDTO;
-import cn.mall4j.biz.product.application.category.service.ProductCategoryService;
+import cn.mall4j.biz.product.application.resp.ProductCategoryRespDTO;
+import cn.mall4j.biz.product.application.service.ProductCategoryService;
 import cn.mall4j.springboot.starter.convention.result.Result;
 import cn.mall4j.springboot.starter.log.annotation.MLog;
 import cn.mall4j.springboot.starter.web.Results;

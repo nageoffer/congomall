@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.application.category.resp;
+package cn.mall4j.biz.product.application.resp;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

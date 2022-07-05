@@ -15,28 +15,22 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.domain.entity;
+package cn.mall4j.biz.product.domain.category.repository;
 
-import cn.mall4j.biz.product.domain.dto.ProductCategoryDTO;
-import lombok.*;
-
-import java.util.List;
+import cn.mall4j.biz.product.domain.category.entity.ProductCategory;
 
 /**
- * 商品分类
+ * 商品分类仓储层
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter(AccessLevel.PRIVATE)
-public class ProductCategory {
+public interface ProductCategoryRepository {
     
     /**
-     * 商品分类信息
+     * 查询所有商品分类信息
+     *
+     * @return
      */
-    private List<ProductCategoryDTO> productCategoryList;
+    ProductCategory listAllProductCategory();
 }

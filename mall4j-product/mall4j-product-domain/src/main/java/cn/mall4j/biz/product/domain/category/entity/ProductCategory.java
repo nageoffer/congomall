@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.application.category.service;
+package cn.mall4j.biz.product.domain.category.entity;
 
-import cn.mall4j.biz.product.application.category.resp.ProductCategoryRespDTO;
+import cn.mall4j.biz.product.domain.category.dto.ProductCategoryDTO;
+import lombok.*;
 
 import java.util.List;
 
@@ -27,12 +28,15 @@ import java.util.List;
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public interface ProductCategoryService {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter(AccessLevel.PRIVATE)
+public class ProductCategory {
     
     /**
-     * 查询全部商品分类集合
-     *
-     * @return
+     * 商品分类信息
      */
-    List<ProductCategoryRespDTO> listAllProductCategory();
+    private List<ProductCategoryDTO> productCategoryList;
 }
