@@ -22,7 +22,7 @@ import cn.mall4j.biz.message.domain.repository.MessageSendRepository;
 import cn.mall4j.biz.message.infrastructure.converter.MailSendMessageConverter;
 import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
 import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordMapper;
-import cn.mall4j.springboot.starter.common.StatusEnum;
+import cn.mall4j.springboot.starter.common.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

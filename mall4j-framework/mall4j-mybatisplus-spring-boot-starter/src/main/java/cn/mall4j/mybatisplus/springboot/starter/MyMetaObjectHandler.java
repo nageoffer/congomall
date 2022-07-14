@@ -17,7 +17,7 @@
 
 package cn.mall4j.mybatisplus.springboot.starter;
 
-import cn.mall4j.springboot.starter.common.DelEnum;
+import cn.mall4j.springboot.starter.common.enums.DelEnum;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 

@@ -15,19 +15,42 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.common;
+package cn.mall4j.springboot.starter.common.enums;
 
 /**
- * 操作类型
+ * 状态枚举
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-public enum OperationTypeEnum {
+public enum StatusEnum {
     
-    SAVE,
+    /**
+     * 成功
+     */
+    SUCCESS(0),
     
-    UPDATE,
+    /**
+     * 失败
+     */
+    FAIL(1);
     
-    DELETE
+    private final Integer statusCode;
+    
+    StatusEnum(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
+    
+    public Integer code() {
+        return this.statusCode;
+    }
+    
+    public String strCode() {
+        return String.valueOf(this.statusCode);
+    }
+    
+    @Override
+    public String toString() {
+        return strCode();
+    }
 }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.mall4j.springboot.starter.common;
+package cn.mall4j.springboot.starter.common.enums;
 
 /**
  * 删除标记枚举
