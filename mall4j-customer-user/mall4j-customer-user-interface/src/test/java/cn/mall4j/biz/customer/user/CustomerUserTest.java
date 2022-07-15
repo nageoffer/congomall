@@ -17,8 +17,8 @@
 
 package cn.mall4j.biz.customer.user;
 
-import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
-import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserRepositoryMapper;
+import cn.mall4j.biz.customer.user.infrastructure.dao.entity.CustomerUserDO;
+import cn.mall4j.biz.customer.user.infrastructure.dao.mapper.CustomerUserRepositoryMapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.junit.Before;

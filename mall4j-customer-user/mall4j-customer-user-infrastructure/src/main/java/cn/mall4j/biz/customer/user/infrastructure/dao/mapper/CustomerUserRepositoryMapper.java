@@ -15,17 +15,18 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.message.infrastructure.dao;
+package cn.mall4j.biz.customer.user.infrastructure.dao.mapper;
 
+import cn.mall4j.biz.customer.user.infrastructure.dao.entity.CustomerUserDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 邮件模板
+ * C 端用户
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Mapper
-public interface MailTemplateMapper extends BaseMapper<MailTemplateDO> {
+public interface CustomerUserRepositoryMapper extends BaseMapper<CustomerUserDO> {
 }

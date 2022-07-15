@@ -18,7 +18,7 @@
 package cn.mall4j.biz.message.infrastructure.converter;
 
 import cn.mall4j.biz.message.domain.entity.MessageSend;
-import cn.mall4j.biz.message.infrastructure.dao.MailSendRecordDO;
+import cn.mall4j.biz.message.infrastructure.dao.entity.MailSendRecordDO;
 import com.alibaba.fastjson2.JSON;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -15,17 +15,16 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.message.infrastructure.dao;
+package cn.mall4j.biz.product.infrastructure.dao.mapper;
 
+import cn.mall4j.biz.product.infrastructure.dao.entity.ProductCategoryDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 邮件发送记录 Mapper
+ * 商品分类
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@Mapper
-public interface MailSendRecordMapper extends BaseMapper<MailSendRecordDO> {
+public interface ProductCategoryMapper extends BaseMapper<ProductCategoryDO> {
 }

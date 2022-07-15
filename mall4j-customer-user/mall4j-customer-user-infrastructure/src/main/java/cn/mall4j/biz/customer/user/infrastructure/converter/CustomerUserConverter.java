@@ -18,7 +18,7 @@
 package cn.mall4j.biz.customer.user.infrastructure.converter;
 
 import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
-import cn.mall4j.biz.customer.user.infrastructure.dao.CustomerUserDO;
+import cn.mall4j.biz.customer.user.infrastructure.dao.entity.CustomerUserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

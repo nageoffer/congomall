@@ -15,61 +15,60 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.product.infrastructure.dao;
+package cn.mall4j.biz.customer.user.infrastructure.dao.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
 
 /**
- * 商品分类
+ * C 端用户操作日志
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Data
-@TableName("product_category")
-public class ProductCategoryDO {
+@NoArgsConstructor
+@TableName("customer_user_operation_log")
+public class CustomerOperationLogDO extends BaseDO {
     
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(type = AUTO)
     private Long id;
     
     /**
-     * 分类名称
+     * C端用户ID
      */
-    private String name;
+    private Long customerUserId;
     
     /**
-     * 父级id
+     * 修改前
      */
-    private Long parentId;
+    private String beforeContent;
     
     /**
-     * 层级
+     * 修改后
      */
-    private Integer level;
+    private String afterContent;
     
     /**
-     * 图标url
+     * 修改内容
      */
-    private String iconUrl;
+    private String operationContent;
     
-    /**
-     * 排序
-     */
-    private Integer sort;
+    public CustomerOperationLogDO(String afterContent) {
+        this.afterContent = afterContent;
+    }
     
-    /**
-     * 跳转地址
-     */
-    private String url;
-    
-    /**
-     * 状态 0：展示 1：隐藏
-     */
-    private Integer status;
+    public CustomerOperationLogDO(String beforeContent, String afterContent, String operationContent) {
+        this.beforeContent = beforeContent;
+        this.afterContent = afterContent;
+        this.operationContent = operationContent;
+    }
 }

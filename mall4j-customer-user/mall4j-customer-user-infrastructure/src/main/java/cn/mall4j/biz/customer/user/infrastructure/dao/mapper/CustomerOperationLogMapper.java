@@ -15,39 +15,16 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.message.infrastructure.dao;
+package cn.mall4j.biz.customer.user.infrastructure.dao.mapper;
 
-import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import cn.mall4j.biz.customer.user.infrastructure.dao.entity.CustomerOperationLogDO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * 邮件模板
+ * C 端用户操作日志
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@Data
-@TableName("mail_template")
-public class MailTemplateDO extends BaseDO {
-    
-    /**
-     * ID
-     */
-    private Long id;
-    
-    /**
-     * 模板名称
-     */
-    private String templateName;
-    
-    /**
-     * 模板id
-     */
-    private String templateId;
-    
-    /**
-     * 模板参数
-     */
-    private String templateParam;
+public interface CustomerOperationLogMapper extends BaseMapper<CustomerOperationLogDO> {
 }

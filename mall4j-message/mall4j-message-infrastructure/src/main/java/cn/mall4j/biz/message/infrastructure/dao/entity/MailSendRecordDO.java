@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.message.infrastructure.dao;
+package cn.mall4j.biz.message.infrastructure.dao.entity;
 
 import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
 import com.baomidou.mybatisplus.annotation.TableName;

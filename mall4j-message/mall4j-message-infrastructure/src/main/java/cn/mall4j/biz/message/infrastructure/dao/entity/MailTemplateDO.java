@@ -15,60 +15,39 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.infrastructure.dao;
+package cn.mall4j.biz.message.infrastructure.dao.entity;
 
 import cn.mall4j.mybatisplus.springboot.starter.BaseDO;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
 
 /**
- * C 端用户操作日志
+ * 邮件模板
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
 @Data
-@NoArgsConstructor
-@TableName("customer_user_operation_log")
-public class CustomerOperationLogDO extends BaseDO {
+@TableName("mail_template")
+public class MailTemplateDO extends BaseDO {
     
     /**
-     * id
+     * ID
      */
-    @TableId(type = AUTO)
     private Long id;
     
     /**
-     * C端用户ID
+     * 模板名称
      */
-    private Long customerUserId;
+    private String templateName;
     
     /**
-     * 修改前
+     * 模板id
      */
-    private String beforeContent;
+    private String templateId;
     
     /**
-     * 修改后
+     * 模板参数
      */
-    private String afterContent;
-    
-    /**
-     * 修改内容
-     */
-    private String operationContent;
-    
-    public CustomerOperationLogDO(String afterContent) {
-        this.afterContent = afterContent;
-    }
-    
-    public CustomerOperationLogDO(String beforeContent, String afterContent, String operationContent) {
-        this.beforeContent = beforeContent;
-        this.afterContent = afterContent;
-        this.operationContent = operationContent;
-    }
+    private String templateParam;
 }

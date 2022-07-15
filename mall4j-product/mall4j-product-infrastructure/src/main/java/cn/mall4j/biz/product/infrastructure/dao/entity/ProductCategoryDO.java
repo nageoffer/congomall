@@ -15,17 +15,61 @@
  * limitations under the License.
  */
 
-package cn.mall4j.biz.customer.user.infrastructure.dao;
+package cn.mall4j.biz.product.infrastructure.dao.entity;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 /**
- * C 端用户
+ * 商品分类
  *
  * @author chen.ma
  * @github https://github.com/mabaiwan
  */
-@Mapper
-public interface CustomerUserRepositoryMapper extends BaseMapper<CustomerUserDO> {
+@Data
+@TableName("product_category")
+public class ProductCategoryDO {
+    
+    /**
+     * id
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
+    
+    /**
+     * 分类名称
+     */
+    private String name;
+    
+    /**
+     * 父级id
+     */
+    private Long parentId;
+    
+    /**
+     * 层级
+     */
+    private Integer level;
+    
+    /**
+     * 图标url
+     */
+    private String iconUrl;
+    
+    /**
+     * 排序
+     */
+    private Integer sort;
+    
+    /**
+     * 跳转地址
+     */
+    private String url;
+    
+    /**
+     * 状态 0：展示 1：隐藏
+     */
+    private Integer status;
 }
