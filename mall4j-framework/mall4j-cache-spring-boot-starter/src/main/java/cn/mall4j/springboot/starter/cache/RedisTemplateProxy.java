@@ -120,8 +120,10 @@ public class RedisTemplateProxy implements DistributedCache {
         try {
             // 双重判定锁，减轻数据库访问压力
             if (CacheUtil.isNullOrBlank(result = get(key, clazz))) {
-                // 如果访问数据库为空，通过函数执行后置操作
-                Optional.ofNullable(cacheGetIfAbsent).ifPresent(each -> each.execute(key));
+                // 如果访问 load 数据为空，通过函数执行后置操作
+                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout))) {
+                    Optional.ofNullable(cacheGetIfAbsent).ifPresent(each -> each.execute(key));
+                }
             }
         } finally {
             lock.unlock();
