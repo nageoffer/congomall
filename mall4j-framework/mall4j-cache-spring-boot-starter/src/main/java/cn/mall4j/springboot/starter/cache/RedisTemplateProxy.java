@@ -100,7 +100,7 @@ public class RedisTemplateProxy implements DistributedCache {
         if (!CacheUtil.isNullOrBlank(result)) {
             return result;
         }
-        return loadAndSet(key, cacheLoader, timeout);
+        return loadAndSet(key, cacheLoader, timeout, false);
     }
     
     @Override
@@ -121,7 +121,7 @@ public class RedisTemplateProxy implements DistributedCache {
             // 双重判定锁，减轻数据库访问压力
             if (CacheUtil.isNullOrBlank(result = get(key, clazz))) {
                 // 如果访问 load 数据为空，通过函数执行后置操作
-                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout))) {
+                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout, true))) {
                     Optional.ofNullable(cacheGetIfAbsent).ifPresent(each -> each.execute(key));
                 }
             }
@@ -154,12 +154,16 @@ public class RedisTemplateProxy implements DistributedCache {
         return stringRedisTemplate.countExistingKeys(Lists.newArrayList(keys));
     }
     
-    private <T> T loadAndSet(String key, CacheLoader<T> cacheLoader, long timeout) {
+    private <T> T loadAndSet(String key, CacheLoader<T> cacheLoader, long timeout, boolean safe) {
         T result = cacheLoader.load();
         if (CacheUtil.isNullOrBlank(result)) {
             return result;
         }
-        put(key, result, timeout);
+        if (safe) {
+            safePut(key, result, timeout);
+        } else {
+            put(key, result, timeout);
+        }
         return result;
     }
 }

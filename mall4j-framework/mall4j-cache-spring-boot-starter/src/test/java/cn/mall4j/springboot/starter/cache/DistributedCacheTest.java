@@ -45,6 +45,13 @@ public class DistributedCacheTest {
     }
     
     @Test
+    public void assertSafePut() {
+        distributedCache.safePut("test", "test_value", 5000);
+        String actual = distributedCache.get("test", String.class);
+        Assert.assertEquals(actual, "test_value");
+    }
+    
+    @Test
     public void assertSecureGet() {
         distributedCache.safeGet("test", String.class, () -> "test_value", 5000);
         String actual = distributedCache.get("test", String.class);
