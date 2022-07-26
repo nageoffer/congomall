@@ -43,6 +43,13 @@ public class DistributedCacheTest {
         ConfigurableApplicationContext context = SpringApplication.run(DistributedCacheTest.class);
         distributedCache = context.getBean(DistributedCache.class);
     }
+
+    @Test
+    public void assertSafePut(){
+        distributedCache.safePut("test","test_value",5000);
+        String actual = distributedCache.get("test",String.class);
+        Assert.assertEquals(actual,"test_value");
+    }
     
     @Test
     public void assertSecureGet() {
