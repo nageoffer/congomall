@@ -27,7 +27,7 @@ import org.mapstruct.Mappings;
  * C 端用户 Entity 转换 DTO
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Mapper(componentModel = "spring")
 public interface CustomerUserToDTOAssembler {

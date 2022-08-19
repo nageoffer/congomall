@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * 用户注册使用邮箱验证
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Component
 @RequiredArgsConstructor

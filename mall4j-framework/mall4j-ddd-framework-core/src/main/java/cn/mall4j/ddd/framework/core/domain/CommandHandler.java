@@ -21,7 +21,7 @@ package cn.mall4j.ddd.framework.core.domain;
  * 命令处理器
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface CommandHandler<T, R> {
     

@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
  * 全局返回对象
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @Accessors(chain = true)

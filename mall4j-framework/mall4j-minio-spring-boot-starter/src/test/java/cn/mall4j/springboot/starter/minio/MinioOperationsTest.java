@@ -36,7 +36,7 @@ import java.io.FileInputStream;
  * Minio 单元测试
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Slf4j
 @SpringBootApplication

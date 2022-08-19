@@ -23,7 +23,7 @@ import java.io.Serializable;
  * Builder 模式抽象接口
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface Builder<T> extends Serializable {
     

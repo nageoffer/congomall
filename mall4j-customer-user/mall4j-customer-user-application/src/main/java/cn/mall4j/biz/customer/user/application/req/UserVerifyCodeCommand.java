@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * 用户验证码
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @ApiModel("用户验证码")

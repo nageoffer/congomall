@@ -26,7 +26,7 @@ import java.util.List;
  * 商品分类
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @Builder

@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.convention.exception;
  * 基础错误码定义
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public enum ErrorCode implements IErrorCode {
     

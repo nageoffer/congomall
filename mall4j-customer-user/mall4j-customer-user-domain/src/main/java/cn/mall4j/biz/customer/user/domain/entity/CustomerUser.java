@@ -29,7 +29,7 @@ import lombok.*;
  * C 端用户实体
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @Builder

@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.convention.exception;
  * 服务端异常
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public class ServiceException extends AbstractException {
     

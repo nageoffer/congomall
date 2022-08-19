@@ -25,7 +25,7 @@ import lombok.Data;
  * C 端用户名称
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 public class CustomerUserName {

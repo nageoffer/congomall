@@ -23,7 +23,7 @@ import org.springframework.beans.factory.InitializingBean;
  * FastJson 安全模式
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public class FastJsonSafeMode implements InitializingBean {
     

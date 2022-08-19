@@ -27,7 +27,7 @@ import java.util.function.Supplier;
  * 单例对象容器
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Singleton {

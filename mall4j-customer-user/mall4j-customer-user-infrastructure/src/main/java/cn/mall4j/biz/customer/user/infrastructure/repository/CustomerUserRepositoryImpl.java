@@ -40,7 +40,7 @@ import org.springframework.stereotype.Repository;
  * C 端用户仓储层实现
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Repository
 @AllArgsConstructor

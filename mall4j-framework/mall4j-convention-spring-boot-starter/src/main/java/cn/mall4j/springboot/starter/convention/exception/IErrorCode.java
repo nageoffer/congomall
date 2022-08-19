@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.convention.exception;
  * 平台错误码
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface IErrorCode {
     

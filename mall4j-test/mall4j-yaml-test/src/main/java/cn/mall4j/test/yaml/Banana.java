@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
  * 香蕉
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @NoArgsConstructor

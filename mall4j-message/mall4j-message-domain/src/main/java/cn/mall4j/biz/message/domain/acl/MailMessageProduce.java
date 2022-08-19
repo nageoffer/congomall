@@ -23,7 +23,7 @@ import cn.mall4j.biz.message.domain.entity.MessageSend;
  * 邮件发送
  *
  * @author chen.ma
- * @github https://github.com/mabaiwans
+ * @github https://github.com/agentarts
  */
 public interface MailMessageProduce {
     

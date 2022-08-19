@@ -24,7 +24,7 @@ import org.springframework.beans.factory.InitializingBean;
  * 使用随机数获取雪花 WorkId
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Slf4j
 public class RandomWorkIdChoose extends AbstractWorkIdChooseTemplate implements InitializingBean {

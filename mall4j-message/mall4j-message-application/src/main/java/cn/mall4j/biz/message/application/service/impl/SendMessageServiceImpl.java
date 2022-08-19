@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
  * 消息发送
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Slf4j
 @Service

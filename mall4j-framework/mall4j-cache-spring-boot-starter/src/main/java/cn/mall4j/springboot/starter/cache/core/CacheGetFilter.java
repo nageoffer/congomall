@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.cache.core;
  * 缓存过滤
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @FunctionalInterface
 public interface CacheGetFilter<T> {

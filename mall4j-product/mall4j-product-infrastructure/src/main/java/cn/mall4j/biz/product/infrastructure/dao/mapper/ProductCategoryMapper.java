@@ -24,7 +24,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 商品分类
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface ProductCategoryMapper extends BaseMapper<ProductCategoryDO> {
 }

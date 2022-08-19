@@ -33,7 +33,7 @@ import java.util.Date;
  * C 端用户测试用例
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @SpringBootApplication
 public class CustomerUserTest {

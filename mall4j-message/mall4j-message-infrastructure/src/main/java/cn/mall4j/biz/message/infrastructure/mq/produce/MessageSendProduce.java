@@ -34,7 +34,7 @@ import java.util.UUID;
  * 消息发送生产者
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Slf4j
 @Component

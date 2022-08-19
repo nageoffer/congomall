@@ -32,7 +32,7 @@ import java.util.Date;
  * 消息发送 Repository
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Repository
 @AllArgsConstructor

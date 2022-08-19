@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.common.enums;
  * 操作类型
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public enum OperationTypeEnum {
     

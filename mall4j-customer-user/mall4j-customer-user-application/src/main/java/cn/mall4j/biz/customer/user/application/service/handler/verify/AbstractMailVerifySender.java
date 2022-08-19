@@ -32,7 +32,7 @@ import javax.annotation.Resource;
  * 抽象邮箱验证码发送
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public abstract class AbstractMailVerifySender {
     

@@ -23,7 +23,7 @@ import cn.mall4j.biz.customer.user.domain.entity.CustomerUser;
  * C 端用户仓储层
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface CustomerUserRepository {
     

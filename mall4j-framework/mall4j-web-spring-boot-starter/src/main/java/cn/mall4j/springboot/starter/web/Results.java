@@ -27,7 +27,7 @@ import java.util.Optional;
  * 全局返回对象构造器
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public final class Results {
     

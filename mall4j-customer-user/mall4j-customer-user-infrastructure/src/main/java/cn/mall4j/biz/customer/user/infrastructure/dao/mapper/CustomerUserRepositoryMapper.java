@@ -25,7 +25,7 @@ import org.apache.ibatis.annotations.Mapper;
  * C 端用户
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Mapper
 public interface CustomerUserRepositoryMapper extends BaseMapper<CustomerUserDO> {

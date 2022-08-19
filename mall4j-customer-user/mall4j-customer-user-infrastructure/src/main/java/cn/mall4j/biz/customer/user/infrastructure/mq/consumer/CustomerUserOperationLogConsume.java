@@ -35,7 +35,7 @@ import java.util.Map;
  * 端用户操作日志消息消费者
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Slf4j
 @Component

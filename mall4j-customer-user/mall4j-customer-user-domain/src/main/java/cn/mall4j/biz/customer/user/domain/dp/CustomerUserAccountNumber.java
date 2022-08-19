@@ -23,7 +23,7 @@ import lombok.Data;
  * C 端用户账号
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 public class CustomerUserAccountNumber {

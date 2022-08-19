@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
  * Web 组件自动装配
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Configuration
 public class WebAutoConfiguration {

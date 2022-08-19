@@ -30,7 +30,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * 缓存配置自动装配
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @AllArgsConstructor
 @EnableConfigurationProperties({RedisDistributedProperties.class, BloomFilterPenetrateProperties.class})

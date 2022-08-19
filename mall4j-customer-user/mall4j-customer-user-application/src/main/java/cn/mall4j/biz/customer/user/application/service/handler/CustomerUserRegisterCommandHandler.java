@@ -35,7 +35,7 @@ import static cn.mall4j.biz.customer.user.domain.common.CacheConstant.REGISTER_U
  * C 端用户注册处理器
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Component
 @AllArgsConstructor

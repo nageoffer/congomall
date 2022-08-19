@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.common.enums;
  * 状态枚举
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public enum StatusEnum {
     

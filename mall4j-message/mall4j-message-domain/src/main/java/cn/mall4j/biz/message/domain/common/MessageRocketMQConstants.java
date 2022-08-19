@@ -21,7 +21,7 @@ package cn.mall4j.biz.message.domain.common;
  * RocketMQ 常量
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public class MessageRocketMQConstants {
     

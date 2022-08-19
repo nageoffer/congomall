@@ -23,7 +23,7 @@ import cn.mall4j.biz.product.domain.category.entity.ProductCategory;
  * 商品分类仓储层
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface ProductCategoryRepository {
     

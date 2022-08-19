@@ -24,7 +24,7 @@ import org.springframework.messaging.SubscribableChannel;
  * 消息 Sink
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface MessageSink {
     

@@ -24,7 +24,7 @@ import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
  * 自定义雪花算法生成器
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public class CustomIdGenerator implements IdentifierGenerator {
     

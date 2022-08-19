@@ -25,7 +25,7 @@ import lombok.Data;
  * C 端用户数据对象
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @TableName("customer_user")

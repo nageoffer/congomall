@@ -21,7 +21,7 @@ package cn.mall4j.springboot.starter.cache.core;
  * 缓存查询为空
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @FunctionalInterface
 public interface CacheGetIfAbsent<T> {

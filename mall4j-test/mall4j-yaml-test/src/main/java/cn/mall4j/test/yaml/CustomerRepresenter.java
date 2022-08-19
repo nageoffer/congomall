@@ -32,7 +32,7 @@ import java.util.Map;
  * 自定义 Representer
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public class CustomerRepresenter extends Representer {
     

@@ -27,7 +27,7 @@ import lombok.Data;
  * C 端用户注册手机号
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 public class CustomerUserPhone {

@@ -21,7 +21,7 @@ package cn.mall4j.biz.customer.user.domain.common;
  * C 端用户变更日志类型
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public enum ChangeLogEnum {
     

@@ -21,7 +21,7 @@ package cn.mall4j.test.yaml;
  * 水果
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public interface Fruits {
 }

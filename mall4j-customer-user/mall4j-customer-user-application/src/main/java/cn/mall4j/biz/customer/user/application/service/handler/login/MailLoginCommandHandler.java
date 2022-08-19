@@ -33,7 +33,7 @@ import static cn.mall4j.biz.customer.user.domain.common.CacheConstant.LOGIN_USER
  * 邮箱登录
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Component
 @AllArgsConstructor

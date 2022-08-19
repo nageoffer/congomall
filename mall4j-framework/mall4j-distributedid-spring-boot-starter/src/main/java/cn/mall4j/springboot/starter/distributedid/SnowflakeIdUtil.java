@@ -23,7 +23,7 @@ import cn.hutool.core.lang.Snowflake;
  * 分布式雪花 ID 生成器
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 public class SnowflakeIdUtil {
     

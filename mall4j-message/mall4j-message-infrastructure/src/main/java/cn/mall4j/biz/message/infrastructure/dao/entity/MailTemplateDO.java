@@ -25,7 +25,7 @@ import lombok.Data;
  * 邮件模板
  *
  * @author chen.ma
- * @github https://github.com/mabaiwan
+ * @github https://github.com/agentart
  */
 @Data
 @TableName("mail_template")
