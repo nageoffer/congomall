@@ -16,5 +16,6 @@
         <module>mall4j-customer-user-domain</module>
         <module>mall4j-customer-user-infrastructure</module>
         <module>mall4j-customer-user-interface</module>
+        <module>mall4j-customer-user-mock</module>
     </modules>
 </project>
