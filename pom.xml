@@ -36,8 +36,7 @@
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
-        <shardingsphere-jdbc-core-spring-boot-starter.version>5.1.2
-        </shardingsphere-jdbc-core-spring-boot-starter.version>
+        <shardingsphere-jdbc-core-spring-boot-starter.version>5.1.2</shardingsphere-jdbc-core-spring-boot-starter.version>
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <minio.verion>8.4.2</minio.verion>
