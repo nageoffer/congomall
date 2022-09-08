@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.opengoofy.easymall</groupId>
-        <artifactId>easymall-product</artifactId>
+        <artifactId>easymall-framework-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>easymall-product-interface</artifactId>
+    <artifactId>easymall-design-pattern-spring-boot-starter</artifactId>
     
     <dependencies>
         <dependency>
@@ -16,31 +16,14 @@
         </dependency>
         
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
-        <dependency>
             <groupId>org.opengoofy.easymall</groupId>
-            <artifactId>easymall-web-spring-boot-starter</artifactId>
+            <artifactId>easymall-base-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-        
-        <dependency>
             <groupId>org.opengoofy.easymall</groupId>
-            <artifactId>easymall-product-application</artifactId>
+            <artifactId>easymall-convention-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

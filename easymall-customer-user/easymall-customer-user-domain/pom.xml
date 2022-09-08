@@ -8,29 +8,28 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>easymall-customer-user-domain</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     
     <dependencies>
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-convention-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-base-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-common-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-ddd-framework-core</artifactId>
             <version>${project.version}</version>
         </dependency>

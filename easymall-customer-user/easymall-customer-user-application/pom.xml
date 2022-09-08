@@ -24,37 +24,37 @@
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-convention-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-ddd-framework-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-cache-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-log-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-swagger-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-design-pattern-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>

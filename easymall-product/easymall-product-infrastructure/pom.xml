@@ -28,13 +28,13 @@
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-mybatisplus-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>cn.mall4j.framework</groupId>
+            <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-convention-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>

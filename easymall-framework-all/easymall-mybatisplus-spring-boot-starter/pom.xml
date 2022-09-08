@@ -4,44 +4,43 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.opengoofy.easymall</groupId>
-        <artifactId>easymall-customer-user</artifactId>
+        <artifactId>easymall-framework-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>easymall-customer-user-interface</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>easymall-mybatisplus-spring-boot-starter</artifactId>
+    
+    <properties>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
+    </properties>
     
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
         
         <dependency>
             <groupId>org.opengoofy.easymall</groupId>
-            <artifactId>easymall-web-spring-boot-starter</artifactId>
+            <artifactId>easymall-common-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
             <groupId>org.opengoofy.easymall</groupId>
-            <artifactId>easymall-customer-user-application</artifactId>
+            <artifactId>easymall-distributedid-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
         
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
     </dependencies>
 </project>

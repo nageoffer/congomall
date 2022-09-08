@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.opengoofy.easymall</groupId>
-        <artifactId>easymall-message</artifactId>
+        <artifactId>easymall-framework-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>easymall-message-interface</artifactId>
+    <artifactId>easymall-log-spring-boot-starter</artifactId>
     
     <dependencies>
         <dependency>
@@ -16,20 +16,28 @@
         </dependency>
         
         <dependency>
-            <groupId>org.opengoofy.easymall</groupId>
-            <artifactId>easymall-web-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
         </dependency>
         
         <dependency>
-            <groupId>org.opengoofy.easymall</groupId>
-            <artifactId>easymall-message-application</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
         </dependency>
         
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
         </dependency>
     </dependencies>
 </project>

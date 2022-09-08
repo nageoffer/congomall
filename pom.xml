@@ -12,13 +12,13 @@
         <module>easymall-cart</module>
         <module>easymall-coupon</module>
         <module>easymall-customer-user</module>
-        <module>easymall-framework</module>
+        <module>easymall-framework-all</module>
         <module>easymall-gateway</module>
         <module>easymall-message</module>
         <module>easymall-order</module>
         <module>easymall-pay</module>
         <module>easymall-product</module>
-        <module>easymall-test</module>
+        <module>easymall-test-all</module>
     </modules>
     
     <properties>

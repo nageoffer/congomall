@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.opengoofy.easymall</groupId>
+        <artifactId>easymall-all</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>easymall-framework-all</artifactId>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <!-- SpringBoot Starter -->
+        <module>easymall-base-spring-boot-starter</module>
+        <module>easymall-cache-spring-boot-starter</module>
+        <module>easymall-common-spring-boot-starter</module>
+        <module>easymall-convention-spring-boot-starter</module>
+        <module>easymall-design-pattern-spring-boot-starter</module>
+        <module>easymall-distributedid-spring-boot-starter</module>
+        <module>easymall-httputil-spring-boot-starter</module>
+        <module>easymall-log-spring-boot-starter</module>
+        <module>easymall-minio-spring-boot-starter</module>
+        <module>easymall-mybatisplus-spring-boot-starter</module>
+        <module>easymall-openfeign-spring-boot-starter</module>
+        <module>easymall-sensitive-spring-boot-starter</module>
+        <module>easymall-swagger-spring-boot-starter</module>
+        <module>easymall-web-spring-boot-starter</module>
+        <!-- Agent -->
+        <module>easymall-flow-monitor-agent</module>
+        <!-- DDD -->
+        <module>easymall-ddd-framework-core</module>
+    </modules>
+</project>

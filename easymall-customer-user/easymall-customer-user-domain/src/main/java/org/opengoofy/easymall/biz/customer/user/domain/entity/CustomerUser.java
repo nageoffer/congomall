@@ -18,13 +18,12 @@
 package org.opengoofy.easymall.biz.customer.user.domain.entity;
 
 import cn.hutool.core.util.StrUtil;
-import cn.mall4j.biz.customer.user.domain.dp.*;
+import lombok.*;
+import org.opengoofy.easymall.biz.customer.user.domain.dp.*;
 import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import org.opengoofy.easymall.biz.customer.user.domain.toolkit.JWTUtil;
 import org.opengoofy.easymall.springboot.starter.common.toolkit.EnvironmentUtil;
 import org.opengoofy.easymall.springboot.starter.convention.exception.ClientException;
-import lombok.*;
-import org.opengoofy.easymall.biz.customer.user.domain.dp.*;
 
 /**
  * C 端用户实体
