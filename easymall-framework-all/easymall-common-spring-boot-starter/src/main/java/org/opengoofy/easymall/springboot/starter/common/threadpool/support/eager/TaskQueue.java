@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * 快速消费任务队列
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class TaskQueue<R extends Runnable> extends LinkedBlockingQueue<Runnable> {
     

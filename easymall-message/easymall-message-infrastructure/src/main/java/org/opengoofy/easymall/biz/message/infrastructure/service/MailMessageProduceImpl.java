@@ -51,7 +51,7 @@ import java.util.Map;
  * 邮箱消息发送
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Slf4j
 @Component

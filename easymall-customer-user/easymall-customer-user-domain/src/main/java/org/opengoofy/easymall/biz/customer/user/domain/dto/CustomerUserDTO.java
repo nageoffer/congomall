@@ -23,7 +23,7 @@ import lombok.Data;
  * C 端用户
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 public class CustomerUserDTO {

@@ -31,7 +31,7 @@ import java.io.InputStream;
  * Minio 模板操作
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @AllArgsConstructor
 public class MinioTemplate implements MinioOperations {

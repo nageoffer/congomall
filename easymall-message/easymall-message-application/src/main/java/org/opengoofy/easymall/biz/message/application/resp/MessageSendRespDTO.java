@@ -24,7 +24,7 @@ import lombok.Data;
  * 消息发送返回实体
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @AllArgsConstructor

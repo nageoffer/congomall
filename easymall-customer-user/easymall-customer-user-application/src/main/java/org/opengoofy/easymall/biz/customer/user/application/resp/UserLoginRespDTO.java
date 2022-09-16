@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
  * 用户登录返回实体
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @NoArgsConstructor

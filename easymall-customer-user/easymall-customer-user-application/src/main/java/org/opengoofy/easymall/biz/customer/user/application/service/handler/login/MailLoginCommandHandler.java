@@ -33,7 +33,7 @@ import static org.opengoofy.easymall.biz.customer.user.domain.common.CacheConsta
  * 邮箱登录
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Component
 @AllArgsConstructor

@@ -43,7 +43,7 @@ import static com.alibaba.fastjson2.JSONWriter.Feature.MapSortField;
  * {@link MLog} 日志打印 AOP 切面
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Aspect
 public class MLogPrintAspect {

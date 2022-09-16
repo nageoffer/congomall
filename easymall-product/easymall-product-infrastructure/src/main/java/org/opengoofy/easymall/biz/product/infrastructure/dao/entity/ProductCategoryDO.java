@@ -26,7 +26,7 @@ import lombok.Data;
  * 商品分类
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @TableName("product_category")

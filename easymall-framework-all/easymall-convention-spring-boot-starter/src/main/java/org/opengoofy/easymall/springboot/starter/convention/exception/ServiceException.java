@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.convention.exception;
  * 服务端异常
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class ServiceException extends AbstractException {
     

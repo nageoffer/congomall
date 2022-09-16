@@ -23,7 +23,7 @@ import lombok.Data;
  * 用户注册响应
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 public class UserRegisterRespDTO {

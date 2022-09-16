@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.convention.exception;
  * 平台错误码
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface IErrorCode {
     

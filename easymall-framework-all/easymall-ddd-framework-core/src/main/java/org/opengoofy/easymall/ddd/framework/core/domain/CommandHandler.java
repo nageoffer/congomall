@@ -21,7 +21,7 @@ package org.opengoofy.easymall.ddd.framework.core.domain;
  * 命令处理器
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface CommandHandler<T, R> {
     

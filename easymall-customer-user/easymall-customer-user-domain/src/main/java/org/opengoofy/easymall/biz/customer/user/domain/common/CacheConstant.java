@@ -21,7 +21,7 @@ package org.opengoofy.easymall.biz.customer.user.domain.common;
  * 缓存 Key
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class CacheConstant {
     

@@ -29,7 +29,7 @@ import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
  * C 端用户操作日志
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @NoArgsConstructor

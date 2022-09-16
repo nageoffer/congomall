@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.cache;
  * 多级缓存
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface MultistageCache extends Cache {
 }

@@ -21,7 +21,7 @@ package org.opengoofy.easymall.test.yaml;
  * 水果
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface Fruits {
 }

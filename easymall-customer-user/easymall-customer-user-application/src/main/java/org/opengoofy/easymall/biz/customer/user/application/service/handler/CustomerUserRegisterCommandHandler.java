@@ -35,7 +35,7 @@ import static org.opengoofy.easymall.biz.customer.user.domain.common.CacheConsta
  * C 端用户注册处理器
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Component
 @AllArgsConstructor

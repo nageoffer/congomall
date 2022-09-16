@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
  * WorkId 包装器
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @NoArgsConstructor

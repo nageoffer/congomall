@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
  * 日志自动装配
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class LogAutoConfiguration {
     

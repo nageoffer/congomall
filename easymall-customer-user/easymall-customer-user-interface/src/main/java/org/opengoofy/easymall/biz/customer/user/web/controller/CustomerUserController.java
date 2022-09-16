@@ -40,7 +40,7 @@ import javax.validation.Valid;
  * C 端用户控制器
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @MLog
 @RestController

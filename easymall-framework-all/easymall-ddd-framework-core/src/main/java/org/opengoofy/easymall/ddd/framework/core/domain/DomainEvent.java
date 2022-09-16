@@ -21,7 +21,7 @@ package org.opengoofy.easymall.ddd.framework.core.domain;
  * 领域事件
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface DomainEvent {
 }

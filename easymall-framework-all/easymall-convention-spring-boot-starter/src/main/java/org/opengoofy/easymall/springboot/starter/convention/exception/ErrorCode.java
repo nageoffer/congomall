@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.convention.exception;
  * 基础错误码定义
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public enum ErrorCode implements IErrorCode {
     

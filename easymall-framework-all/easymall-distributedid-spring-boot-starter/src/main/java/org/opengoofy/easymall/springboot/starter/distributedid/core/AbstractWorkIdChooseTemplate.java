@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
  * 雪花算法模板生成
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Slf4j
 public abstract class AbstractWorkIdChooseTemplate {

@@ -25,7 +25,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 邮件发送记录 Mapper
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Mapper
 public interface MailSendRecordMapper extends BaseMapper<MailSendRecordDO> {

@@ -23,7 +23,7 @@ import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
  * C 端用户仓储层
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface CustomerUserRepository {
     

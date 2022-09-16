@@ -31,7 +31,7 @@ import java.util.List;
  * 分布式缓存测试
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @SpringBootApplication
 public class DistributedCacheTest {

@@ -24,7 +24,7 @@ import org.opengoofy.easymall.biz.message.application.resp.MessageSendRespDTO;
  * 消息发送
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface MessageSendService {
     

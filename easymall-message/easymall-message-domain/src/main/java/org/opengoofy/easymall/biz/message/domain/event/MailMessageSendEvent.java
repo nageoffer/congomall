@@ -26,7 +26,7 @@ import java.util.Date;
  * 邮箱消息发送事件
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 public class MailMessageSendEvent implements DomainEvent {

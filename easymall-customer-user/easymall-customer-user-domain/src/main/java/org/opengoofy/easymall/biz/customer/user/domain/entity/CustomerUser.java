@@ -29,7 +29,7 @@ import org.opengoofy.easymall.springboot.starter.convention.exception.ClientExce
  * C 端用户实体
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @Builder

@@ -26,7 +26,7 @@ import lombok.Data;
  * 可以理解是防腐层的一种实现，不论底层 ORM 框架，对外分页参数属性不变
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 public class PageRequest {

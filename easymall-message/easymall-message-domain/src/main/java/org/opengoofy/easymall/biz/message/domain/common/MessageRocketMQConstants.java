@@ -21,7 +21,7 @@ package org.opengoofy.easymall.biz.message.domain.common;
  * RocketMQ 常量
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class MessageRocketMQConstants {
     

@@ -21,7 +21,7 @@ package org.opengoofy.easymall.biz.customer.user.domain.common;
  * C 端用户变更日志类型
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public enum ChangeLogEnum {
     

@@ -23,7 +23,7 @@ import org.opengoofy.easymall.biz.message.domain.entity.MessageSend;
  * 邮件发送
  *
  * @author chen.ma
- * @github https://github.com/agentarts
+ * @github https://github.com/itmachens
  */
 public interface MailMessageProduce {
     

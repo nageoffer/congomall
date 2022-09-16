@@ -27,7 +27,7 @@ import org.opengoofy.easymall.biz.customer.user.application.resp.UserRegisterRes
  * C 端用户接口
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface CustomerUserService {
     

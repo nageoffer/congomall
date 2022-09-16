@@ -23,7 +23,7 @@ import org.opengoofy.easymall.biz.product.domain.category.entity.ProductCategory
  * 商品分类仓储层
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public interface ProductCategoryRepository {
     

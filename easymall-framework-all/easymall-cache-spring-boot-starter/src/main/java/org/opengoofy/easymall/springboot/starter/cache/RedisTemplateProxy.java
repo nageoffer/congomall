@@ -44,7 +44,7 @@ import java.util.Optional;
  * Redis 缓存代理
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @RequiredArgsConstructor
 public class RedisTemplateProxy implements DistributedCache {

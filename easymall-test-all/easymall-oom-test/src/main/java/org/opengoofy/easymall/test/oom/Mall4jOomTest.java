@@ -24,7 +24,7 @@ import java.util.List;
  * 模拟程序执行抛出 OOM 异常
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class Mall4jOomTest {
     

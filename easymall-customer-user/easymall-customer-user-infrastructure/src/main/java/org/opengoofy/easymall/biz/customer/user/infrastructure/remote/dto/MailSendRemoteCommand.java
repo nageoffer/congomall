@@ -27,7 +27,7 @@ import java.util.List;
  * 邮件发送
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Data
 @Accessors(chain = true)

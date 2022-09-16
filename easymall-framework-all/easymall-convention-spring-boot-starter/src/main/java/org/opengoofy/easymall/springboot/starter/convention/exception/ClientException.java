@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.convention.exception;
  * 客户端异常
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class ClientException extends AbstractException {
     

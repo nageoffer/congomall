@@ -34,7 +34,7 @@ import java.util.UUID;
  * C 端用户操作日志消息生产者
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @Slf4j
 @Component

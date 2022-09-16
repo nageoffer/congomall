@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.common.enums;
  * 操作类型
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public enum OperationTypeEnum {
     

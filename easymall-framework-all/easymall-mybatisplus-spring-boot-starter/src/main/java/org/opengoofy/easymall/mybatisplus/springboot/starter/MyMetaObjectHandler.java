@@ -27,7 +27,7 @@ import java.util.Date;
  * 元数据处理器
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 public class MyMetaObjectHandler implements MetaObjectHandler {
     

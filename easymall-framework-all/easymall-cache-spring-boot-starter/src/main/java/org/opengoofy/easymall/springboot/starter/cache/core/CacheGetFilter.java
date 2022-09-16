@@ -21,7 +21,7 @@ package org.opengoofy.easymall.springboot.starter.cache.core;
  * 缓存过滤
  *
  * @author chen.ma
- * @github https://github.com/agentart
+ * @github https://github.com/itmachen
  */
 @FunctionalInterface
 public interface CacheGetFilter<T> {
