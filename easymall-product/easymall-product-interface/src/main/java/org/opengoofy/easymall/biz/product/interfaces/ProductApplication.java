@@ -17,12 +17,14 @@
 
 package org.opengoofy.easymall.biz.product.interfaces;
 
+import cn.hippo4j.core.enable.EnableDynamicThreadPool;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
+@EnableDynamicThreadPool
 @SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.product")
 @MapperScan("org.opengoofy.easymall.biz.product.infrastructure.dao")
 public class ProductApplication {

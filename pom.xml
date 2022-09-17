@@ -40,6 +40,7 @@
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <minio.verion>8.4.2</minio.verion>
+        <hippo4j-config.version>1.4.1</hippo4j-config.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <dozer.version>6.5.2</dozer.version>
@@ -176,6 +177,12 @@
                 <groupId>com.github.javafaker</groupId>
                 <artifactId>javafaker</artifactId>
                 <version>${javafaker.version}</version>
+            </dependency>
+    
+            <dependency>
+                <groupId>cn.hippo4j</groupId>
+                <artifactId>hippo4j-config-spring-boot-starter</artifactId>
+                <version>${hippo4j-config.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
