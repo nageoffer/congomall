@@ -71,6 +71,9 @@ public class ProductSpuRespDTO {
     @ApiModelProperty("销量")
     private Integer sales;
     
+    @ApiModelProperty("单位")
+    private String unit;
+    
     @ApiModelProperty("商品详情")
     private String detail;
     

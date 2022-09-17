@@ -97,6 +97,11 @@ public class ProductSpu {
     private Integer sales;
     
     /**
+     * 单位
+     */
+    private String unit;
+    
+    /**
      * 商品详情
      */
     private String detail;

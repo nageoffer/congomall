@@ -100,6 +100,11 @@ public class ProductSpuDO extends BaseDO {
     private Integer sales;
     
     /**
+     * 单位
+     */
+    private String unit;
+    
+    /**
      * 商品详情
      */
     private String detail;
