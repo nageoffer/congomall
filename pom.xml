@@ -178,7 +178,7 @@
                 <artifactId>javafaker</artifactId>
                 <version>${javafaker.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>cn.hippo4j</groupId>
                 <artifactId>hippo4j-config-spring-boot-starter</artifactId>

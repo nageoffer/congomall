@@ -15,7 +15,7 @@
             <artifactId>easymall-cart-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
-    
+        
         <dependency>
             <groupId>org.opengoofy.easymall</groupId>
             <artifactId>easymall-cart-infrastructure</artifactId>

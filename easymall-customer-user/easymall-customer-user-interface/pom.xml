@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>easymall-customer-user-interface</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     
     <dependencies>
         <dependency>
