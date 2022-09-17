@@ -19,6 +19,7 @@ package org.opengoofy.easymall.biz.product.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.opengoofy.easymall.biz.product.domain.aggregate.Product;
 import org.opengoofy.easymall.biz.product.domain.mode.ProductBrand;
 import org.opengoofy.easymall.biz.product.domain.mode.ProductSku;
@@ -34,6 +35,8 @@ import org.opengoofy.easymall.springboot.starter.common.toolkit.BeanUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 商品仓储层
@@ -51,16 +54,20 @@ public class ProductRepositoryImpl implements ProductRepository {
     
     private final ProductSkuMapper productSkuMapper;
     
+    private final ThreadPoolExecutor productThreadPoolExecutor;
+    
     @Override
+    @SneakyThrows
     public Product getProductBySpuId(Long spuId) {
         ProductSpuDO productSpuDO = productSpuMapper.selectById(spuId);
-        Long brandId = productSpuDO.getBrandId();
-        ProductBrandDO productBrandDO = productBrandMapper.selectById(brandId);
-        List<ProductSkuDO> productSkuDOList = productSkuMapper.selectList(Wrappers.lambdaQuery(ProductSkuDO.class).eq(ProductSkuDO::getProductId, spuId));
+        Future<ProductBrandDO> productBrandDOFuture = productThreadPoolExecutor
+                .submit(() -> productBrandMapper.selectById(productSpuDO.getBrandId()));
+        Future<List<ProductSkuDO>> productSkuDOListFuture = productThreadPoolExecutor
+                .submit(() -> productSkuMapper.selectList(Wrappers.lambdaQuery(ProductSkuDO.class).eq(ProductSkuDO::getProductId, spuId)));
         Product product = Product.builder()
-                .productBrand(BeanUtil.convert(productBrandDO, ProductBrand.class))
+                .productBrand(BeanUtil.convert(productBrandDOFuture.get(), ProductBrand.class))
                 .productSpu(BeanUtil.convert(productSpuDO, ProductSpu.class))
-                .productSkus(BeanUtil.convert(productSkuDOList, ProductSku.class))
+                .productSkus(BeanUtil.convert(productSkuDOListFuture.get(), ProductSku.class))
                 .build();
         return product;
     }
