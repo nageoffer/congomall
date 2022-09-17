@@ -19,3 +19,4 @@ https://www.processon.com/view/link/62ae98ee079129075b5fa487
 | 2 | mall4j-customer-user | C 端用户 | http://localhost:8002 |
 | 3 | mall4j-gateway | 外部网关 | http://localhost:8003 |
 | 4 | mall4j-product | 商品服务 | http://localhost:8004 |
+| 5 | mall4j-cart | 购物车服务 | http://localhost:8005 |
