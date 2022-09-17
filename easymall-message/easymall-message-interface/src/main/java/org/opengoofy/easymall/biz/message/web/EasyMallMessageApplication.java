@@ -27,11 +27,11 @@ import org.springframework.cloud.stream.messaging.Source;
 
 @EnableDiscoveryClient
 @EnableBinding({Source.class, MessageSink.class})
-@MapperScan("cn.mall4j.biz.message.infrastructure.dao")
-@SpringBootApplication(scanBasePackages = "cn.mall4j.biz.message")
-public class Mall4jMessageApplication {
+@MapperScan("org.opengoofy.easymall.biz.message.infrastructure.dao")
+@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.message")
+public class EasyMallMessageApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(Mall4jMessageApplication.class, args);
+        SpringApplication.run(EasyMallMessageApplication.class, args);
     }
 }
