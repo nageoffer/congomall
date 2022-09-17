@@ -15,17 +15,19 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.gateway;
+package org.opengoofy.easymall.biz.product.interfaces;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
-@SpringBootApplication
-public class EasyMallGatewayApplication {
+@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.product")
+@MapperScan("org.opengoofy.easymall.biz.product.infrastructure.dao")
+public class ProductApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(EasyMallGatewayApplication.class, args);
+        SpringApplication.run(ProductApplication.class, args);
     }
 }

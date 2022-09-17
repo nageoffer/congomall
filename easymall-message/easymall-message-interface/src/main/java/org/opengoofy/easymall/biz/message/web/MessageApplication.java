@@ -29,9 +29,9 @@ import org.springframework.cloud.stream.messaging.Source;
 @EnableBinding({Source.class, MessageSink.class})
 @MapperScan("org.opengoofy.easymall.biz.message.infrastructure.dao")
 @SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.message")
-public class EasyMallMessageApplication {
+public class MessageApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(EasyMallMessageApplication.class, args);
+        SpringApplication.run(MessageApplication.class, args);
     }
 }

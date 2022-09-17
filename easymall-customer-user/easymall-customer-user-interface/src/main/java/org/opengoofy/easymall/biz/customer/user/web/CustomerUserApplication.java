@@ -15,19 +15,25 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.product.interfaces;
+package org.opengoofy.easymall.biz.customer.user.web;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.cloud.stream.messaging.Source;
 
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.product")
-@MapperScan("org.opengoofy.easymall.biz.product.infrastructure.dao")
-public class EasyMallProductApplication {
+@EnableBinding({Source.class, Sink.class})
+@EnableFeignClients("org.opengoofy.easymall.biz.customer.user.infrastructure.remote")
+@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.customer.user")
+@MapperScan("org.opengoofy.easymall.biz.customer.user.infrastructure.dao")
+public class CustomerUserApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(EasyMallProductApplication.class, args);
+        SpringApplication.run(CustomerUserApplication.class, args);
     }
 }
