@@ -29,12 +29,12 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author chen.ma
  * @github https://github.com/itmachen
  */
-@FeignClient("mall4j-message")
+@FeignClient("message-service")
 public interface MessageSendRemoteService {
     
     /**
      * 邮箱消息发送
      */
-    @PostMapping("/api/mall4j-message/message/send/mail")
+    @PostMapping("/api/message/send/mail")
     Result<Void> mailMessageSend(@RequestBody MailSendRemoteCommand mailSendRemoteCommand);
 }
