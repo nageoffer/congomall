@@ -15,18 +15,22 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.product.domain.category.dto;
+package org.opengoofy.easymall.biz.product.infrastructure.dao.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.opengoofy.easymall.mybatisplus.springboot.starter.BaseDO;
 
 /**
- * 商品分类
+ * 商品品牌
  *
  * @author chen.ma
  * @github https://github.com/itmachen
  */
 @Data
-public class ProductCategoryDTO {
+@TableName("product_brand")
+public class ProductBrandDO extends BaseDO {
     
     /**
      * id
@@ -34,37 +38,25 @@ public class ProductCategoryDTO {
     private Long id;
     
     /**
-     * 分类名称
+     * 品牌名称
      */
     private String name;
     
     /**
-     * 父级id
+     * 品牌介绍
      */
-    private Long parentId;
+    @TableField("`desc`")
+    private String desc;
     
     /**
-     * 层级
+     * 品牌图
      */
-    private Integer level;
-    
-    /**
-     * 图标url
-     */
-    private String iconUrl;
+    @TableField("`pic`")
+    private String pic;
     
     /**
      * 排序
      */
+    @TableField("`sort`")
     private Integer sort;
-    
-    /**
-     * 跳转地址
-     */
-    private String url;
-    
-    /**
-     * 状态 0：展示 1：隐藏
-     */
-    private Integer status;
 }

@@ -18,9 +18,9 @@
 package org.opengoofy.easymall.biz.product.infrastructure.repository;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.opengoofy.easymall.biz.product.domain.category.dto.ProductCategoryDTO;
-import org.opengoofy.easymall.biz.product.domain.category.entity.ProductCategory;
-import org.opengoofy.easymall.biz.product.domain.category.repository.ProductCategoryRepository;
+import org.opengoofy.easymall.biz.product.domain.dto.ProductCategoryDTO;
+import org.opengoofy.easymall.biz.product.domain.mode.ProductCategory;
+import org.opengoofy.easymall.biz.product.domain.repository.ProductCategoryRepository;
 import org.opengoofy.easymall.biz.product.infrastructure.dao.entity.ProductCategoryDO;
 import org.opengoofy.easymall.biz.product.infrastructure.dao.mapper.ProductCategoryMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

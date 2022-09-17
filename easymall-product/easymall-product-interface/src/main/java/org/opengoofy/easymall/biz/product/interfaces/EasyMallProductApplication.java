@@ -15,22 +15,19 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.product.domain.category.repository;
+package org.opengoofy.easymall.biz.product.interfaces;
 
-import org.opengoofy.easymall.biz.product.domain.category.entity.ProductCategory;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-/**
- * 商品分类仓储层
- *
- * @author chen.ma
- * @github https://github.com/itmachen
- */
-public interface ProductCategoryRepository {
+@EnableDiscoveryClient
+@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.product")
+@MapperScan("org.opengoofy.easymall.biz.product.infrastructure.dao")
+public class EasyMallProductApplication {
     
-    /**
-     * 查询所有商品分类信息
-     *
-     * @return
-     */
-    ProductCategory listAllProductCategory();
+    public static void main(String[] args) {
+        SpringApplication.run(EasyMallProductApplication.class, args);
+    }
 }

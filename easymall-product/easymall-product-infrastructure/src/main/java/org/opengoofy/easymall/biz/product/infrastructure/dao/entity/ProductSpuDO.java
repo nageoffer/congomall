@@ -17,60 +17,105 @@
 
 package org.opengoofy.easymall.biz.product.infrastructure.dao.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.opengoofy.easymall.mybatisplus.springboot.starter.BaseDO;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
- * 商品分类
+ * 商品 SPU
  *
  * @author chen.ma
  * @github https://github.com/itmachen
  */
 @Data
-@TableName("product_category")
-public class ProductCategoryDO extends BaseDO {
+@TableName("product_spu")
+public class ProductSpuDO extends BaseDO {
     
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
     
     /**
-     * 分类名称
+     * 商品类型id
+     */
+    private Long categoryId;
+    
+    /**
+     * 商品品牌id
+     */
+    private Long brandId;
+    
+    /**
+     * 商品名称
      */
     private String name;
     
     /**
-     * 父级id
+     * 商品编码
      */
-    private Long parentId;
+    private String productSn;
     
     /**
-     * 层级
+     * 商品主图
      */
-    private Integer level;
+    private String pic;
     
     /**
-     * 图标url
+     * 商品图集
      */
-    private String iconUrl;
+    private String photoAlbum;
     
     /**
-     * 排序
+     * 商品价格
      */
-    private Integer sort;
+    private BigDecimal price;
     
     /**
-     * 跳转地址
+     * 促销价格
      */
-    private String url;
+    private BigDecimal promotionPrice;
     
     /**
-     * 状态 0：展示 1：隐藏
+     * 促销开始时间
      */
-    private Integer status;
+    private Date promotionStartTime;
+    
+    /**
+     * 促销结束时间
+     */
+    private Date promotionEndTime;
+    
+    /**
+     * 副标题
+     */
+    private String subTitle;
+    
+    /**
+     * 销量
+     */
+    private Integer sales;
+    
+    /**
+     * 商品详情
+     */
+    private String detail;
+    
+    /**
+     * 发布状态 0：发布 1：未发布
+     */
+    private Integer publishStatus;
+    
+    /**
+     * 新品状态 0：新品 1：非新品
+     */
+    private Integer newStatus;
+    
+    /**
+     * 推荐状态 0：推荐 1：非推荐
+     */
+    private Integer recommandStatus;
 }

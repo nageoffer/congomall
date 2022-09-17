@@ -17,31 +17,29 @@
 
 package org.opengoofy.easymall.biz.product.application.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import org.opengoofy.easymall.biz.product.application.resp.ProductCategoryRespDTO;
-import org.opengoofy.easymall.biz.product.application.service.ProductCategoryService;
-import org.opengoofy.easymall.biz.product.domain.mode.ProductCategory;
-import org.opengoofy.easymall.biz.product.domain.repository.ProductCategoryRepository;
 import lombok.AllArgsConstructor;
+import org.opengoofy.easymall.biz.product.application.resp.ProductRespDTO;
+import org.opengoofy.easymall.biz.product.application.service.ProductService;
+import org.opengoofy.easymall.biz.product.domain.aggregate.Product;
+import org.opengoofy.easymall.biz.product.domain.repository.ProductRepository;
+import org.opengoofy.easymall.springboot.starter.common.toolkit.BeanUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
- * 商品分类
+ * 商品服务
  *
  * @author chen.ma
  * @github https://github.com/itmachen
  */
 @Service
 @AllArgsConstructor
-public class ProductCategoryServiceImpl implements ProductCategoryService {
+public class ProductServiceImpl implements ProductService {
     
-    private final ProductCategoryRepository productCategoryRepository;
+    private final ProductRepository productRepository;
     
     @Override
-    public List<ProductCategoryRespDTO> listAllProductCategory() {
-        ProductCategory productCategory = productCategoryRepository.listAllProductCategory();
-        return BeanUtil.copyToList(productCategory.getProductCategoryList(), ProductCategoryRespDTO.class);
+    public ProductRespDTO getProductBySpuId(Long spuId) {
+        Product product = productRepository.getProductBySpuId(spuId);
+        return BeanUtil.convert(product, ProductRespDTO.class);
     }
 }

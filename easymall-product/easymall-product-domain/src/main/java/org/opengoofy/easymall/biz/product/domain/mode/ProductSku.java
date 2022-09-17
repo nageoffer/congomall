@@ -15,19 +15,57 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.product.interfaces;
+package org.opengoofy.easymall.biz.product.domain.mode;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import lombok.*;
 
-@EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "cn.mall4j.biz.product")
-@MapperScan("cn.mall4j.biz.product.infrastructure.dao")
-public class Mall4jProductApplication {
+import java.math.BigDecimal;
+
+/**
+ * 商品 SKU
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class ProductSku {
     
-    public static void main(String[] args) {
-        SpringApplication.run(Mall4jProductApplication.class, args);
-    }
+    /**
+     * id
+     */
+    @NonNull
+    private Long id;
+    
+    /**
+     * 商品 id
+     */
+    private Long productId;
+    
+    /**
+     * 价格
+     */
+    private BigDecimal price;
+    
+    /**
+     * 库存
+     */
+    private Integer stock;
+    
+    /**
+     * 锁定库存
+     */
+    private Integer lockStock;
+    
+    /**
+     * 图片
+     */
+    private String pic;
+    
+    /**
+     * 属性，json 格式
+     */
+    private String attribute;
 }

@@ -17,60 +17,58 @@
 
 package org.opengoofy.easymall.biz.product.infrastructure.dao.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import lombok.*;
 import org.opengoofy.easymall.mybatisplus.springboot.starter.BaseDO;
 
+import java.math.BigDecimal;
+
 /**
- * 商品分类
+ * 商品 SKU
  *
  * @author chen.ma
  * @github https://github.com/itmachen
  */
 @Data
-@TableName("product_category")
-public class ProductCategoryDO extends BaseDO {
+@NoArgsConstructor
+@RequiredArgsConstructor
+@AllArgsConstructor
+@TableName("product_sku")
+public class ProductSkuDO extends BaseDO {
     
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @NonNull
     private Long id;
     
     /**
-     * 分类名称
+     * 商品 id
      */
-    private String name;
+    private Long productId;
     
     /**
-     * 父级id
+     * 价格
      */
-    private Long parentId;
+    private BigDecimal price;
     
     /**
-     * 层级
+     * 库存
      */
-    private Integer level;
+    private Integer stock;
     
     /**
-     * 图标url
+     * 锁定库存
      */
-    private String iconUrl;
+    private Integer lockStock;
     
     /**
-     * 排序
+     * 图片
      */
-    private Integer sort;
+    private String pic;
     
     /**
-     * 跳转地址
+     * 属性，json 格式
      */
-    private String url;
-    
-    /**
-     * 状态 0：展示 1：隐藏
-     */
-    private Integer status;
+    private String attribute;
 }

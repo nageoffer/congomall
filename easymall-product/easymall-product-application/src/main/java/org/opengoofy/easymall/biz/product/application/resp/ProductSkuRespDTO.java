@@ -15,62 +15,40 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.product.infrastructure.dao.entity;
+package org.opengoofy.easymall.biz.product.application.resp;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.opengoofy.easymall.mybatisplus.springboot.starter.BaseDO;
+
+import java.math.BigDecimal;
 
 /**
- * 商品分类
+ * 商品 SKU 出参
  *
  * @author chen.ma
  * @github https://github.com/itmachen
  */
 @Data
-@TableName("product_category")
-public class ProductCategoryDO extends BaseDO {
+public class ProductSkuRespDTO {
     
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
+    @ApiModelProperty("id")
     private Long id;
     
-    /**
-     * 分类名称
-     */
-    private String name;
+    @ApiModelProperty("商品 id")
+    private Long productId;
     
-    /**
-     * 父级id
-     */
-    private Long parentId;
+    @ApiModelProperty("价格")
+    private BigDecimal price;
     
-    /**
-     * 层级
-     */
-    private Integer level;
+    @ApiModelProperty("库存")
+    private Integer stock;
     
-    /**
-     * 图标url
-     */
-    private String iconUrl;
+    @ApiModelProperty("锁定库存")
+    private Integer lockStock;
     
-    /**
-     * 排序
-     */
-    private Integer sort;
+    @ApiModelProperty("图片")
+    private String pic;
     
-    /**
-     * 跳转地址
-     */
-    private String url;
-    
-    /**
-     * 状态 0：展示 1：隐藏
-     */
-    private Integer status;
+    @ApiModelProperty("属性，json 格式")
+    private String attribute;
 }
