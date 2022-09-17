@@ -42,6 +42,7 @@
         <minio.verion>8.4.2</minio.verion>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
+        <dozer.version>6.5.2</dozer.version>
         <fastjson2.version>2.0.7</fastjson2.version>
         <lombok.version>1.18.24</lombok.version>
         <hutool-all.version>5.8.2</hutool-all.version>
