@@ -17,7 +17,6 @@
 
 package org.opengoofy.easymall.biz.customer.user.infrastructure.mq.consumer;
 
-import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
@@ -44,15 +43,10 @@ public class CustomerUserOperationLogConsume {
     
     @StreamListener(Sink.INPUT)
     public void customerUserOperationLog(@Payload MessageWrapper<CustomerOperationLogEvent> messageWrapper) {
-        long startTime = System.currentTimeMillis();
-        try {
-            CustomerUser customerUser = CustomerUser.builder()
-                    .customerUserId(messageWrapper.getMessage().getAfterCustomerUser().getId())
-                    .customerOperationLogEvent(messageWrapper.getMessage())
-                    .build();
-            customerUserRepository.saveOperationLog(customerUser);
-        } finally {
-            log.info("Keys: {}, Execute time: {} ms, Message: {}", messageWrapper.getKeys(), System.currentTimeMillis() - startTime, JSON.toJSONString(messageWrapper.getMessage()));
-        }
+        CustomerUser customerUser = CustomerUser.builder()
+                .customerUserId(messageWrapper.getMessage().getAfterCustomerUser().getId())
+                .customerOperationLogEvent(messageWrapper.getMessage())
+                .build();
+        customerUserRepository.saveOperationLog(customerUser);
     }
 }
