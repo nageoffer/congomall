@@ -17,6 +17,9 @@
 
 package org.opengoofy.easymall.biz.customer.user.web.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.opengoofy.easymall.biz.customer.user.application.req.UserLoginCommand;
 import org.opengoofy.easymall.biz.customer.user.application.req.UserRegisterCommand;
 import org.opengoofy.easymall.biz.customer.user.application.req.UserVerifyCodeCommand;
@@ -26,12 +29,8 @@ import org.opengoofy.easymall.biz.customer.user.application.service.CustomerUser
 import org.opengoofy.easymall.springboot.starter.convention.result.Result;
 import org.opengoofy.easymall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.easymall.springboot.starter.web.Results;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -46,7 +45,6 @@ import javax.validation.Valid;
 @RestController
 @AllArgsConstructor
 @Api(tags = "C 端用户")
-@RequestMapping("/customer-user")
 public class CustomerUserController {
     
     private final CustomerUserService customerUserService;

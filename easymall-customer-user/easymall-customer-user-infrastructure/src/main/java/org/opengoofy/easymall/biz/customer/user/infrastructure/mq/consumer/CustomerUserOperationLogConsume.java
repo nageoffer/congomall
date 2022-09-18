@@ -17,19 +17,17 @@
 
 package org.opengoofy.easymall.biz.customer.user.infrastructure.mq.consumer;
 
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
-import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
-import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
+import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
+import org.opengoofy.easymall.rocketmq.springboot.starter.core.MessageWrapper;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * 端用户操作日志消息消费者
@@ -45,17 +43,16 @@ public class CustomerUserOperationLogConsume {
     private final CustomerUserRepository customerUserRepository;
     
     @StreamListener(Sink.INPUT)
-    public void customerUserOperationLog(@Payload CustomerOperationLogEvent customerOperationLogEvent, @Headers Map headers) {
+    public void customerUserOperationLog(@Payload MessageWrapper<CustomerOperationLogEvent> messageWrapper) {
         long startTime = System.currentTimeMillis();
         try {
             CustomerUser customerUser = CustomerUser.builder()
-                    .customerUserId(customerOperationLogEvent.getAfterCustomerUser().getId())
-                    .customerOperationLogEvent(customerOperationLogEvent)
+                    .customerUserId(messageWrapper.getMessage().getAfterCustomerUser().getId())
+                    .customerOperationLogEvent(messageWrapper.getMessage())
                     .build();
             customerUserRepository.saveOperationLog(customerUser);
         } finally {
-            log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
-                    JSON.toJSONString(customerOperationLogEvent));
+            log.info("Keys: {}, Execute time: {} ms, Message: {}", messageWrapper.getKeys(), System.currentTimeMillis() - startTime, JSON.toJSONString(messageWrapper.getMessage()));
         }
     }
 }

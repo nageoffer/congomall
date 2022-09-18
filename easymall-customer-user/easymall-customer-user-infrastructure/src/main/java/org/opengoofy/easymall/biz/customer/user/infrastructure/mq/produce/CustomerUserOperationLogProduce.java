@@ -17,17 +17,19 @@
 
 package org.opengoofy.easymall.biz.customer.user.infrastructure.mq.produce;
 
-import org.opengoofy.easymall.biz.customer.user.domain.common.RocketMQConstants;
-import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageConst;
+import org.opengoofy.easymall.biz.customer.user.domain.common.RocketMQConstants;
+import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
+import org.opengoofy.easymall.rocketmq.springboot.starter.core.MessageWrapper;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -51,7 +53,7 @@ public class CustomerUserOperationLogProduce {
     public void recordCustomerUserOperationLog(CustomerOperationLogEvent customerOperationLogEvent) {
         String keys = UUID.randomUUID().toString();
         Message<?> message = MessageBuilder
-                .withPayload(JSON.toJSONString(customerOperationLogEvent))
+                .withPayload(new MessageWrapper(keys, customerOperationLogEvent, new Date()))
                 .setHeader(MessageConst.PROPERTY_KEYS, keys)
                 .setHeader(MessageConst.PROPERTY_TAGS, RocketMQConstants.CUSTOMER_USER_OPERATION_LOG_TAG)
                 .build();
