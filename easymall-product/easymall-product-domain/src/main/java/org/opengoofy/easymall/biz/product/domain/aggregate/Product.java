@@ -21,6 +21,7 @@ import lombok.*;
 import org.opengoofy.easymall.biz.product.domain.mode.ProductBrand;
 import org.opengoofy.easymall.biz.product.domain.mode.ProductSku;
 import org.opengoofy.easymall.biz.product.domain.mode.ProductSpu;
+import org.opengoofy.easymall.ddd.framework.core.domain.AggregateRoot;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)
-public class Product {
+public class Product implements AggregateRoot {
     
     /**
      * 商品品牌

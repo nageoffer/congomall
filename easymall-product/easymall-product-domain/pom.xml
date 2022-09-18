@@ -26,5 +26,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+    
+        <dependency>
+            <groupId>org.opengoofy.easymall</groupId>
+            <artifactId>easymall-ddd-framework-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
