@@ -23,6 +23,7 @@
         <module>easymall-minio-spring-boot-starter</module>
         <module>easymall-mybatisplus-spring-boot-starter</module>
         <module>easymall-openfeign-spring-boot-starter</module>
+        <module>easymall-rocketmq-spring-boot-starter</module>
         <module>easymall-sensitive-spring-boot-starter</module>
         <module>easymall-swagger-spring-boot-starter</module>
         <module>easymall-web-spring-boot-starter</module>
