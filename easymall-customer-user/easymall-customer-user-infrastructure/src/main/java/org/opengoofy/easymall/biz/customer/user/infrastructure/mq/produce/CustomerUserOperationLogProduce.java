@@ -29,7 +29,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -53,7 +52,7 @@ public class CustomerUserOperationLogProduce {
     public void recordCustomerUserOperationLog(CustomerOperationLogEvent customerOperationLogEvent) {
         String keys = UUID.randomUUID().toString();
         Message<?> message = MessageBuilder
-                .withPayload(new MessageWrapper(keys, customerOperationLogEvent, new Date()))
+                .withPayload(new MessageWrapper(keys, customerOperationLogEvent))
                 .setHeader(MessageConst.PROPERTY_KEYS, keys)
                 .setHeader(MessageConst.PROPERTY_TAGS, RocketMQConstants.CUSTOMER_USER_OPERATION_LOG_TAG)
                 .build();
