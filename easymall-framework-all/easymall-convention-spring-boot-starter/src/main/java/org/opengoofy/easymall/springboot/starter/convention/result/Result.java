@@ -20,6 +20,8 @@ package org.opengoofy.easymall.springboot.starter.convention.result;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * 全局返回对象
  *
@@ -28,7 +30,9 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class Result<T> {
+public class Result<T> implements Serializable {
+    
+    private static final long serialVersionUID = 5679018624309023727L;
     
     /**
      * 正确返回码
