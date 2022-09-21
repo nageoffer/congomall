@@ -8,4 +8,18 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>easymall-cart-domain</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.opengoofy.easymall</groupId>
+            <artifactId>easymall-convention-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.easymall</groupId>
+            <artifactId>easymall-ddd-framework-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

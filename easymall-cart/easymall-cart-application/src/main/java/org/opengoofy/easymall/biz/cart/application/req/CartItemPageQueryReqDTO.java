@@ -15,21 +15,21 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.cart.interfaces;
+package org.opengoofy.easymall.biz.cart.application.req;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.opengoofy.easymall.springboot.starter.convention.page.PageRequest;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.easymall.biz.cart.infrastructure.dao")
-@EnableFeignClients("org.opengoofy.easymall.biz.cart.infrastructure.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.cart")
-public class CartApplication {
+/**
+ * 分页查询购物车入参
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+@Data
+public class CartItemPageQueryReqDTO extends PageRequest {
     
-    public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
-    }
+    @ApiModelProperty("c 端用户 id")
+    private String customerUserId;
 }

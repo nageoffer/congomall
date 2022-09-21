@@ -15,21 +15,29 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.cart.interfaces;
+package org.opengoofy.easymall.biz.cart.application.req;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.easymall.biz.cart.infrastructure.dao")
-@EnableFeignClients("org.opengoofy.easymall.biz.cart.infrastructure.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.cart")
-public class CartApplication {
+/**
+ * 修改购物车商品SKU数量入参
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+@Data
+public class CartItemNumUpdateReqDTO {
     
-    public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
-    }
+    @ApiModelProperty("商品 spu id")
+    private String productId;
+    
+    @ApiModelProperty("商品 sku id")
+    private String productSkuId;
+    
+    @ApiModelProperty("c 端用户 id")
+    private String customerUserId;
+    
+    @ApiModelProperty("加购物车数量")
+    private Integer productQuantity;
 }

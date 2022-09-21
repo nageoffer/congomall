@@ -15,5 +15,11 @@
             <artifactId>easymall-cart-application</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.easymall</groupId>
+            <artifactId>easymall-web-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

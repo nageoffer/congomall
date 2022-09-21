@@ -15,21 +15,23 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.cart.interfaces;
+package org.opengoofy.easymall.biz.cart.application.req;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.easymall.biz.cart.infrastructure.dao")
-@EnableFeignClients("org.opengoofy.easymall.biz.cart.infrastructure.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.cart")
-public class CartApplication {
+/**
+ * 修改购物车商品勾选状态入参
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+@Data
+public class CartItemCheckUpdateReqDTO {
     
-    public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
-    }
+    @ApiModelProperty("id")
+    private String id;
+    
+    @ApiModelProperty("选中标志")
+    private Integer selectFlag;
 }

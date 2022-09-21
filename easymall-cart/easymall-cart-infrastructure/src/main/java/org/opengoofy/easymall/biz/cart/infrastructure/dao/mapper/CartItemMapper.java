@@ -15,21 +15,16 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.cart.interfaces;
+package org.opengoofy.easymall.biz.cart.infrastructure.dao.mapper;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.opengoofy.easymall.biz.cart.infrastructure.dao.entity.CartItemDO;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.easymall.biz.cart.infrastructure.dao")
-@EnableFeignClients("org.opengoofy.easymall.biz.cart.infrastructure.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.cart")
-public class CartApplication {
-    
-    public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
-    }
+/**
+ * 商品购物车
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+public interface CartItemMapper extends BaseMapper<CartItemDO> {
 }

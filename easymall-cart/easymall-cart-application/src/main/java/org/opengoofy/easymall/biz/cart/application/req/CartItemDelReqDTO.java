@@ -15,21 +15,25 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.cart.interfaces;
+package org.opengoofy.easymall.biz.cart.application.req;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.easymall.biz.cart.infrastructure.dao")
-@EnableFeignClients("org.opengoofy.easymall.biz.cart.infrastructure.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.easymall.biz.cart")
-public class CartApplication {
+import java.util.List;
+
+/**
+ * 删除购物车入参
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+@Data
+public class CartItemDelReqDTO {
     
-    public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
-    }
+    @ApiModelProperty("用户ID")
+    private String customerUserId;
+    
+    @ApiModelProperty("商品SKU集合")
+    private List<String> skuIds;
 }

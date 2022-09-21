@@ -37,5 +37,11 @@
             <artifactId>easymall-cart-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.easymall</groupId>
+            <artifactId>easymall-log-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

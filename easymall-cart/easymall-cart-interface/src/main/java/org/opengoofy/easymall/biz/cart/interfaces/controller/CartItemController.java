@@ -1,0 +1,80 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.opengoofy.easymall.biz.cart.interfaces.controller;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import org.opengoofy.easymall.biz.cart.application.req.*;
+import org.opengoofy.easymall.biz.cart.application.resp.CartItemRespDTO;
+import org.opengoofy.easymall.biz.cart.application.service.CartItemService;
+import org.opengoofy.easymall.springboot.starter.convention.page.PageResponse;
+import org.opengoofy.easymall.springboot.starter.convention.result.Result;
+import org.opengoofy.easymall.springboot.starter.log.annotation.MLog;
+import org.opengoofy.easymall.springboot.starter.web.Results;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 购物车控制器
+ *
+ * @author chen.ma
+ * @github https://github.com/itmachen
+ */
+@MLog
+@RestController
+@AllArgsConstructor
+@Api(tags = "购物车")
+public class CartItemController {
+    
+    private final CartItemService cartItemService;
+    
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询购物车商品")
+    public Result<PageResponse<CartItemRespDTO>> pageQueryCartItem(CartItemPageQueryReqDTO requestParam) {
+        PageResponse<CartItemRespDTO> resultPage = cartItemService.pageQueryCartItem(requestParam);
+        return Results.success(resultPage);
+    }
+    
+    @PostMapping("/add")
+    @ApiOperation(value = "新增商品到购物车")
+    public Result<Void> addCartItem(@RequestBody CartItemAddReqDTO requestParam) {
+        cartItemService.addCartItem(requestParam);
+        return Results.success();
+    }
+    
+    @PutMapping("/check")
+    @ApiOperation(value = "修改购物车商品勾选状态")
+    public Result<Void> updateCheckCartItem(@RequestBody CartItemCheckUpdateReqDTO requestParam) {
+        cartItemService.updateCheckCartItem(requestParam);
+        return Results.success();
+    }
+    
+    @PutMapping("/num")
+    @ApiOperation(value = "修改购物车商品SKU数量")
+    public Result<Void> updateNumCartItem(@RequestBody CartItemNumUpdateReqDTO requestParam) {
+        cartItemService.updateCartItem(requestParam);
+        return Results.success();
+    }
+    
+    @DeleteMapping
+    @ApiOperation(value = "删除购物车商品")
+    public Result<Void> deleteCartItem(@RequestBody CartItemDelReqDTO requestParam) {
+        cartItemService.deleteCartItem(requestParam);
+        return Results.success();
+    }
+}
