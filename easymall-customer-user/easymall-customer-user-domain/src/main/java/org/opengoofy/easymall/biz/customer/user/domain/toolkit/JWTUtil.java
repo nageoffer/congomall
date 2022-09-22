@@ -17,7 +17,7 @@
 
 package org.opengoofy.easymall.biz.customer.user.domain.toolkit;
 
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import com.alibaba.fastjson2.JSON;
 import com.google.common.collect.Maps;
 import io.jsonwebtoken.Jwts;

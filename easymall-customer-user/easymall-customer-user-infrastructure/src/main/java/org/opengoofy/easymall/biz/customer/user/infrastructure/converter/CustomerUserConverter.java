@@ -17,7 +17,7 @@
 
 package org.opengoofy.easymall.biz.customer.user.infrastructure.converter;
 
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.easymall.biz.customer.user.infrastructure.dao.entity.CustomerUserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

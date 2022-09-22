@@ -15,54 +15,75 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.customer.user.domain.repository;
+package org.opengoofy.easymall.biz.customer.user.domain.mode;
 
-import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
+import lombok.*;
+import org.opengoofy.easymall.ddd.framework.core.domain.Entity;
 
 /**
- * C 端用户仓储层
+ * 收货地址
  *
  * @author chen.ma
  * @github https://github.com/itmachen
  */
-public interface CustomerUserRepository {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReceiveAddress implements Entity {
     
     /**
-     * 根据 customerUserId 查询 C 端用户
-     *
-     * @param customerUserId
-     * @return
+     * id
      */
-    CustomerUser find(Long customerUserId);
+    private String id;
     
     /**
-     * 根据 mail 查询 C 端用户
-     *
-     * @param mail
-     * @return
+     * c端用户 id
      */
-    CustomerUser findByMail(String mail);
+    private Long customerUserId;
     
     /**
-     * 根据 accountNumber 查询 C 端用户
-     *
-     * @param accountNumber
-     * @return
+     * 收货人名称
      */
-    CustomerUser findByAccountNumber(String accountNumber);
+    private String name;
     
     /**
-     * C 端用户注册
-     *
-     * @param customerUser
-     * @return
+     * 收货人电话
      */
-    CustomerUser register(CustomerUser customerUser);
+    private String phone;
     
     /**
-     * 保存用户操作日志
-     *
-     * @param customerUser
+     * 是否默认 0：否 1：是
      */
-    void saveOperationLog(CustomerUser customerUser);
+    private int defaultFlag;
+    
+    /**
+     * 标签 0：家 1：公司
+     */
+    private int tag;
+    
+    /**
+     * 邮政编码
+     */
+    private String postCode;
+    
+    /**
+     * 省
+     */
+    private String province;
+    
+    /**
+     * 市
+     */
+    private String city;
+    
+    /**
+     * 区
+     */
+    private String region;
+    
+    /**
+     * 详细地址
+     */
+    private String detailAddress;
 }

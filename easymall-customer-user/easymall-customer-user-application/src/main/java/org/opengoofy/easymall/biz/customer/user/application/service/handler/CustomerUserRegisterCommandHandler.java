@@ -21,7 +21,7 @@ import org.opengoofy.easymall.biz.customer.user.application.assembler.CustomerUs
 import org.opengoofy.easymall.biz.customer.user.application.req.UserRegisterCommand;
 import org.opengoofy.easymall.biz.customer.user.application.resp.UserRegisterRespDTO;
 import org.opengoofy.easymall.biz.customer.user.domain.dp.*;
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.easymall.ddd.framework.core.domain.CommandHandler;
 import org.opengoofy.easymall.springboot.starter.cache.DistributedCache;

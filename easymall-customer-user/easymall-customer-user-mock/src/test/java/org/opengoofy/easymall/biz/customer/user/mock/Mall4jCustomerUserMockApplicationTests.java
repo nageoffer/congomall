@@ -19,7 +19,7 @@ package org.opengoofy.easymall.biz.customer.user.mock;
 
 import cn.hutool.crypto.digest.MD5;
 import org.opengoofy.easymall.biz.customer.user.domain.dp.*;
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.easymall.springboot.starter.base.ApplicationContextHolder;
 import org.opengoofy.easymall.springboot.starter.distributedid.SnowflakeIdUtil;

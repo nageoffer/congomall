@@ -19,7 +19,7 @@ package org.opengoofy.easymall.biz.customer.user.infrastructure.mq.consumer;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.easymall.rocketmq.springboot.starter.core.MessageWrapper;

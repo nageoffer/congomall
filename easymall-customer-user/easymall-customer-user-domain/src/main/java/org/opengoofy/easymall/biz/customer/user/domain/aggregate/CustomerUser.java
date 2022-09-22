@@ -15,15 +15,18 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.customer.user.domain.entity;
+package org.opengoofy.easymall.biz.customer.user.domain.aggregate;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.*;
 import org.opengoofy.easymall.biz.customer.user.domain.dp.*;
+import org.opengoofy.easymall.biz.customer.user.domain.mode.ReceiveAddress;
 import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import org.opengoofy.easymall.biz.customer.user.domain.toolkit.JWTUtil;
 import org.opengoofy.easymall.springboot.starter.common.toolkit.EnvironmentUtil;
 import org.opengoofy.easymall.springboot.starter.convention.exception.ClientException;
+
+import java.util.List;
 
 /**
  * C 端用户实体
@@ -55,6 +58,8 @@ public class CustomerUser {
     private String verifyCode;
     
     private CustomerOperationLogEvent customerOperationLogEvent;
+    
+    private List<ReceiveAddress> receiveAddresses;
     
     public void checkoutValidCode(String verifyCode) {
         if (EnvironmentUtil.isProdEnvironment()) {

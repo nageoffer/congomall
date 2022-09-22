@@ -18,7 +18,7 @@
 package org.opengoofy.easymall.biz.customer.user.application.assembler;
 
 import org.opengoofy.easymall.biz.customer.user.application.resp.UserRegisterRespDTO;
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

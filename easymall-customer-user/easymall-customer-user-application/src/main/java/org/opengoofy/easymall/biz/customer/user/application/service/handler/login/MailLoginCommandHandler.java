@@ -19,7 +19,7 @@ package org.opengoofy.easymall.biz.customer.user.application.service.handler.log
 
 import org.opengoofy.easymall.biz.customer.user.application.req.UserLoginCommand;
 import org.opengoofy.easymall.biz.customer.user.application.resp.UserLoginRespDTO;
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.easymall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.easymall.springboot.starter.cache.toolkit.CacheUtil;

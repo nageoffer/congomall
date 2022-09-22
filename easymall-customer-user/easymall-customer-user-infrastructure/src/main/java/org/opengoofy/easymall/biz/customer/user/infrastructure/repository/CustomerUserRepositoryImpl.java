@@ -18,7 +18,7 @@
 package org.opengoofy.easymall.biz.customer.user.infrastructure.repository;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.opengoofy.easymall.biz.customer.user.domain.entity.CustomerUser;
+import org.opengoofy.easymall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.easymall.biz.customer.user.domain.event.CustomerOperationLogEvent;
 import org.opengoofy.easymall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.easymall.biz.customer.user.domain.dto.CustomerUserDTO;
