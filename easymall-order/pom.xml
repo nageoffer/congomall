@@ -8,7 +8,14 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>easymall-order</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <module>easymall-order-application</module>
+        <module>easymall-order-domain</module>
+        <module>easymall-order-infrastructure</module>
+        <module>easymall-order-interface</module>
+    </modules>
     
     <dependencies>
         <dependency>

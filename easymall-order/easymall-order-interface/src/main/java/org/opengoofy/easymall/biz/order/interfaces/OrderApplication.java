@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package org.opengoofy.easymall.biz.order;
+package org.opengoofy.easymall.biz.order.interfaces;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Mall4jOrderApplication {
+public class OrderApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(Mall4jOrderApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
 }
