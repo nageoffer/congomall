@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     
     <modules>
+        <module>easymall-h2-test</module>
         <module>easymall-oom-test</module>
         <module>easymall-yaml-test</module>
     </modules>
