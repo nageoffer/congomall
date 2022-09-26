@@ -18,7 +18,6 @@
 package org.opengoofy.easymall.springboot.starter.distributedid.core;
 
 import cn.hutool.core.date.SystemClock;
-import cn.hutool.core.lang.Snowflake;
 import org.opengoofy.easymall.springboot.starter.distributedid.SnowflakeIdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

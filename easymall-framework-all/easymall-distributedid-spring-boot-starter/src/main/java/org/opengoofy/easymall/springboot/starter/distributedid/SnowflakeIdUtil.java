@@ -17,7 +17,9 @@
 
 package org.opengoofy.easymall.springboot.starter.distributedid;
 
-import cn.hutool.core.lang.Snowflake;
+import lombok.SneakyThrows;
+import org.opengoofy.easymall.springboot.starter.distributedid.core.Snowflake;
+import org.opengoofy.easymall.springboot.starter.distributedid.core.SnowflakeIdInfo;
 
 /**
  * 分布式雪花 ID 生成器
@@ -54,5 +56,23 @@ public class SnowflakeIdUtil {
      */
     public static String nextIdStr() {
         return Long.toString(nextId());
+    }
+    
+    /**
+     * 解析雪花算法生成的 ID 为对象
+     *
+     * @param snowflakeId
+     */
+    public static SnowflakeIdInfo parseSnowflakeId(String snowflakeId) {
+        return SNOWFLAKE.parseSnowflakeId(Long.parseLong(snowflakeId));
+    }
+    
+    /**
+     * 解析雪花算法生成的 ID 为对象
+     *
+     * @param snowflakeId
+     */
+    public static SnowflakeIdInfo parseSnowflakeId(long snowflakeId) {
+        return SNOWFLAKE.parseSnowflakeId(snowflakeId);
     }
 }
