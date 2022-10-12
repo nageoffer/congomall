@@ -70,12 +70,16 @@ public final class SnowflakeDateShardingAlgorithm implements ComplexKeysSharding
                 result.add(shardingValue.getLogicTableName() + "_" + tableNameSuffix);
             }
         } else {
-            // TODO 范围查询待完善
-            int firstPartition = getFirstPartition(columnNameAndRangeValuesMap.get(sendTime));
-            int lastPartition = getLastPartition(columnNameAndRangeValuesMap.get(sendTime));
-            for (int i = firstPartition; i <= lastPartition; i++) {
-                String suffix = String.valueOf(i);
-                result.add(shardingValue.getLogicTableName() + "_" + suffix);
+            Range<Comparable<?>> sendTimeRange = columnNameAndRangeValuesMap.get(sendTime);
+            if (sendTimeRange != null) {
+                int firstPartition = getFirstPartition(sendTimeRange);
+                int lastPartition = getLastPartition(sendTimeRange);
+                for (int i = firstPartition; i <= lastPartition; i++) {
+                    String suffix = String.valueOf(i);
+                    result.add(shardingValue.getLogicTableName() + "_" + suffix);
+                }
+            } else {
+                result.addAll(availableTargetNames);
             }
         }
         return result;

@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.util.List;
 
 /**
  * 自定义复合分片算法单元测试
@@ -47,12 +47,12 @@ public class SnowflakeDateShardingAlgorithmTest {
     @Test
     public void testBetweenQuery() {
         LambdaQueryWrapper<MailSendRecordDO> queryWrapper = Wrappers.lambdaQuery(MailSendRecordDO.class)
-                .between(MailSendRecordDO::getSendTime, new Date(), new Date());
+                .between(MailSendRecordDO::getSendTime, DateUtil.parse("2023-07-14 12:12:18"), DateUtil.parse("2024-08-14 12:15:18"));
         executeQuery(queryWrapper);
     }
     
     private void executeQuery(LambdaQueryWrapper queryWrapper) {
-        MailSendRecordDO mailSendRecordDO = mailSendRecordMapper.selectOne(queryWrapper);
-        log.info("mailSendRecordDO: {}", JSON.toJSONString(mailSendRecordDO));
+        List<MailSendRecordDO> mailSendRecords = mailSendRecordMapper.selectList(queryWrapper);
+        log.info("mailSendRecords: {}", JSON.toJSONString(mailSendRecords));
     }
 }
