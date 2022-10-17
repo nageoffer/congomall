@@ -2,23 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.opengoofy.easymall</groupId>
-    <artifactId>easymall-all</artifactId>
+    <groupId>org.opengoofy.congomall</groupId>
+    <artifactId>congomall-all</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <modules>
-        <module>easymall-base-data</module>
-        <module>easymall-cart</module>
-        <module>easymall-coupon</module>
-        <module>easymall-customer-user</module>
-        <module>easymall-framework-all</module>
-        <module>easymall-gateway</module>
-        <module>easymall-message</module>
-        <module>easymall-order</module>
-        <module>easymall-pay</module>
-        <module>easymall-product</module>
-        <module>easymall-test-all</module>
+        <module>congomall-base-data</module>
+        <module>congomall-cart</module>
+        <module>congomall-coupon</module>
+        <module>congomall-customer-user</module>
+        <module>congomall-framework-all</module>
+        <module>congomall-gateway</module>
+        <module>congomall-message</module>
+        <module>congomall-order</module>
+        <module>congomall-pay</module>
+        <module>congomall-product</module>
+        <module>congomall-test-all</module>
     </modules>
     
     <properties>
@@ -204,7 +204,7 @@
                 <configuration>
                     <java>
                         <eclipse>
-                            <file>${maven.multiModuleProjectDirectory}/dev-support/mall4j_spotless_formatter.xml</file>
+                            <file>${maven.multiModuleProjectDirectory}/dev-support/congomall_spotless_formatter.xml</file>
                         </eclipse>
                         <licenseHeader>
                             <file>${maven.multiModuleProjectDirectory}/dev-support/license-header</file>

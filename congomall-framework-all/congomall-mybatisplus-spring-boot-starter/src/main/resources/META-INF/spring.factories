@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.opengoofy.congomall.mybatisplus.springboot.starter.config.MybatisPlusAutoConfiguration

@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.opengoofy.easymall.springboot.starter.base.config.ApplicationBaseAutoConfiguration
