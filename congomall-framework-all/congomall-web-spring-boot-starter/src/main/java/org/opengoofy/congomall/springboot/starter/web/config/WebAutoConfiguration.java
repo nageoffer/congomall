@@ -33,7 +33,7 @@ public class WebAutoConfiguration {
     
     @Bean
     @ConditionalOnMissingBean
-    public GlobalExceptionHandler mall4jGlobalExceptionHandler() {
+    public GlobalExceptionHandler congoMallGlobalExceptionHandler() {
         return new GlobalExceptionHandler();
     }
 }

@@ -28,7 +28,7 @@ import java.util.List;
  * Swagger 配置
  */
 @Data
-@ConfigurationProperties("mall4j.swagger")
+@ConfigurationProperties("congomall.swagger")
 public class SwaggerProperties {
     
     private Boolean enabled;

@@ -26,7 +26,7 @@ import java.util.List;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public class Mall4jOomTest {
+public class CongoMallOOMTest {
     
     /**
      * 设置 VM 参数：-Xms1m -Xmx1m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./ -XX:OnOutOfMemoryError=./dev-support/oom.sh

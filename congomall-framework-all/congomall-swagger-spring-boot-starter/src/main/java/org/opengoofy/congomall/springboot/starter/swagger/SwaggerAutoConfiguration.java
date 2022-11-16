@@ -45,7 +45,7 @@ import java.util.function.Predicate;
  */
 @EnableOpenApi
 @Profile({"dev", "local", "test"})
-@ConditionalOnProperty(name = "mall4j.swagger.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "congomall.swagger.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({SwaggerProperties.class})
 public class SwaggerAutoConfiguration {
     

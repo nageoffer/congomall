@@ -40,7 +40,7 @@ public class JWTUtil {
     
     private static final long EXPIRATION = 86400L;
     
-    public static final String ISS = "mall4j";
+    public static final String ISS = "congo-mall";
     
     public static final String SECRET = "SecretKey039245678901232039487623456783092349288901402967890140939827";
     

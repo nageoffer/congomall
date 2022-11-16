@@ -1,10 +1,9 @@
-## 系统架构
+
+刚果商城是个从零到一的项目，包含商城业务和基础架构两个大模块，预计 2023.03 月份完成基础业务功能。
+
+## 功能清单
 
 https://www.processon.com/view/link/62984d1b0e3e74603c573306
-
-## 功能完成列表
-
-https://www.processon.com/view/link/62ae98ee079129075b5fa487
 
 ## 接口文档
 
