@@ -25,7 +25,7 @@ import java.util.Collection;
  * 缓存接口
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface Cache {
     

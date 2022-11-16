@@ -24,7 +24,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Minio 配置类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @ConfigurationProperties(prefix = MinioProperties.PREFIX)

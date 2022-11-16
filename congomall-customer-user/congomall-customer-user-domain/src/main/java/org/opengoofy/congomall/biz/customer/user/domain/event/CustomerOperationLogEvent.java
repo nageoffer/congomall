@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
  * C 端用户操作日志事件
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @NoArgsConstructor

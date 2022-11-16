@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
  * 消息发送仓储层
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface MessageSendRepository {
     

@@ -31,7 +31,7 @@ import java.util.List;
  * 商品分类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Service
 @AllArgsConstructor

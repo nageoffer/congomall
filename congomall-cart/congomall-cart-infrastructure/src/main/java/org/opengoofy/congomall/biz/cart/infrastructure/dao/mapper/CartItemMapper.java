@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.cart.infrastructure.dao.entity.CartItemDO;
  * 商品购物车
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface CartItemMapper extends BaseMapper<CartItemDO> {
 }

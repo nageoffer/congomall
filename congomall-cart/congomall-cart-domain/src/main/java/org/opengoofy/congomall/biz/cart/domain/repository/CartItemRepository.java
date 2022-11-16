@@ -25,7 +25,7 @@ import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
  * 购物车仓储层
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface CartItemRepository {
     

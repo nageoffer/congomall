@@ -24,7 +24,7 @@ import org.opengoofy.congomall.springboot.starter.distributedid.core.SnowflakeId
  * 分布式雪花 ID 生成器
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class SnowflakeIdUtil {
     

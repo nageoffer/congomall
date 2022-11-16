@@ -24,7 +24,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * C 端用户操作日志
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface CustomerOperationLogMapper extends BaseMapper<CustomerOperationLogDO> {
 }

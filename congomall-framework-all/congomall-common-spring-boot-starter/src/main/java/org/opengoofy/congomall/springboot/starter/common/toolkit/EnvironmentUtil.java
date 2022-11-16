@@ -27,7 +27,7 @@ import java.util.List;
  * 环境工具类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class EnvironmentUtil {
     

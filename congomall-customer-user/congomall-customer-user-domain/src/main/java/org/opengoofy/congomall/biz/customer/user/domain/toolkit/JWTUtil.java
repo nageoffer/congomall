@@ -30,7 +30,7 @@ import java.util.Map;
  * JWT 工具类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class JWTUtil {
     

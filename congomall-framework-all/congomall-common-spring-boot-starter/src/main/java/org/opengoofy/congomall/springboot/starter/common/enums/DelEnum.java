@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.common.enums;
  * 删除标记枚举
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public enum DelEnum {
     

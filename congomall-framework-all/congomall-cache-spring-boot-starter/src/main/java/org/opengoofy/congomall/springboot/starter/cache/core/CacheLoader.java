@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.cache.core;
  * 缓存加载器
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @FunctionalInterface
 public interface CacheLoader<T> {

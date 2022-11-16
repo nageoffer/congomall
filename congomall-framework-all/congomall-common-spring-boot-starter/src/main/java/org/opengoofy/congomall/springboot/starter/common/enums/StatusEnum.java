@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.common.enums;
  * 状态枚举
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public enum StatusEnum {
     

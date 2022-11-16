@@ -26,7 +26,7 @@ import java.util.List;
  * 商品详情出参
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 public class ProductRespDTO {

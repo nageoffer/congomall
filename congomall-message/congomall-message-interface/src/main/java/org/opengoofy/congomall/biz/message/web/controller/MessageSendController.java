@@ -36,7 +36,7 @@ import javax.validation.Valid;
  * 消息发送控制器
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @MLog
 @RestController

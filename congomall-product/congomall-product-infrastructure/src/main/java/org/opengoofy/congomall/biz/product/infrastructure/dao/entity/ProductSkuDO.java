@@ -27,7 +27,7 @@ import java.math.BigDecimal;
  * 商品 SKU
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @NoArgsConstructor

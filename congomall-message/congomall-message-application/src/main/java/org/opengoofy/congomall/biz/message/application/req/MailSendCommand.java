@@ -29,7 +29,7 @@ import java.util.List;
  * 邮件发送
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @ApiModel("邮箱发送")

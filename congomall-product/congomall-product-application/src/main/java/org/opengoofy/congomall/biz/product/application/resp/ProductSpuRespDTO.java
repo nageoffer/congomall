@@ -27,7 +27,7 @@ import java.util.Date;
  * 商品 SPU 出参
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 public class ProductSpuRespDTO {

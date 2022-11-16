@@ -26,7 +26,7 @@ import java.io.Serializable;
  * 全局返回对象
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @Accessors(chain = true)

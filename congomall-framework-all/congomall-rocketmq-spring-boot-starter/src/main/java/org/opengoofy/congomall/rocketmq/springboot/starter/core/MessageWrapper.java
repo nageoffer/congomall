@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 消息体包装器
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @Builder

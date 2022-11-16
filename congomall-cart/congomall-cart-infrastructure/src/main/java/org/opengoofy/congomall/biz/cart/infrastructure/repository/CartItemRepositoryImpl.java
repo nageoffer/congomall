@@ -38,7 +38,7 @@ import org.springframework.stereotype.Repository;
  * 购物车仓储层
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Repository
 @AllArgsConstructor

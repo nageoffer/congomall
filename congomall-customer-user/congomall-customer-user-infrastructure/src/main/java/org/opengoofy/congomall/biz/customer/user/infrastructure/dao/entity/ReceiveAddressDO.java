@@ -25,7 +25,7 @@ import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
  * 用户收获地址
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @TableName("customer_user_receive_address")

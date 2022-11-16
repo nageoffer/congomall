@@ -21,7 +21,7 @@ package org.opengoofy.congomall.test.yaml;
  * 水果
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface Fruits {
 }

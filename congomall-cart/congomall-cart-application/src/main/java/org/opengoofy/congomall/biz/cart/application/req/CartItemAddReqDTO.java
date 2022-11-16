@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  * 新增购物车入参
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 public class CartItemAddReqDTO {

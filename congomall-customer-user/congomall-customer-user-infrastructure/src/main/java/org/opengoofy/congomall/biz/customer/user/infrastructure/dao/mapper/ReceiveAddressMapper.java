@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.entity.Recei
  * 用户收获地址
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface ReceiveAddressMapper extends BaseMapper<ReceiveAddressDO> {
 }

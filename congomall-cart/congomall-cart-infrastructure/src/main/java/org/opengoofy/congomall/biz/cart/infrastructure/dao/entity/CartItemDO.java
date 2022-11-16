@@ -27,7 +27,7 @@ import java.math.BigDecimal;
  * 商品购物车
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @TableName("cart_item")

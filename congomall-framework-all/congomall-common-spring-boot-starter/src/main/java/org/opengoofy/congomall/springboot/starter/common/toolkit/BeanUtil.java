@@ -32,7 +32,7 @@ import static com.github.dozermapper.core.loader.api.TypeMappingOptions.mapNull;
  * 对象属性复制工具类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class BeanUtil {

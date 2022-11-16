@@ -34,7 +34,7 @@ import java.util.List;
  * 商品分类仓储层
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Component
 @AllArgsConstructor

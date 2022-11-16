@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.entity.ProductSpuD
  * 商品 SPU
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface ProductSpuMapper extends BaseMapper<ProductSpuDO> {
 }

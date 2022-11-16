@@ -30,7 +30,7 @@ import java.util.Optional;
  * 策略选择器
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class AbstractStrategyChoose implements ApplicationListener<ApplicationInitializingEvent> {
     

@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
  * 商品服务
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Service
 @AllArgsConstructor

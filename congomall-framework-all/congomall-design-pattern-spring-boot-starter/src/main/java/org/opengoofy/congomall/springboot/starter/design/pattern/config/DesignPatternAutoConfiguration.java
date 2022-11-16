@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
  * 设计模式自动装配
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @ImportAutoConfiguration(ApplicationBaseAutoConfiguration.class)
 public class DesignPatternAutoConfiguration {

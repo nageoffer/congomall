@@ -29,7 +29,7 @@ import java.util.List;
  * C 端用户 Entity 转换 DO
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Mapper(componentModel = "spring")
 public interface MailSendMessageConverter {

@@ -29,7 +29,7 @@ import java.sql.Statement;
  * H2 数据库测试
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class H2Test {
     

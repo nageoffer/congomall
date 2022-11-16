@@ -27,7 +27,7 @@ import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
  * 分页工具类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class PageUtil {
     

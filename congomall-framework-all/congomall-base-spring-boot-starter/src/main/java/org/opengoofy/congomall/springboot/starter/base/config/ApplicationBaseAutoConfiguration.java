@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Bean;
  * 应用基础自动装配
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class ApplicationBaseAutoConfiguration {
     

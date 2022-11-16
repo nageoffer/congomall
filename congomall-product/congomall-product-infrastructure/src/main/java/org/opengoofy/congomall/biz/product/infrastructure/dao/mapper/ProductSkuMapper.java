@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.entity.ProductSkuD
  * 商品 SKU
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface ProductSkuMapper extends BaseMapper<ProductSkuDO> {
 }

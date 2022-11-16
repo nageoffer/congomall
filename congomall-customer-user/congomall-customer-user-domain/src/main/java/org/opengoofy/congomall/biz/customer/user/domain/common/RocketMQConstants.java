@@ -21,7 +21,7 @@ package org.opengoofy.congomall.biz.customer.user.domain.common;
  * RocketMQ 常量
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class RocketMQConstants {
     

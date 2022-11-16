@@ -37,7 +37,7 @@ import java.util.List;
  * 自定义复合分片算法单元测试
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Slf4j
 @RunWith(SpringRunner.class)

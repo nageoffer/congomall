@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.convention.exception;
  * 平台错误码
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface IErrorCode {
     

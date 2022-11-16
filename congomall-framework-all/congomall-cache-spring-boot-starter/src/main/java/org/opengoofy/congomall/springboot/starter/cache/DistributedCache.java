@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
  * 分布式缓存
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface DistributedCache extends Cache {
     

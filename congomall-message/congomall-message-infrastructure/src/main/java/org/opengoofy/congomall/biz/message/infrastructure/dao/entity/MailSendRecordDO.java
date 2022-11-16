@@ -27,7 +27,7 @@ import java.util.Date;
  * 邮件消息发送 DO
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @TableName("mail_send_record")

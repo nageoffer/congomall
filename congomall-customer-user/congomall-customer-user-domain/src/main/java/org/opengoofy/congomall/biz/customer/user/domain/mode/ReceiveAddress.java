@@ -24,7 +24,7 @@ import org.opengoofy.congomall.ddd.framework.core.domain.Entity;
  * 收货地址
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Data
 @Builder

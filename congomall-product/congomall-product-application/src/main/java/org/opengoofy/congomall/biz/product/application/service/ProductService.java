@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
  * 商品服务
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public interface ProductService {
     

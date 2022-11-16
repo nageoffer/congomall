@@ -37,7 +37,7 @@ import java.util.List;
  * 收货地址控制层
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @MLog
 @RestController

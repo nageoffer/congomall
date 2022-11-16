@@ -25,7 +25,7 @@ import java.lang.reflect.Type;
  * FastJson2 工具类
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class FastJson2Util {
     

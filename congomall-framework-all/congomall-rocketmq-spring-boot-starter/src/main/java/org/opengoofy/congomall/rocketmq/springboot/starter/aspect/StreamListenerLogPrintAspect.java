@@ -35,7 +35,7 @@ import java.util.Optional;
  * {@link StreamListener} 日志环绕打印
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Aspect
 public final class StreamListenerLogPrintAspect {

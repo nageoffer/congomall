@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
  * 邮件发送
  *
  * @author chen.ma
- * @github https://github.com/itmachens
+ * @github https://github.com/opengoofys
  */
 public interface MailMessageProduce {
     

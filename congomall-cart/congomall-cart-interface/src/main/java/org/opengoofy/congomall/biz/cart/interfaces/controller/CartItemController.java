@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
  * 购物车控制器
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @MLog
 @RestController

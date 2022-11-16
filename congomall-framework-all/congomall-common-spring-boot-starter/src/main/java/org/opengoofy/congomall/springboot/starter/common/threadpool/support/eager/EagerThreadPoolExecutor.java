@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 快速消费线程池
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class EagerThreadPoolExecutor extends ThreadPoolExecutor {
     

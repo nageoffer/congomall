@@ -27,7 +27,7 @@ import javax.annotation.Resource;
  * 应用初始化后置处理器，防止 spring 事件被多次执行
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 public class ApplicationContentPostProcessor implements ApplicationListener<ApplicationReadyEvent> {
     

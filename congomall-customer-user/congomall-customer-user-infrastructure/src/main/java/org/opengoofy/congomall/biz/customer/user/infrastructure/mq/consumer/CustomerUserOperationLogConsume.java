@@ -32,7 +32,7 @@ import org.springframework.stereotype.Component;
  * 端用户操作日志消息消费者
  *
  * @author chen.ma
- * @github https://github.com/itmachen
+ * @github https://github.com/opengoofy
  */
 @Slf4j
 @Component
