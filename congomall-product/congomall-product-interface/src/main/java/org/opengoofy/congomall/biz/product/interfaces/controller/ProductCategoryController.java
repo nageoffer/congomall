@@ -41,7 +41,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Api(tags = "商品分类")
-@RequestMapping("/product/category")
+@RequestMapping("/category")
 public class ProductCategoryController {
     
     private final ProductCategoryService productCategoryService;

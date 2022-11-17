@@ -42,7 +42,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Api(tags = "商品服务")
-@RequestMapping("/product")
 public class ProductController {
     
     private final ProductService productService;
