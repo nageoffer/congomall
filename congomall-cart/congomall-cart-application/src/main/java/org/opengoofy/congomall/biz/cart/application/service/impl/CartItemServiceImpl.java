@@ -19,6 +19,7 @@ package org.opengoofy.congomall.biz.cart.application.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.cart.application.req.*;
+import org.opengoofy.congomall.biz.cart.application.resp.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.biz.cart.application.resp.CartItemRespDTO;
 import org.opengoofy.congomall.biz.cart.application.service.CartItemService;
 import org.opengoofy.congomall.biz.cart.domain.aggregate.CartItem;
@@ -26,6 +27,8 @@ import org.opengoofy.congomall.biz.cart.domain.repository.CartItemRepository;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 购物车
@@ -43,6 +46,12 @@ public class CartItemServiceImpl implements CartItemService {
     public PageResponse<CartItemRespDTO> pageQueryCartItem(CartItemPageQueryReqDTO requestParam) {
         PageResponse<CartItem> cartItemPageResponse = cartItemRepository.pageQueryCartItem(requestParam.getCustomerUserId(), requestParam);
         return cartItemPageResponse.convert(each -> BeanUtil.convert(each, CartItemRespDTO.class));
+    }
+    
+    @Override
+    public List<CartItemQuerySelectRespDTO> querySelectCartByCustomerUserId(String customerUserId) {
+        List<CartItem> cartItems = cartItemRepository.querySelectCartByCustomerUserId(customerUserId);
+        return BeanUtil.convert(cartItems, CartItemQuerySelectRespDTO.class);
     }
     
     @Override

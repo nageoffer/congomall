@@ -18,9 +18,12 @@
 package org.opengoofy.congomall.biz.cart.interfaces.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.cart.application.req.*;
+import org.opengoofy.congomall.biz.cart.application.resp.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.biz.cart.application.resp.CartItemRespDTO;
 import org.opengoofy.congomall.biz.cart.application.service.CartItemService;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
@@ -28,6 +31,8 @@ import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 购物车控制器
@@ -48,6 +53,16 @@ public class CartItemController {
     public Result<PageResponse<CartItemRespDTO>> pageQueryCartItem(CartItemPageQueryReqDTO requestParam) {
         PageResponse<CartItemRespDTO> resultPage = cartItemService.pageQueryCartItem(requestParam);
         return Results.success(resultPage);
+    }
+    
+    @GetMapping("/{customer_user_id}")
+    @ApiOperation(value = "查询用户选中购物车商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "customer_user_id", value = "用户 id", required = true, example = "1547742028312375296")
+    })
+    public Result<List<CartItemQuerySelectRespDTO>> querySelectCartByCustomerUserId(@PathVariable("customer_user_id") String customerUserId) {
+        List<CartItemQuerySelectRespDTO> result = cartItemService.querySelectCartByCustomerUserId(customerUserId);
+        return Results.success(result);
     }
     
     @PostMapping("/add")

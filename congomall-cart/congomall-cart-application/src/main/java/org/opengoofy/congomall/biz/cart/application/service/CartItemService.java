@@ -18,8 +18,11 @@
 package org.opengoofy.congomall.biz.cart.application.service;
 
 import org.opengoofy.congomall.biz.cart.application.req.*;
+import org.opengoofy.congomall.biz.cart.application.resp.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.biz.cart.application.resp.CartItemRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
+
+import java.util.List;
 
 /**
  * 购物车
@@ -36,6 +39,14 @@ public interface CartItemService {
      * @return
      */
     PageResponse<CartItemRespDTO> pageQueryCartItem(CartItemPageQueryReqDTO requestParam);
+    
+    /**
+     * 查询用户选中购物车商品
+     *
+     * @param customerUserId
+     * @return
+     */
+    List<CartItemQuerySelectRespDTO> querySelectCartByCustomerUserId(String customerUserId);
     
     /**
      * 新增商品到购物车

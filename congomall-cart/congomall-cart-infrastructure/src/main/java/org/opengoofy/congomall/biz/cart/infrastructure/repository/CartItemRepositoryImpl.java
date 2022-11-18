@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.cart.domain.aggregate.CartItem;
+import org.opengoofy.congomall.biz.cart.domain.common.SelectFlagEnum;
 import org.opengoofy.congomall.biz.cart.domain.repository.CartItemRepository;
 import org.opengoofy.congomall.biz.cart.infrastructure.dao.mapper.CartItemMapper;
 import org.opengoofy.congomall.biz.cart.infrastructure.dao.entity.CartItemDO;
@@ -33,6 +34,8 @@ import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceEx
 import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 购物车仓储层
@@ -52,6 +55,14 @@ public class CartItemRepositoryImpl implements CartItemRepository {
                 .eq(CartItemDO::getCustomerUserId, userId);
         Page<CartItemDO> selectPage = cartItemMapper.selectPage(new Page(pageRequest.getCurrent(), pageRequest.getSize()), queryWrapper);
         return PageUtil.convert(selectPage, CartItem.class);
+    }
+    
+    @Override
+    public List<CartItem> querySelectCartByCustomerUserId(String customerUserId) {
+        LambdaQueryWrapper<CartItemDO> queryWrapper = Wrappers.lambdaQuery(CartItemDO.class).eq(CartItemDO::getCustomerUserId, customerUserId)
+                .eq(CartItemDO::getSelectFlag, SelectFlagEnum.SELECTED.getCode());
+        List<CartItemDO> selectList = cartItemMapper.selectList(queryWrapper);
+        return BeanUtil.convert(selectList, CartItem.class);
     }
     
     @Override

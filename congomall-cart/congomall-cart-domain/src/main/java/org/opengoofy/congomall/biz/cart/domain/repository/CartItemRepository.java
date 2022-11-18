@@ -21,6 +21,8 @@ import org.opengoofy.congomall.biz.cart.domain.aggregate.CartItem;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 
+import java.util.List;
+
 /**
  * 购物车仓储层
  *
@@ -37,6 +39,14 @@ public interface CartItemRepository {
      * @return
      */
     PageResponse<CartItem> pageQueryCartItem(String userId, PageRequest pageRequest);
+    
+    /**
+     * 查询用户选中购物车商品
+     *
+     * @param customerUserId
+     * @return
+     */
+    List<CartItem> querySelectCartByCustomerUserId(String customerUserId);
     
     /**
      * 新增商品到购物车
