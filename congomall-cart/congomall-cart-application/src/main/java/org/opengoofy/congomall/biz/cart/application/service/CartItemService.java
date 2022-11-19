@@ -70,9 +70,9 @@ public interface CartItemService {
     void updateCartItem(CartItemNumUpdateReqDTO requestParam);
     
     /**
-     * 删除购物车商品
+     * 清理购物车商品
      *
      * @param requestParam
      */
-    void deleteCartItem(CartItemDelReqDTO requestParam);
+    void clearCartProduct(CartItemDelReqDTO requestParam);
 }

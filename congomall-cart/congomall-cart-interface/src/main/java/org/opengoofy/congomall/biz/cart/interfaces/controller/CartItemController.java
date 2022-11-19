@@ -44,6 +44,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Api(tags = "购物车")
+@RequestMapping("/api/cart/product")
 public class CartItemController {
     
     private final CartItemService cartItemService;
@@ -87,9 +88,9 @@ public class CartItemController {
     }
     
     @DeleteMapping
-    @ApiOperation(value = "删除购物车商品")
-    public Result<Void> deleteCartItem(@RequestBody CartItemDelReqDTO requestParam) {
-        cartItemService.deleteCartItem(requestParam);
+    @ApiOperation(value = "清除购物车商品")
+    public Result<Void> clearCartProduct(@RequestBody CartItemDelReqDTO requestParam) {
+        cartItemService.clearCartProduct(requestParam);
         return Results.success();
     }
 }
