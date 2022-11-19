@@ -18,3 +18,4 @@ https://www.apifox.cn/apidoc/project-1038592/api-21806863
 | 3 | congomall-gateway | 外部网关 | http://localhost:8003 |
 | 4 | congomall-product | 商品服务 | http://localhost:8004 |
 | 5 | congomall-cart | 购物车服务 | http://localhost:8005 |
+| 6 | congomall-order | 订单服务 | http://localhost:8006 |
