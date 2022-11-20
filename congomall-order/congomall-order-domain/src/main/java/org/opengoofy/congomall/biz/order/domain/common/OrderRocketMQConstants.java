@@ -15,13 +15,18 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.domain.common;
 
 /**
- * 值对象
+ * 订单 RocketMQ 常量
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+public class OrderRocketMQConstants {
+    
+    /**
+     * 延迟关闭订单 TAG
+     */
+    public final static String DELAY_CLOSE_ORDER_TAG = "order-service_delay-close-order_tag";
 }

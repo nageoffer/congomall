@@ -15,46 +15,71 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.cart.application.resp;
+package org.opengoofy.congomall.biz.order.infrastructure.dao.entity;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 
 import java.math.BigDecimal;
 
 /**
- * 查询选中购物车商品出参
+ * 订单商品详情
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @Data
-public class CartItemQuerySelectRespDTO {
+@TableName("order_item")
+public class OrderItemDO extends BaseDO {
     
-    @ApiModelProperty("商品 spu id")
-    private String productId;
+    /**
+     * id
+     */
+    private Long id;
     
-    @ApiModelProperty("商品 sku id")
-    private String productSkuId;
+    /**
+     * 订单id
+     */
+    private Long orderId;
     
-    @ApiModelProperty("c 端用户 id")
-    private String customerUserId;
+    /**
+     * 订单编号
+     */
+    private String orderSn;
     
-    @ApiModelProperty("商品图")
+    /**
+     * 商品id
+     */
+    private Long productId;
+    
+    /**
+     * 商品图
+     */
     private String productPic;
     
-    @ApiModelProperty("商品名称")
+    /**
+     * 商品名称
+     */
     private String productName;
     
-    @ApiModelProperty("商品品牌")
+    /**
+     * 商品品牌
+     */
     private String productBrand;
     
-    @ApiModelProperty("商品价格")
+    /**
+     * 商品价格
+     */
     private BigDecimal productPrice;
     
-    @ApiModelProperty("加购物车数量")
+    /**
+     * 商品购买数量
+     */
     private Integer productQuantity;
     
-    @ApiModelProperty("商品规格，json 格式")
+    /**
+     * 规格，json 格式
+     */
     private String productAttribute;
 }

@@ -15,30 +15,65 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.cart.domain.common;
+package org.opengoofy.congomall.biz.order.domain.aggregate;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.opengoofy.congomall.ddd.framework.core.domain.ValueObject;
+
+import java.util.Date;
 
 /**
- * 购物车勾选状态
+ * 收货人信息
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@Data
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-public enum SelectFlagEnum {
+public class CneeInfo implements ValueObject {
     
     /**
-     * 购物车商品未选中状态
+     * 收货人
      */
-    UNSELECTED(0),
+    private String cneeName;
     
     /**
-     * 购物车商品选中状态
+     * 收货人电话
      */
-    SELECTED(1);
+    private String cneePhone;
     
-    @Getter
-    private final int code;
+    /**
+     * 收货人邮编
+     */
+    private String cneePostCode;
+    
+    /**
+     * 收货人所在省
+     */
+    private String cneeProvinc;
+    
+    /**
+     * 收货人所在市
+     */
+    private String cneeCity;
+    
+    /**
+     * 收货人所在区
+     */
+    private String cneeRegion;
+    
+    /**
+     * 收货人详细地址
+     */
+    private String cneeDetailAddress;
+    
+    /**
+     * 收货时间
+     */
+    private Date receiveTime;
 }

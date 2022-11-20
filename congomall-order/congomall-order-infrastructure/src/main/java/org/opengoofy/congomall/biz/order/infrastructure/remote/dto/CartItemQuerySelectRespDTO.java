@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.cart.application.resp;
+package org.opengoofy.congomall.biz.order.infrastructure.remote.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

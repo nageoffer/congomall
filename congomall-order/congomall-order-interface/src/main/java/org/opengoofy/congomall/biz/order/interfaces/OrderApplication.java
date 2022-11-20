@@ -17,10 +17,20 @@
 
 package org.opengoofy.congomall.biz.order.interfaces;
 
+import org.mybatis.spring.annotation.MapperScan;
+import org.opengoofy.congomall.biz.order.infrastructure.mq.messaging.OrderSink;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 
-@SpringBootApplication
+@EnableDiscoveryClient
+@EnableBinding({Source.class, OrderSink.class})
+@EnableFeignClients("org.opengoofy.congomall.biz.order.infrastructure.remote")
+@SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.biz.order")
+@MapperScan("org.opengoofy.congomall.biz.order.infrastructure.dao")
 public class OrderApplication {
     
     public static void main(String[] args) {

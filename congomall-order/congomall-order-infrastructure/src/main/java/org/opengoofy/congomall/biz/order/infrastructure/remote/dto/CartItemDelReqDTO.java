@@ -15,13 +15,25 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.infrastructure.remote.dto;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.List;
 
 /**
- * 值对象
+ * 删除购物车入参
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+@Data
+public class CartItemDelReqDTO {
+    
+    @ApiModelProperty("用户ID")
+    private String customerUserId;
+    
+    @ApiModelProperty("商品SKU集合")
+    private List<String> skuIds;
 }

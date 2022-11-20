@@ -15,13 +15,32 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.domain.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 值对象
+ * 商品SKU库存
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ProductSkuStockDTO {
+    
+    /**
+     * 商品SKU ID
+     */
+    private String productSkuId;
+    
+    /**
+     * 商品数量
+     */
+    private Integer productQuantity;
 }

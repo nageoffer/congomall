@@ -15,13 +15,34 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.domain.event;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.opengoofy.congomall.biz.order.domain.dto.ProductSkuStockDTO;
+import org.opengoofy.congomall.ddd.framework.core.domain.DomainEvent;
+
+import java.util.List;
 
 /**
- * 值对象
+ * 延迟关闭订单事件
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class DelayCloseOrderEvent implements DomainEvent {
+    
+    /**
+     * 订单号
+     */
+    private String orderSn;
+    
+    /**
+     * 参与订单的商品 SKU 以及数量，用于回退库存
+     */
+    private List<ProductSkuStockDTO> productSkuStockList;
 }

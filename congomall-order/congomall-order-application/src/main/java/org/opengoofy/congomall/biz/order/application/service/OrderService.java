@@ -15,13 +15,23 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.application.service;
+
+import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
 
 /**
- * 值对象
+ * 订单接口
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+public interface OrderService {
+    
+    /**
+     * 创建商品订单
+     *
+     * @param requestParam 商品订单入参
+     * @return 订单号
+     */
+    String createOrder(OrderCreateCommand requestParam);
 }

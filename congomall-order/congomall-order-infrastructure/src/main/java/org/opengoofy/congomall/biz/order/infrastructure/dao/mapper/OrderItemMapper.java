@@ -15,13 +15,16 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.infrastructure.dao.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.opengoofy.congomall.biz.order.infrastructure.dao.entity.OrderItemDO;
 
 /**
- * 值对象
+ * 订单商品详情持久层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+public interface OrderItemMapper extends BaseMapper<OrderItemDO> {
 }

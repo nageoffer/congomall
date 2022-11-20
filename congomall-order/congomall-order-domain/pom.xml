@@ -8,4 +8,12 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>congomall-order-domain</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-ddd-framework-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

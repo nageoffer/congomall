@@ -15,13 +15,24 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.infrastructure.mq.messaging;
+
+import org.springframework.cloud.stream.annotation.Input;
+import org.springframework.messaging.SubscribableChannel;
 
 /**
- * 值对象
+ * 订单 Sink
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+public interface OrderSink {
+    
+    String DELAY_CLOSE_ORDER = "delay-close-order";
+    
+    /**
+     * 延迟关闭订单
+     */
+    @Input(OrderSink.DELAY_CLOSE_ORDER)
+    SubscribableChannel delayCloseOrder();
 }

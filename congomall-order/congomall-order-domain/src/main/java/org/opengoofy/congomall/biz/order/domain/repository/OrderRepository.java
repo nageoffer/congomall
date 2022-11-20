@@ -15,13 +15,37 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.ddd.framework.core.domain;
+package org.opengoofy.congomall.biz.order.domain.repository;
+
+import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
 
 /**
- * 值对象
+ * 订单仓储层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ValueObject {
+public interface OrderRepository {
+    
+    /**
+     * 订单创建
+     *
+     * @param order 订单聚合根
+     */
+    void createOrder(Order order);
+    
+    /**
+     * 根据订单号查询订单
+     *
+     * @param orderSn 订单号
+     * @return 订单聚合根
+     */
+    Order findOrderByOrderSn(String orderSn);
+    
+    /**
+     * 关闭订单
+     *
+     * @param orderSn 订单号
+     */
+    void closeOrder(String orderSn);
 }
