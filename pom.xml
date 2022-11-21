@@ -48,9 +48,9 @@
         <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
         <!-- 编译 & 格式化 End -->
         <!-- 框架 Start -->
-        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
-        <spring-cloud-dependencies.version>Hoxton.SR9</spring-cloud-dependencies.version>
-        <spring-cloud-alibaba-dependencies.version>2.2.6.RELEASE</spring-cloud-alibaba-dependencies.version>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <spring-cloud-dependencies.version>Hoxton.SR12</spring-cloud-dependencies.version>
+        <spring-cloud-alibaba-dependencies.version>2.2.9.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
@@ -58,7 +58,8 @@
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <minio.verion>8.4.2</minio.verion>
-        <hippo4j-config.version>1.4.1</hippo4j-config.version>
+        <hippo4j-config.version>1.4.3</hippo4j-config.version>
+        <seata.version>1.5.2</seata.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <dozer.version>6.5.2</dozer.version>
@@ -201,6 +202,12 @@
                 <groupId>cn.hippo4j</groupId>
                 <artifactId>hippo4j-config-spring-boot-starter</artifactId>
                 <version>${hippo4j-config.version}</version>
+            </dependency>
+    
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
