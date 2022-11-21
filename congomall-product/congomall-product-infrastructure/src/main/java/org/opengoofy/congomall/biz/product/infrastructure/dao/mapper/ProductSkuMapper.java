@@ -27,4 +27,14 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.entity.ProductSkuD
  * @github https://github.com/opengoofy
  */
 public interface ProductSkuMapper extends BaseMapper<ProductSkuDO> {
+    
+    /**
+     * 锁定商品 SKU 库存
+     */
+    int lockSkuStock(ProductSkuDO productSkuDO);
+    
+    /**
+     * 解锁商品 SKU 库存
+     */
+    int unlockSkuStock(ProductSkuDO productSkuDO);
 }

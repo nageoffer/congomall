@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 public class ProductSkuStockDTO {
     
     /**
-     * 商品SKU ID
+     * 商品 SKU ID
      */
     private String productSkuId;
     

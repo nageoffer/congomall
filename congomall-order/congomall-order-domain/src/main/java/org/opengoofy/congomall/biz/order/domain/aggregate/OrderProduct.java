@@ -52,7 +52,7 @@ public class OrderProduct implements Entity {
     /**
      * 商品id
      */
-    private Long productId;
+    private Long productSkuId;
     
     /**
      * 商品图

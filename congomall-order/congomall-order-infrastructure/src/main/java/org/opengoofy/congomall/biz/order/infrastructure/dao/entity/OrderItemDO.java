@@ -49,9 +49,9 @@ public class OrderItemDO extends BaseDO {
     private String orderSn;
     
     /**
-     * 商品id
+     * 商品sku id
      */
-    private Long productId;
+    private Long productSkuId;
     
     /**
      * 商品图

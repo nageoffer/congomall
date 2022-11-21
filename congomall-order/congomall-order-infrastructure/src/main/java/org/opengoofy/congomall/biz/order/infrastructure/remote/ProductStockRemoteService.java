@@ -15,41 +15,33 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.product.application.service;
+package org.opengoofy.congomall.biz.order.infrastructure.remote;
 
-import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
-import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
-import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
+import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductLockStockReqDTO;
+import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductUnlockStockReqDTO;
+import org.opengoofy.congomall.springboot.starter.convention.result.Result;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * 商品服务
+ * 商品库存服务远程调用
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ProductService {
-    
-    /**
-     * 根据 spuId 查询商品信息
-     *
-     * @param spuId
-     * @return
-     */
-    ProductRespDTO getProductBySpuId(Long spuId);
+@FeignClient("product-service")
+public interface ProductStockRemoteService {
     
     /**
      * 锁定商品库存
-     *
-     * @param requestParam
-     * @return
      */
-    Boolean lockProductStock(ProductLockStockCommand requestParam);
+    @PutMapping("/api/product/stock/lock")
+    Result<Boolean> lockProductStock(@RequestBody ProductLockStockReqDTO requestParam);
     
     /**
      * 解锁商品库存
-     *
-     * @param requestParam
-     * @return
      */
-    Boolean unlockProductStock(ProductUnlockStockCommand requestParam);
+    @PutMapping("/api/product/stock/unlock")
+    Result<Boolean> unlockProductStock(@RequestBody ProductUnlockStockReqDTO requestParam);
 }

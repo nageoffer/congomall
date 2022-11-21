@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductSkuMapper">
+    
+    <update id="lockSkuStock"
+            parameterType="org.opengoofy.congomall.biz.product.infrastructure.dao.entity.ProductSkuDO">
+        UPDATE
+            product_sku
+        SET stock      = stock + #{stock},
+            lock_stock = lock_stock + #{lockStock}
+        WHERE id = #{id}
+          AND stock + #{stock} > 0
+    </update>
+    
+    <update id="unlockSkuStock"
+            parameterType="org.opengoofy.congomall.biz.product.infrastructure.dao.entity.ProductSkuDO">
+        UPDATE
+            product_sku
+        SET stock      = stock + #{stock},
+            lock_stock = lock_stock + #{lockStock}
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
+import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductBrand;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductSku;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductSpu;
@@ -32,7 +33,9 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductBran
 import org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductSkuMapper;
 import org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductSpuMapper;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
+import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -70,5 +73,32 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .productSkus(BeanUtil.convert(productSkuDOListFuture.get(), ProductSku.class))
                 .build();
         return product;
+    }
+    
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean lockProductStock(ProductStock productStock) {
+        productStock.getProductStockDetails().forEach(each -> {
+            ProductSkuDO lockStock = ProductSkuDO.builder().id(Long.parseLong(each.getProductSkuId()))
+                    .stock(-each.getProductQuantity()).lockStock(each.getProductQuantity()).build();
+            int updateFlag = productSkuMapper.lockSkuStock(lockStock);
+            if (updateFlag <= 0) {
+                throw new ServiceException("锁定库存失败，请检查相关商品库存是否充足");
+            }
+        });
+        return true;
+    }
+    
+    @Override
+    public Boolean unlockProductStock(ProductStock productStock) {
+        productStock.getProductStockDetails().forEach(each -> {
+            ProductSkuDO lockStock = ProductSkuDO.builder().id(Long.parseLong(each.getProductSkuId()))
+                    .stock(each.getProductQuantity()).lockStock(-each.getProductQuantity()).build();
+            int updateFlag = productSkuMapper.unlockSkuStock(lockStock);
+            if (updateFlag <= 0) {
+                throw new ServiceException("解锁库存失败，请检查相关商品库存数据是否正确");
+            }
+        });
+        return true;
     }
 }

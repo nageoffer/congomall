@@ -17,10 +17,14 @@
 
 package org.opengoofy.congomall.biz.product.application.service.impl;
 
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.AllArgsConstructor;
+import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
+import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
 import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
 import org.opengoofy.congomall.biz.product.application.service.ProductService;
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
+import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
 import org.opengoofy.congomall.biz.product.domain.repository.ProductRepository;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.springframework.stereotype.Service;
@@ -41,5 +45,16 @@ public class ProductServiceImpl implements ProductService {
     public ProductRespDTO getProductBySpuId(Long spuId) {
         Product product = productRepository.getProductBySpuId(spuId);
         return BeanUtil.convert(product, ProductRespDTO.class);
+    }
+    
+    @GlobalTransactional
+    @Override
+    public Boolean lockProductStock(ProductLockStockCommand requestParam) {
+        return productRepository.lockProductStock(BeanUtil.convert(requestParam, ProductStock.class));
+    }
+    
+    @Override
+    public Boolean unlockProductStock(ProductUnlockStockCommand requestParam) {
+        return productRepository.unlockProductStock(BeanUtil.convert(requestParam, ProductStock.class));
     }
 }

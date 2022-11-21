@@ -18,7 +18,10 @@
 package org.opengoofy.congomall.biz.order.application.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.alibaba.fastjson.JSON;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
 import org.opengoofy.congomall.biz.order.domain.aggregate.CneeInfo;
@@ -30,8 +33,11 @@ import org.opengoofy.congomall.biz.order.domain.event.DelayCloseOrderEvent;
 import org.opengoofy.congomall.biz.order.domain.repository.OrderRepository;
 import org.opengoofy.congomall.biz.order.infrastructure.mq.provide.DelayCloseOrderProvide;
 import org.opengoofy.congomall.biz.order.infrastructure.remote.CartRemoteService;
+import org.opengoofy.congomall.biz.order.infrastructure.remote.ProductStockRemoteService;
 import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.CartItemDelReqDTO;
 import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.CartItemQuerySelectRespDTO;
+import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductLockStockReqDTO;
+import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductStockDetailReqDTO;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
@@ -48,6 +54,7 @@ import java.util.stream.Collectors;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -58,6 +65,9 @@ public class OrderServiceImpl implements OrderService {
     
     private final DelayCloseOrderProvide delayCloseOrderProvide;
     
+    private final ProductStockRemoteService productStockRemoteService;
+    
+    @GlobalTransactional
     @Override
     public String createOrder(OrderCreateCommand requestParam) {
         // 创建订单号
@@ -85,7 +95,8 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.createOrder(order);
         // 清理购物车商品
         clearCartProduct(cartProducts);
-        // TODO 锁定库存
+        // 锁定库存
+        lockProductStock(order);
         // 发送延迟队列取消未付款订单
         delayCloseOrderProvide.delayCloseOrderSend(
                 new DelayCloseOrderEvent(
@@ -119,5 +130,26 @@ public class OrderServiceImpl implements OrderService {
         cartItemDelReqDTO.setCustomerUserId(cartProducts.get(0).getCustomerUserId());
         cartItemDelReqDTO.setSkuIds(cartProducts.stream().map(CartItemQuerySelectRespDTO::getProductSkuId).collect(Collectors.toList()));
         cartRemoteService.clearCartProduct(cartItemDelReqDTO);
+    }
+    
+    /**
+     * 锁定商品库存
+     *
+     * @param order 订单聚合根
+     */
+    private void lockProductStock(Order order) {
+        ProductLockStockReqDTO requestParam = ProductLockStockReqDTO.builder()
+                .orderSn(order.getOrderSn())
+                .productStockDetails(BeanUtil.convert(order.getOrderProducts(), ProductStockDetailReqDTO.class))
+                .build();
+        try {
+            Result<Boolean> lockProductStockResult = productStockRemoteService.lockProductStock(requestParam);
+            if (!lockProductStockResult.isSuccess() || !lockProductStockResult.getData()) {
+                throw new ServiceException(lockProductStockResult.getMessage());
+            }
+        } catch (Throwable ex) {
+            log.error("锁定商品库存失败, 入参: {}", JSON.toJSONString(requestParam), ex);
+            throw ex;
+        }
     }
 }

@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.biz.product.domain.repository;
 
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
+import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
 
 /**
  * 商品仓储层
@@ -34,4 +35,20 @@ public interface ProductRepository {
      * @return
      */
     Product getProductBySpuId(Long spuId);
+    
+    /**
+     * 锁定商品库存
+     *
+     * @param productStock
+     * @return
+     */
+    Boolean lockProductStock(ProductStock productStock);
+    
+    /**
+     * 解锁商品库存
+     *
+     * @param productStock
+     * @return
+     */
+    Boolean unlockProductStock(ProductStock productStock);
 }

@@ -15,41 +15,32 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.product.application.service;
+package org.opengoofy.congomall.biz.product.domain.aggregate;
 
-import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
-import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
-import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
+import lombok.*;
+import org.opengoofy.congomall.ddd.framework.core.domain.AggregateRoot;
+
+import java.util.List;
 
 /**
- * 商品服务
+ * 商品库存聚合根
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface ProductService {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductStock implements AggregateRoot {
     
     /**
-     * 根据 spuId 查询商品信息
-     *
-     * @param spuId
-     * @return
+     * 订单号
      */
-    ProductRespDTO getProductBySpuId(Long spuId);
+    private String orderSn;
     
     /**
-     * 锁定商品库存
-     *
-     * @param requestParam
-     * @return
+     * 商品库存详情
      */
-    Boolean lockProductStock(ProductLockStockCommand requestParam);
-    
-    /**
-     * 解锁商品库存
-     *
-     * @param requestParam
-     * @return
-     */
-    Boolean unlockProductStock(ProductUnlockStockCommand requestParam);
+    private List<ProductStockDetail> productStockDetails;
 }

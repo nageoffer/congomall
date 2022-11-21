@@ -18,22 +18,21 @@
 package org.opengoofy.congomall.biz.product.interfaces.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
+import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
+import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
 import org.opengoofy.congomall.biz.product.application.service.ProductService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 商品服务
+ * 商品库存控制层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
@@ -41,19 +40,23 @@ import org.springframework.web.bind.annotation.RestController;
 @MLog
 @RestController
 @AllArgsConstructor
-@Api(tags = "商品服务")
-@RequestMapping("/api/product")
-public class ProductController {
+@Api(tags = "商品库存")
+@RequestMapping("/api/product/stock")
+public class ProductStockController {
     
     private final ProductService productService;
     
-    @GetMapping("/spu/{spu_id}")
-    @ApiOperation(value = "根据 spuId 查询商品详情")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "spu_id", value = "商品 spuId", required = true, example = "1477055850256982016")
-    })
-    public Result<ProductRespDTO> getProductBySpuId(@PathVariable("spu_id") String spuId) {
-        ProductRespDTO result = productService.getProductBySpuId(Long.parseLong(spuId));
+    @PutMapping("/lock")
+    @ApiOperation(value = "锁定商品库存")
+    public Result<Boolean> lockProductStock(@RequestBody ProductLockStockCommand requestParam) {
+        boolean result = productService.lockProductStock(requestParam);
+        return Results.success(result);
+    }
+    
+    @PutMapping("/unlock")
+    @ApiOperation(value = "解锁商品库存")
+    public Result<Boolean> unlockProductStock(@RequestBody ProductUnlockStockCommand requestParam) {
+        boolean result = productService.unlockProductStock(requestParam);
         return Results.success(result);
     }
 }

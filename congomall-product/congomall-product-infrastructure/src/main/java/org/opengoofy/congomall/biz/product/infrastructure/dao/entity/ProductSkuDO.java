@@ -30,6 +30,7 @@ import java.math.BigDecimal;
  * @github https://github.com/opengoofy
  */
 @Data
+@Builder
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
