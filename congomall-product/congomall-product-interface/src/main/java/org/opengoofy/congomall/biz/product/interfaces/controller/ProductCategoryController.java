@@ -41,13 +41,13 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Api(tags = "商品分类")
-@RequestMapping("/api/product/category")
+@RequestMapping("/api/product")
 public class ProductCategoryController {
     
     private final ProductCategoryService productCategoryService;
     
     @ApiOperation(value = "查询商品分类集合", notes = "返回全部分类")
-    @GetMapping("/list/all")
+    @GetMapping("/categories")
     public Result<List<ProductCategoryRespDTO>> listAllProductCategory() {
         return Results.success(productCategoryService.listAllProductCategory());
     }

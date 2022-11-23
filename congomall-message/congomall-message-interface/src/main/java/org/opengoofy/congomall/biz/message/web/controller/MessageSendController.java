@@ -28,6 +28,7 @@ import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -42,6 +43,7 @@ import javax.validation.Valid;
 @RestController
 @AllArgsConstructor
 @Api(tags = "消息发送")
+@RequestMapping("/api/message")
 public class MessageSendController {
     
     private final MessageSendService messageSendService;

@@ -47,12 +47,12 @@ public class ProductController {
     
     private final ProductService productService;
     
-    @GetMapping("/spu/{spu_id}")
+    @GetMapping("/spu/{spuId}")
     @ApiOperation(value = "根据 spuId 查询商品详情")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "spu_id", value = "商品 spuId", required = true, example = "1477055850256982016")
+            @ApiImplicitParam(name = "spuId", value = "商品 spuId", required = true, example = "1477055850256982016")
     })
-    public Result<ProductRespDTO> getProductBySpuId(@PathVariable("spu_id") String spuId) {
+    public Result<ProductRespDTO> getProductBySpuId(@PathVariable("spuId") String spuId) {
         ProductRespDTO result = productService.getProductBySpuId(Long.parseLong(spuId));
         return Results.success(result);
     }

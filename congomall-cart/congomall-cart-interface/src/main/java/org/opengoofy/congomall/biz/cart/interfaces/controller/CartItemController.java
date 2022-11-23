@@ -56,17 +56,17 @@ public class CartItemController {
         return Results.success(resultPage);
     }
     
-    @GetMapping("/{customer_user_id}")
+    @GetMapping("/{customerUserId}")
     @ApiOperation(value = "查询用户选中购物车商品")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "customer_user_id", value = "用户 id", required = true, example = "1547742028312375296")
     })
-    public Result<List<CartItemQuerySelectRespDTO>> querySelectCartByCustomerUserId(@PathVariable("customer_user_id") String customerUserId) {
+    public Result<List<CartItemQuerySelectRespDTO>> querySelectCartByCustomerUserId(@PathVariable("customerUserId") String customerUserId) {
         List<CartItemQuerySelectRespDTO> result = cartItemService.querySelectCartByCustomerUserId(customerUserId);
         return Results.success(result);
     }
     
-    @PostMapping("/add")
+    @PostMapping
     @ApiOperation(value = "新增商品到购物车")
     public Result<Void> addCartItem(@RequestBody CartItemAddReqDTO requestParam) {
         cartItemService.addCartItem(requestParam);

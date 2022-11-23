@@ -47,12 +47,12 @@ public class ReceiveAddressController {
     
     private final ReceiveAddressService receiveAddressService;
     
-    @GetMapping("/{customer_user_id}/receive_address")
+    @GetMapping("/{customerUserId}/receive-address")
     @ApiOperation(value = "获取用户收货地址", notes = "根据用户ID获取用户收货地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "customer_user_id", value = "用户 id", required = true, example = "1547742028312375296")
+            @ApiImplicitParam(name = "customerUserId", value = "用户 id", required = true, example = "1547742028312375296")
     })
-    public Result<List<ReceiveAddressRespDTO>> listReceiveAddress(@PathVariable("customer_user_id") String customerUserId) {
+    public Result<List<ReceiveAddressRespDTO>> listReceiveAddress(@PathVariable("customerUserId") String customerUserId) {
         return Results.success(receiveAddressService.listReceiveAddressByCustomerUserId(customerUserId));
     }
 }
