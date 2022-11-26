@@ -2,6 +2,7 @@ HELP.md
 target/
 .hprof
 !.mvn/wrapper/maven-wrapper.jar
+dependency-reduced-pom.xml
 !**/src/main/**/target/
 !**/src/test/**/target/
 
