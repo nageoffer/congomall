@@ -20,6 +20,7 @@ package org.opengoofy.congomall.rocketmq.springboot.starter.core;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * 消息体包装器
@@ -51,8 +52,7 @@ public final class MessageWrapper<T> implements Serializable {
     /**
      * 唯一标识，用于客户端幂等验证
      */
-    @NonNull
-    private String uuid;
+    private String uuid = UUID.randomUUID().toString();
     
     /**
      * 消息发送时间
