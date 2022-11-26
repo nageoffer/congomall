@@ -37,7 +37,7 @@ public final class MessageWrapper<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * 唯一标识，可用于幂等性控制
+     * 消息发送Keys
      */
     @NonNull
     private String keys;
@@ -47,6 +47,12 @@ public final class MessageWrapper<T> implements Serializable {
      */
     @NonNull
     private T message;
+    
+    /**
+     * 唯一标识，用于客户端幂等验证
+     */
+    @NonNull
+    private String uuid;
     
     /**
      * 消息发送时间
