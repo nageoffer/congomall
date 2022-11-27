@@ -19,8 +19,11 @@ package org.opengoofy.congomall.flow.monitor.agent.context;
 
 import com.wujiuye.flow.FlowType;
 import com.wujiuye.flow.Flower;
+import org.springframework.util.AntPathMatcher;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -53,6 +56,24 @@ public final class FlowMonitorRuntimeContext {
      * 是否执行
      */
     public final static ThreadLocal<Boolean> IS_EXECUTE_THREADLOCAL = new ThreadLocal();
+    
+    /**
+     * 来源客户端所有虚拟 URI
+     * <p>
+     * Actual: /api/order-service/info/{orderId}
+     * Virtual: /api/order-service/info/*
+     * </p>
+     */
+    public final static Set<String> CONSUMER_ALL_VIRTUAL_URIS = new HashSet<>();
+    
+    /**
+     * 目标客户端所有虚拟 URI
+     * <p>
+     * Actual: /api/message-service/info/{orderId}
+     * Virtual: /api/message-service/info/*
+     * </p>
+     */
+    public final static Set<String> PROVIDER_ALL_VIRTUAL_URIS = new HashSet<>();
     
     /**
      * 初始化行为
@@ -133,6 +154,24 @@ public final class FlowMonitorRuntimeContext {
     
     public static boolean getIsExecute() {
         return IS_EXECUTE_THREADLOCAL.get();
+    }
+    
+    public static String getConsumerVirtualUri(String actualUri) {
+        return getVirtualUri(actualUri, CONSUMER_ALL_VIRTUAL_URIS);
+    }
+    
+    public static String getProvideVirtualUri(String actualUri) {
+        return getVirtualUri(actualUri, PROVIDER_ALL_VIRTUAL_URIS);
+    }
+    
+    public static String getVirtualUri(String actualUri, Set<String> virtualUris) {
+        AntPathMatcher matcher = new AntPathMatcher();
+        for (String each : virtualUris) {
+            if (matcher.match(each, actualUri)) {
+                return each;
+            }
+        }
+        return "Virtual map URI not found, Actual uri: " + actualUri;
     }
     
     public static void removeContent() {

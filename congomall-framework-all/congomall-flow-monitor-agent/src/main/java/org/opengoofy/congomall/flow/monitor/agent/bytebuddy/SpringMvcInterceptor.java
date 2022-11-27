@@ -21,6 +21,7 @@ import net.bytebuddy.asm.Advice;
 import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorSourceParam;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -38,7 +39,7 @@ import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConst
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public class SpringMvcInterceptor {
+public final class SpringMvcInterceptor {
     
     @Advice.OnMethodEnter
     public static void enter(@Advice.This Object obj,
@@ -51,7 +52,8 @@ public class SpringMvcInterceptor {
             FlowMonitorRuntimeContext.setIsExecute(Boolean.FALSE);
             return;
         }
-        String targetURI = httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement();
+        FlowMonitorVirtualUriLoader.loadProviderUris();
+        String targetURI = FlowMonitorRuntimeContext.getProvideVirtualUri(httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement());
         String sourceHost = httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_HTTP_HOST).nextElement();
         String sourceApplication = sourceApplicationNameEnumeration.nextElement();
         Map<String, Map<String, FlowMonitorSourceParam>> sourceApplications;
@@ -83,7 +85,7 @@ public class SpringMvcInterceptor {
             return;
         }
         HttpServletRequest httpServletRequest = webRequest.getRequest();
-        String targetURI = httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement();
+        String targetURI = FlowMonitorRuntimeContext.getProvideVirtualUri(httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement());
         String sourceApplication = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).nextElement();
         String host = httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_HTTP_HOST).nextElement();
         FlowMonitorSourceParam sourceParam = FlowMonitorRuntimeContext.getHost(targetURI, sourceApplication, host);

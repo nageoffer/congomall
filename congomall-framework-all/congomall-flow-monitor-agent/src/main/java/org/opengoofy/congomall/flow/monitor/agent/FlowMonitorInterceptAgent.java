@@ -32,7 +32,7 @@ import java.lang.instrument.Instrumentation;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public class FlowMonitorInterceptAgent {
+public final class FlowMonitorInterceptAgent {
     
     /**
      * 微服务流量监控插桩

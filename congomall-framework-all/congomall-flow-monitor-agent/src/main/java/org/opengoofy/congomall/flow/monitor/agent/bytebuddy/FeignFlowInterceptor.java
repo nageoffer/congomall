@@ -19,6 +19,8 @@ package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
 import feign.Request;
 import net.bytebuddy.asm.Advice;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Lists;
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -27,20 +29,24 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.*;
 
 /**
  * Feign 流量拦截
  */
-public class FeignFlowInterceptor {
+public final class FeignFlowInterceptor {
     
     @Advice.OnMethodEnter
     public static void enter(@Advice.This Object obj,
                              @Advice.AllArguments Object[] allArguments,
                              @Advice.Origin("#t") String className,
                              @Advice.Origin("#m") String methodName) throws Throwable {
+        FlowMonitorVirtualUriLoader.loadConsumerUris();
         Request request = (Request) allArguments[0];
         Field headersField = Request.class.getDeclaredField("headers");
         headersField.setAccessible(true);
@@ -51,7 +57,7 @@ public class FeignFlowInterceptor {
         try {
             ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             headers.put(SOURCE_HTTP_REQUEST_METHOD, Lists.newArrayList(servletRequestAttributes.getRequest().getMethod()));
-            headers.put(SOURCE_HTTP_REQUEST_URI, Lists.newArrayList(servletRequestAttributes.getRequest().getRequestURI()));
+            headers.put(SOURCE_HTTP_REQUEST_URI, Lists.newArrayList(FlowMonitorRuntimeContext.getConsumerVirtualUri(servletRequestAttributes.getRequest().getRequestURI())));
         } catch (Exception ignored) {
         }
         URL url = new URL(request.url());

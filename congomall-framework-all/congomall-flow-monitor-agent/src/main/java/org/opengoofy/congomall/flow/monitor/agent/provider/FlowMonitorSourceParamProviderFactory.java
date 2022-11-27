@@ -20,6 +20,7 @@ package org.opengoofy.congomall.flow.monitor.agent.provider;
 import com.wujiuye.flow.FlowHelper;
 import com.wujiuye.flow.FlowType;
 import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorSourceParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public class FlowMonitorSourceParamProviderFactory {
+public final class FlowMonitorSourceParamProviderFactory {
     
     /**
      * 获取实例
@@ -45,7 +46,7 @@ public class FlowMonitorSourceParamProviderFactory {
                 .sourceApplicationName(httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_APPLICATION_NAME).nextElement())
                 .sourceHttpUri(httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_HTTP_REQUEST_URI).nextElement())
                 .sourceHost(httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_HTTP_HOST).nextElement())
-                .targetHttpUri(httpServletRequest.getHeaders(FlowMonitorConstant.TARGET_HTTP_REQUEST_URI).nextElement())
+                .targetHttpUri(FlowMonitorRuntimeContext.getProvideVirtualUri(httpServletRequest.getHeaders(FlowMonitorConstant.TARGET_HTTP_REQUEST_URI).nextElement()))
                 .build();
         return sourceParam;
     }
