@@ -15,27 +15,27 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.test.flowmonitor.agent.order.consumer.controller;
+package org.opengoofy.congomall.test.flowmonitor.agent.pay.consumer.controller;
 
 import lombok.AllArgsConstructor;
-import org.opengoofy.congomall.test.flowmonitor.agent.order.consumer.remote.MessageRemoteService;
+import org.opengoofy.congomall.test.flowmonitor.agent.pay.consumer.remote.MessageRemoteService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 订单控制层
+ * 支付控制层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @RestController
 @AllArgsConstructor
-public class OrderController {
+public class PayController {
     
     private final MessageRemoteService messageRemoteService;
     
-    @GetMapping("/api/order-service/info/{orderId}")
+    @GetMapping("/api/pay-service/info/{orderId}")
     public String getOrderInfo(@PathVariable("orderId") String orderId) {
         String resultMessageInfo = messageRemoteService.getMessageInfoByOrderId(orderId);
         return resultMessageInfo;

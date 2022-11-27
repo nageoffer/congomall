@@ -15,19 +15,24 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.test.flowmonitor.agent.order.consumer;
+package org.opengoofy.congomall.test.flowmonitor.agent.pay.consumer.remote;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@EnableDiscoveryClient
-@EnableFeignClients("org.opengoofy.congomall.test.flowmonitor.agent.order.consumer.remote")
-@SpringBootApplication
-public class FlowMonitorConsumerTestApplication {
+/**
+ * 消息远程调用接口
+ *
+ * @author chen.ma
+ * @github https://github.com/opengoofy
+ */
+@FeignClient("flow-monitor-message-provider-test")
+public interface MessageRemoteService {
     
-    public static void main(String[] args) {
-        SpringApplication.run(FlowMonitorConsumerTestApplication.class, args);
-    }
+    /**
+     * 获取用户信息
+     */
+    @GetMapping("/api/message-service/info/{orderId}")
+    String getMessageInfoByOrderId(@PathVariable("orderId") String orderId);
 }

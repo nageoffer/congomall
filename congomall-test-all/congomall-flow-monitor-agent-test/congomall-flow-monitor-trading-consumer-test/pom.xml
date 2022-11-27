@@ -7,7 +7,7 @@
         <artifactId>congomall-flow-monitor-agent-test</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>congomall-flow-monitor-message-provider-test</artifactId>
+    <artifactId>congomall-flow-monitor-trading-consumer-test</artifactId>
     
     <dependencies>
         <dependency>
@@ -21,18 +21,19 @@
         </dependency>
         
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-    
+        
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
-    
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-swagger-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

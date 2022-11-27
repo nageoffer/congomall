@@ -15,33 +15,29 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.controller;
+package org.opengoofy.congomall.test.flowmonitor.agent.order.controller;
 
-import lombok.SneakyThrows;
+import lombok.AllArgsConstructor;
+import org.opengoofy.congomall.test.flowmonitor.agent.order.remote.MessageRemoteService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Random;
-
 /**
- * 消息发送控制层
+ * 订单控制层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @RestController
-public class MessageSendController {
+@AllArgsConstructor
+public class OrderController {
     
-    @SneakyThrows
-    @GetMapping("/api/message-service/info/{orderId}")
-    public String getMessageInfoByOrderId(@PathVariable("orderId") String orderId) {
-        Random random = new Random();
-        int nextInt = random.nextInt(50);
-        Thread.sleep(nextInt);
-        /*if (nextInt % 2 == 0) {
-            throw new RuntimeException();
-        }*/
-        return orderId;
+    private final MessageRemoteService messageRemoteService;
+    
+    @GetMapping("/api/order-service/info/{orderId}")
+    public String getOrderInfo(@PathVariable("orderId") String orderId) {
+        String resultMessageInfo = messageRemoteService.getMessageInfoByOrderId(orderId);
+        return resultMessageInfo;
     }
 }
