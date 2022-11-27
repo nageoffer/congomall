@@ -21,9 +21,8 @@ import feign.Request;
 import net.bytebuddy.asm.Advice;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.Environments;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Lists;
-import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
-import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -51,7 +50,7 @@ public final class FeignFlowInterceptor {
         Field headersField = Request.class.getDeclaredField("headers");
         headersField.setAccessible(true);
         Map<String, Collection<String>> headers = new LinkedHashMap();
-        String applicationName = ApplicationContextHolder.getBean(ConfigurableEnvironment.class).getProperty(SPRING_APPLICATION_NAME, "");
+        String applicationName = Environments.getApplicationName();
         headers.put(SOURCE_APPLICATION_NAME, Lists.newArrayList(applicationName));
         headersField.set(request, Collections.unmodifiableMap(headers));
         try {

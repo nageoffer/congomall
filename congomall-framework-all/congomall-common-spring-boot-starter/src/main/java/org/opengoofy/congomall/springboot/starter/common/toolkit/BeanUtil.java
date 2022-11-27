@@ -44,6 +44,21 @@ public class BeanUtil {
     }
     
     /**
+     * 属性复制
+     *
+     * @param source 数据对象
+     * @param target 目标对象
+     * @param <T>
+     * @param <S>
+     * @return 转换后对象
+     */
+    public static <T, S> T convert(S source, T target) {
+        Optional.ofNullable(source)
+                .ifPresent(each -> BEAN_MAPPER_BUILDER.map(each, target));
+        return target;
+    }
+    
+    /**
      * 复制单个对象
      *
      * @param source 数据对象
