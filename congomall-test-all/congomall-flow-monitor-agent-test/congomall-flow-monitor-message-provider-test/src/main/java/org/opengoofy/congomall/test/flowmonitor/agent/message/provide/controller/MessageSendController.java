@@ -39,9 +39,9 @@ public class MessageSendController {
         Random random = new Random();
         int nextInt = random.nextInt(50);
         Thread.sleep(nextInt);
-        /*if (nextInt % 2 == 0) {
+        if (nextInt % 2 == 0) {
             throw new RuntimeException();
-        }*/
+        }
         return orderId;
     }
 }

@@ -51,6 +51,11 @@ public class FlowMonitorConstant {
     public static final String SOURCE_HTTP_HOST = "flow.monitor.source.host";
     
     /**
+     * 网关调用标识
+     */
+    public static final String SOURCE_GATEWAY_FLAG = "flow.monitor.source.gateway.flag";
+    
+    /**
      * 服务端被调用 HTTP URI Key
      */
     public static final String TARGET_HTTP_REQUEST_URI = "flow.monitor.target.request.uri";

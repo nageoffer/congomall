@@ -22,7 +22,6 @@ import net.bytebuddy.asm.Advice;
 import net.bytebuddy.matcher.ElementMatchers;
 import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.FeignFlowInterceptor;
 import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.SpringMvcInterceptor;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 
 import java.lang.instrument.Instrumentation;
 
@@ -42,7 +41,6 @@ public final class FlowMonitorInterceptAgent {
      */
     public static void premain(String agentArgs, Instrumentation instrumentation) {
         System.out.println("this is an perform monitor agent.");
-        FlowMonitorRuntimeContext.init();
         consumerOpenFeignHandleInstrument(instrumentation);
         provideWebMvcHandlerInstrument(instrumentation);
     }

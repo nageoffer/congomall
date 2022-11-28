@@ -18,7 +18,6 @@
 package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
 import net.bytebuddy.asm.Advice;
-import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorSourceParam;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
@@ -31,7 +30,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.SOURCE_APPLICATION_NAME;
-import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.TARGET_HTTP_REQUEST_URI;
+import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.SOURCE_GATEWAY_FLAG;
 
 /**
  * Spring MVC 流量拦截
@@ -48,31 +47,28 @@ public final class SpringMvcInterceptor {
                              @Advice.Origin("#m") String methodName) throws Throwable {
         HttpServletRequest httpServletRequest = webRequest.getRequest();
         Enumeration<String> sourceApplicationNameEnumeration = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME);
-        if (!sourceApplicationNameEnumeration.hasMoreElements()) {
+        Enumeration<String> sourceGatewayEnumeration = httpServletRequest.getHeaders(SOURCE_GATEWAY_FLAG);
+        if (!sourceGatewayEnumeration.hasMoreElements() && !sourceApplicationNameEnumeration.hasMoreElements()) {
             FlowMonitorRuntimeContext.setIsExecute(Boolean.FALSE);
             return;
         }
         FlowMonitorVirtualUriLoader.loadProviderUris();
-        String targetURI = FlowMonitorRuntimeContext.getProvideVirtualUri(httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement());
-        String sourceHost = httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_HTTP_HOST).nextElement();
-        String sourceApplication = sourceApplicationNameEnumeration.nextElement();
+        FlowMonitorRuntimeContext.init();
+        FlowMonitorSourceParam sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
         Map<String, Map<String, FlowMonitorSourceParam>> sourceApplications;
-        if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(targetURI)) == null) {
+        if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetHttpUri())) == null) {
             sourceApplications = new ConcurrentHashMap<>();
             Map<String, FlowMonitorSourceParam> hosts = new ConcurrentHashMap<>();
-            FlowMonitorSourceParam sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
-            hosts.put(sourceHost, sourceParam);
-            sourceApplications.put(sourceApplication, hosts);
-            FlowMonitorRuntimeContext.putApplications(targetURI, sourceApplications);
-        } else if (FlowMonitorRuntimeContext.getHosts(targetURI, sourceApplication) == null) {
+            hosts.put(sourceParam.getSourceHost(), sourceParam);
+            sourceApplications.put(sourceParam.getSourceApplicationName(), hosts);
+            FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetHttpUri(), sourceApplications);
+        } else if (FlowMonitorRuntimeContext.getHosts(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName()) == null) {
             Map<String, FlowMonitorSourceParam> hosts = new ConcurrentHashMap<>();
-            FlowMonitorSourceParam sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
-            hosts.put(sourceHost, sourceParam);
-            sourceApplications.put(sourceApplication, hosts);
-            FlowMonitorRuntimeContext.putHosts(targetURI, sourceApplication, hosts);
-        } else if (FlowMonitorRuntimeContext.getHost(targetURI, sourceApplication, sourceHost) == null) {
-            FlowMonitorSourceParam sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
-            FlowMonitorRuntimeContext.putHost(targetURI, sourceApplication, sourceHost, sourceParam);
+            hosts.put(sourceParam.getSourceHost(), sourceParam);
+            sourceApplications.put(sourceParam.getSourceApplicationName(), hosts);
+            FlowMonitorRuntimeContext.putHosts(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName(), hosts);
+        } else if (FlowMonitorRuntimeContext.getHost(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName(), sourceParam.getSourceHost()) == null) {
+            FlowMonitorRuntimeContext.putHost(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName(), sourceParam.getSourceHost(), sourceParam);
         }
         FlowMonitorRuntimeContext.setExecuteTime();
         FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
@@ -85,10 +81,8 @@ public final class SpringMvcInterceptor {
             return;
         }
         HttpServletRequest httpServletRequest = webRequest.getRequest();
-        String targetURI = FlowMonitorRuntimeContext.getProvideVirtualUri(httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement());
-        String sourceApplication = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).nextElement();
-        String host = httpServletRequest.getHeaders(FlowMonitorConstant.SOURCE_HTTP_HOST).nextElement();
-        FlowMonitorSourceParam sourceParam = FlowMonitorRuntimeContext.getHost(targetURI, sourceApplication, host);
+        FlowMonitorSourceParam instance = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
+        FlowMonitorSourceParam sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetHttpUri(), instance.getSourceApplicationName(), instance.getSourceHost());
         if (ex == null) {
             sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
         } else {

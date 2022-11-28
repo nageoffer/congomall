@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 微服务流量监控运行上下文
@@ -78,10 +79,21 @@ public final class FlowMonitorRuntimeContext {
      */
     public final static Set<String> PROVIDER_ALL_VIRTUAL_URIS = new HashSet<>();
     
+    private final static AtomicBoolean INIT_FLAG = new AtomicBoolean(Boolean.FALSE);
+    
     /**
      * 初始化行为
      */
     public static void init() {
+        if (INIT_FLAG.get()) {
+            return;
+        }
+        synchronized (FlowMonitorRuntimeContext.class) {
+            if (INIT_FLAG.get()) {
+                return;
+            }
+            INIT_FLAG.set(Boolean.TRUE);
+        }
         try {
             SCHEDULED_EXECUTOR_SERVICE.scheduleWithFixedDelay(() -> STORAGE.forEach((interfaceKey, val) -> {
                 System.out.println(STORAGE);
@@ -127,7 +139,7 @@ public final class FlowMonitorRuntimeContext {
                         ex.printStackTrace();
                     }
                 }));
-            }), 0, 5, TimeUnit.SECONDS);
+            }), 0, 60, TimeUnit.SECONDS);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
