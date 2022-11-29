@@ -40,52 +40,44 @@ public class XXLJobInterceptor {
     public static void enter(@Advice.This Object obj,
                              @Advice.Origin("#t") String className,
                              @Advice.Origin("#m") String methodName) throws Throwable {
-        try {
-            FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.XXL_JOB);
-            String key = new StringBuilder("/XXL-Job/")
-                    .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
-                    .append("/")
-                    .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
-                    .toString();
-            FlowMonitorRuntimeContext.init();
-            FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(key);
-            Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
-            if (applications == null) {
-                Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
-                Map<String, FlowMonitorEntity> hosts = new ConcurrentHashMap<>();
-                hosts.put(sourceParam.getSourceIpPort(), sourceParam);
-                sourceApplications.put(sourceParam.getSourceApplication(), hosts);
-                FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
-            }
-            FlowMonitorRuntimeContext.setExecuteTime();
-            FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.XXL_JOB);
+        String key = new StringBuilder("/XXL-Job/")
+                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
+                .append("/")
+                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
+                .toString();
+        FlowMonitorRuntimeContext.init();
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(key);
+        Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
+        if (applications == null) {
+            Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
+            Map<String, FlowMonitorEntity> hosts = new ConcurrentHashMap<>();
+            hosts.put(sourceParam.getSourceIpPort(), sourceParam);
+            sourceApplications.put(sourceParam.getSourceApplication(), hosts);
+            FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
         }
+        FlowMonitorRuntimeContext.setExecuteTime();
+        FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
     }
     
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.This Object obj,
                             @Advice.Thrown Throwable ex) throws Throwable {
-        try {
-            if (!FlowMonitorRuntimeContext.getIsExecute()) {
-                return;
-            }
-            String key = new StringBuilder("/XXL-Job/")
-                    .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
-                    .append("/")
-                    .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
-                    .toString();
-            FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(key);
-            FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
-            if (ex == null) {
-                sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
-            } else {
-                sourceParam.getFlowHelper().incrException();
-            }
-            FlowMonitorRuntimeContext.removeContent();
-        } catch (Exception ex1) {
-            ex1.printStackTrace();
+        if (!FlowMonitorRuntimeContext.getIsExecute()) {
+            return;
         }
+        String key = new StringBuilder("/XXL-Job/")
+                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
+                .append("/")
+                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
+                .toString();
+        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(key);
+        FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
+        if (ex == null) {
+            sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
+        } else {
+            sourceParam.getFlowHelper().incrException();
+        }
+        FlowMonitorRuntimeContext.removeContent();
     }
 }
