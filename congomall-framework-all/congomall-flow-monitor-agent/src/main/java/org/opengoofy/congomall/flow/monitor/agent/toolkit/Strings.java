@@ -36,6 +36,36 @@ public final class Strings {
     
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
     
+    public static boolean isBlank(CharSequence str) {
+        if ((str == null)) {
+            return true;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return true;
+        }
+        for (int i = 0; i < length; i++) {
+            char c = str.charAt(i);
+            boolean charNotBlank = Character.isWhitespace(c) || Character.isSpaceChar(c) || c == '\ufeff' || c == '\u202a';
+            if (!charNotBlank) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean isEmpty(CharSequence str) {
+        return str == null || str.length() == 0;
+    }
+    
+    public static boolean isNotEmpty(CharSequence str) {
+        return !isEmpty(str);
+    }
+    
+    public static boolean isNotBlank(CharSequence str) {
+        return !isBlank(str);
+    }
+    
     public static String join(final Object[] array, final String separator) {
         if (array == null) {
             return null;

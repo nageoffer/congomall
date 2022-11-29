@@ -63,11 +63,12 @@
             <artifactId>micrometer-core</artifactId>
             <version>1.8.4</version>
         </dependency>
-        
+
         <dependency>
-            <groupId>com.github.dozermapper</groupId>
-            <artifactId>dozer-core</artifactId>
-            <version>${dozer.version}</version>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.3.1</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     
@@ -117,11 +118,11 @@
                             <include>net.bytebuddy:byte-buddy-agent:jar:</include>
                             <include>org.springframework.cloud:spring-cloud-starter-openfeign:jar:</include>
                             <include>org.opengoofy.congomall:congomall-base-spring-boot-starter:jar:</include>
-                            <include>com.github.dozermapper:dozer-core:jar:</include>
                             <include>javax.servlet:javax.servlet-api:jar:</include>
                             <include>com.github.wujiuye:qps-helper:jar:</include>
                             <include>org.springframework:spring-webmvc:jar:</include>
                             <include>io.micrometer:micrometer-core:jar:</include>
+                            <include>com.xuxueli:xxl-job-core:jar:</include>
                         </includes>
                     </artifactSet>
                 </configuration>

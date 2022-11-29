@@ -20,6 +20,7 @@ package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.controlle
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
@@ -36,6 +37,18 @@ public class MessageSendController {
     @SneakyThrows
     @GetMapping("/api/message-service/info/{orderId}")
     public String getMessageInfoByOrderId(@PathVariable("orderId") String orderId) {
+        Random random = new Random();
+        int nextInt = random.nextInt(50);
+        Thread.sleep(nextInt);
+        if (nextInt % 2 == 0) {
+            throw new RuntimeException();
+        }
+        return orderId;
+    }
+    
+    @SneakyThrows
+    @GetMapping("/api/message-service/details")
+    public String getMessageDetails(@RequestParam(value = "orderId", required = false) String orderId) {
         Random random = new Random();
         int nextInt = random.nextInt(50);
         Thread.sleep(nextInt);

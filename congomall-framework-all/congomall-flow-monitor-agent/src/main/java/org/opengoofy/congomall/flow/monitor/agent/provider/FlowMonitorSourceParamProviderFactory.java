@@ -19,8 +19,9 @@ package org.opengoofy.congomall.flow.monitor.agent.provider;
 
 import com.wujiuye.flow.FlowHelper;
 import com.wujiuye.flow.FlowType;
+import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorSourceParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,48 +38,78 @@ public final class FlowMonitorSourceParamProviderFactory {
     /**
      * 获取实例
      *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @return
+     */
+    public static FlowMonitorEntity getInstance(String customerTargetResource) {
+        return getInstance(customerTargetResource, null);
+    }
+    
+    /**
+     * 获取实例
+     *
      * @param httpServletRequest Http 请求头
      * @return
      */
-    public static FlowMonitorSourceParam getInstance(final HttpServletRequest httpServletRequest) {
+    public static FlowMonitorEntity getInstance(final HttpServletRequest httpServletRequest) {
+        return getInstance(null, httpServletRequest);
+    }
+    
+    /**
+     * 获取实例
+     *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @param httpServletRequest     Http 请求头
+     * @return
+     */
+    public static FlowMonitorEntity getInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
         String requestMethod;
-        if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).hasMoreElements()) {
-            requestMethod = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).nextElement();
+        String sourceApplication;
+        String sourceResource;
+        String sourceIpPort;
+        String targetResource;
+        FlowMonitorFrameTypeEnum frameType = FlowMonitorRuntimeContext.getFrameType();
+        if (frameType == FlowMonitorFrameTypeEnum.XXL_JOB) {
+            sourceApplication = "Internal call";
+            sourceResource = "Unknown";
+            sourceIpPort = "Unknown";
+            requestMethod = "Unknown";
+            targetResource = customerTargetResource;
         } else {
-            requestMethod = httpServletRequest.getMethod();
+            if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).hasMoreElements()) {
+                requestMethod = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).nextElement();
+            } else {
+                requestMethod = httpServletRequest.getMethod();
+            }
+            if (httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).hasMoreElements()) {
+                sourceApplication = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).nextElement();
+            } else {
+                sourceApplication = "Gateway";
+            }
+            if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_URI).hasMoreElements()) {
+                sourceResource = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_URI).nextElement();
+            } else {
+                sourceResource = "Unknown";
+            }
+            if (httpServletRequest.getHeaders(SOURCE_HTTP_HOST).hasMoreElements()) {
+                sourceIpPort = httpServletRequest.getHeaders(SOURCE_HTTP_HOST).nextElement();
+            } else {
+                sourceIpPort = "Unknown";
+            }
+            if (httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).hasMoreElements()) {
+                targetResource = httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement();
+            } else {
+                targetResource = httpServletRequest.getRequestURI();
+            }
+            targetResource = FlowMonitorRuntimeContext.getProvideVirtualUri(targetResource);
         }
-        String sourceApplicationName;
-        if (httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).hasMoreElements()) {
-            sourceApplicationName = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).nextElement();
-        } else {
-            sourceApplicationName = "Gateway";
-        }
-        String sourceHttpUri;
-        if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_URI).hasMoreElements()) {
-            sourceHttpUri = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_URI).nextElement();
-        } else {
-            sourceHttpUri = "Unknown";
-        }
-        String sourceHost;
-        if (httpServletRequest.getHeaders(SOURCE_HTTP_HOST).hasMoreElements()) {
-            sourceHost = httpServletRequest.getHeaders(SOURCE_HTTP_HOST).nextElement();
-        } else {
-            sourceHost = "Unknown";
-        }
-        String targetHttpUri;
-        if (httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).hasMoreElements()) {
-            targetHttpUri = httpServletRequest.getHeaders(TARGET_HTTP_REQUEST_URI).nextElement();
-        } else {
-            targetHttpUri = httpServletRequest.getRequestURI();
-        }
-        FlowMonitorSourceParam sourceParam = FlowMonitorSourceParam.builder()
+        return FlowMonitorEntity.builder()
                 .flowHelper(new FlowHelper(FlowType.Minute))
                 .requestMethod(requestMethod)
-                .sourceApplicationName(sourceApplicationName)
-                .sourceHttpUri(sourceHttpUri)
-                .sourceHost(sourceHost)
-                .targetHttpUri(FlowMonitorRuntimeContext.getProvideVirtualUri(targetHttpUri))
+                .sourceApplication(sourceApplication)
+                .sourceResource(sourceResource)
+                .sourceIpPort(sourceIpPort)
+                .targetResource(targetResource)
                 .build();
-        return sourceParam;
     }
 }

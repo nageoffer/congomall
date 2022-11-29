@@ -19,6 +19,8 @@ package org.opengoofy.congomall.flow.monitor.agent.context;
 
 import com.wujiuye.flow.FlowType;
 import com.wujiuye.flow.Flower;
+import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
+import org.opengoofy.congomall.flow.monitor.agent.common.SID;
 import org.opengoofy.congomall.flow.monitor.agent.storage.FlowMonitorRunState;
 import org.opengoofy.congomall.flow.monitor.agent.storage.MicrometerStorageMode;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Environments;
@@ -44,7 +46,7 @@ public final class FlowMonitorRuntimeContext {
     /**
      * Map<目标端URI, Map<来源应用, Map<Host, 来源应用详细信息>>>
      */
-    private final static Map<String, Map<String, Map<String, FlowMonitorSourceParam>>> STORAGE = new ConcurrentHashMap<>();
+    private final static Map<String, Map<String, Map<String, FlowMonitorEntity>>> STORAGE = new ConcurrentHashMap<>();
     
     /**
      * 定时任务线程池刷新内存数据持久化
@@ -79,6 +81,14 @@ public final class FlowMonitorRuntimeContext {
      */
     public final static Set<String> PROVIDER_ALL_VIRTUAL_URIS = new HashSet<>();
     
+    /**
+     * 流量监控框架标识
+     */
+    public final static ThreadLocal<FlowMonitorFrameTypeEnum> FRAME_TYPE_THREADLOCAL = new ThreadLocal();
+    
+    /**
+     * 是否已执行初始化标识
+     */
     private final static AtomicBoolean INIT_FLAG = new AtomicBoolean(Boolean.FALSE);
     
     /**
@@ -94,58 +104,45 @@ public final class FlowMonitorRuntimeContext {
             }
             INIT_FLAG.set(Boolean.TRUE);
         }
-        try {
-            SCHEDULED_EXECUTOR_SERVICE.scheduleWithFixedDelay(() -> STORAGE.forEach((interfaceKey, val) -> {
-                System.out.println(STORAGE);
+        SCHEDULED_EXECUTOR_SERVICE.scheduleWithFixedDelay(() -> STORAGE.forEach((interfaceKey, val) -> {
+            System.out.println("------------------------------------------");
+            System.out.println(String.format("------------ 目标接口: %s", interfaceKey));
+            val.forEach((sourceApplication, hosts) -> hosts.forEach((host, param) -> {
+                System.out.println(String.format("------------ 来源应用: %s", sourceApplication));
+                System.out.println(String.format("------------ 来源接口: %s", param.getSourceResource()));
+                System.out.println(String.format("------------ 来源 Host: %s", host));
                 System.out.println("------------------------------------------");
-                System.out.println(String.format("------------ 目标接口: %s", interfaceKey));
-                val.forEach((sourceApplication, hosts) -> hosts.forEach((host, param) -> {
-                    System.out.println(String.format("------------ 来源应用: %s", sourceApplication));
-                    System.out.println(String.format("------------ 来源接口: %s", param.getSourceHttpUri()));
-                    System.out.println(String.format("------------ 来源 Host: %s", host));
-                    System.out.println("------------------------------------------");
-                    Flower flower = param.getFlowHelper().getFlow(FlowType.Minute);
-                    try {
-                        System.out.println("总请求数: " + flower.total());
-                        System.out.println("成功请求数: " + flower.totalSuccess());
-                        System.out.println("异常请求数: " + flower.totalException());
-                        System.out.println("平均请求耗时: " + flower.avgRt());
-                        System.out.println("最大请求耗时: " + flower.maxRt());
-                        System.out.println("最小请求耗时: " + flower.minRt());
-                        System.out.println("平均请求成功数: " + flower.successAvg());
-                        System.out.println("平均请求异常数: " + flower.exceptionAvg());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    try {
-                        FlowMonitorRunState runState = FlowMonitorRunState.builder()
-                                .targetApplicationName(Environments.getApplicationName())
-                                .targetHost("")
-                                .targetHttpUri(interfaceKey)
-                                .sourceApplicationName(sourceApplication)
-                                .sourceHost(host)
-                                .sourceHttpUri(param.getSourceHttpUri())
-                                .total(flower.total())
-                                .totalSuccess(flower.totalSuccess())
-                                .totalException(flower.totalException())
-                                .avgRt(flower.avgRt())
-                                .maxRt(flower.maxRt())
-                                .minRt(flower.minRt())
-                                .successAvg(flower.successAvg())
-                                .exceptionAvg(flower.exceptionAvg())
-                                .build();
-                        MicrometerStorageMode.execute(runState);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }));
-            }), 0, 60, TimeUnit.SECONDS);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+                Flower flower = param.getFlowHelper().getFlow(FlowType.Minute);
+                System.out.println("总请求数: " + flower.total());
+                System.out.println("成功请求数: " + flower.totalSuccess());
+                System.out.println("异常请求数: " + flower.totalException());
+                System.out.println("平均请求耗时: " + flower.avgRt());
+                System.out.println("最大请求耗时: " + flower.maxRt());
+                System.out.println("最小请求耗时: " + flower.minRt());
+                System.out.println("平均请求成功数: " + flower.successAvg());
+                System.out.println("平均请求异常数: " + flower.exceptionAvg());
+                FlowMonitorRunState runState = FlowMonitorRunState.builder()
+                        .targetApplication(Environments.getApplicationName())
+                        .targetIpPort(SID.getIpAddressAndPort())
+                        .targetResource(interfaceKey)
+                        .sourceApplication(sourceApplication)
+                        .sourceIpPort(host)
+                        .sourceResource(param.getSourceResource())
+                        .total(flower.total())
+                        .totalSuccess(flower.totalSuccess())
+                        .totalException(flower.totalException())
+                        .avgRt(flower.avgRt())
+                        .maxRt(flower.maxRt())
+                        .minRt(flower.minRt())
+                        .successAvg(flower.successAvg())
+                        .exceptionAvg(flower.exceptionAvg())
+                        .build();
+                MicrometerStorageMode.execute(runState);
+            }));
+        }), 0, 60, TimeUnit.SECONDS);
     }
     
-    public static void putApplications(String targetUri, Map<String, Map<String, FlowMonitorSourceParam>> value) {
+    public static void putApplications(String targetUri, Map<String, Map<String, FlowMonitorEntity>> value) {
         if (getApplications(targetUri) == null) {
             synchronized (FlowMonitorRuntimeContext.class) {
                 if (getApplications(targetUri) == null) {
@@ -155,11 +152,11 @@ public final class FlowMonitorRuntimeContext {
         }
     }
     
-    public static Map<String, Map<String, FlowMonitorSourceParam>> getApplications(String targetUri) {
+    public static Map<String, Map<String, FlowMonitorEntity>> getApplications(String targetUri) {
         return STORAGE.get(targetUri);
     }
     
-    public static void putHosts(String targetUri, String applicationName, Map<String, FlowMonitorSourceParam> value) {
+    public static void putHosts(String targetUri, String applicationName, Map<String, FlowMonitorEntity> value) {
         if (getHosts(targetUri, applicationName) == null) {
             synchronized (FlowMonitorRuntimeContext.class) {
                 if (getHosts(targetUri, applicationName) == null) {
@@ -169,15 +166,15 @@ public final class FlowMonitorRuntimeContext {
         }
     }
     
-    public static Map<String, FlowMonitorSourceParam> getHosts(String targetUri, String applicationName) {
+    public static Map<String, FlowMonitorEntity> getHosts(String targetUri, String applicationName) {
         return STORAGE.get(targetUri).get(applicationName);
     }
     
-    public static void putHost(String targetUri, String applicationName, String host, FlowMonitorSourceParam param) {
+    public static void putHost(String targetUri, String applicationName, String host, FlowMonitorEntity param) {
         STORAGE.get(targetUri).get(applicationName).put(host, param);
     }
     
-    public static FlowMonitorSourceParam getHost(String targetUri, String applicationName, String host) {
+    public static FlowMonitorEntity getHost(String targetUri, String applicationName, String host) {
         return STORAGE.get(targetUri).get(applicationName).get(host);
     }
     
@@ -195,6 +192,14 @@ public final class FlowMonitorRuntimeContext {
     
     public static boolean getIsExecute() {
         return IS_EXECUTE_THREADLOCAL.get();
+    }
+    
+    public static void setFrameType(FlowMonitorFrameTypeEnum frameTypeEnum) {
+        FRAME_TYPE_THREADLOCAL.set(frameTypeEnum);
+    }
+    
+    public static FlowMonitorFrameTypeEnum getFrameType() {
+        return FRAME_TYPE_THREADLOCAL.get();
     }
     
     public static String getConsumerVirtualUri(String actualUri) {
@@ -218,5 +223,6 @@ public final class FlowMonitorRuntimeContext {
     public static void removeContent() {
         EXECUTE_TIME_THREADLOCAL.remove();
         IS_EXECUTE_THREADLOCAL.remove();
+        FRAME_TYPE_THREADLOCAL.remove();
     }
 }

@@ -19,7 +19,7 @@ package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
 import net.bytebuddy.asm.Advice;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorSourceParam;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -54,21 +54,21 @@ public final class SpringMvcInterceptor {
         }
         FlowMonitorVirtualUriLoader.loadProviderUris();
         FlowMonitorRuntimeContext.init();
-        FlowMonitorSourceParam sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
-        Map<String, Map<String, FlowMonitorSourceParam>> sourceApplications;
-        if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetHttpUri())) == null) {
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
+        Map<String, Map<String, FlowMonitorEntity>> sourceApplications;
+        if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource())) == null) {
             sourceApplications = new ConcurrentHashMap<>();
-            Map<String, FlowMonitorSourceParam> hosts = new ConcurrentHashMap<>();
-            hosts.put(sourceParam.getSourceHost(), sourceParam);
-            sourceApplications.put(sourceParam.getSourceApplicationName(), hosts);
-            FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetHttpUri(), sourceApplications);
-        } else if (FlowMonitorRuntimeContext.getHosts(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName()) == null) {
-            Map<String, FlowMonitorSourceParam> hosts = new ConcurrentHashMap<>();
-            hosts.put(sourceParam.getSourceHost(), sourceParam);
-            sourceApplications.put(sourceParam.getSourceApplicationName(), hosts);
-            FlowMonitorRuntimeContext.putHosts(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName(), hosts);
-        } else if (FlowMonitorRuntimeContext.getHost(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName(), sourceParam.getSourceHost()) == null) {
-            FlowMonitorRuntimeContext.putHost(sourceParam.getTargetHttpUri(), sourceParam.getSourceApplicationName(), sourceParam.getSourceHost(), sourceParam);
+            Map<String, FlowMonitorEntity> hosts = new ConcurrentHashMap<>();
+            hosts.put(sourceParam.getSourceIpPort(), sourceParam);
+            sourceApplications.put(sourceParam.getSourceApplication(), hosts);
+            FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
+        } else if (FlowMonitorRuntimeContext.getHosts(sourceParam.getTargetResource(), sourceParam.getSourceApplication()) == null) {
+            Map<String, FlowMonitorEntity> hosts = new ConcurrentHashMap<>();
+            hosts.put(sourceParam.getSourceIpPort(), sourceParam);
+            sourceApplications.put(sourceParam.getSourceApplication(), hosts);
+            FlowMonitorRuntimeContext.putHosts(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), hosts);
+        } else if (FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort()) == null) {
+            FlowMonitorRuntimeContext.putHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort(), sourceParam);
         }
         FlowMonitorRuntimeContext.setExecuteTime();
         FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
@@ -81,8 +81,8 @@ public final class SpringMvcInterceptor {
             return;
         }
         HttpServletRequest httpServletRequest = webRequest.getRequest();
-        FlowMonitorSourceParam instance = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
-        FlowMonitorSourceParam sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetHttpUri(), instance.getSourceApplicationName(), instance.getSourceHost());
+        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
+        FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
         if (ex == null) {
             sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
         } else {

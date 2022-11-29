@@ -15,27 +15,18 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.agent.storage;
+package org.opengoofy.congomall.flow.monitor.agent.context;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorBaseEntity;
-
-import java.io.Serializable;
 
 /**
- * 微服务流量监控运行数据
+ * 微服务流量监控基础实体信息
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public final class FlowMonitorRunState extends FlowMonitorBaseEntity implements Serializable {
+public class FlowMonitorBaseEntity {
     
     /**
      * 目标应用
@@ -66,44 +57,4 @@ public final class FlowMonitorRunState extends FlowMonitorBaseEntity implements 
      * 来源 IP Port
      */
     private String sourceIpPort;
-    
-    /**
-     * 全部请求数
-     */
-    private Long total;
-    
-    /**
-     * 全部成功数
-     */
-    private Long totalSuccess;
-    
-    /**
-     * 全部异常数
-     */
-    private Long totalException;
-    
-    /**
-     * 平均请求成功数
-     */
-    private Float successAvg;
-    
-    /**
-     * 平均请求异常数
-     */
-    private Long exceptionAvg;
-    
-    /**
-     * 平均请求耗时
-     */
-    private Long avgRt;
-    
-    /**
-     * 最小请求耗时
-     */
-    private Long minRt;
-    
-    /**
-     * 最大请求耗时
-     */
-    private Long maxRt;
 }

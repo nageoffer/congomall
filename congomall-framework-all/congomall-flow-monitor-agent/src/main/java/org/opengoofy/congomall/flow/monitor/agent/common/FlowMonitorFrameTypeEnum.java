@@ -15,58 +15,34 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.agent.context;
+package org.opengoofy.congomall.flow.monitor.agent.common;
 
-import com.wujiuye.flow.FlowHelper;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * 来源客户端参数
+ * 流量监控框架枚举
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class FlowMonitorSourceParam {
+public enum FlowMonitorFrameTypeEnum {
     
-    /**
-     * 请求方法
-     */
-    private String requestMethod;
+    SPRING_MVC("", "", "", ""),
     
-    /**
-     * 来源应用名
-     */
-    private String sourceApplicationName;
+    FEIGN("", "", "", ""),
     
-    /**
-     * 来源请求 URI
-     */
-    private String sourceHttpUri;
+    XXL_JOB("", "", "Internal call", "Unknown");
     
-    /**
-     * 来源 Host
-     */
-    private String sourceHost;
+    private final String defaultTargetResource;
     
-    /**
-     * 目标 Host
-     */
-    private String targetHost;
+    private final String defaultTargetApplicationName;
     
-    /**
-     * 目标请求 URI
-     */
-    private String targetHttpUri;
+    // private final String targetIpPort;
     
-    /**
-     * 流量统计
-     */
-    private FlowHelper flowHelper;
+    private final String defaultSourceApplicationName;
+    
+    private final String defaultSourceURI;
+    
+    // private final String sourceIpPort;
 }

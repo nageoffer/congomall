@@ -36,22 +36,24 @@ public final class MicrometerStorageMode {
     
     private static final String METRIC_APPLICATION_NAME_TAG = METRIC_NAME_PREFIX + ".application.name";
     
+    private static final String METRIC_HOST_TAG = METRIC_NAME_PREFIX + ".host";
+    
     private static final String METRIC_URI_TAG = METRIC_NAME_PREFIX + ".uri";
     
     private static final String METRIC_CONSUMER_APPLICATION_NAME_TAG = METRIC_NAME_PREFIX + ".source.application.name";
     
-    private static final Map<String, FlowMonitorRunState> runStateCache = new ConcurrentHashMap<>();
+    private static final Map<String, FlowMonitorRunState> RUN_STATE_CACHE = new ConcurrentHashMap<>();
     
     public static void execute(FlowMonitorRunState runState) {
-        String key = runState.getTargetApplicationName() + runState.getTargetHttpUri() + runState.getSourceApplicationName() + runState.getSourceHttpUri();
-        FlowMonitorRunState originalRunState = runStateCache.get(key);
+        String key = runState.getTargetApplication() + runState.getTargetResource() + runState.getSourceApplication() + runState.getSourceResource();
+        FlowMonitorRunState originalRunState = RUN_STATE_CACHE.get(key);
         if (originalRunState != null) {
-            originalRunState.setTargetHost(runState.getTargetHost());
-            originalRunState.setTargetHttpUri(runState.getTargetHttpUri());
-            originalRunState.setTargetApplicationName(runState.getTargetApplicationName());
-            originalRunState.setSourceHost(runState.getSourceHost());
-            originalRunState.setSourceHttpUri(runState.getSourceHttpUri());
-            originalRunState.setSourceApplicationName(runState.getSourceApplicationName());
+            originalRunState.setTargetIpPort(runState.getTargetIpPort());
+            originalRunState.setTargetResource(runState.getTargetResource());
+            originalRunState.setTargetApplication(runState.getTargetApplication());
+            originalRunState.setSourceIpPort(runState.getSourceIpPort());
+            originalRunState.setSourceResource(runState.getSourceResource());
+            originalRunState.setSourceApplication(runState.getSourceApplication());
             originalRunState.setTotal(runState.getTotal());
             originalRunState.setExceptionAvg(runState.getExceptionAvg());
             originalRunState.setAvgRt(runState.getAvgRt());
@@ -61,12 +63,13 @@ public final class MicrometerStorageMode {
             originalRunState.setTotalSuccess(runState.getTotalSuccess());
             originalRunState.setTotalException(runState.getTotalException());
         } else {
-            runStateCache.put(key, runState);
+            RUN_STATE_CACHE.put(key, runState);
         }
         Iterable<Tag> tags = Lists.newArrayList(
-                Tag.of(METRIC_URI_TAG, runState.getTargetHttpUri()),
-                Tag.of(METRIC_APPLICATION_NAME_TAG, runState.getTargetApplicationName()),
-                Tag.of(METRIC_CONSUMER_APPLICATION_NAME_TAG, runState.getSourceApplicationName()));
+                Tag.of(METRIC_URI_TAG, runState.getTargetResource()),
+                Tag.of(METRIC_APPLICATION_NAME_TAG, runState.getTargetApplication()),
+                Tag.of(METRIC_HOST_TAG, runState.getTargetIpPort()),
+                Tag.of(METRIC_CONSUMER_APPLICATION_NAME_TAG, runState.getSourceApplication()));
         Metrics.gauge(metricName("total"), tags, runState, FlowMonitorRunState::getTotal);
         Metrics.gauge(metricName("total.success"), tags, runState, FlowMonitorRunState::getTotalSuccess);
         Metrics.gauge(metricName("total.exception"), tags, runState, FlowMonitorRunState::getTotalException);

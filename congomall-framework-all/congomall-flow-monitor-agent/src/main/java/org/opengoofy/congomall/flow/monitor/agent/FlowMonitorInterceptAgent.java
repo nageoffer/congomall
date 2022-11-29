@@ -22,6 +22,7 @@ import net.bytebuddy.asm.Advice;
 import net.bytebuddy.matcher.ElementMatchers;
 import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.FeignFlowInterceptor;
 import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.SpringMvcInterceptor;
+import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.XXLJobInterceptor;
 
 import java.lang.instrument.Instrumentation;
 
@@ -43,6 +44,7 @@ public final class FlowMonitorInterceptAgent {
         System.out.println("this is an perform monitor agent.");
         consumerOpenFeignHandleInstrument(instrumentation);
         provideWebMvcHandlerInstrument(instrumentation);
+        xxlJobHandleInstrument(instrumentation);
     }
     
     /**
@@ -80,6 +82,23 @@ public final class FlowMonitorInterceptAgent {
                             Advice
                                     .to(SpringMvcInterceptor.class)
                                     .on(ElementMatchers.named("invokeAndHandle")));
+                    return builder;
+                })
+                .installOn(instrumentation);
+    }
+    
+    /**
+     * XXL-Job 任务执行统计
+     *
+     * @param instrumentation 待处理桩
+     */
+    private static void xxlJobHandleInstrument(Instrumentation instrumentation) {
+        new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("com.xxl.job.core.handler.impl.MethodJobHandler"))
+                .transform((builder, typeDescription, classLoader, module) -> {
+                    builder = builder.visit(
+                            Advice
+                                    .to(XXLJobInterceptor.class)
+                                    .on(ElementMatchers.named("execute")));
                     return builder;
                 })
                 .installOn(instrumentation);
