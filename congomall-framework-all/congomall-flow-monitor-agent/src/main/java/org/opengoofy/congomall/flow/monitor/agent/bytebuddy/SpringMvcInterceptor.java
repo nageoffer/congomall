@@ -18,8 +18,8 @@
 package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
 import net.bytebuddy.asm.Advice;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -53,7 +53,6 @@ public final class SpringMvcInterceptor {
             return;
         }
         FlowMonitorVirtualUriLoader.loadProviderUris();
-        FlowMonitorRuntimeContext.init();
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
         Map<String, Map<String, FlowMonitorEntity>> sourceApplications;
         if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource())) == null) {
@@ -83,10 +82,10 @@ public final class SpringMvcInterceptor {
         HttpServletRequest httpServletRequest = webRequest.getRequest();
         FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
         FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
-        if (ex == null) {
-            sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
-        } else {
+        if (ex != null) {
             sourceParam.getFlowHelper().incrException();
+        } else {
+            sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
         }
         FlowMonitorRuntimeContext.removeContent();
     }

@@ -20,9 +20,8 @@ package org.opengoofy.congomall.flow.monitor.agent;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.matcher.ElementMatchers;
-import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.FeignFlowInterceptor;
-import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.SpringMvcInterceptor;
-import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.XXLJobInterceptor;
+import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.*;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 
 import java.lang.instrument.Instrumentation;
 
@@ -42,9 +41,12 @@ public final class FlowMonitorInterceptAgent {
      */
     public static void premain(String agentArgs, Instrumentation instrumentation) {
         System.out.println("this is an perform monitor agent.");
+        FlowMonitorRuntimeContext.init();
         consumerOpenFeignHandleInstrument(instrumentation);
         provideWebMvcHandlerInstrument(instrumentation);
         xxlJobHandleInstrument(instrumentation);
+        streamRocketMQConsumerHandleInstrument(instrumentation);
+        streamRocketMQProvideHandleInstrument(instrumentation);
     }
     
     /**
@@ -58,9 +60,8 @@ public final class FlowMonitorInterceptAgent {
         } catch (Exception ignored) {
             return;
         }
-        new AgentBuilder.Default()
-                .type(ElementMatchers.nameStartsWith("feign.Client"))
-                .transform((builder, typeDescription, classLoader, module) -> {
+        new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("feign.Client"))
+                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
                     builder = builder.visit(
                             Advice
                                     .to(FeignFlowInterceptor.class)
@@ -77,7 +78,7 @@ public final class FlowMonitorInterceptAgent {
      */
     private static void provideWebMvcHandlerInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod"))
-                .transform((builder, typeDescription, classLoader, module) -> {
+                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
                     builder = builder.visit(
                             Advice
                                     .to(SpringMvcInterceptor.class)
@@ -94,11 +95,44 @@ public final class FlowMonitorInterceptAgent {
      */
     private static void xxlJobHandleInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("com.xxl.job.core.handler.impl.MethodJobHandler"))
-                .transform((builder, typeDescription, classLoader, module) -> {
+                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
                     builder = builder.visit(
                             Advice
                                     .to(XXLJobInterceptor.class)
                                     .on(ElementMatchers.named("execute")));
+                    return builder;
+                })
+                .installOn(instrumentation);
+    }
+    
+    /**
+     * SpringCloud Stream RocketMQ Consumer 消费执行统计
+     *
+     * @param instrumentation 待处理桩
+     */
+    private static void streamRocketMQConsumerHandleInstrument(Instrumentation instrumentation) {
+        new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.messaging.handler.invocation.InvocableHandlerMethod"))
+                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                    builder = builder.visit(
+                            Advice
+                                    .to(StreamRocketMQConsumerInterceptor.class)
+                                    .on(ElementMatchers.named("doInvoke")));
+                    return builder;
+                }).installOn(instrumentation);
+    }
+    
+    /**
+     * SpringCloud Stream RocketMQ Provider 生产执行统计
+     *
+     * @param instrumentation 待处理桩
+     */
+    private static void streamRocketMQProvideHandleInstrument(Instrumentation instrumentation) {
+        new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.cloud.stream.messaging.DirectWithAttributesChannel"))
+                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                    builder = builder.visit(
+                            Advice
+                                    .to(StreamRocketMQProviderInterceptor.class)
+                                    .on(ElementMatchers.nameEndsWithIgnoreCase("send").or(ElementMatchers.isProtected())));
                     return builder;
                 })
                 .installOn(instrumentation);

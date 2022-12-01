@@ -19,29 +19,37 @@ package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
 import net.bytebuddy.asm.Advice;
 import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Reflects;
 
-import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * XXL-Job 任务执行拦截
+ * SpringCloud RocketMQ 生产端流量拦截
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class XXLJobInterceptor {
+public final class StreamRocketMQProviderInterceptor {
     
     @Advice.OnMethodEnter
     public static void enter(@Advice.This Object obj,
-                             @Advice.Origin("#t") String className,
                              @Advice.Origin("#m") String methodName) throws Throwable {
-        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.XXL_JOB);
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
+        System.out.println(" =========== 1");
+        System.out.println("=========== methodName: " + methodName);
+        if (!Objects.equals(methodName, "doSend")) {
+            return;
+        }
+        System.out.println("========== 1");
+        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
+        String key = new StringBuilder("/RocketMQ/Provide/").append(Reflects.getFieldValue(obj, "beanName")).toString();
+        System.out.println("===============2 key: " + key);
+        FlowMonitorRuntimeContext.STREAM_ROCKETMQ_PROVIDE_CLASS.set(key);
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(key);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
@@ -60,7 +68,7 @@ public final class XXLJobInterceptor {
         if (!FlowMonitorRuntimeContext.getIsExecute()) {
             return;
         }
-        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
+        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(FlowMonitorRuntimeContext.STREAM_ROCKETMQ_PROVIDE_CLASS.get());
         FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
         if (ex == null) {
             sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
@@ -68,13 +76,5 @@ public final class XXLJobInterceptor {
             sourceParam.getFlowHelper().incrException();
         }
         FlowMonitorRuntimeContext.removeContent();
-    }
-    
-    private static String buildKey(Object obj) {
-        return new StringBuilder("/XXL-Job/")
-                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
-                .append("/")
-                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
-                .toString();
     }
 }

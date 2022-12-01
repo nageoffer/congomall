@@ -28,12 +28,12 @@ import org.springframework.util.AntPathMatcher;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 微服务流量监控运行上下文
@@ -87,23 +87,14 @@ public final class FlowMonitorRuntimeContext {
     public final static ThreadLocal<FlowMonitorFrameTypeEnum> FRAME_TYPE_THREADLOCAL = new ThreadLocal();
     
     /**
-     * 是否已执行初始化标识
+     * Stream RocketMQ 生产消息类路径
      */
-    private final static AtomicBoolean INIT_FLAG = new AtomicBoolean(Boolean.FALSE);
+    public final static ThreadLocal<String> STREAM_ROCKETMQ_PROVIDE_CLASS = new ThreadLocal();
     
     /**
      * 初始化行为
      */
     public static void init() {
-        if (INIT_FLAG.get()) {
-            return;
-        }
-        synchronized (FlowMonitorRuntimeContext.class) {
-            if (INIT_FLAG.get()) {
-                return;
-            }
-            INIT_FLAG.set(Boolean.TRUE);
-        }
         SCHEDULED_EXECUTOR_SERVICE.scheduleWithFixedDelay(() -> STORAGE.forEach((interfaceKey, val) -> {
             System.out.println("------------------------------------------");
             System.out.println(String.format("------------ 目标接口: %s", interfaceKey));
@@ -191,7 +182,7 @@ public final class FlowMonitorRuntimeContext {
     }
     
     public static boolean getIsExecute() {
-        return IS_EXECUTE_THREADLOCAL.get();
+        return Optional.ofNullable(IS_EXECUTE_THREADLOCAL.get()).orElse(false);
     }
     
     public static void setFrameType(FlowMonitorFrameTypeEnum frameTypeEnum) {
@@ -224,5 +215,6 @@ public final class FlowMonitorRuntimeContext {
         EXECUTE_TIME_THREADLOCAL.remove();
         IS_EXECUTE_THREADLOCAL.remove();
         FRAME_TYPE_THREADLOCAL.remove();
+        STREAM_ROCKETMQ_PROVIDE_CLASS.remove();
     }
 }

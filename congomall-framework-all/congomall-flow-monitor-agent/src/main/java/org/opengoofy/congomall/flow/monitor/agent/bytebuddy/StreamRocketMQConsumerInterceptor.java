@@ -17,10 +17,11 @@
 
 package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
+import lombok.SneakyThrows;
 import net.bytebuddy.asm.Advice;
 import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
-import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
+import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Reflects;
 
@@ -29,18 +30,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * XXL-Job 任务执行拦截
+ * SpringCloud RocketMQ 消费端流量拦截
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class XXLJobInterceptor {
+public final class StreamRocketMQConsumerInterceptor {
     
     @Advice.OnMethodEnter
-    public static void enter(@Advice.This Object obj,
-                             @Advice.Origin("#t") String className,
-                             @Advice.Origin("#m") String methodName) throws Throwable {
-        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.XXL_JOB);
+    public static void enter(@Advice.This Object obj) throws Throwable {
+        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
@@ -70,11 +69,12 @@ public final class XXLJobInterceptor {
         FlowMonitorRuntimeContext.removeContent();
     }
     
-    private static String buildKey(Object obj) {
-        return new StringBuilder("/XXL-Job/")
-                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
+    @SneakyThrows
+    public static String buildKey(Object obj) {
+        return new StringBuilder("/RocketMQ/Consumer/")
+                .append(((Class) Reflects.getFieldValue(obj, "beanType")).getSimpleName())
                 .append("/")
-                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
+                .append(((Method) Reflects.getFieldValue(obj, "bridgedMethod")).getName())
                 .toString();
     }
 }

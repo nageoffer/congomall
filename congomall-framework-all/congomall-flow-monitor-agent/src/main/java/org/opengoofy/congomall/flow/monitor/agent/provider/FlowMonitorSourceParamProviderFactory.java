@@ -75,6 +75,18 @@ public final class FlowMonitorSourceParamProviderFactory {
             sourceIpPort = "Unknown";
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
+        } else if (frameType == FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER) {
+            sourceApplication = "Internal call";
+            sourceResource = "Unknown";
+            sourceIpPort = "Unknown";
+            requestMethod = "Unknown";
+            targetResource = customerTargetResource;
+        } else if (frameType == FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER) {
+            sourceApplication = "Internal call";
+            sourceResource = "Unknown";
+            sourceIpPort = "Unknown";
+            requestMethod = "Unknown";
+            targetResource = customerTargetResource;
         } else {
             if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).hasMoreElements()) {
                 requestMethod = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).nextElement();

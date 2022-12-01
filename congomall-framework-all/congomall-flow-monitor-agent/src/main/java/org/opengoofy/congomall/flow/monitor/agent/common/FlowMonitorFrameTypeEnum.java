@@ -17,32 +17,21 @@
 
 package org.opengoofy.congomall.flow.monitor.agent.common;
 
-import lombok.AllArgsConstructor;
-
 /**
  * 流量监控框架枚举
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@AllArgsConstructor
 public enum FlowMonitorFrameTypeEnum {
     
-    SPRING_MVC("", "", "", ""),
+    SPRING_MVC,
     
-    FEIGN("", "", "", ""),
+    FEIGN,
     
-    XXL_JOB("", "", "Internal call", "Unknown");
+    XXL_JOB,
     
-    private final String defaultTargetResource;
+    STREAM_ROCKETMQ_CONSUMER,
     
-    private final String defaultTargetApplicationName;
-    
-    // private final String targetIpPort;
-    
-    private final String defaultSourceApplicationName;
-    
-    private final String defaultSourceURI;
-    
-    // private final String sourceIpPort;
+    STREAM_ROCKETMQ_PROVIDER
 }
