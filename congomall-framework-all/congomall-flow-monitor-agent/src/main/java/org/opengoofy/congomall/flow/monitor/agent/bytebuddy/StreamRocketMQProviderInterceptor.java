@@ -17,15 +17,18 @@
 
 package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
-import net.bytebuddy.asm.Advice;
+import net.bytebuddy.implementation.bind.annotation.Origin;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
-import org.opengoofy.congomall.flow.monitor.agent.toolkit.Reflects;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -36,19 +39,20 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class StreamRocketMQProviderInterceptor {
     
-    @Advice.OnMethodEnter
-    public static void enter(@Advice.This Object obj,
-                             @Advice.Origin("#m") String methodName) throws Throwable {
-        System.out.println(" =========== 1");
-        System.out.println("=========== methodName: " + methodName);
-        if (!Objects.equals(methodName, "doSend")) {
-            return;
+    @RuntimeType
+    public static Object intercept(@Origin Method method,
+                                   @SuperCall Callable<?> callable) throws Throwable {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        if (Objects.equals("org.apache.rocketmq.client.impl.consumer.ConsumeMessageConcurrentlyService$ConsumeRequest", stackTrace[stackTrace.length - 6].getClassName())) {
+            return callable.call();
         }
-        System.out.println("========== 1");
+        StackTraceElement stackTraceElement = stackTrace[5];
         FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
-        String key = new StringBuilder("/RocketMQ/Provide/").append(Reflects.getFieldValue(obj, "beanName")).toString();
-        System.out.println("===============2 key: " + key);
-        FlowMonitorRuntimeContext.STREAM_ROCKETMQ_PROVIDE_CLASS.set(key);
+        String key = new StringBuilder("/RocketMQ/Provide/")
+                .append(stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5))
+                .append("/")
+                .append(stackTraceElement.getMethodName())
+                .toString();
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(key);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
@@ -58,23 +62,17 @@ public final class StreamRocketMQProviderInterceptor {
             sourceApplications.put(sourceParam.getSourceApplication(), hosts);
             FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
         }
-        FlowMonitorRuntimeContext.setExecuteTime();
-        FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
-    }
-    
-    @Advice.OnMethodExit(onThrowable = Throwable.class)
-    public static void exit(@Advice.This Object obj,
-                            @Advice.Thrown Throwable ex) throws Throwable {
-        if (!FlowMonitorRuntimeContext.getIsExecute()) {
-            return;
+        long startTime = System.currentTimeMillis();
+        Object result = null;
+        try {
+            return result = callable.call();
+        } finally {
+            FlowMonitorEntity entity = FlowMonitorRuntimeContext.getHost(key, "Internal call", "Unknown");
+            if (result == null || !((boolean) result)) {
+                entity.getFlowHelper().incrException();
+            } else {
+                entity.getFlowHelper().incrSuccess(System.currentTimeMillis() - startTime);
+            }
         }
-        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(FlowMonitorRuntimeContext.STREAM_ROCKETMQ_PROVIDE_CLASS.get());
-        FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
-        if (ex == null) {
-            sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
-        } else {
-            sourceParam.getFlowHelper().incrException();
-        }
-        FlowMonitorRuntimeContext.removeContent();
     }
 }

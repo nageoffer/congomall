@@ -17,15 +17,9 @@
 
 package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.rocketmq;
 
-
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.integration.support.MessageBuilder;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,21 +30,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
-public class FlowMonitorSpringCloudStreamRocketMQTest implements CommandLineRunner {
-    
-    private final MessageChannel output;
-    
-    @Override
-    public void run(String... args) throws Exception {
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            Message<?> message = MessageBuilder
-                    .withPayload("Flow Monitor SpringCloud Stream RocketMQ Test.")
-                    .build();
-            output.send(message);
-            Thread.sleep(1000L);
-        }
-    }
+public class FlowMonitorSpringCloudStreamRocketMQTest {
     
     @StreamListener(Sink.INPUT)
     public void springCloudStreamRocketMQConsumerTest(String param) {

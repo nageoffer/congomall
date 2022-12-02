@@ -19,11 +19,14 @@ package org.opengoofy.congomall.flow.monitor.agent;
 
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
+import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
 import org.opengoofy.congomall.flow.monitor.agent.bytebuddy.*;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 
 import java.lang.instrument.Instrumentation;
+
+import static net.bytebuddy.matcher.ElementMatchers.takesArguments;
 
 /**
  * 微服务流量监控拦截插桩
@@ -129,10 +132,8 @@ public final class FlowMonitorInterceptAgent {
     private static void streamRocketMQProvideHandleInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.cloud.stream.messaging.DirectWithAttributesChannel"))
                 .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
-                    builder = builder.visit(
-                            Advice
-                                    .to(StreamRocketMQProviderInterceptor.class)
-                                    .on(ElementMatchers.nameEndsWithIgnoreCase("send").or(ElementMatchers.isProtected())));
+                    builder = builder.method(ElementMatchers.named("doSend").and(ElementMatchers.isProtected()).and(takesArguments(2)))
+                            .intercept(MethodDelegation.to(StreamRocketMQProviderInterceptor.class));
                     return builder;
                 })
                 .installOn(instrumentation);

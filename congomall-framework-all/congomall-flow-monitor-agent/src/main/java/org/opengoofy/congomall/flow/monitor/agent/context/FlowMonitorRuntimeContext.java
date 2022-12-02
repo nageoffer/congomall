@@ -87,11 +87,6 @@ public final class FlowMonitorRuntimeContext {
     public final static ThreadLocal<FlowMonitorFrameTypeEnum> FRAME_TYPE_THREADLOCAL = new ThreadLocal();
     
     /**
-     * Stream RocketMQ 生产消息类路径
-     */
-    public final static ThreadLocal<String> STREAM_ROCKETMQ_PROVIDE_CLASS = new ThreadLocal();
-    
-    /**
      * 初始化行为
      */
     public static void init() {
@@ -215,6 +210,5 @@ public final class FlowMonitorRuntimeContext {
         EXECUTE_TIME_THREADLOCAL.remove();
         IS_EXECUTE_THREADLOCAL.remove();
         FRAME_TYPE_THREADLOCAL.remove();
-        STREAM_ROCKETMQ_PROVIDE_CLASS.remove();
     }
 }
