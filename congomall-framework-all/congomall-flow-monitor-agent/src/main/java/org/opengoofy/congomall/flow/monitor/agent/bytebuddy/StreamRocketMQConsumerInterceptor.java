@@ -71,7 +71,7 @@ public final class StreamRocketMQConsumerInterceptor {
     
     @SneakyThrows
     public static String buildKey(Object obj) {
-        return new StringBuilder("/RocketMQ/Consumer/")
+        return new StringBuilder("/Consumer/")
                 .append(((Class) Reflects.getFieldValue(obj, "beanType")).getSimpleName())
                 .append("/")
                 .append(((Method) Reflects.getFieldValue(obj, "bridgedMethod")).getName())

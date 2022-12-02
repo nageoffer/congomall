@@ -122,6 +122,7 @@ public final class FlowMonitorRuntimeContext {
                         .minRt(flower.minRt())
                         .successAvg(flower.successAvg())
                         .exceptionAvg(flower.exceptionAvg())
+                        .type(param.getType())
                         .build();
                 MicrometerStorageMode.execute(runState);
             }));

@@ -19,9 +19,6 @@ package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.controlle
 
 import com.alibaba.nacos.common.utils.ThreadUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.integration.support.MessageBuilder;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,17 +35,6 @@ import java.util.Random;
 @RestController
 @RequiredArgsConstructor
 public class MessageSendController {
-    
-    private final MessageChannel output;
-    
-    @GetMapping("/api/message-service/mq-test")
-    public String getMessageInfoByOrderId() {
-        Message<?> message = MessageBuilder
-                .withPayload("Flow Monitor SpringCloud Stream RocketMQ Test.")
-                .build();
-        output.send(message);
-        return "success";
-    }
     
     @GetMapping("/api/message-service/info/{orderId}")
     public String getMessageInfoByOrderId(@PathVariable("orderId") String orderId) {

@@ -38,6 +38,11 @@ import java.io.Serializable;
 public final class FlowMonitorRunState extends FlowMonitorBaseEntity implements Serializable {
     
     /**
+     * 流量监控类型
+     */
+    private String type;
+    
+    /**
      * 目标应用
      */
     private String targetApplication;

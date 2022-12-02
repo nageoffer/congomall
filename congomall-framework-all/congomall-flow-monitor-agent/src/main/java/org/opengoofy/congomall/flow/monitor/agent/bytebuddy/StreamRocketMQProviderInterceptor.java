@@ -48,7 +48,7 @@ public final class StreamRocketMQProviderInterceptor {
         }
         StackTraceElement stackTraceElement = stackTrace[5];
         FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
-        String key = new StringBuilder("/RocketMQ/Provide/")
+        String key = new StringBuilder("/Provide/")
                 .append(stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5))
                 .append("/")
                 .append(stackTraceElement.getMethodName())

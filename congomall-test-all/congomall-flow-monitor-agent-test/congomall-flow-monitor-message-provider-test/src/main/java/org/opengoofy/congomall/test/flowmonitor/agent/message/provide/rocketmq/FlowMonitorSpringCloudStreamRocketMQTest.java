@@ -17,10 +17,15 @@
 
 package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.rocketmq;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.stereotype.Component;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 流量治理之 RocketMQ 测试
@@ -29,8 +34,20 @@ import org.springframework.stereotype.Component;
  * @github https://github.com/opengoofy
  */
 @Slf4j
-@Component
+@RestController
+@AllArgsConstructor
 public class FlowMonitorSpringCloudStreamRocketMQTest {
+    
+    private final MessageChannel output;
+    
+    @GetMapping("/api/message-service/send-mq")
+    public String sendMessageTest() {
+        Message<?> message = MessageBuilder
+                .withPayload("Flow Monitor SpringCloud Stream RocketMQ Test.")
+                .build();
+        output.send(message);
+        return "success";
+    }
     
     @StreamListener(Sink.INPUT)
     public void springCloudStreamRocketMQConsumerTest(String param) {

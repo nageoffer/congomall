@@ -38,7 +38,9 @@ public final class MicrometerStorageMode {
     
     private static final String METRIC_HOST_TAG = METRIC_NAME_PREFIX + ".host";
     
-    private static final String METRIC_URI_TAG = METRIC_NAME_PREFIX + ".uri";
+    private static final String METRIC_RESOURCE_TAG = METRIC_NAME_PREFIX + ".resource";
+    
+    private static final String METRIC_TYPE_TAG = METRIC_NAME_PREFIX + ".type";
     
     private static final String METRIC_CONSUMER_APPLICATION_NAME_TAG = METRIC_NAME_PREFIX + ".source.application.name";
     
@@ -62,11 +64,13 @@ public final class MicrometerStorageMode {
             originalRunState.setSuccessAvg(runState.getSuccessAvg());
             originalRunState.setTotalSuccess(runState.getTotalSuccess());
             originalRunState.setTotalException(runState.getTotalException());
+            originalRunState.setType(runState.getType());
         } else {
             RUN_STATE_CACHE.put(key, runState);
         }
         Iterable<Tag> tags = Lists.newArrayList(
-                Tag.of(METRIC_URI_TAG, runState.getTargetResource()),
+                Tag.of(METRIC_TYPE_TAG, runState.getType()),
+                Tag.of(METRIC_RESOURCE_TAG, runState.getTargetResource()),
                 Tag.of(METRIC_APPLICATION_NAME_TAG, runState.getTargetApplication()),
                 Tag.of(METRIC_HOST_TAG, runState.getTargetIpPort()),
                 Tag.of(METRIC_CONSUMER_APPLICATION_NAME_TAG, runState.getSourceApplication()));

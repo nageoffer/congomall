@@ -68,6 +68,7 @@ public final class FlowMonitorSourceParamProviderFactory {
         String sourceResource;
         String sourceIpPort;
         String targetResource;
+        String flowMonitorType;
         FlowMonitorFrameTypeEnum frameType = FlowMonitorRuntimeContext.getFrameType();
         if (frameType == FlowMonitorFrameTypeEnum.XXL_JOB) {
             sourceApplication = "Internal call";
@@ -75,18 +76,21 @@ public final class FlowMonitorSourceParamProviderFactory {
             sourceIpPort = "Unknown";
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
+            flowMonitorType = "XXL-Job";
         } else if (frameType == FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER) {
             sourceApplication = "Internal call";
             sourceResource = "Unknown";
             sourceIpPort = "Unknown";
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
+            flowMonitorType = "RocketMQ";
         } else if (frameType == FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER) {
             sourceApplication = "Internal call";
             sourceResource = "Unknown";
             sourceIpPort = "Unknown";
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
+            flowMonitorType = "RocketMQ";
         } else {
             if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).hasMoreElements()) {
                 requestMethod = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).nextElement();
@@ -114,9 +118,11 @@ public final class FlowMonitorSourceParamProviderFactory {
                 targetResource = httpServletRequest.getRequestURI();
             }
             targetResource = FlowMonitorRuntimeContext.getProvideVirtualUri(targetResource);
+            flowMonitorType = "API";
         }
         return FlowMonitorEntity.builder()
                 .flowHelper(new FlowHelper(FlowType.Minute))
+                .type(flowMonitorType)
                 .requestMethod(requestMethod)
                 .sourceApplication(sourceApplication)
                 .sourceResource(sourceResource)

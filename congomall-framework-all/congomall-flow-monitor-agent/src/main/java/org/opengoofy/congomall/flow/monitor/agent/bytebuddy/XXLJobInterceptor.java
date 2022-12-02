@@ -34,14 +34,19 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class XXLJobInterceptor {
+public class XXLJobInterceptor {
     
     @Advice.OnMethodEnter
     public static void enter(@Advice.This Object obj,
                              @Advice.Origin("#t") String className,
                              @Advice.Origin("#m") String methodName) throws Throwable {
         FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.XXL_JOB);
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
+        String key = new StringBuilder("/")
+                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
+                .append("/")
+                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
+                .toString();
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(key);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
@@ -60,7 +65,12 @@ public final class XXLJobInterceptor {
         if (!FlowMonitorRuntimeContext.getIsExecute()) {
             return;
         }
-        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
+        String key = new StringBuilder()
+                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
+                .append("/")
+                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
+                .toString();
+        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(key);
         FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
         if (ex == null) {
             sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
@@ -68,13 +78,5 @@ public final class XXLJobInterceptor {
             sourceParam.getFlowHelper().incrException();
         }
         FlowMonitorRuntimeContext.removeContent();
-    }
-    
-    private static String buildKey(Object obj) {
-        return new StringBuilder("/XXL-Job/")
-                .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
-                .append("/")
-                .append(((Method) Reflects.getFieldValue(obj, "method")).getName())
-                .toString();
     }
 }

@@ -36,6 +36,11 @@ import lombok.NoArgsConstructor;
 public class FlowMonitorEntity {
     
     /**
+     * 流量监控类型
+     */
+    private String type;
+    
+    /**
      * 目标应用
      */
     private String targetApplication;
