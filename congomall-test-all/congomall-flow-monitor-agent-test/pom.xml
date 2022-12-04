@@ -15,5 +15,6 @@
         <module>congomall-flow-monitor-order-consumer-test</module>
         <module>congomall-flow-monitor-pay-consumer-test</module>
         <module>congomall-flow-monitor-trading-consumer-test</module>
+        <module>congomall-flow-monitor-user-provider-test</module>
     </modules>
 </project>

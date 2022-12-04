@@ -65,7 +65,7 @@ public class XXLJobInterceptor {
         if (!FlowMonitorRuntimeContext.getIsExecute()) {
             return;
         }
-        String key = new StringBuilder()
+        String key = new StringBuilder("/")
                 .append(Reflects.getFieldValue(obj, "target").getClass().getSimpleName())
                 .append("/")
                 .append(((Method) Reflects.getFieldValue(obj, "method")).getName())

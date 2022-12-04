@@ -15,38 +15,29 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.test.flowmonitor.agent.order.controller;
+package org.opengoofy.congomall.test.flow.monitor.user.provider.controller;
 
-import lombok.AllArgsConstructor;
-import org.opengoofy.congomall.test.flowmonitor.agent.order.remote.MessageRemoteService;
-import org.opengoofy.congomall.test.flowmonitor.agent.order.remote.UserRemoteService;
+import com.alibaba.nacos.common.utils.ThreadUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
+
 /**
- * 订单控制层
+ * 用户控制层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @RestController
-@AllArgsConstructor
-public class OrderController {
+public class UserController {
     
-    private final MessageRemoteService messageRemoteService;
-    
-    private final UserRemoteService userRemoteService;
-    
-    @GetMapping("/api/order-service/info/{orderId}")
-    public String getOrderInfo(@PathVariable("orderId") String orderId) {
-        String resultMessageInfo = messageRemoteService.getMessageInfoByOrderId(orderId);
-        return resultMessageInfo;
-    }
-    
-    @GetMapping("/api/order-service/user/info/{orderId}")
-    public String getUserInfoByOrderId(@PathVariable("orderId") String orderId) {
-        String resultUserInfo = userRemoteService.getUserInfoByOrderId(orderId);
-        return resultUserInfo;
+    @GetMapping("/api/user-service/info/{orderId}")
+    public String getMessageInfoByOrderId(@PathVariable("orderId") String orderId) {
+        Random random = new Random();
+        int nextInt = random.nextInt(50);
+        ThreadUtils.sleep(nextInt);
+        return orderId;
     }
 }

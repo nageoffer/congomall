@@ -18,7 +18,6 @@
 package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.controller;
 
 import com.alibaba.nacos.common.utils.ThreadUtils;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +32,6 @@ import java.util.Random;
  * @github https://github.com/opengoofy
  */
 @RestController
-@RequiredArgsConstructor
 public class MessageSendController {
     
     @GetMapping("/api/message-service/info/{orderId}")
