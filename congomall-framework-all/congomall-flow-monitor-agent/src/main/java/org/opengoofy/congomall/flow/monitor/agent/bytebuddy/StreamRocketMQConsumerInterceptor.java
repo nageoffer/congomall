@@ -40,7 +40,7 @@ public final class StreamRocketMQConsumerInterceptor {
     @Advice.OnMethodEnter
     public static void enter(@Advice.This Object obj) throws Throwable {
         FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(obj));
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();

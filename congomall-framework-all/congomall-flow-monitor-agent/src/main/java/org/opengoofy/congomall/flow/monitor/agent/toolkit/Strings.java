@@ -20,6 +20,7 @@ package org.opengoofy.congomall.flow.monitor.agent.toolkit;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,5 +190,27 @@ public final class Strings {
     
     private static StringBuilder newStringBuilder(final int noOfItems) {
         return new StringBuilder(noOfItems * 16);
+    }
+    
+    public static String str(byte[] data, Charset charset) {
+        if (data == null) {
+            return null;
+        }
+        
+        if (null == charset) {
+            return new String(data);
+        }
+        return new String(data, charset);
+    }
+    
+    public static byte[] bytes(CharSequence str, Charset charset) {
+        if (str == null) {
+            return null;
+        }
+        
+        if (null == charset) {
+            return str.toString().getBytes();
+        }
+        return str.toString().getBytes(charset);
     }
 }

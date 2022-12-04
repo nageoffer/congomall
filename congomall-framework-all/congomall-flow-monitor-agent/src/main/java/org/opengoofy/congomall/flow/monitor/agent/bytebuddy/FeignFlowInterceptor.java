@@ -49,10 +49,13 @@ public final class FeignFlowInterceptor {
         Request request = (Request) allArguments[0];
         Field headersField = Request.class.getDeclaredField("headers");
         headersField.setAccessible(true);
+        Object requestHeaders = headersField.get(request);
         Map<String, Collection<String>> headers = new LinkedHashMap();
+        if (requestHeaders != null) {
+            headers.putAll((Map<String, Collection<String>>) requestHeaders);
+        }
         String applicationName = Environments.getApplicationName();
         headers.put(SOURCE_APPLICATION_NAME, Lists.newArrayList(applicationName));
-        headersField.set(request, Collections.unmodifiableMap(headers));
         try {
             ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             headers.put(SOURCE_HTTP_REQUEST_METHOD, Lists.newArrayList(servletRequestAttributes.getRequest().getMethod()));
@@ -62,5 +65,6 @@ public final class FeignFlowInterceptor {
         URL url = new URL(request.url());
         headers.put(SOURCE_HTTP_HOST, Lists.newArrayList(String.format("%s:%d", url.getHost(), url.getPort())));
         headers.put(TARGET_HTTP_REQUEST_URI, Lists.newArrayList(url.getPath()));
+        headersField.set(request, Collections.unmodifiableMap(headers));
     }
 }

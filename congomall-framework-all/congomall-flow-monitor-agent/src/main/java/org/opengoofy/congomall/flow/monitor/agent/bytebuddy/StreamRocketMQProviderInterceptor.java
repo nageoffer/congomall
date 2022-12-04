@@ -53,7 +53,7 @@ public final class StreamRocketMQProviderInterceptor {
                 .append("/")
                 .append(stackTraceElement.getMethodName())
                 .toString();
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(key);
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(key);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();

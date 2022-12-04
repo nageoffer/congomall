@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
 import net.bytebuddy.asm.Advice;
+import org.apache.logging.log4j.util.Strings;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
@@ -48,12 +49,13 @@ public final class SpringMvcInterceptor {
         HttpServletRequest httpServletRequest = webRequest.getRequest();
         Enumeration<String> sourceApplicationNameEnumeration = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME);
         Enumeration<String> sourceGatewayEnumeration = httpServletRequest.getHeaders(SOURCE_GATEWAY_FLAG);
-        if (!sourceGatewayEnumeration.hasMoreElements() && !sourceApplicationNameEnumeration.hasMoreElements()) {
+        String skyWalkingSw8 = httpServletRequest.getHeader("sw8");
+        if (!sourceGatewayEnumeration.hasMoreElements() && !sourceApplicationNameEnumeration.hasMoreElements() && Strings.isEmpty(skyWalkingSw8)) {
             FlowMonitorRuntimeContext.setIsExecute(Boolean.FALSE);
             return;
         }
         FlowMonitorVirtualUriLoader.loadProviderUris();
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(httpServletRequest);
         Map<String, Map<String, FlowMonitorEntity>> sourceApplications;
         if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource())) == null) {
             sourceApplications = new ConcurrentHashMap<>();

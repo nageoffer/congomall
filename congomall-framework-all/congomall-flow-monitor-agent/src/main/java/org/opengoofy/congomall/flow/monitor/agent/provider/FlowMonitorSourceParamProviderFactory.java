@@ -22,6 +22,7 @@ import com.wujiuye.flow.FlowType;
 import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,7 +42,7 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
      * @return
      */
-    public static FlowMonitorEntity getInstance(String customerTargetResource) {
+    public static FlowMonitorEntity getInstance(final String customerTargetResource) {
         return getInstance(customerTargetResource, null);
     }
     
@@ -63,6 +64,49 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @return
      */
     public static FlowMonitorEntity getInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
+        return buildInstance(customerTargetResource, httpServletRequest, false);
+    }
+    
+    /**
+     * 创建实例
+     *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @return
+     */
+    public static FlowMonitorEntity createInstance(final String customerTargetResource) {
+        return createInstance(customerTargetResource, null);
+    }
+    
+    /**
+     * 创建实例
+     *
+     * @param httpServletRequest Http 请求头
+     * @return
+     */
+    public static FlowMonitorEntity createInstance(final HttpServletRequest httpServletRequest) {
+        return createInstance(null, httpServletRequest);
+    }
+    
+    /**
+     * 创建实例
+     *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @param httpServletRequest     Http 请求头
+     * @return
+     */
+    public static FlowMonitorEntity createInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
+        return buildInstance(customerTargetResource, httpServletRequest, true);
+    }
+    
+    /**
+     * 构建实例
+     *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @param httpServletRequest     Http 请求头
+     * @param createFlag             创建标识
+     * @return
+     */
+    private static FlowMonitorEntity buildInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest, final boolean createFlag) {
         String requestMethod;
         String sourceApplication;
         String sourceResource;
@@ -91,6 +135,16 @@ public final class FlowMonitorSourceParamProviderFactory {
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
             flowMonitorType = "RocketMQ";
+        } else if (httpServletRequest.getHeader("sw8") != null) {
+            // SkyWalking Resource
+            requestMethod = "Unknown";
+            targetResource = httpServletRequest.getRequestURI();
+            String[] sw8s = httpServletRequest.getHeader("sw8").split("-");
+            sourceIpPort = Base64.decodeStr(sw8s[sw8s.length - 1]);
+            sourceResource = Base64.decodeStr(sw8s[sw8s.length - 2]);
+            sourceApplication = Base64.decodeStr(sw8s[4]);
+            flowMonitorType = "API";
+            targetResource = FlowMonitorRuntimeContext.getProvideVirtualUri(targetResource);
         } else {
             if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).hasMoreElements()) {
                 requestMethod = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_METHOD).nextElement();
@@ -117,11 +171,10 @@ public final class FlowMonitorSourceParamProviderFactory {
             } else {
                 targetResource = httpServletRequest.getRequestURI();
             }
-            targetResource = FlowMonitorRuntimeContext.getProvideVirtualUri(targetResource);
             flowMonitorType = "API";
+            targetResource = FlowMonitorRuntimeContext.getProvideVirtualUri(targetResource);
         }
-        return FlowMonitorEntity.builder()
-                .flowHelper(new FlowHelper(FlowType.Minute))
+        FlowMonitorEntity monitorEntity = FlowMonitorEntity.builder()
                 .type(flowMonitorType)
                 .requestMethod(requestMethod)
                 .sourceApplication(sourceApplication)
@@ -129,5 +182,9 @@ public final class FlowMonitorSourceParamProviderFactory {
                 .sourceIpPort(sourceIpPort)
                 .targetResource(targetResource)
                 .build();
+        if (createFlag) {
+            monitorEntity.setFlowHelper(new FlowHelper(FlowType.Minute));
+        }
+        return monitorEntity;
     }
 }

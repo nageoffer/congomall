@@ -58,13 +58,8 @@ public final class FlowMonitorInterceptAgent {
      * @param instrumentation 待处理桩
      */
     private static void consumerOpenFeignHandleInstrument(Instrumentation instrumentation) {
-        try {
-            Class.forName("feign.Client");
-        } catch (Exception ignored) {
-            return;
-        }
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("feign.Client"))
-                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                .transform((builder, typeDescription, classLoader, module) -> {
                     builder = builder.visit(
                             Advice
                                     .to(FeignFlowInterceptor.class)
@@ -81,7 +76,7 @@ public final class FlowMonitorInterceptAgent {
      */
     private static void provideWebMvcHandlerInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod"))
-                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                .transform((builder, typeDescription, classLoader, module) -> {
                     builder = builder.visit(
                             Advice
                                     .to(SpringMvcInterceptor.class)
@@ -98,7 +93,7 @@ public final class FlowMonitorInterceptAgent {
      */
     private static void xxlJobHandleInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("com.xxl.job.core.handler.impl.MethodJobHandler"))
-                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                .transform((builder, typeDescription, classLoader, module) -> {
                     builder = builder.visit(
                             Advice
                                     .to(XXLJobInterceptor.class)
@@ -115,7 +110,7 @@ public final class FlowMonitorInterceptAgent {
      */
     private static void streamRocketMQConsumerHandleInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.messaging.handler.invocation.InvocableHandlerMethod"))
-                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                .transform((builder, typeDescription, classLoader, module) -> {
                     builder = builder.visit(
                             Advice
                                     .to(StreamRocketMQConsumerInterceptor.class)
@@ -131,7 +126,7 @@ public final class FlowMonitorInterceptAgent {
      */
     private static void streamRocketMQProvideHandleInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.cloud.stream.messaging.DirectWithAttributesChannel"))
-                .transform((builder, typeDescription, classLoader, module, protectionDomain) -> {
+                .transform((builder, typeDescription, classLoader, module) -> {
                     builder = builder.method(ElementMatchers.named("doSend").and(ElementMatchers.isProtected()).and(takesArguments(2)))
                             .intercept(MethodDelegation.to(StreamRocketMQProviderInterceptor.class));
                     return builder;
