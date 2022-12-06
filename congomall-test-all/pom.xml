@@ -15,5 +15,6 @@
         <module>congomall-h2-test</module>
         <module>congomall-oom-test</module>
         <module>congomall-yaml-test</module>
+        <module>congomall-smooth-sharding-test</module>
     </modules>
 </project>

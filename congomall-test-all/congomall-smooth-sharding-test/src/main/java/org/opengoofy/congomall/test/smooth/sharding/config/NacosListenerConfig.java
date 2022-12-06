@@ -1,0 +1,53 @@
+package org.opengoofy.congomall.test.smooth.sharding.config;
+
+import cn.hutool.core.util.BooleanUtil;
+import com.alibaba.nacos.api.NacosFactory;
+import com.alibaba.nacos.api.PropertyKeyConst;
+import com.alibaba.nacos.api.config.ConfigService;
+import com.alibaba.nacos.api.config.listener.Listener;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.io.StringReader;
+import java.util.Properties;
+import java.util.concurrent.Executor;
+
+/**
+ * 初始化 Nacos 监听
+ *
+ * @author chen.ma
+ * @github https://github.com/opengoofy
+ */
+@Component
+public class NacosListenerConfig implements InitializingBean {
+    
+    @Resource
+    private ShardRollbackProperties shardRollbackProperties;
+    
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        String serverAddr = "localhost";
+        String dataId = "pay-service.properties";
+        String group = "DEFAULT_GROUP";
+        Properties properties = new Properties();
+        properties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
+        ConfigService configService = NacosFactory.createConfigService(properties);
+        configService.addListener(dataId, group, new Listener() {
+            @SneakyThrows
+            @Override
+            public void receiveConfigInfo(String configInfo) {
+                Properties properties = new Properties();
+                properties.load(new StringReader(configInfo));
+                Object openShard = properties.get("openShard");
+                shardRollbackProperties.setOpenShard(BooleanUtil.toBoolean(openShard.toString()));
+            }
+            
+            @Override
+            public Executor getExecutor() {
+                return null;
+            }
+        });
+    }
+}

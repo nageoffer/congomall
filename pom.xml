@@ -61,6 +61,7 @@
         <hippo4j-config.version>1.4.3</hippo4j-config.version>
         <seata.version>1.5.2</seata.version>
         <xxl-job.version>2.3.1</xxl-job.version>
+        <canal-client.version>1.1.6</canal-client.version>
         <!-- 框架 End -->
         <!-- 工具类 Start -->
         <dozer.version>6.5.2</dozer.version>
