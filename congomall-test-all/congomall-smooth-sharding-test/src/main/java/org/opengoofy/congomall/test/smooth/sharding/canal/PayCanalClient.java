@@ -39,7 +39,7 @@ public class PayCanalClient implements CommandLineRunner {
         int batchSize = 1000;
         try {
             connector.connect();
-            connector.subscribe("canal_test\\.pay_info_shard.*");
+            connector.subscribe("pay_center\\.pay_info_shard.*");
             while (true) {
                 Message message = connector.getWithoutAck(batchSize);
                 long batchId = message.getId();
