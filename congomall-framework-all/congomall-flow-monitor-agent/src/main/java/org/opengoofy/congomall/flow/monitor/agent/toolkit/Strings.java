@@ -91,7 +91,6 @@ public final class Strings {
         }
         for (int i = startIndex + 1; i < endIndex; i++) {
             buf.append(separator);
-            
             if (array[i] != null) {
                 buf.append(array[i]);
             }
@@ -99,15 +98,33 @@ public final class Strings {
         return buf.toString();
     }
     
+    public static List<String> newSplit(String str, final String separatorChars) {
+        if (null == str) {
+            return new ArrayList<>(0);
+        }
+        if (isEmpty(separatorChars)) {
+            List<String> result = new ArrayList<>(1);
+            result.add(str);
+            return result;
+        }
+        final List<String> stringList = new ArrayList<>();
+        while (true) {
+            int index = str.indexOf(separatorChars);
+            if (index < 0) {
+                stringList.add(str);
+                break;
+            }
+            stringList.add(str.substring(0, index));
+            str = str.substring(index + separatorChars.length());
+        }
+        return stringList;
+    }
+    
     public static String[] split(final String str, final String separatorChars) {
         return splitWorker(str, separatorChars, -1, false);
     }
     
     private static String[] splitWorker(final String str, final String separatorChars, final int max, final boolean preserveAllTokens) {
-        // Performance tuned for 2.0 (JDK1.4)
-        // Direct code is quicker than StringTokenizer.
-        // Also, StringTokenizer uses isSpace() not isWhitespace()
-        
         if (str == null) {
             return null;
         }
@@ -121,7 +138,6 @@ public final class Strings {
         boolean match = false;
         boolean lastMatch = false;
         if (separatorChars == null) {
-            // Null separator means use whitespace
             while (i < len) {
                 if (Character.isWhitespace(str.charAt(i))) {
                     if (match || preserveAllTokens) {
@@ -141,7 +157,6 @@ public final class Strings {
                 i++;
             }
         } else if (separatorChars.length() == 1) {
-            // Optimise 1 character case
             final char sep = separatorChars.charAt(0);
             while (i < len) {
                 if (str.charAt(i) == sep) {
@@ -162,7 +177,6 @@ public final class Strings {
                 i++;
             }
         } else {
-            // standard case
             while (i < len) {
                 if (separatorChars.indexOf(str.charAt(i)) >= 0) {
                     if (match || preserveAllTokens) {

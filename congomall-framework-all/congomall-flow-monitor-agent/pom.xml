@@ -11,10 +11,9 @@
     
     <dependencies>
         <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.12.1.GA</version>
-            <type>jar</type>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         
         <dependency>
@@ -113,7 +112,6 @@
                 <configuration>
                     <artifactSet>
                         <includes>
-                            <include>javassist:javassist:jar:</include>
                             <include>net.bytebuddy:byte-buddy:jar:</include>
                             <include>net.bytebuddy:byte-buddy-agent:jar:</include>
                             <include>org.springframework.cloud:spring-cloud-starter-openfeign:jar:</include>

@@ -77,10 +77,8 @@ public final class FlowMonitorInterceptAgent {
     private static void provideWebMvcHandlerInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod"))
                 .transform((builder, typeDescription, classLoader, module) -> {
-                    builder = builder.visit(
-                            Advice
-                                    .to(SpringMvcInterceptor.class)
-                                    .on(ElementMatchers.named("invokeAndHandle")));
+                    builder = builder.method(ElementMatchers.named("invokeAndHandle"))
+                            .intercept(MethodDelegation.to(SpringMvcInterceptor.class));
                     return builder;
                 })
                 .installOn(instrumentation);
@@ -94,10 +92,8 @@ public final class FlowMonitorInterceptAgent {
     private static void xxlJobHandleInstrument(Instrumentation instrumentation) {
         new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("com.xxl.job.core.handler.impl.MethodJobHandler"))
                 .transform((builder, typeDescription, classLoader, module) -> {
-                    builder = builder.visit(
-                            Advice
-                                    .to(XXLJobInterceptor.class)
-                                    .on(ElementMatchers.named("execute")));
+                    builder = builder.method(ElementMatchers.named("execute"))
+                            .intercept(MethodDelegation.to(XXLJobInterceptor.class));
                     return builder;
                 })
                 .installOn(instrumentation);

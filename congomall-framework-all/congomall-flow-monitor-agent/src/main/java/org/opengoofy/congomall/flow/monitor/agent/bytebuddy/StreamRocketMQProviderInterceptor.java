@@ -24,6 +24,7 @@ import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnu
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.SystemClock;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -47,13 +48,12 @@ public final class StreamRocketMQProviderInterceptor {
             return callable.call();
         }
         StackTraceElement stackTraceElement = stackTrace[5];
-        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
         String key = new StringBuilder("/Provide/")
                 .append(stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5))
                 .append("/")
-                .append(stackTraceElement.getMethodName())
+                .append(stackTraceElement.getMethodName().substring(0, stackTraceElement.getMethodName().indexOf("$")))
                 .toString();
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(key);
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(key, FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
@@ -62,7 +62,7 @@ public final class StreamRocketMQProviderInterceptor {
             sourceApplications.put(sourceParam.getSourceApplication(), hosts);
             FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
         }
-        long startTime = System.currentTimeMillis();
+        long startTime = SystemClock.now();
         Object result = null;
         try {
             return result = callable.call();
@@ -71,7 +71,7 @@ public final class StreamRocketMQProviderInterceptor {
             if (result == null || !((boolean) result)) {
                 entity.getFlowHelper().incrException();
             } else {
-                entity.getFlowHelper().incrSuccess(System.currentTimeMillis() - startTime);
+                entity.getFlowHelper().incrSuccess(SystemClock.now() - startTime);
             }
         }
     }

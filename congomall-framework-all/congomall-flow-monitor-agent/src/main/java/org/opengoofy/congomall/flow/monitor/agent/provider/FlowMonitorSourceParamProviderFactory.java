@@ -23,8 +23,10 @@ import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnu
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Base64;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.Strings;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.*;
 
@@ -64,7 +66,18 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @return
      */
     public static FlowMonitorEntity getInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
-        return buildInstance(customerTargetResource, httpServletRequest, false);
+        return buildInstance(customerTargetResource, httpServletRequest, false, null);
+    }
+    
+    /**
+     * 获取实例
+     *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @param frameType              框架类型
+     * @return
+     */
+    public static FlowMonitorEntity getInstanceByFrameType(final String customerTargetResource, final FlowMonitorFrameTypeEnum frameType) {
+        return buildInstance(customerTargetResource, null, false, frameType);
     }
     
     /**
@@ -73,8 +86,8 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
      * @return
      */
-    public static FlowMonitorEntity createInstance(final String customerTargetResource) {
-        return createInstance(customerTargetResource, null);
+    public static FlowMonitorEntity createInstance(final String customerTargetResource, final FlowMonitorFrameTypeEnum frameType) {
+        return createInstance(customerTargetResource, null, frameType);
     }
     
     /**
@@ -84,7 +97,7 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @return
      */
     public static FlowMonitorEntity createInstance(final HttpServletRequest httpServletRequest) {
-        return createInstance(null, httpServletRequest);
+        return createInstance(null, httpServletRequest, null);
     }
     
     /**
@@ -94,8 +107,8 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @param httpServletRequest     Http 请求头
      * @return
      */
-    public static FlowMonitorEntity createInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
-        return buildInstance(customerTargetResource, httpServletRequest, true);
+    public static FlowMonitorEntity createInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest, final FlowMonitorFrameTypeEnum frameType) {
+        return buildInstance(customerTargetResource, httpServletRequest, true, frameType);
     }
     
     /**
@@ -106,14 +119,16 @@ public final class FlowMonitorSourceParamProviderFactory {
      * @param createFlag             创建标识
      * @return
      */
-    private static FlowMonitorEntity buildInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest, final boolean createFlag) {
+    private static FlowMonitorEntity buildInstance(final String customerTargetResource,
+                                                   final HttpServletRequest httpServletRequest,
+                                                   final boolean createFlag,
+                                                   final FlowMonitorFrameTypeEnum frameType) {
         String requestMethod;
         String sourceApplication;
         String sourceResource;
         String sourceIpPort;
         String targetResource;
         String flowMonitorType;
-        FlowMonitorFrameTypeEnum frameType = FlowMonitorRuntimeContext.getFrameType();
         if (frameType == FlowMonitorFrameTypeEnum.XXL_JOB) {
             sourceApplication = "Internal call";
             sourceResource = "Unknown";
@@ -135,14 +150,14 @@ public final class FlowMonitorSourceParamProviderFactory {
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
             flowMonitorType = "RocketMQ";
-        } else if (httpServletRequest.getHeader("sw8") != null) {
+        } else if (httpServletRequest != null && httpServletRequest.getHeader("sw8") != null) {
             // SkyWalking Resource
             requestMethod = "Unknown";
             targetResource = httpServletRequest.getRequestURI();
-            String[] sw8s = httpServletRequest.getHeader("sw8").split("-");
-            sourceIpPort = Base64.decodeStr(sw8s[sw8s.length - 1]);
-            sourceResource = Base64.decodeStr(sw8s[sw8s.length - 2]);
-            sourceApplication = Base64.decodeStr(sw8s[4]);
+            List<String> sw8s = Strings.newSplit(httpServletRequest.getHeader("sw8"), "-");
+            sourceIpPort = Base64.decodeStr(sw8s.get(sw8s.size() - 1));
+            sourceResource = Base64.decodeStr(sw8s.get(sw8s.size() - 2));
+            sourceApplication = Base64.decodeStr(sw8s.get(4));
             flowMonitorType = "API";
             targetResource = FlowMonitorRuntimeContext.getProvideVirtualUri(targetResource);
         } else {
@@ -154,7 +169,7 @@ public final class FlowMonitorSourceParamProviderFactory {
             if (httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).hasMoreElements()) {
                 sourceApplication = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME).nextElement();
             } else {
-                sourceApplication = "Gateway";
+                sourceApplication = "Other";
             }
             if (httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_URI).hasMoreElements()) {
                 sourceResource = httpServletRequest.getHeaders(SOURCE_HTTP_REQUEST_URI).nextElement();

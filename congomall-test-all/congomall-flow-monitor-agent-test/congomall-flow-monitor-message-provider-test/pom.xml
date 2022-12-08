@@ -51,10 +51,16 @@
             <artifactId>congomall-rocketmq-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
-    
+        
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-swagger-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

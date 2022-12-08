@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.controller;
 
 import com.alibaba.nacos.common.utils.ThreadUtils;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,7 @@ import java.util.Random;
  * @github https://github.com/opengoofy
  */
 @RestController
+@Api(tags = "消息发送")
 public class MessageSendController {
     
     @GetMapping("/api/message-service/info/{orderId}")

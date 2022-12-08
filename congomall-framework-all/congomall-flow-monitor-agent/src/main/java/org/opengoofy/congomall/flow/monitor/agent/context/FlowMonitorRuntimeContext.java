@@ -19,16 +19,15 @@ package org.opengoofy.congomall.flow.monitor.agent.context;
 
 import com.wujiuye.flow.FlowType;
 import com.wujiuye.flow.Flower;
-import org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.agent.common.SID;
 import org.opengoofy.congomall.flow.monitor.agent.storage.FlowMonitorRunState;
 import org.opengoofy.congomall.flow.monitor.agent.storage.MicrometerStorageMode;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Environments;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.SystemClock;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -54,14 +53,9 @@ public final class FlowMonitorRuntimeContext {
     private final static ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(1);
     
     /**
-     * 存储 MVC {@link @Advice.OnMethodEnter} 与 {@link @Advice.OnMethodExit}
+     * 存储 ByteBuddy {@link @Advice.OnMethodEnter} 与 {@link @Advice.OnMethodExit}
      */
     public final static ThreadLocal<Long> EXECUTE_TIME_THREADLOCAL = new ThreadLocal();
-    
-    /**
-     * 是否执行
-     */
-    public final static ThreadLocal<Boolean> IS_EXECUTE_THREADLOCAL = new ThreadLocal();
     
     /**
      * 来源客户端所有虚拟 URI
@@ -80,11 +74,6 @@ public final class FlowMonitorRuntimeContext {
      * </p>
      */
     public final static Set<String> PROVIDER_ALL_VIRTUAL_URIS = new HashSet<>();
-    
-    /**
-     * 流量监控框架标识
-     */
-    public final static ThreadLocal<FlowMonitorFrameTypeEnum> FRAME_TYPE_THREADLOCAL = new ThreadLocal();
     
     /**
      * 初始化行为
@@ -166,27 +155,11 @@ public final class FlowMonitorRuntimeContext {
     }
     
     public static void setExecuteTime() {
-        EXECUTE_TIME_THREADLOCAL.set(System.currentTimeMillis());
+        EXECUTE_TIME_THREADLOCAL.set(SystemClock.now());
     }
     
-    public static long getExecuteTime() {
+    public static Long getExecuteTime() {
         return EXECUTE_TIME_THREADLOCAL.get();
-    }
-    
-    public static void setIsExecute(boolean actual) {
-        IS_EXECUTE_THREADLOCAL.set(actual);
-    }
-    
-    public static boolean getIsExecute() {
-        return Optional.ofNullable(IS_EXECUTE_THREADLOCAL.get()).orElse(false);
-    }
-    
-    public static void setFrameType(FlowMonitorFrameTypeEnum frameTypeEnum) {
-        FRAME_TYPE_THREADLOCAL.set(frameTypeEnum);
-    }
-    
-    public static FlowMonitorFrameTypeEnum getFrameType() {
-        return FRAME_TYPE_THREADLOCAL.get();
     }
     
     public static String getConsumerVirtualUri(String actualUri) {
@@ -209,7 +182,5 @@ public final class FlowMonitorRuntimeContext {
     
     public static void removeContent() {
         EXECUTE_TIME_THREADLOCAL.remove();
-        IS_EXECUTE_THREADLOCAL.remove();
-        FRAME_TYPE_THREADLOCAL.remove();
     }
 }

@@ -17,21 +17,22 @@
 
 package org.opengoofy.congomall.flow.monitor.agent.bytebuddy;
 
-import net.bytebuddy.asm.Advice;
-import org.apache.logging.log4j.util.Strings;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import net.bytebuddy.implementation.bind.annotation.Origin;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorVirtualUriLoader;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.SystemClock;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
+import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.SOURCE_APPLICATION_NAME;
-import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConstant.SOURCE_GATEWAY_FLAG;
 
 /**
  * Spring MVC 流量拦截
@@ -41,21 +42,38 @@ import static org.opengoofy.congomall.flow.monitor.agent.common.FlowMonitorConst
  */
 public final class SpringMvcInterceptor {
     
-    @Advice.OnMethodEnter
-    public static void enter(@Advice.This Object obj,
-                             @Advice.Argument(0) ServletWebRequest webRequest,
-                             @Advice.Origin("#t") String className,
-                             @Advice.Origin("#m") String methodName) throws Throwable {
-        HttpServletRequest httpServletRequest = webRequest.getRequest();
-        Enumeration<String> sourceApplicationNameEnumeration = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME);
-        Enumeration<String> sourceGatewayEnumeration = httpServletRequest.getHeaders(SOURCE_GATEWAY_FLAG);
-        String skyWalkingSw8 = httpServletRequest.getHeader("sw8");
-        if (!sourceGatewayEnumeration.hasMoreElements() && !sourceApplicationNameEnumeration.hasMoreElements() && Strings.isEmpty(skyWalkingSw8)) {
-            FlowMonitorRuntimeContext.setIsExecute(Boolean.FALSE);
-            return;
-        }
+    @RuntimeType
+    public static Object intercept(@Origin Method method,
+                                   @AllArguments Object[] allArguments,
+                                   @SuperCall Callable<?> callable) throws Throwable {
+        HttpServletRequest httpServletRequest = ((ServletWebRequest) allArguments[0]).getRequest();
+        // Enumeration<String> sourceApplicationNameEnumeration = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME);
+        // Enumeration<String> sourceGatewayEnumeration = httpServletRequest.getHeaders(SOURCE_GATEWAY_FLAG);
+        // String skyWalkingSw8 = httpServletRequest.getHeader("sw8");
+        // if (!sourceGatewayEnumeration.hasMoreElements() && !sourceApplicationNameEnumeration.hasMoreElements() && Strings.isEmpty(skyWalkingSw8)) {
+        // return callable.call();
+        // }
         FlowMonitorVirtualUriLoader.loadProviderUris();
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(httpServletRequest);
+        SpringMvcInterceptor.loadResource(sourceParam);
+        boolean exFlag = false;
+        long startTime = SystemClock.now();
+        try {
+            return callable.call();
+        } catch (Throwable ex) {
+            exFlag = true;
+            throw ex;
+        } finally {
+            FlowMonitorEntity flowMonitorEntity = FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort());
+            if (exFlag) {
+                flowMonitorEntity.getFlowHelper().incrException();
+            } else {
+                flowMonitorEntity.getFlowHelper().incrSuccess(SystemClock.now() - startTime);
+            }
+        }
+    }
+    
+    private static void loadResource(FlowMonitorEntity sourceParam) {
         Map<String, Map<String, FlowMonitorEntity>> sourceApplications;
         if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource())) == null) {
             sourceApplications = new ConcurrentHashMap<>();
@@ -71,24 +89,5 @@ public final class SpringMvcInterceptor {
         } else if (FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort()) == null) {
             FlowMonitorRuntimeContext.putHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort(), sourceParam);
         }
-        FlowMonitorRuntimeContext.setExecuteTime();
-        FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
-    }
-    
-    @Advice.OnMethodExit(onThrowable = Throwable.class)
-    public static void exit(@Advice.Argument(0) ServletWebRequest webRequest,
-                            @Advice.Thrown Throwable ex) throws Throwable {
-        if (!FlowMonitorRuntimeContext.getIsExecute()) {
-            return;
-        }
-        HttpServletRequest httpServletRequest = webRequest.getRequest();
-        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(httpServletRequest);
-        FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
-        if (ex != null) {
-            sourceParam.getFlowHelper().incrException();
-        } else {
-            sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
-        }
-        FlowMonitorRuntimeContext.removeContent();
     }
 }

@@ -24,6 +24,7 @@ import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.agent.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.agent.provider.FlowMonitorSourceParamProviderFactory;
 import org.opengoofy.congomall.flow.monitor.agent.toolkit.Reflects;
+import org.opengoofy.congomall.flow.monitor.agent.toolkit.SystemClock;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -39,8 +40,7 @@ public final class StreamRocketMQConsumerInterceptor {
     
     @Advice.OnMethodEnter
     public static void enter(@Advice.This Object obj) throws Throwable {
-        FlowMonitorRuntimeContext.setFrameType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(obj));
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(obj), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
@@ -50,19 +50,18 @@ public final class StreamRocketMQConsumerInterceptor {
             FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
         }
         FlowMonitorRuntimeContext.setExecuteTime();
-        FlowMonitorRuntimeContext.setIsExecute(Boolean.TRUE);
     }
     
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.This Object obj,
                             @Advice.Thrown Throwable ex) throws Throwable {
-        if (!FlowMonitorRuntimeContext.getIsExecute()) {
+        if (FlowMonitorRuntimeContext.getExecuteTime() == null) {
             return;
         }
-        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj));
+        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstanceByFrameType(buildKey(obj), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
         FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
         if (ex == null) {
-            sourceParam.getFlowHelper().incrSuccess(System.currentTimeMillis() - FlowMonitorRuntimeContext.getExecuteTime());
+            sourceParam.getFlowHelper().incrSuccess(SystemClock.now() - FlowMonitorRuntimeContext.getExecuteTime());
         } else {
             sourceParam.getFlowHelper().incrException();
         }
