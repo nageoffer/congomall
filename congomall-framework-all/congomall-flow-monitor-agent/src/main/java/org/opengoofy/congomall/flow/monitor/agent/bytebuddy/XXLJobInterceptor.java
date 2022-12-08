@@ -60,9 +60,9 @@ public class XXLJobInterceptor {
         } finally {
             FlowMonitorEntity flowMonitorEntity = FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort());
             if (exFlag) {
-                flowMonitorEntity.getFlowHelper().incrSuccess(SystemClock.now() - startTime);
-            } else {
                 flowMonitorEntity.getFlowHelper().incrException();
+            } else {
+                flowMonitorEntity.getFlowHelper().incrSuccess(SystemClock.now() - startTime);
             }
         }
     }
