@@ -58,7 +58,7 @@ public final class StreamRocketMQConsumerInterceptor {
         if (FlowMonitorRuntimeContext.getExecuteTime() == null) {
             return;
         }
-        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstanceByFrameType(buildKey(obj), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
+        FlowMonitorEntity instance = FlowMonitorSourceParamProviderFactory.getInstance(buildKey(obj), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_CONSUMER);
         FlowMonitorEntity sourceParam = FlowMonitorRuntimeContext.getHost(instance.getTargetResource(), instance.getSourceApplication(), instance.getSourceIpPort());
         if (ex == null) {
             sourceParam.getFlowHelper().incrSuccess(SystemClock.now() - FlowMonitorRuntimeContext.getExecuteTime());

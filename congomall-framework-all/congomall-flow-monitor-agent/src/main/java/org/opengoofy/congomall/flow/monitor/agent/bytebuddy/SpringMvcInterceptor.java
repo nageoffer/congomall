@@ -47,12 +47,6 @@ public final class SpringMvcInterceptor {
                                    @AllArguments Object[] allArguments,
                                    @SuperCall Callable<?> callable) throws Throwable {
         HttpServletRequest httpServletRequest = ((ServletWebRequest) allArguments[0]).getRequest();
-        // Enumeration<String> sourceApplicationNameEnumeration = httpServletRequest.getHeaders(SOURCE_APPLICATION_NAME);
-        // Enumeration<String> sourceGatewayEnumeration = httpServletRequest.getHeaders(SOURCE_GATEWAY_FLAG);
-        // String skyWalkingSw8 = httpServletRequest.getHeader("sw8");
-        // if (!sourceGatewayEnumeration.hasMoreElements() && !sourceApplicationNameEnumeration.hasMoreElements() && Strings.isEmpty(skyWalkingSw8)) {
-        // return callable.call();
-        // }
         FlowMonitorVirtualUriLoader.loadProviderUris();
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(httpServletRequest);
         SpringMvcInterceptor.loadResource(sourceParam);

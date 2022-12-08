@@ -42,41 +42,10 @@ public final class FlowMonitorSourceParamProviderFactory {
      * 获取实例
      *
      * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
-     * @return
-     */
-    public static FlowMonitorEntity getInstance(final String customerTargetResource) {
-        return getInstance(customerTargetResource, null);
-    }
-    
-    /**
-     * 获取实例
-     *
-     * @param httpServletRequest Http 请求头
-     * @return
-     */
-    public static FlowMonitorEntity getInstance(final HttpServletRequest httpServletRequest) {
-        return getInstance(null, httpServletRequest);
-    }
-    
-    /**
-     * 获取实例
-     *
-     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
-     * @param httpServletRequest     Http 请求头
-     * @return
-     */
-    public static FlowMonitorEntity getInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
-        return buildInstance(customerTargetResource, httpServletRequest, false, null);
-    }
-    
-    /**
-     * 获取实例
-     *
-     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
      * @param frameType              框架类型
      * @return
      */
-    public static FlowMonitorEntity getInstanceByFrameType(final String customerTargetResource, final FlowMonitorFrameTypeEnum frameType) {
+    public static FlowMonitorEntity getInstance(final String customerTargetResource, final FlowMonitorFrameTypeEnum frameType) {
         return buildInstance(customerTargetResource, null, false, frameType);
     }
     
@@ -150,7 +119,7 @@ public final class FlowMonitorSourceParamProviderFactory {
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
             flowMonitorType = "RocketMQ";
-        } else if (httpServletRequest != null && httpServletRequest.getHeader("sw8") != null) {
+        } else if (httpServletRequest.getHeader("sw8") != null) {
             // SkyWalking Resource
             requestMethod = "Unknown";
             targetResource = httpServletRequest.getRequestURI();

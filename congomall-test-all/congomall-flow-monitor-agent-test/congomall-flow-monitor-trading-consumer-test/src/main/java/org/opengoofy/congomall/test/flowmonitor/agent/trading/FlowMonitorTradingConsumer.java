@@ -25,9 +25,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients("org.opengoofy.congomall.test.flowmonitor.agent.trading.remote")
 @SpringBootApplication
-public class FlowMonitorTradingTestApplication {
+public class FlowMonitorTradingConsumer {
     
     public static void main(String[] args) {
-        SpringApplication.run(FlowMonitorTradingTestApplication.class, args);
+        SpringApplication.run(FlowMonitorTradingConsumer.class, args);
     }
 }
