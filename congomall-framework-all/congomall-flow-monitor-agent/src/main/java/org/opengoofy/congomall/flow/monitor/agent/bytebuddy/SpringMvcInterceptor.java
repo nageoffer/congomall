@@ -47,6 +47,9 @@ public final class SpringMvcInterceptor {
                                    @AllArguments Object[] allArguments,
                                    @SuperCall Callable<?> callable) throws Throwable {
         HttpServletRequest httpServletRequest = ((ServletWebRequest) allArguments[0]).getRequest();
+        if (FlowMonitorRuntimeContext.hasFilterPath(httpServletRequest.getRequestURI())) {
+            return callable.call();
+        }
         FlowMonitorVirtualUriLoader.loadProviderUris();
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(httpServletRequest);
         SpringMvcInterceptor.loadResource(sourceParam);

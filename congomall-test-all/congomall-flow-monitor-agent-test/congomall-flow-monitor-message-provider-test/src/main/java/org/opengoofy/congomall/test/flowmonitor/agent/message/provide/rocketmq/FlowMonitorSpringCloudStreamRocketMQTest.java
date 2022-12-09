@@ -64,5 +64,8 @@ public class FlowMonitorSpringCloudStreamRocketMQTest {
         int nextInt = random.nextInt(50);
         ThreadUtils.sleep(nextInt);
         log.info("================ Consumer sleep time: {}, param: {}", nextInt, param);
+        if (nextInt % 2 == 0) {
+            throw new RuntimeException();
+        }
     }
 }

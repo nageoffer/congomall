@@ -82,6 +82,14 @@ public final class FlowMonitorInterceptAgent {
                     return builder;
                 })
                 .installOn(instrumentation);
+        // new AgentBuilder.Default().type(ElementMatchers.nameStartsWith("org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod"))
+        // .transform((builder, typeDescription, classLoader, module) -> {
+        // builder = builder.visit(
+        // Advice
+        // .to(SpringMvcInterceptor.class)
+        // .on(ElementMatchers.named("invokeAndHandle")));
+        // return builder;
+        // }).installOn(instrumentation);
     }
     
     /**

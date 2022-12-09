@@ -41,6 +41,27 @@ public final class FlowMonitorSourceParamProviderFactory {
     /**
      * 获取实例
      *
+     * @param httpServletRequest Http 请求头
+     * @return
+     */
+    public static FlowMonitorEntity getInstance(final HttpServletRequest httpServletRequest) {
+        return getInstance(null, httpServletRequest);
+    }
+    
+    /**
+     * 获取实例
+     *
+     * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
+     * @param httpServletRequest     Http 请求头
+     * @return
+     */
+    public static FlowMonitorEntity getInstance(final String customerTargetResource, final HttpServletRequest httpServletRequest) {
+        return buildInstance(customerTargetResource, httpServletRequest, false, null);
+    }
+    
+    /**
+     * 获取实例
+     *
      * @param customerTargetResource 自定义目标客户端资源信息, eg: XXL-Job、RocketMQ...
      * @param frameType              框架类型
      * @return
@@ -119,7 +140,7 @@ public final class FlowMonitorSourceParamProviderFactory {
             requestMethod = "Unknown";
             targetResource = customerTargetResource;
             flowMonitorType = "RocketMQ";
-        } else if (httpServletRequest.getHeader("sw8") != null) {
+        } else if (Strings.isNotEmpty(httpServletRequest.getHeader("sw8"))) {
             // SkyWalking Resource
             requestMethod = "Unknown";
             targetResource = httpServletRequest.getRequestURI();

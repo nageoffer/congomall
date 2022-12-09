@@ -19,10 +19,8 @@ package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.controlle
 
 import com.alibaba.nacos.common.utils.ThreadUtils;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
@@ -32,11 +30,12 @@ import java.util.Random;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@Slf4j
 @RestController
 @Api(tags = "消息发送")
 public class MessageSendController {
     
-    @GetMapping("/api/message-service/info/{orderId}")
+    @PostMapping("/api/message-service/info/{orderId}")
     public String getMessageInfoByOrderId(@PathVariable("orderId") String orderId) {
         Random random = new Random();
         int nextInt = random.nextInt(50);
@@ -44,6 +43,7 @@ public class MessageSendController {
         if (nextInt % 2 == 0) {
             throw new RuntimeException();
         }
+        log.info("================ sleep time: {}", nextInt);
         return orderId;
     }
     

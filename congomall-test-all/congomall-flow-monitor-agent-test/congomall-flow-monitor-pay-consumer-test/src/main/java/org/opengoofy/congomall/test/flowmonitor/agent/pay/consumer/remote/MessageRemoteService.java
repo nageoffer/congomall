@@ -18,8 +18,8 @@
 package org.opengoofy.congomall.test.flowmonitor.agent.pay.consumer.remote;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * 消息远程调用接口
@@ -33,6 +33,6 @@ public interface MessageRemoteService {
     /**
      * 获取用户信息
      */
-    @GetMapping("/api/message-service/info/{orderId}")
+    @PostMapping("/api/message-service/info/{orderId}")
     String getMessageInfoByOrderId(@PathVariable("orderId") String orderId);
 }

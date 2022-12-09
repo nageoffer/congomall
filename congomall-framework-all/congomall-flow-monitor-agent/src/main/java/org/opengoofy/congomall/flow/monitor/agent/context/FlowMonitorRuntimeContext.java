@@ -76,6 +76,11 @@ public final class FlowMonitorRuntimeContext {
     public final static Set<String> PROVIDER_ALL_VIRTUAL_URIS = new HashSet<>();
     
     /**
+     * 过滤 WEB 路径，比如 /error
+     */
+    private final static Set<String> WEB_FILTER_PATH_SETS = new HashSet<>();
+    
+    /**
      * 初始化行为
      */
     public static void init() {
@@ -83,11 +88,11 @@ public final class FlowMonitorRuntimeContext {
             System.out.println("------------------------------------------");
             System.out.println(String.format("------------ 目标接口: %s", interfaceKey));
             val.forEach((sourceApplication, hosts) -> hosts.forEach((host, param) -> {
+                Flower flower = param.getFlowHelper().getFlow(FlowType.Minute);
                 System.out.println(String.format("------------ 来源应用: %s", sourceApplication));
                 System.out.println(String.format("------------ 来源接口: %s", param.getSourceResource()));
                 System.out.println(String.format("------------ 来源 Host: %s", host));
                 System.out.println("------------------------------------------");
-                Flower flower = param.getFlowHelper().getFlow(FlowType.Minute);
                 System.out.println("总请求数: " + flower.total());
                 System.out.println("成功请求数: " + flower.totalSuccess());
                 System.out.println("异常请求数: " + flower.totalException());
@@ -116,6 +121,7 @@ public final class FlowMonitorRuntimeContext {
                 MicrometerStorageMode.execute(runState);
             }));
         }), 0, 60, TimeUnit.SECONDS);
+        WEB_FILTER_PATH_SETS.add("/error");
     }
     
     public static void putApplications(String targetUri, Map<String, Map<String, FlowMonitorEntity>> value) {
@@ -177,7 +183,11 @@ public final class FlowMonitorRuntimeContext {
                 return each;
             }
         }
-        return "Virtual map URI not found, Actual uri: " + actualUri;
+        return actualUri;
+    }
+    
+    public static boolean hasFilterPath(String path) {
+        return WEB_FILTER_PATH_SETS.contains(path);
     }
     
     public static void removeContent() {

@@ -42,5 +42,8 @@ public class XXLJobTaskTestHandler extends IJobHandler {
         int nextInt = random.nextInt(50);
         ThreadUtils.sleep(nextInt);
         log.info("执行任务... sleep time: {}", nextInt);
+        if (nextInt % 2 == 0) {
+            throw new RuntimeException();
+        }
     }
 }
