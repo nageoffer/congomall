@@ -34,18 +34,20 @@ public class ApplicationBaseAutoConfiguration {
     
     @Bean
     @ConditionalOnMissingBean
-    public ApplicationContextHolder applicationContextHolder() {
+    public ApplicationContextHolder congoApplicationContextHolder() {
         return new ApplicationContextHolder();
     }
     
     @Bean
-    public ApplicationContentPostProcessor applicationContentPostProcessor() {
+    @ConditionalOnMissingBean
+    public ApplicationContentPostProcessor congoApplicationContentPostProcessor() {
         return new ApplicationContentPostProcessor();
     }
     
     @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnProperty(value = "fastjson.safa-mode", havingValue = "true")
-    public FastJsonSafeMode fastJsonSafeMode() {
+    public FastJsonSafeMode congoFastJsonSafeMode() {
         return new FastJsonSafeMode();
     }
 }
