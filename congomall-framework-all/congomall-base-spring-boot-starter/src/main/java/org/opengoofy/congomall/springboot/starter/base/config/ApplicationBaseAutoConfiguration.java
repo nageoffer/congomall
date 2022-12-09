@@ -20,6 +20,7 @@ package org.opengoofy.congomall.springboot.starter.base.config;
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.opengoofy.congomall.springboot.starter.base.init.ApplicationContentPostProcessor;
 import org.opengoofy.congomall.springboot.starter.base.safa.FastJsonSafeMode;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
@@ -32,6 +33,7 @@ import org.springframework.context.annotation.Bean;
 public class ApplicationBaseAutoConfiguration {
     
     @Bean
+    @ConditionalOnMissingBean
     public ApplicationContextHolder applicationContextHolder() {
         return new ApplicationContextHolder();
     }
