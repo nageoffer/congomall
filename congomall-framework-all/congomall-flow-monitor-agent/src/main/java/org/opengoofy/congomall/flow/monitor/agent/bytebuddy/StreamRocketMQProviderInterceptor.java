@@ -48,10 +48,15 @@ public final class StreamRocketMQProviderInterceptor {
             return callable.call();
         }
         StackTraceElement stackTraceElement = stackTrace[5];
+        String sendClass = stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5);
+        String sendMethodName = stackTraceElement.getMethodName();
+        if (sendMethodName.indexOf("$") != -1) {
+            sendMethodName = sendMethodName.substring(0, sendMethodName.indexOf("$"));
+        }
         String key = new StringBuilder("/Provide/")
-                .append(stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5))
+                .append(sendClass)
                 .append("/")
-                .append(stackTraceElement.getMethodName().substring(0, stackTraceElement.getMethodName().indexOf("$")))
+                .append(sendMethodName)
                 .toString();
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(key, FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
