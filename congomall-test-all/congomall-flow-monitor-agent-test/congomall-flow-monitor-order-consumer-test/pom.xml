@@ -41,5 +41,14 @@
             <artifactId>congomall-base-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
+    
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
+    
+    <build>
+        <finalName>flow-monitor-order-consumer-test</finalName>
+    </build>
 </project>

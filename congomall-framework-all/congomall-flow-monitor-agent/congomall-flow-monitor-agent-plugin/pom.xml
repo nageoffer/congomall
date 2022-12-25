@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.opengoofy.congomall</groupId>
+        <artifactId>congomall-flow-monitor-agent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>congomall-flow-monitor-agent-plugin</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-flow-monitor-agent-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-base-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.2.15.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.github.wujiuye</groupId>
+            <artifactId>qps-helper</artifactId>
+            <version>1.1.3-RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.5.RELEASE</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <finalName>flow-monitor-agent-plugin</finalName>
+    </build>
+</project>

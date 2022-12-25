@@ -4,42 +4,42 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.opengoofy.congomall</groupId>
-        <artifactId>congomall-test-all</artifactId>
+        <artifactId>congomall-flow-monitor-agent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>congomall-flow-monitor-agent-test</artifactId>
-    <packaging>pom</packaging>
-    
-    <modules>
-        <module>congomall-flow-monitor-message-provider-test</module>
-        <module>congomall-flow-monitor-order-consumer-test</module>
-        <module>congomall-flow-monitor-pay-consumer-test</module>
-        <module>congomall-flow-monitor-trading-consumer-test</module>
-        <module>congomall-flow-monitor-user-provider-test</module>
-    </modules>
+    <artifactId>congomall-flow-monitor-agent-bootstrap</artifactId>
     
     <dependencies>
         <dependency>
             <groupId>org.opengoofy.congomall</groupId>
-            <artifactId>congomall-base-spring-boot-starter</artifactId>
+            <artifactId>congomall-flow-monitor-agent-core</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
     
     <build>
-        <finalName>flow-monitor-message-provider-test</finalName>
+        <finalName>flow-monitor-agent</finalName>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
+                        <phase>package</phase>
                         <goals>
-                            <goal>repackage</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

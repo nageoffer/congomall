@@ -35,7 +35,7 @@ import java.util.Random;
 @Api(tags = "消息发送")
 public class MessageSendController {
     
-    @PostMapping("/api/message-service/info/{orderId}")
+    @GetMapping("/api/message-service/info/{orderId}")
     public String getMessageInfoByOrderId(@PathVariable("orderId") String orderId) {
         Random random = new Random();
         int nextInt = random.nextInt(50);

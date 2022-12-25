@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Version: 0.0.1-SNAPSHOT
+Premain-Class: org.opengoofy.congomall.flow.monitor.bootstrap.FlowMonitorInterceptAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
