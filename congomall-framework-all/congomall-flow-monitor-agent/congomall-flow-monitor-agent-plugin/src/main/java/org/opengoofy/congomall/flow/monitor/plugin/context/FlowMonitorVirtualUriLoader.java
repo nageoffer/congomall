@@ -18,7 +18,6 @@
 package org.opengoofy.congomall.flow.monitor.plugin.context;
 
 import org.opengoofy.congomall.flow.monitor.core.toolkit.Strings;
-import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -77,7 +76,7 @@ public final class FlowMonitorVirtualUriLoader {
      * @return
      */
     private static Set<String> loadActual() {
-        RequestMappingHandlerMapping mapping = ApplicationContextHolder.getBean(RequestMappingHandlerMapping.class);
+        RequestMappingHandlerMapping mapping = ApplicationContextHolderProxy.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> methodMap = mapping.getHandlerMethods();
         Set<String> returnUriSet = new HashSet<>();
         for (RequestMappingInfo info : methodMap.keySet()) {

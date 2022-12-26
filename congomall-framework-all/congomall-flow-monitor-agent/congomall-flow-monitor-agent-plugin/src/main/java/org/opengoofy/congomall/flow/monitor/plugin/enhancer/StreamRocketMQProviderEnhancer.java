@@ -44,8 +44,10 @@ public final class StreamRocketMQProviderEnhancer extends AbstractAspectEnhancer
             return;
         }
         FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
-        StackTraceElement stackTraceElement = stackTrace[5];
-        loadResource(stackTraceElement);
+        StackTraceElement stackTraceElement = stackTrace[7];
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(stackTraceElement), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
+        loadResource(sourceParam);
+        FlowMonitorRuntimeContext.setExecuteTime();
     }
     
     @Override
@@ -74,8 +76,7 @@ public final class StreamRocketMQProviderEnhancer extends AbstractAspectEnhancer
         return key;
     }
     
-    private static void loadResource(StackTraceElement stackTraceElement) {
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(stackTraceElement), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
+    private static void loadResource(FlowMonitorEntity sourceParam) {
         Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
         if (applications == null) {
             Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();

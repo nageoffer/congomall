@@ -77,6 +77,7 @@ public final class FlowMonitorRuntimeContext {
     
     static {
         FlowMonitorRuntimeContext.WEB_FILTER_PATH_SETS.add("/error");
+        FlowMonitorRuntimeContext.WEB_FILTER_PATH_SETS.add("/actuator/prometheus");
         Arrays.stream(FlowMonitorFrameTypeEnum.values()).forEach(each -> EXECUTE_TIME_THREADLOCAL.put(each, new ThreadLocal<>()));
     }
     

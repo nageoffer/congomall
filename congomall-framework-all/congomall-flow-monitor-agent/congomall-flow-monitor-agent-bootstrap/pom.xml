@@ -9,6 +9,10 @@
     </parent>
     <artifactId>congomall-flow-monitor-agent-bootstrap</artifactId>
     
+    <properties>
+        <output.dir>../dist</output.dir>
+    </properties>
+    
     <dependencies>
         <dependency>
             <groupId>org.opengoofy.congomall</groupId>
@@ -18,7 +22,7 @@
     </dependencies>
     
     <build>
-        <finalName>flow-monitor-agent</finalName>
+        <finalName>flow-monitor-agent-${project.version}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -40,6 +44,26 @@
                         <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
                     </archive>
                 </configuration>
+            </plugin>
+            
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${output.dir}/flow-monitor-agent"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                                      tofile="${output.dir}/flow-monitor-agent/${project.build.finalName}.jar"
+                                      overwrite="true"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -30,21 +30,22 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class EnhancerInstanceLoader {
     
-    private static ConcurrentHashMap<String, Object> INSTANCE_CACHE = new ConcurrentHashMap<String, Object>();
+    private static ConcurrentHashMap<String, Object> INSTANCE_CACHE = new ConcurrentHashMap<>();
     private static ReentrantLock INSTANCE_LOAD_LOCK = new ReentrantLock();
-    private static Map<ClassLoader, ClassLoader> EXTEND_PLUGIN_CLASSLOADERS = new HashMap<ClassLoader, ClassLoader>();
+    private static Map<ClassLoader, ClassLoader> EXTEND_PLUGIN_CLASSLOADERS = new HashMap<>();
     
     public static <T> T load(String className,
                              ClassLoader targetClassLoader) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        
         if (targetClassLoader == null) {
             targetClassLoader = EnhancerInstanceLoader.class.getClassLoader();
         }
-        String instanceKey = className + "_OF_" + targetClassLoader.getClass()
-                .getName() + "@"
-                + Integer.toHexString(targetClassLoader
-                        .hashCode());
-        
+        String instanceKey = new StringBuilder()
+                .append(className)
+                .append("_OF_")
+                .append(targetClassLoader.getClass().getName())
+                .append("@")
+                .append(Integer.toHexString(targetClassLoader.hashCode()))
+                .toString();
         Object inst = INSTANCE_CACHE.get(instanceKey);
         if (inst == null) {
             ClassLoader pluginLoader;

@@ -6,6 +6,9 @@ dependency-reduced-pom.xml
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### dist ###
+congomall-framework-all/congomall-flow-monitor-agent/dist
+
 ### STS ###
 .apt_generated
 .classpath

@@ -46,7 +46,6 @@ public abstract class AbstractAspectEnhancer implements IAspectEnhancer {
     public void beforeMethod(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
         FlowMonitorWrite.initScheduleWriteData();
         beforeMethodExecute(obj, method, allArguments, argumentsTypes);
-        FlowMonitorRuntimeContext.setExecuteTime();
     }
     
     @Override

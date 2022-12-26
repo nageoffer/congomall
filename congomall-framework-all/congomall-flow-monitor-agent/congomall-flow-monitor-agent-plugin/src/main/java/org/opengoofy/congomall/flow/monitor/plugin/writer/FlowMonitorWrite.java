@@ -89,7 +89,7 @@ public final class FlowMonitorWrite {
                             }
                         }));
                     });
-                }, 0, 59, TimeUnit.SECONDS);
+                }, 0, 60, TimeUnit.SECONDS);
                 Logger.info("Execute the initialization hook function.");
                 INIT_FLAG.set(Boolean.TRUE);
             }

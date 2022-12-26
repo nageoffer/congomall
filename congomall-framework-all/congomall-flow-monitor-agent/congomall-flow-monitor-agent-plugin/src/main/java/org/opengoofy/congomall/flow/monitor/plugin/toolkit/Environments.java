@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.toolkit;
 
-import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
+import org.opengoofy.congomall.flow.monitor.plugin.context.ApplicationContextHolderProxy;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
@@ -29,6 +29,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 public class Environments {
     
     public static String getApplicationName() {
-        return ApplicationContextHolder.getBean(ConfigurableEnvironment.class).getProperty("spring.application.name", "");
+        return ApplicationContextHolderProxy.getBean(ConfigurableEnvironment.class).getProperty("spring.application.name", "");
     }
 }

@@ -48,6 +48,7 @@ public final class SpringMvcEnhancer extends AbstractAspectEnhancer {
         FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.SPRING_MVC);
         FlowMonitorVirtualUriLoader.loadProviderUris();
         SpringMvcEnhancer.loadResource(httpServletRequest);
+        FlowMonitorRuntimeContext.setExecuteTime();
     }
     
     @Override

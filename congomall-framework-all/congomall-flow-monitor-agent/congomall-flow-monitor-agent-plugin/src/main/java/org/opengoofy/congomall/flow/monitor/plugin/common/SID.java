@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.common;
 
-import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
+import org.opengoofy.congomall.flow.monitor.plugin.context.ApplicationContextHolderProxy;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 
 import java.net.InetAddress;
@@ -44,7 +44,7 @@ public class SID {
             throw new RuntimeException(e);
         }
         host = localHost.getHostAddress();
-        port = Optional.ofNullable(ApplicationContextHolder.getBean(ServerProperties.class).getPort()).orElse(8080);
+        port = Optional.ofNullable(ApplicationContextHolderProxy.getBean(ServerProperties.class).getPort()).orElse(8080);
     }
     
     public static String getIpAddressAndPort() {

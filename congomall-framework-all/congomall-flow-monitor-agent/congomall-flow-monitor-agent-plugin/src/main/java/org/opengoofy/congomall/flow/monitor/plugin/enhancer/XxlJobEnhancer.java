@@ -37,13 +37,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class XxlJobEnhancer extends AbstractAspectEnhancer {
     
-    private final static String XXL_JOB_TARGET = "target", XXL_JOB_METHOD = "method";
+    private final static String XXL_JOB_TARGET = "target";
+    private final static String XXL_JOB_METHOD = "method";
     
     @Override
     public void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
         FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(obj), FlowMonitorFrameTypeEnum.XXL_JOB);
         XxlJobEnhancer.loadResource(sourceParam);
         FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.XXL_JOB);
+        FlowMonitorRuntimeContext.setExecuteTime();
     }
     
     @Override
