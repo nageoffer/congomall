@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class MicrometerStorageMode {
+public final class MicrometerStorageExecutor {
     
     private static final String METRIC_NAME_PREFIX = "flow.monitor";
     

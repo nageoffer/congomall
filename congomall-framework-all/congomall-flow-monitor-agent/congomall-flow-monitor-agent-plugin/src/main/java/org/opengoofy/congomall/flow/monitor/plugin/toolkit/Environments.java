@@ -35,6 +35,10 @@ public class Environments {
         return ApplicationContextHolderProxy.getBean(ConfigurableEnvironment.class).getProperty("spring.application.name", "");
     }
     
+    public static String getSpringProfilesActive() {
+        return ApplicationContextHolderProxy.getBean(ConfigurableEnvironment.class).getProperty("spring.profiles.active", "");
+    }
+    
     public static String getServerServletContextPath() {
         String serverServletContextPath = ApplicationContextHolderProxy.getBean(ConfigurableEnvironment.class).getProperty("server.servlet.context-path", "");
         if (Strings.isNotEmpty(serverServletContextPath)) {

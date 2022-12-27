@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.core.boot;
+package org.opengoofy.congomall.flow.monitor.plugin.hook;
 
-import org.opengoofy.congomall.flow.monitor.core.loader.AgentPluginClassLoader;
-import org.opengoofy.congomall.flow.monitor.core.logging.Logger;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 初始化钩子函数管理
@@ -32,11 +31,10 @@ public enum InitializingHookManager {
     
     INSTANCE;
     
-    private Map<Class, InitializingHook> initializingHooks = Collections.emptyMap();
+    private Map<String, InitializingHook> initializingHooks = Collections.emptyMap();
     
     public void boot() {
-        initializingHooks = loadInitializingHooks(AgentPluginClassLoader.getDefault());
-        Logger.info("Execute the initialization hook function. Hooks: {%d}", initializingHooks.size());
+        initializingHooks = loadInitializingHooks();
         initializingHooks.values().forEach(each -> {
             try {
                 each.afterAgentPremain();
@@ -45,11 +43,9 @@ public enum InitializingHookManager {
         });
     }
     
-    public Map<Class, InitializingHook> loadInitializingHooks(ClassLoader classLoader) {
-        Map<Class, InitializingHook> allInitializingHooks = new LinkedHashMap<>();
-        for (InitializingHook initializingHook : ServiceLoader.load(InitializingHook.class)) {
-            allInitializingHooks.put(initializingHook.getClass(), initializingHook);
-        }
+    public Map<String, InitializingHook> loadInitializingHooks() {
+        Map<String, InitializingHook> allInitializingHooks = new LinkedHashMap<>();
+        allInitializingHooks.put(InitializingProfilesActiveHook.class.getName(), new InitializingProfilesActiveHook());
         return allInitializingHooks;
     }
 }

@@ -19,7 +19,6 @@ package org.opengoofy.congomall.flow.monitor.plugin.writer;
 
 import com.wujiuye.flow.FlowType;
 import com.wujiuye.flow.Flower;
-import org.opengoofy.congomall.flow.monitor.core.logging.Logger;
 import org.opengoofy.congomall.flow.monitor.plugin.common.SID;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Environments;
@@ -68,7 +67,7 @@ public final class FlowMonitorWrite {
                                 .exceptionAvg(flower.exceptionAvg())
                                 .type(param.getType())
                                 .build();
-                        MicrometerStorageMode.execute(runState);
+                        MicrometerStorageExecutor.execute(runState);
                         // System.out.println(String.format("------------ 来源应用: %s", sourceApplication));
                         // System.out.println(String.format("------------ 来源接口: %s", param.getSourceResource()));
                         // System.out.println(String.format("------------ 来源 Host: %s", host));
@@ -83,7 +82,6 @@ public final class FlowMonitorWrite {
                         // System.out.println("平均请求异常数: " + flower.exceptionAvg());
                     }));
                 }), 0, 60, TimeUnit.SECONDS);
-                Logger.info("Execute the initialization hook function.");
                 INIT_FLAG.set(Boolean.TRUE);
             }
         }

@@ -20,6 +20,7 @@ package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
 import org.opengoofy.congomall.flow.monitor.plugin.context.ApplicationContextHolderProxy;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorVirtualUriLoader;
+import org.opengoofy.congomall.flow.monitor.plugin.hook.InitializingHookManager;
 import org.opengoofy.congomall.flow.monitor.plugin.writer.FlowMonitorWrite;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -47,6 +48,7 @@ public final class SpringApplicationEnhancer implements IAspectEnhancer {
             FlowMonitorVirtualUriLoader.loadConsumerUris();
             FlowMonitorVirtualUriLoader.loadProviderUris();
             FlowMonitorWrite.initScheduleWriteData();
+            InitializingHookManager.INSTANCE.boot();
         }
     }
 }

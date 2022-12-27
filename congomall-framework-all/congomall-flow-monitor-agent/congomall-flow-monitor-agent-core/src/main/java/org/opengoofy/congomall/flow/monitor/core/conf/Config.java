@@ -43,4 +43,9 @@ public final class Config {
         public static final String SPRING_APPLICATION_ENHANCE_CLASS = "org.springframework.boot.SpringApplication";
         public static final String SPRING_APPLICATION_ASPECT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationAspect";
     }
+    
+    public static class Environment {
+        
+        public static String SPRING_PROFILES_ACTIVE = "";
+    }
 }

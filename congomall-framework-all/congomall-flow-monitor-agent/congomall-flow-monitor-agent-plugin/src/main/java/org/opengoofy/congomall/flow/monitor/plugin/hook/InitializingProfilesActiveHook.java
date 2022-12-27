@@ -15,18 +15,21 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.core.boot;
+package org.opengoofy.congomall.flow.monitor.plugin.hook;
+
+import org.opengoofy.congomall.flow.monitor.core.conf.Config;
+import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Environments;
 
 /**
- * 初始化钩子函数
+ * 初始化 `spring.profiles.active` 属性值
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface InitializingHook {
+public class InitializingProfilesActiveHook implements InitializingHook {
     
-    /**
-     * AgentPremain 之后执行初始化逻辑
-     */
-    void afterAgentPremain() throws Exception;
+    @Override
+    public void afterAgentPremain() throws Exception {
+        Config.Environment.SPRING_PROFILES_ACTIVE = Environments.getSpringProfilesActive();
+    }
 }
