@@ -18,14 +18,6 @@
         <module>congomall-flow-monitor-user-provider-test</module>
     </modules>
     
-    <dependencies>
-        <dependency>
-            <groupId>org.opengoofy.congomall</groupId>
-            <artifactId>congomall-base-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-    
     <build>
         <finalName>flow-monitor-message-provider-test</finalName>
         <plugins>

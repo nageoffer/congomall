@@ -22,6 +22,7 @@ import net.bytebuddy.matcher.ElementMatcher;
 import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectDefinition;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
+import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_CLOUD_STREAM_ROCKETMQ_CONSUMER_ENHANCE_CLASS;
 
 /**
  * SpringCloud Stream RocketMQ 消费端切面拦截定义
@@ -31,7 +32,7 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
  */
 public final class StreamRocketMQConsumerAspect implements IAspectDefinition {
     
-    private static final String ENHANCE_CLASS = "org.springframework.messaging.handler.invocation.InvocableHandlerMethod";
+    private static final String ENHANCE_CLASS = SPRING_CLOUD_STREAM_ROCKETMQ_CONSUMER_ENHANCE_CLASS;
     private static final String ENHANCE_METHOD = "doInvoke";
     private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.StreamRocketMQConsumerEnhancer";
     

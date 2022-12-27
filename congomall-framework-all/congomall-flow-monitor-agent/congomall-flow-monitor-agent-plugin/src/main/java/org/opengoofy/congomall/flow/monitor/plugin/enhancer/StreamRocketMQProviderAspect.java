@@ -23,6 +23,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectDefinition;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
+import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_CLOUD_STREAM_ROCKETMQ_PROVIDER_ENHANCE_CLASS;
 
 /**
  * SpringCloud Stream RocketMQ 生产端切面拦截定义
@@ -32,7 +33,7 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
  */
 public final class StreamRocketMQProviderAspect implements IAspectDefinition {
     
-    private static final String ENHANCE_CLASS = "org.springframework.cloud.stream.messaging.DirectWithAttributesChannel";
+    private static final String ENHANCE_CLASS = SPRING_CLOUD_STREAM_ROCKETMQ_PROVIDER_ENHANCE_CLASS;
     private static final String ENHANCE_METHOD = "doSend";
     private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.StreamRocketMQProviderEnhancer";
     

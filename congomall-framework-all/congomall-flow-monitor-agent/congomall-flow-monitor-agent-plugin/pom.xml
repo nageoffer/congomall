@@ -21,12 +21,6 @@
         </dependency>
         
         <dependency>
-            <groupId>org.opengoofy.congomall</groupId>
-            <artifactId>congomall-base-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
@@ -55,13 +49,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>2.2.5.RELEASE</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>2.3.1</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     

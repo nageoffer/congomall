@@ -20,21 +20,23 @@ package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectDefinition;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
-import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_MVC_ENHANCE_CLASS;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_APPLICATION_ENHANCE_CLASS;
 
 /**
- * Spring MVC 流量拦截
+ * SpringApplication 拦截，获取 Spring 应用上下文
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class SpringMvcAspect implements IAspectDefinition {
+public final class SpringApplicationAspect implements IAspectDefinition {
     
-    private static final String ENHANCE_CLASS = SPRING_MVC_ENHANCE_CLASS;
-    private static final String ENHANCE_METHOD = "invokeAndHandle";
-    private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringMvcEnhancer";
+    private static final String ENHANCE_CLASS = SPRING_APPLICATION_ENHANCE_CLASS;
+    private static final String ENHANCE_METHOD = "run";
+    private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationEnhancer";
     
     @Override
     public ElementMatcher.Junction enhanceClass() {
@@ -43,7 +45,10 @@ public final class SpringMvcAspect implements IAspectDefinition {
     
     @Override
     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-        return named(ENHANCE_METHOD);
+        return named(ENHANCE_METHOD)
+                .and(isPublic().and(not(isStatic())))
+                .and(returns(ConfigurableApplicationContext.class))
+                .and(takesArgument(0, String[].class));
     }
     
     @Override

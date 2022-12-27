@@ -18,11 +18,11 @@
 package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
 import feign.Request;
+import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
 import org.opengoofy.congomall.flow.monitor.core.toolkit.Lists;
 import org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorVirtualUriLoader;
-import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractAspectEnhancer;
 import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Environments;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -43,12 +43,12 @@ import static org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorCons
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class OpenFeignEnhancer extends AbstractAspectEnhancer {
+public final class OpenFeignEnhancer implements IAspectEnhancer {
     
     private static final String HEADERS = "headers";
     
     @Override
-    public void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
+    public void beforeMethod(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
         FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.FEIGN);
         FlowMonitorVirtualUriLoader.loadConsumerUris();
         Request request = (Request) allArguments[0];
@@ -74,6 +74,7 @@ public final class OpenFeignEnhancer extends AbstractAspectEnhancer {
     }
     
     @Override
-    public void afterMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object result, Throwable ex) throws Throwable {
+    public void afterMethod(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object result, Throwable ex) throws Throwable {
+        
     }
 }

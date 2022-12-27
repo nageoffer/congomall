@@ -15,44 +15,38 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.plugin.enhancer.base;
+package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
 import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
-import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
+import org.opengoofy.congomall.flow.monitor.plugin.context.ApplicationContextHolderProxy;
+import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorVirtualUriLoader;
+import org.opengoofy.congomall.flow.monitor.plugin.writer.FlowMonitorWrite;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.Method;
 
 /**
- * 抽象类切面增强定义
+ * SpringApplication 增强，获取 Spring 应用上下文
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public abstract class AbstractAspectEnhancer implements IAspectEnhancer {
+public final class SpringApplicationEnhancer implements IAspectEnhancer {
     
-    protected abstract void beforeMethodExecute(Object obj,
-                                                Method method,
-                                                Object[] allArguments,
-                                                Class<?>[] argumentsTypes) throws Throwable;
-    
-    protected abstract void afterMethodExecute(Object obj,
-                                               Method method,
-                                               Object[] allArguments, Class<?>[] argumentsTypes,
-                                               Object result,
-                                               Throwable ex) throws Throwable;
+    private final String APPLICATION_CONTEXT_CLASS_NAME = "org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext";
     
     @Override
     public void beforeMethod(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
-        beforeMethodExecute(obj, method, allArguments, argumentsTypes);
+        
     }
     
     @Override
     public void afterMethod(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object result, Throwable ex) throws Throwable {
-        Long executeTime = FlowMonitorRuntimeContext.getExecuteTime();
-        if (executeTime == null) {
-            return;
+        if (result != null && result.getClass().getName().equals(APPLICATION_CONTEXT_CLASS_NAME)) {
+            ApplicationContextHolderProxy.initContext((ConfigurableApplicationContext) result);
+            FlowMonitorVirtualUriLoader.loadConsumerUris();
+            FlowMonitorVirtualUriLoader.loadProviderUris();
+            FlowMonitorWrite.initScheduleWriteData();
         }
-        afterMethodExecute(obj, method, allArguments, argumentsTypes, result, ex);
-        FlowMonitorRuntimeContext.removeContent();
     }
 }

@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.flow.monitor.plugin.context;
 
 import org.opengoofy.congomall.flow.monitor.core.toolkit.Strings;
+import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Environments;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -37,7 +38,6 @@ import java.util.stream.Collectors;
 public final class FlowMonitorVirtualUriLoader {
     
     private static final AtomicBoolean CONSUMER_LOAD_FLAG = new AtomicBoolean(Boolean.FALSE);
-    
     private static final AtomicBoolean PROVIDER_LOAD_FLAG = new AtomicBoolean(Boolean.FALSE);
     
     /**
@@ -57,21 +57,17 @@ public final class FlowMonitorVirtualUriLoader {
      * 加载目标客户端所有 URI
      */
     public static void loadProviderUris() {
-        try {
-            if (!PROVIDER_LOAD_FLAG.get()) {
-                synchronized (PROVIDER_LOAD_FLAG) {
-                    Set<String> allProviderUris = loadActual();
-                    FlowMonitorRuntimeContext.PROVIDER_ALL_VIRTUAL_URIS.addAll(allProviderUris);
-                    PROVIDER_LOAD_FLAG.set(Boolean.TRUE);
-                }
+        if (!PROVIDER_LOAD_FLAG.get()) {
+            synchronized (PROVIDER_LOAD_FLAG) {
+                Set<String> allProviderUris = loadActual();
+                FlowMonitorRuntimeContext.PROVIDER_ALL_VIRTUAL_URIS.addAll(allProviderUris);
+                PROVIDER_LOAD_FLAG.set(Boolean.TRUE);
             }
-        } catch (Throwable ex) {
-            ex.printStackTrace();
         }
     }
     
     /**
-     * 加载 URL
+     * 加载项目中所有 URI
      *
      * @return
      */
@@ -79,15 +75,16 @@ public final class FlowMonitorVirtualUriLoader {
         RequestMappingHandlerMapping mapping = ApplicationContextHolderProxy.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> methodMap = mapping.getHandlerMethods();
         Set<String> returnUriSet = new HashSet<>();
+        String serverServletContextPath = Environments.getServerServletContextPath();
         for (RequestMappingInfo info : methodMap.keySet()) {
             Set<String> uriSet = info.getPatternsCondition().getPatterns();
-            returnUriSet.addAll(uriSet.stream().map(FlowMonitorVirtualUriLoader::getVirtualUri).collect(Collectors.toSet()));
+            returnUriSet.addAll(uriSet.stream().map(each -> serverServletContextPath + getVirtualUri(each)).collect(Collectors.toSet()));
         }
         return returnUriSet;
     }
     
     /**
-     * 通过真是 URI 映射虚拟 URL
+     * 通过真是 URI 映射虚拟 URI
      *
      * @param actualUri
      * @return

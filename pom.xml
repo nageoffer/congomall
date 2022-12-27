@@ -7,7 +7,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <url>https://github.com/opengoofy</url>
-    <description>CongoMall（刚果商城）基于 DDD 开发的商城系统，内置分布式锁、分布式事务、分库分表、消息队列、数据搜索、服务监控等功能。</description>
+    <description>
+        CongoMall（刚果商城）基于 DDD 开发的商城系统，内置分布式锁、分布式事务、分库分表、消息队列、数据搜索、服务监控等功能。
+    </description>
     
     <licenses>
         <license>
@@ -54,7 +56,8 @@
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
-        <shardingsphere-jdbc-core-spring-boot-starter.version>5.2.0</shardingsphere-jdbc-core-spring-boot-starter.version>
+        <shardingsphere-jdbc-core-spring-boot-starter.version>5.2.0
+        </shardingsphere-jdbc-core-spring-boot-starter.version>
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <minio.verion>8.4.2</minio.verion>
@@ -205,7 +208,7 @@
                 <artifactId>hippo4j-config-spring-boot-starter</artifactId>
                 <version>${hippo4j-config.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
@@ -231,7 +234,8 @@
                 <configuration>
                     <java>
                         <eclipse>
-                            <file>${maven.multiModuleProjectDirectory}/dev-support/congomall_spotless_formatter.xml</file>
+                            <file>${maven.multiModuleProjectDirectory}/dev-support/congomall_spotless_formatter.xml
+                            </file>
                         </eclipse>
                         <licenseHeader>
                             <file>${maven.multiModuleProjectDirectory}/dev-support/license-header</file>

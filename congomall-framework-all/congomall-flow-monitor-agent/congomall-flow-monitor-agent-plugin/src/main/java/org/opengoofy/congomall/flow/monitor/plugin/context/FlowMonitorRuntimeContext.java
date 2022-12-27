@@ -43,7 +43,7 @@ public final class FlowMonitorRuntimeContext {
     public final static Map<FlowMonitorFrameTypeEnum, ThreadLocal<Long>> EXECUTE_TIME_THREADLOCAL = new ConcurrentHashMap<>();
     
     /**
-     * 存储当前线程
+     * 存储当前线程所执行的组件信息
      */
     public final static ThreadLocal<Stack<FlowMonitorFrameTypeEnum>> ENHANCER_TYPE_THREADLOCAL = new ThreadLocal<>();
     

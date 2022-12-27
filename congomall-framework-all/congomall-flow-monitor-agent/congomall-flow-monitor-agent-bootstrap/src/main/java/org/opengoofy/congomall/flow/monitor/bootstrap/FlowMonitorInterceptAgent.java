@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
+import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.*;
 
 /**
  * 微服务流量监控拦截插桩
@@ -83,11 +84,12 @@ public final class FlowMonitorInterceptAgent {
     
     private static Map<String, String> loadAspectContexts() {
         Map<String, String> aspectContexts = new HashMap<>();
-        aspectContexts.put("org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod", "org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringMvcAspect");
-        aspectContexts.put("com.xxl.job.core.handler.impl.MethodJobHandler", "org.opengoofy.congomall.flow.monitor.plugin.enhancer.XxlJobAspect");
-        aspectContexts.put("feign.Client", "org.opengoofy.congomall.flow.monitor.plugin.enhancer.OpenFeignAspect");
-        aspectContexts.put("org.springframework.messaging.handler.invocation.InvocableHandlerMethod", "org.opengoofy.congomall.flow.monitor.plugin.enhancer.StreamRocketMQConsumerAspect");
-        aspectContexts.put("org.springframework.cloud.stream.messaging.DirectWithAttributesChannel", "org.opengoofy.congomall.flow.monitor.plugin.enhancer.StreamRocketMQProviderAspect");
+        aspectContexts.put(SPRING_MVC_ENHANCE_CLASS, SPRING_MVC_ASPECT_CLASS);
+        aspectContexts.put(XXL_JOB_ENHANCE_CLASS, XXL_JOB_ASPECT_CLASS);
+        aspectContexts.put(OPEN_FEIGN_ENHANCE_CLASS, OPEN_FEIGN_ASPECT_CLASS);
+        aspectContexts.put(SPRING_CLOUD_STREAM_ROCKETMQ_PROVIDER_ENHANCE_CLASS, SPRING_CLOUD_STREAM_ROCKETMQ_PROVIDER_ASPECT_CLASS);
+        aspectContexts.put(SPRING_CLOUD_STREAM_ROCKETMQ_CONSUMER_ENHANCE_CLASS, SPRING_CLOUD_STREAM_ROCKETMQ_CONSUMER_ASPECT_CLASS);
+        aspectContexts.put(SPRING_APPLICATION_ENHANCE_CLASS, SPRING_APPLICATION_ASPECT_CLASS);
         return aspectContexts;
     }
     
@@ -95,7 +97,6 @@ public final class FlowMonitorInterceptAgent {
         
         @Override
         public void onDiscovery(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
-            
         }
         
         @Override
@@ -112,7 +113,6 @@ public final class FlowMonitorInterceptAgent {
                               final ClassLoader classLoader,
                               final JavaModule module,
                               final boolean loaded) {
-            
         }
         
         @Override

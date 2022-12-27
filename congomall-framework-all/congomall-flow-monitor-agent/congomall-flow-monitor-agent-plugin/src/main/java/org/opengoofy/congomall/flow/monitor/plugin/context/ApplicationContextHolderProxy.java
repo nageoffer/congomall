@@ -17,70 +17,69 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.context;
 
-import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationAspect;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationEnhancer;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
 
 /**
+ * Spring 应用上下文代理
+ * 应用于 Agent 运行时获取 Spring 上下文中 Bean 对象
+ *
+ * <p>
+ * 通过增强 SpringApplication，执行 {@link SpringApplication#run(String...)} 方法后拿到对应容器赋值 {@link ApplicationContextHolderProxy#applicationContext}
+ * 切面以及增强查看 {@link SpringApplicationAspect} {@link SpringApplicationEnhancer}
+ * </p>
+ *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 public class ApplicationContextHolderProxy {
     
+    private static ApplicationContext applicationContext;
+    
     /**
      * 根据类型获取 IOC 容器 Bean
-     *
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public static <T> T getBean(Class<T> clazz) {
-        return ApplicationContextHolder.getBean(clazz);
+        return applicationContext.getBean(clazz);
     }
     
     /**
      * 根据名称 & 类型获取 IOC 容器 Bean
-     *
-     * @param name
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public static <T> T getBean(String name, Class<T> clazz) {
-        return ApplicationContextHolder.getBean(name, clazz);
+        return applicationContext.getBean(name, clazz);
     }
     
     /**
      * 根据类型获取一组 IOC 容器 Bean
-     *
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public static <T> Map<String, T> getBeansOfType(Class<T> clazz) {
-        return ApplicationContextHolder.getBeansOfType(clazz);
+        return applicationContext.getBeansOfType(clazz);
     }
     
     /**
-     * Find whether the bean has annotations.
-     *
-     * @param beanName
-     * @param annotationType
-     * @param <A>
-     * @return
+     * 查找 Bean 是否有注释
      */
     public static <A extends Annotation> A findAnnotationOnBean(String beanName, Class<A> annotationType) {
-        return ApplicationContextHolder.findAnnotationOnBean(beanName, annotationType);
+        return applicationContext.findAnnotationOnBean(beanName, annotationType);
     }
     
     /**
-     * Get ApplicationContext.
-     *
-     * @return
+     * 获取 Spring 应用上下文
      */
     public static ApplicationContext getInstance() {
-        return ApplicationContextHolder.getInstance();
+        return applicationContext;
+    }
+    
+    /**
+     * 初始化上下文
+     */
+    public static void initContext(ApplicationContext context) {
+        applicationContext = context;
     }
 }

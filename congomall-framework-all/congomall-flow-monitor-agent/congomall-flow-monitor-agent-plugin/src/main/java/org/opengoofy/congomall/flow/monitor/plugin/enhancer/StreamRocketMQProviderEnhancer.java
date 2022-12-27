@@ -67,11 +67,7 @@ public final class StreamRocketMQProviderEnhancer extends AbstractAspectEnhancer
         if (sendMethodName.indexOf("$") != -1) {
             sendMethodName = sendMethodName.substring(0, sendMethodName.indexOf("$"));
         }
-        String key = new StringBuilder("/Provide/")
-                .append(sendClass)
-                .append("/")
-                .append(sendMethodName)
-                .toString();
+        String key = new StringBuilder("/Provide/").append(sendClass).append("/").append(sendMethodName).toString();
         FlowMonitorRuntimeContext.BUILD_KEY_THREADLOCAL.set(key);
         return key;
     }
