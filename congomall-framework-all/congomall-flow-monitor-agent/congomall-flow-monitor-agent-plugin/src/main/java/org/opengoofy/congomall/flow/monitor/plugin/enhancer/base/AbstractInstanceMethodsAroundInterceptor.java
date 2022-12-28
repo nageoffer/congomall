@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.enhancer.base;
 
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.core.define.InstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
 
 import java.lang.reflect.Method;
@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public abstract class AbstractAspectEnhancer implements IAspectEnhancer {
+public abstract class AbstractInstanceMethodsAroundInterceptor implements InstanceMethodsAroundInterceptor {
     
     protected abstract void beforeMethodExecute(Object obj,
                                                 Method method,

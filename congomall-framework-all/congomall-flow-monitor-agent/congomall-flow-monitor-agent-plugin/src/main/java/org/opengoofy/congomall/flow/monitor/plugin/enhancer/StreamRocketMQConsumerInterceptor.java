@@ -22,7 +22,7 @@ import org.opengoofy.congomall.flow.monitor.core.toolkit.SystemClock;
 import org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
-import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractInstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.plugin.provider.FlowMonitorSourceParamProviderFactory;
 import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Reflects;
 
@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class StreamRocketMQConsumerEnhancer extends AbstractAspectEnhancer {
+public final class StreamRocketMQConsumerInterceptor extends AbstractInstanceMethodsAroundInterceptor {
     
     @Override
     protected void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {

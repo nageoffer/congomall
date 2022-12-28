@@ -19,22 +19,22 @@ package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectDefinition;
+import org.opengoofy.congomall.flow.monitor.core.define.ClassEnhancePluginDefine;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
-import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.XXL_JOB_ENHANCE_CLASS;
+import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_CLOUD_STREAM_ROCKETMQ_CONSUMER_ENHANCE_CLASS;
 
 /**
- * XXL-Job 任务执行流量拦截
+ * SpringCloud Stream RocketMQ 消费端切面拦截定义
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class XxlJobAspect implements IAspectDefinition {
+public final class StreamRocketMQConsumerInstrumentation implements ClassEnhancePluginDefine {
     
-    private static final String ENHANCE_CLASS = XXL_JOB_ENHANCE_CLASS;
-    private static final String ENHANCE_METHOD = "execute";
-    private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.XxlJobEnhancer";
+    private static final String ENHANCE_CLASS = SPRING_CLOUD_STREAM_ROCKETMQ_CONSUMER_ENHANCE_CLASS;
+    private static final String ENHANCE_METHOD = "doInvoke";
+    private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.StreamRocketMQConsumerInterceptor";
     
     @Override
     public ElementMatcher.Junction enhanceClass() {

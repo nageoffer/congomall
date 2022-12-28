@@ -21,38 +21,39 @@ import org.opengoofy.congomall.flow.monitor.core.toolkit.SystemClock;
 import org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
-import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorVirtualUriLoader;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractInstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.plugin.provider.FlowMonitorSourceParamProviderFactory;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * SpringCloud Stream RocketMQ 生产端切面拦截增强
+ * Spring MVC 增强
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class StreamRocketMQProviderEnhancer extends AbstractAspectEnhancer {
+public final class SpringMvcInterceptor extends AbstractInstanceMethodsAroundInterceptor {
     
     @Override
-    protected void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        if (Objects.equals("org.apache.rocketmq.client.impl.consumer.ConsumeMessageConcurrentlyService$ConsumeRequest", stackTrace[stackTrace.length - 6].getClassName())) {
+    public void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
+        HttpServletRequest httpServletRequest = ((ServletWebRequest) allArguments[0]).getRequest();
+        if (FlowMonitorRuntimeContext.hasFilterPath(httpServletRequest.getRequestURI())) {
             return;
         }
-        FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
-        StackTraceElement stackTraceElement = stackTrace[7];
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(stackTraceElement), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
-        loadResource(sourceParam);
+        FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.SPRING_MVC);
+        FlowMonitorVirtualUriLoader.loadProviderUris();
+        SpringMvcInterceptor.loadResource(httpServletRequest);
         FlowMonitorRuntimeContext.setExecuteTime();
     }
     
     @Override
     public void afterMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object result, Throwable ex) throws Throwable {
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(FlowMonitorRuntimeContext.BUILD_KEY_THREADLOCAL.get(), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(((ServletWebRequest) allArguments[0]).getRequest());
         FlowMonitorEntity flowMonitorEntity = FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort());
         if (ex != null) {
             flowMonitorEntity.getFlowHelper().incrException();
@@ -61,25 +62,22 @@ public final class StreamRocketMQProviderEnhancer extends AbstractAspectEnhancer
         }
     }
     
-    private static String buildKey(StackTraceElement stackTraceElement) {
-        String sendClass = stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5);
-        String sendMethodName = stackTraceElement.getMethodName();
-        if (sendMethodName.indexOf("$") != -1) {
-            sendMethodName = sendMethodName.substring(0, sendMethodName.indexOf("$"));
-        }
-        String key = new StringBuilder("/Provide/").append(sendClass).append("/").append(sendMethodName).toString();
-        FlowMonitorRuntimeContext.BUILD_KEY_THREADLOCAL.set(key);
-        return key;
-    }
-    
-    private static void loadResource(FlowMonitorEntity sourceParam) {
-        Map<String, Map<String, FlowMonitorEntity>> applications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource());
-        if (applications == null) {
-            Map<String, Map<String, FlowMonitorEntity>> sourceApplications = new ConcurrentHashMap<>();
+    private static void loadResource(HttpServletRequest httpServletRequest) {
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(httpServletRequest);
+        Map<String, Map<String, FlowMonitorEntity>> sourceApplications;
+        if ((sourceApplications = FlowMonitorRuntimeContext.getApplications(sourceParam.getTargetResource())) == null) {
+            sourceApplications = new ConcurrentHashMap<>();
             Map<String, FlowMonitorEntity> hosts = new ConcurrentHashMap<>();
             hosts.put(sourceParam.getSourceIpPort(), sourceParam);
             sourceApplications.put(sourceParam.getSourceApplication(), hosts);
             FlowMonitorRuntimeContext.putApplications(sourceParam.getTargetResource(), sourceApplications);
+        } else if (FlowMonitorRuntimeContext.getHosts(sourceParam.getTargetResource(), sourceParam.getSourceApplication()) == null) {
+            Map<String, FlowMonitorEntity> hosts = new ConcurrentHashMap<>();
+            hosts.put(sourceParam.getSourceIpPort(), sourceParam);
+            sourceApplications.put(sourceParam.getSourceApplication(), hosts);
+            FlowMonitorRuntimeContext.putHosts(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), hosts);
+        } else if (FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort()) == null) {
+            FlowMonitorRuntimeContext.putHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort(), sourceParam);
         }
     }
 }

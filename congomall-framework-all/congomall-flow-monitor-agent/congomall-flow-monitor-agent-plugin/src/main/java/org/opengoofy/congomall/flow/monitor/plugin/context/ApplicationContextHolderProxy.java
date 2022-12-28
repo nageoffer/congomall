@@ -17,8 +17,8 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.context;
 
-import org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationAspect;
-import org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationEnhancer;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationInstrumentation;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringApplicationInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 
@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * <p>
  * 通过增强 SpringApplication，执行 {@link SpringApplication#run(String...)} 方法后拿到对应容器赋值 {@link ApplicationContextHolderProxy#applicationContext}
- * 切面以及增强查看 {@link SpringApplicationAspect} {@link SpringApplicationEnhancer}
+ * 切面以及增强查看 {@link SpringApplicationInstrumentation} {@link SpringApplicationInterceptor}
  * </p>
  *
  * @author chen.ma

@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.flow.monitor.core.proxy;
 
 import net.bytebuddy.implementation.bind.annotation.*;
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.core.define.InstanceMethodsAroundInterceptor;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
@@ -31,10 +31,10 @@ import java.util.concurrent.Callable;
  */
 public class EnhancerProxy {
     
-    public IAspectEnhancer enhancer;
+    public InstanceMethodsAroundInterceptor enhancer;
     
     @IgnoreForBinding
-    public void setEnhancer(IAspectEnhancer enhancer) {
+    public void setEnhancer(InstanceMethodsAroundInterceptor enhancer) {
         this.enhancer = enhancer;
     }
     

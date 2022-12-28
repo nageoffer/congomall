@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.core.define.InstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.plugin.context.ApplicationContextHolderProxy;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorVirtualUriLoader;
 import org.opengoofy.congomall.flow.monitor.plugin.hook.InitializingHookManager;
@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class SpringApplicationEnhancer implements IAspectEnhancer {
+public final class SpringApplicationInterceptor implements InstanceMethodsAroundInterceptor {
     
     private final String APPLICATION_CONTEXT_CLASS_NAME = "org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext";
     

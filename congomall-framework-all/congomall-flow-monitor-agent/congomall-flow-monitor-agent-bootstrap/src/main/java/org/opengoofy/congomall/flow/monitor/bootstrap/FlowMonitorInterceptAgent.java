@@ -29,8 +29,8 @@ import net.bytebuddy.implementation.bind.annotation.Morph;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 import net.bytebuddy.utility.JavaModule;
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectDefinition;
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.core.define.ClassEnhancePluginDefine;
+import org.opengoofy.congomall.flow.monitor.core.define.InstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.core.loader.EnhancerInstanceLoader;
 import org.opengoofy.congomall.flow.monitor.core.logging.Logger;
 import org.opengoofy.congomall.flow.monitor.core.proxy.EnhancerProxy;
@@ -139,11 +139,11 @@ public final class FlowMonitorInterceptAgent {
             EnhancerProxy proxy = new EnhancerProxy();
             ElementMatcher<MethodDescription> methodsMatcher = null;
             try {
-                IAspectDefinition aspectDefinition = EnhancerInstanceLoader.load(this.aspectClazz, classLoader);
+                ClassEnhancePluginDefine aspectDefinition = EnhancerInstanceLoader.load(this.aspectClazz, classLoader);
                 methodsMatcher = aspectDefinition.getMethodsMatcher();
                 
                 String enhancerClz = aspectDefinition.getMethodsEnhancer();
-                IAspectEnhancer enhancer = EnhancerInstanceLoader.load(enhancerClz, classLoader);
+                InstanceMethodsAroundInterceptor enhancer = EnhancerInstanceLoader.load(enhancerClz, classLoader);
                 proxy.setEnhancer(enhancer);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ignored) {
             }

@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
 import feign.Request;
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectEnhancer;
+import org.opengoofy.congomall.flow.monitor.core.define.InstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.core.toolkit.Lists;
 import org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
@@ -43,7 +43,7 @@ import static org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorCons
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class OpenFeignEnhancer implements IAspectEnhancer {
+public final class OpenFeignInterceptor implements InstanceMethodsAroundInterceptor {
     
     private static final String HEADERS = "headers";
     

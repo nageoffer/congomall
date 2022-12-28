@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.core.aspect;
+package org.opengoofy.congomall.flow.monitor.core.define;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -26,7 +26,7 @@ import net.bytebuddy.matcher.ElementMatcher;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface IAspectDefinition {
+public interface ClassEnhancePluginDefine {
     
     /**
      * 定义需增强的类

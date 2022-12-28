@@ -17,40 +17,42 @@
 
 package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
-import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractAspectEnhancer;
-import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Reflects;
 import org.opengoofy.congomall.flow.monitor.core.toolkit.SystemClock;
 import org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorFrameTypeEnum;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorEntity;
 import org.opengoofy.congomall.flow.monitor.plugin.context.FlowMonitorRuntimeContext;
+import org.opengoofy.congomall.flow.monitor.plugin.enhancer.base.AbstractInstanceMethodsAroundInterceptor;
 import org.opengoofy.congomall.flow.monitor.plugin.provider.FlowMonitorSourceParamProviderFactory;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * XXL-Job 任务执行流量增强
+ * SpringCloud Stream RocketMQ 生产端切面拦截增强
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class XxlJobEnhancer extends AbstractAspectEnhancer {
-    
-    private final static String XXL_JOB_TARGET = "target";
-    private final static String XXL_JOB_METHOD = "method";
+public final class StreamRocketMQProviderInterceptor extends AbstractInstanceMethodsAroundInterceptor {
     
     @Override
-    public void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(obj), FlowMonitorFrameTypeEnum.XXL_JOB);
-        XxlJobEnhancer.loadResource(sourceParam);
-        FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.XXL_JOB);
+    protected void beforeMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes) throws Throwable {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        if (Objects.equals("org.apache.rocketmq.client.impl.consumer.ConsumeMessageConcurrentlyService$ConsumeRequest", stackTrace[stackTrace.length - 6].getClassName())) {
+            return;
+        }
+        FlowMonitorRuntimeContext.pushEnhancerType(FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
+        StackTraceElement stackTraceElement = stackTrace[7];
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.createInstance(buildKey(stackTraceElement), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
+        loadResource(sourceParam);
         FlowMonitorRuntimeContext.setExecuteTime();
     }
     
     @Override
     public void afterMethodExecute(Object obj, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object result, Throwable ex) throws Throwable {
-        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(FlowMonitorRuntimeContext.BUILD_KEY_THREADLOCAL.get(), FlowMonitorFrameTypeEnum.XXL_JOB);
+        FlowMonitorEntity sourceParam = FlowMonitorSourceParamProviderFactory.getInstance(FlowMonitorRuntimeContext.BUILD_KEY_THREADLOCAL.get(), FlowMonitorFrameTypeEnum.STREAM_ROCKETMQ_PROVIDER);
         FlowMonitorEntity flowMonitorEntity = FlowMonitorRuntimeContext.getHost(sourceParam.getTargetResource(), sourceParam.getSourceApplication(), sourceParam.getSourceIpPort());
         if (ex != null) {
             flowMonitorEntity.getFlowHelper().incrException();
@@ -59,12 +61,13 @@ public final class XxlJobEnhancer extends AbstractAspectEnhancer {
         }
     }
     
-    private static String buildKey(Object obj) {
-        String key = new StringBuilder("/")
-                .append(Reflects.getFieldValue(obj, XXL_JOB_TARGET).getClass().getSimpleName())
-                .append("/")
-                .append(((Method) Reflects.getFieldValue(obj, XXL_JOB_METHOD)).getName())
-                .toString();
+    private static String buildKey(StackTraceElement stackTraceElement) {
+        String sendClass = stackTraceElement.getFileName().substring(0, stackTraceElement.getFileName().length() - 5);
+        String sendMethodName = stackTraceElement.getMethodName();
+        if (sendMethodName.indexOf("$") != -1) {
+            sendMethodName = sendMethodName.substring(0, sendMethodName.indexOf("$"));
+        }
+        String key = new StringBuilder("/Provide/").append(sendClass).append("/").append(sendMethodName).toString();
         FlowMonitorRuntimeContext.BUILD_KEY_THREADLOCAL.set(key);
         return key;
     }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.flow.monitor.core.aspect;
+package org.opengoofy.congomall.flow.monitor.core.define;
 
 import java.lang.reflect.Method;
 
@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface IAspectEnhancer {
+public interface InstanceMethodsAroundInterceptor {
     
     /**
      * 在目标方法执行前调用

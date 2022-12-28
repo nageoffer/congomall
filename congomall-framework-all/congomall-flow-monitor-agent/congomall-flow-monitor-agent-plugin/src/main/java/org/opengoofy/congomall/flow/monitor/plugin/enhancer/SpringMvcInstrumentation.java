@@ -19,23 +19,22 @@ package org.opengoofy.congomall.flow.monitor.plugin.enhancer;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
-import org.opengoofy.congomall.flow.monitor.core.aspect.IAspectDefinition;
+import org.opengoofy.congomall.flow.monitor.core.define.ClassEnhancePluginDefine;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
-import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_CLOUD_STREAM_ROCKETMQ_PROVIDER_ENHANCE_CLASS;
+import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING_MVC_ENHANCE_CLASS;
 
 /**
- * SpringCloud Stream RocketMQ 生产端切面拦截定义
+ * Spring MVC 流量拦截
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class StreamRocketMQProviderAspect implements IAspectDefinition {
+public final class SpringMvcInstrumentation implements ClassEnhancePluginDefine {
     
-    private static final String ENHANCE_CLASS = SPRING_CLOUD_STREAM_ROCKETMQ_PROVIDER_ENHANCE_CLASS;
-    private static final String ENHANCE_METHOD = "doSend";
-    private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.StreamRocketMQProviderEnhancer";
+    private static final String ENHANCE_CLASS = SPRING_MVC_ENHANCE_CLASS;
+    private static final String ENHANCE_METHOD = "invokeAndHandle";
+    private static final String INTERCEPT_CLASS = "org.opengoofy.congomall.flow.monitor.plugin.enhancer.SpringMvcInterceptor";
     
     @Override
     public ElementMatcher.Junction enhanceClass() {
@@ -44,7 +43,7 @@ public final class StreamRocketMQProviderAspect implements IAspectDefinition {
     
     @Override
     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-        return named(ENHANCE_METHOD).and(ElementMatchers.isProtected()).and(takesArguments(2));
+        return named(ENHANCE_METHOD);
     }
     
     @Override
