@@ -21,5 +21,11 @@
             <artifactId>dozer-core</artifactId>
             <version>${dozer.version}</version>
         </dependency>
+    
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-design-pattern-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
