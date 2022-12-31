@@ -10,7 +10,7 @@
 | 1 | congomall-message | 消息发送 eg：邮件、公众号、短信等 | http://localhost:8001 |
 | 2 | congomall-customer-user | C 端用户 | http://localhost:8002 |
 | 3 | congomall-gateway | 外部网关 | http://localhost:8003 |
-| 4 | congomall-product | 商品服务 | http://localhost:8004 |
+| 4 | congomall-product | 商品服务 | http://localhost:8004、http://localhost:9001 |
 | 5 | congomall-cart | 购物车服务 | http://localhost:8005 |
 | 6 | congomall-order | 订单服务 | http://localhost:8006 |
 
@@ -23,13 +23,13 @@
 - MySQL 单表千万深分页优化，拒绝性能深渊。
 - 生产按照 ID 分库分表，如何支持按照时间进行高性能查询？✅
 - 平滑上线数据库分库分表，支持运行时动态回滚功能。✅
-- 按照基因法进行分库分表，通知支持买家 ID 和订单 ID 进行查询。
+- 按照基因法进行分库分表，同时支持买家 ID 和订单 ID 进行查询。
 - 线上出现 OOM，如何第一时间通知对应开发人员？✅
-- 千万数据通过并发编程高性能导入三方数据库，比如 ElasticSearch。
+- 千万数据通过并发编程高性能导入三方数据库，比如 ElasticSearch。✅
 - 百万数据量导出，如何保障内存安全和导出性能？
 - 高频考点：缓存穿透、雪崩、击穿。写出不一样的代码，拒绝做理论狂人。
 - JavaAgent 封装微服务流量监控，EG: API、RocketMQ、XXL-Job...。✅
-- 揭秘并行流 parallelStream 极端情况下同步单线程执行。✅
+- 揭秘并行流 ParallelStream 极端情况下同步单线程执行。✅
 - ......
 
 ### 设计模式
@@ -48,7 +48,7 @@
 
 策略模式：
 
-- 用户使用手机号或者邮箱或者其它方式登陆行为，通过策略模式抽象根据标识符选择。
+- 用户使用手机号或者邮箱或者其它方式登录行为，通过策略模式抽象根据标识符选择。
 
 装饰器模式：
 

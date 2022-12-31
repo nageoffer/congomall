@@ -15,5 +15,6 @@
         <module>congomall-product-domain</module>
         <module>congomall-product-infrastructure</module>
         <module>congomall-product-interface</module>
+        <module>congomall-product-job</module>
     </modules>
 </project>
