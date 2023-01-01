@@ -5,14 +5,17 @@
 
 ## 模块分类
 
+每个模块根目录下会有一份 README.md 说明文件，会梳理模块相关依赖以及业务说明。
+
 | | 模块名称 | 服务名称 | 访问地址 |
 | -- | --- | --- | --- |
 | 1 | congomall-message | 消息发送 eg：邮件、公众号、短信等 | http://localhost:8001 |
 | 2 | congomall-customer-user | C 端用户 | http://localhost:8002 |
 | 3 | congomall-gateway | 外部网关 | http://localhost:8003 |
-| 4 | congomall-product | 商品服务 | http://localhost:8004、http://localhost:9001 |
-| 5 | congomall-cart | 购物车服务 | http://localhost:8005 |
-| 6 | congomall-order | 订单服务 | http://localhost:8006 |
+| 4 | congomall-product | 商品服务 | http://localhost:8004 |
+| 5 | congomall-product | 商品Job服务 | http://localhost:9001 |
+| 6 | congomall-cart | 购物车服务 | http://localhost:8005 |
+| 7 | congomall-order | 订单服务 | http://localhost:8006 |
 
 ## Why Pay?
 
@@ -27,7 +30,7 @@
 - 线上出现 OOM，如何第一时间通知对应开发人员？✅
 - 千万数据通过并发编程高性能导入三方数据库，比如 ElasticSearch。✅
 - 百万数据量导出，如何保障内存安全和导出性能？
-- 高频考点：缓存穿透、雪崩、击穿。写出不一样的代码，拒绝做理论狂人。
+- 高频考点：缓存穿透、雪崩、击穿。写出不一样的代码，拒绝做理论狂人。✅
 - JavaAgent 封装微服务流量监控，EG: API、RocketMQ、XXL-Job...。✅
 - 揭秘并行流 ParallelStream 极端情况下同步单线程执行。✅
 - ......
