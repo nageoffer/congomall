@@ -16,6 +16,10 @@ congomall-product-interface、congomall-product-job 都是可独立部署的应�
 
 ## 启动说明
 
+### 项目依赖
+
+无。
+
 ### 组件依赖
 
 > 语雀相关文档查看知识星球置顶主题获取密码，避免盗版传播，会定期修改访问密码。
