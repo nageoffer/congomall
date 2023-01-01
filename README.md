@@ -13,7 +13,7 @@
 | 2 | congomall-customer-user | C 端用户 | http://localhost:8002 |
 | 3 | congomall-gateway | 外部网关 | http://localhost:8003 |
 | 4 | congomall-product | 商品服务 | http://localhost:8004 |
-| 5 | congomall-product-job | 商品Job服务 | http://localhost:9001 |
+| 5 | congomall-product-job | 商品 Job 服务 | http://localhost:9001 |
 | 6 | congomall-cart | 购物车服务 | http://localhost:8005 |
 | 7 | congomall-order | 订单服务 | http://localhost:8006 |
 
