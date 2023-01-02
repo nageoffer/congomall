@@ -26,15 +26,15 @@ congomall-product-interface、congomall-product-job 都是可独立部署的应�
 
 Sentinel 1.8.x
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/kus9sy
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/kus9sy
 
 Nacos 2.x
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/mcn5ey
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/mcn5ey
 
 Seata 1.5.2
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/trwpfp57tuusw51b
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/trwpfp57tuusw51b
 
 ### 配置项修改
 
@@ -48,4 +48,4 @@ Seata 1.5.2
 千万数据通过并发编程高性能导入三方数据库，比如 ElasticSearch。
 
 - 代码地址：`congomall-product/congomall-product-job/src/main/java/org/opengoofy/congomall/biz/product/job/handler/InitializeProductJobHandler.java`
-- 文档地址：https://www.yuque.com/magestack/programmer_progress/nya8aa
+- 文档地址：https://www.yuque.com/magestack/knowledge-planet/nya8aa

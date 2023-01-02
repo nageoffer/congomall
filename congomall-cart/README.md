@@ -25,15 +25,15 @@ congomall-cart-interface 为可独立部署的应用。
 
 Sentinel 1.8.x
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/kus9sy
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/kus9sy
 
 Nacos 2.x
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/mcn5ey
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/mcn5ey
 
 Seata 1.5.2
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/trwpfp57tuusw51b
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/trwpfp57tuusw51b
 
 ### 配置项修改
 

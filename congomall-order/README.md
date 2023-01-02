@@ -25,15 +25,15 @@ congomall-order-interface 为可独立部署的应用。
 
 Sentinel 1.8.x
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/kus9sy
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/kus9sy
 
 Nacos 2.x
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/mcn5ey
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/mcn5ey
 
 RocketMQ 4.5.1
 
-- 部署文档：https://www.yuque.com/magestack/programmer_progress/ox5gn3
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/ox5gn3
 
 ### 配置项修改
 
