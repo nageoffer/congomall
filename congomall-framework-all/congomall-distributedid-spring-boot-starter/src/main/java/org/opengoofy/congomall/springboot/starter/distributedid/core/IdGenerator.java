@@ -17,28 +17,25 @@
 
 package org.opengoofy.congomall.springboot.starter.distributedid.core;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
- * WorkId 包装器
+ * ID 生成器
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class WorkIdWrapper {
+public interface IdGenerator {
     
     /**
-     * 工作ID
+     * 下一个 ID
      */
-    private Long workId;
+    default long nextId() {
+        return 0L;
+    }
     
     /**
-     * 数据中心ID
+     * 下一个 ID 字符串
      */
-    private Long dataCenterId;
+    default String nextIdStr() {
+        return "";
+    }
 }

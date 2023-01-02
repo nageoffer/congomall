@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.distributedid.core;
+package org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake;
 
 import cn.hutool.core.date.SystemClock;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;

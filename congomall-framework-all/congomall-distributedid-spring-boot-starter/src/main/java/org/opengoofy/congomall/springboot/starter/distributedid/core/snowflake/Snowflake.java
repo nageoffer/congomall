@@ -15,13 +15,14 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.distributedid.core;
+package org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake;
 
 import cn.hutool.core.date.SystemClock;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import org.opengoofy.congomall.springboot.starter.distributedid.core.IdGenerator;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -50,7 +51,7 @@ import java.util.Date;
  * @author Looly
  * @since 3.0.1
  */
-public class Snowflake implements Serializable {
+public class Snowflake implements Serializable, IdGenerator {
     
     private static final long serialVersionUID = 1L;
     

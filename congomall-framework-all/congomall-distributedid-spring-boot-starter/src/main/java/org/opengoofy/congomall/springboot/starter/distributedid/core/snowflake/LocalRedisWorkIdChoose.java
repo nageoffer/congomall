@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.distributedid.core;
+package org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake;
 
 import cn.hutool.core.collection.CollUtil;
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;

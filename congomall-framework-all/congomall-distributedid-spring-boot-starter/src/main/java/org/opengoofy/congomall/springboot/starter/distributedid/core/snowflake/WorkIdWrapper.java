@@ -15,33 +15,30 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.distributedid.core;
+package org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 使用随机数获取雪花 WorkId
+ * WorkId 包装器
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Slf4j
-public class RandomWorkIdChoose extends AbstractWorkIdChooseTemplate implements InitializingBean {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class WorkIdWrapper {
     
-    @Override
-    protected WorkIdWrapper chooseWorkId() {
-        int start = 0, end = 31;
-        return new WorkIdWrapper(getRandom(start, end), getRandom(start, end));
-    }
+    /**
+     * 工作ID
+     */
+    private Long workId;
     
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        chooseAndInit();
-    }
-    
-    private static long getRandom(int start, int end) {
-        long random = (long) (Math.random() * (end - start + 1) + start);
-        return random;
-    }
+    /**
+     * 数据中心ID
+     */
+    private Long dataCenterId;
 }

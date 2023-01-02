@@ -18,8 +18,8 @@
 package org.opengoofy.congomall.springboot.starter.distributedid.config;
 
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
-import org.opengoofy.congomall.springboot.starter.distributedid.core.LocalRedisWorkIdChoose;
-import org.opengoofy.congomall.springboot.starter.distributedid.core.RandomWorkIdChoose;
+import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.LocalRedisWorkIdChoose;
+import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.RandomWorkIdChoose;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
