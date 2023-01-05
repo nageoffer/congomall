@@ -39,6 +39,6 @@ public class UserVerifyCodeCommand {
     private String platform;
     
     @NotBlank(message = "接收者不能为空")
-    @ApiModelProperty(value = "接收者", example = "m7798432@163.com")
+    @ApiModelProperty(value = "接收者", example = "m7798432@163.com", notes = "实际发送时更改为自己邮箱")
     private String receiver;
 }

@@ -44,7 +44,7 @@ public class UserLoginCommand {
     @ApiModelProperty(value = "手机号", example = "15601166692")
     private String phone;
     
-    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com")
+    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com", notes = "实际发送时更改为自己邮箱")
     @Email
     private String mail;
     

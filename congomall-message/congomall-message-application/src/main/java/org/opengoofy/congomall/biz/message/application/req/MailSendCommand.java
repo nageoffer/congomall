@@ -40,12 +40,12 @@ public class MailSendCommand {
     private String title;
     
     @Email
-    @ApiModelProperty(value = "发送者", example = "mall4j_tech@163.com")
+    @ApiModelProperty(value = "发送者", example = "congomall@163.com")
     @NotBlank(message = "邮箱发送者不能为空")
     private String sender;
     
     @Email
-    @ApiModelProperty(value = "接收者", example = "m7798432@163.com")
+    @ApiModelProperty(value = "接收者", example = "m7798432@163.com", notes = "实际发送时更改为自己邮箱")
     @NotBlank(message = "邮箱接收者不能为空")
     private String receiver;
     

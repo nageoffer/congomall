@@ -50,7 +50,7 @@ public class UserRegisterCommand {
     private String phone;
     
     @Email
-    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com")
+    @ApiModelProperty(value = "邮箱", example = "m7798432@163.com", notes = "实际发送时更改为自己邮箱")
     @NotBlank(message = "邮箱不允许为空")
     private String mail;
     
