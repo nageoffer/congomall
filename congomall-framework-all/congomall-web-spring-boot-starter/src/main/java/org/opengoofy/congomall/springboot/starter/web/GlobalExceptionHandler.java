@@ -20,7 +20,7 @@ package org.opengoofy.congomall.springboot.starter.web;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.AbstractException;
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
                 .map(FieldError::getDefaultMessage)
                 .orElse(StrUtil.EMPTY);
         log.error("[{}] {} [ex] {}", request.getMethod(), getUrl(request), exceptionStr);
-        return Results.failure(ErrorCode.CLIENT_ERROR.code(), exceptionStr);
+        return Results.failure(BaseErrorCode.CLIENT_ERROR.code(), exceptionStr);
     }
     
     /**

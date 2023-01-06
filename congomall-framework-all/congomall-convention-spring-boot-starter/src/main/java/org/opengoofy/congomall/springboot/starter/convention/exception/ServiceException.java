@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.springboot.starter.convention.exception;
 
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCode;
 
 /**
@@ -29,7 +29,7 @@ import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCod
 public class ServiceException extends AbstractException {
     
     public ServiceException(String message) {
-        this(message, null, ErrorCode.SERVICE_ERROR);
+        this(message, null, BaseErrorCode.SERVICE_ERROR);
     }
     
     public ServiceException(IErrorCode errorCode) {

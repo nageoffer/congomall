@@ -28,7 +28,7 @@ import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.Custo
 import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.CustomerUserRepositoryMapper;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.converter.CustomerUserConverter;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.mq.produce.CustomerUserOperationLogProduce;
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -79,7 +79,7 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
         CustomerUserDO customerUserDO = customerUserConverter.customerUserToDO(customerUser);
         int insert = customerUserRepositoryMapper.insert(customerUserDO);
         if (insert < 1) {
-            throw new ServiceException(ErrorCode.USER_REGISTER_ERROR);
+            throw new ServiceException(BaseErrorCode.USER_REGISTER_ERROR);
         }
         Long customerUserId = customerUserDO.getId();
         // 异步记录操作日志

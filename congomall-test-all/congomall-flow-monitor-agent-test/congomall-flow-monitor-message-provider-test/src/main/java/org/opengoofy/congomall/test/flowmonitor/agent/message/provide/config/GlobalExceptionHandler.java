@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -41,7 +41,7 @@ public final class GlobalExceptionHandler {
     @ExceptionHandler(value = Throwable.class)
     public Result defaultErrorHandler(HttpServletRequest request, Throwable throwable) {
         log.error("{} {}", request.getMethod(), getUrl(request), throwable);
-        return new Result().setCode(ErrorCode.SERVICE_ERROR.code()).setMessage(ErrorCode.SERVICE_ERROR.message());
+        return new Result().setCode(BaseErrorCode.SERVICE_ERROR.code()).setMessage(BaseErrorCode.SERVICE_ERROR.message());
     }
     
     private String getUrl(HttpServletRequest request) {

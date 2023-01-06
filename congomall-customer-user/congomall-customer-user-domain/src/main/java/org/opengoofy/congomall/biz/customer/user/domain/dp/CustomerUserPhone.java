@@ -19,7 +19,7 @@ package org.opengoofy.congomall.biz.customer.user.domain.dp;
 
 import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.core.util.StrUtil;
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import lombok.Data;
 
@@ -41,7 +41,7 @@ public class CustomerUserPhone {
         if (StrUtil.isBlank(phone)) {
             throw new ClientException("手机号不能为空");
         } else if (!PhoneUtil.isMobile(phone)) {
-            throw new ClientException(ErrorCode.PHONE_VERIFY_ERROR);
+            throw new ClientException(BaseErrorCode.PHONE_VERIFY_ERROR);
         }
         this.phone = phone;
     }

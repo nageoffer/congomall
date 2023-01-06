@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.springboot.starter.web;
 
 import org.opengoofy.congomall.springboot.starter.convention.exception.AbstractException;
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 
 import java.util.Optional;
@@ -57,7 +57,7 @@ public final class Results {
      * @return
      */
     protected static Result<Void> failure() {
-        return new Result<Void>().setCode(ErrorCode.SERVICE_ERROR.code()).setMessage(ErrorCode.SERVICE_ERROR.message());
+        return new Result<Void>().setCode(BaseErrorCode.SERVICE_ERROR.code()).setMessage(BaseErrorCode.SERVICE_ERROR.message());
     }
     
     /**
@@ -67,8 +67,8 @@ public final class Results {
      * @return
      */
     protected static Result<Void> failure(AbstractException abstractException) {
-        String errorCode = Optional.ofNullable(abstractException.getErrorCode()).orElse(ErrorCode.SERVICE_ERROR.code());
-        String errorMessage = Optional.ofNullable(abstractException.getErrorMessage()).orElse(ErrorCode.SERVICE_ERROR.message());
+        String errorCode = Optional.ofNullable(abstractException.getErrorCode()).orElse(BaseErrorCode.SERVICE_ERROR.code());
+        String errorMessage = Optional.ofNullable(abstractException.getErrorMessage()).orElse(BaseErrorCode.SERVICE_ERROR.message());
         return new Result<Void>().setCode(errorCode).setMessage(errorMessage);
     }
     

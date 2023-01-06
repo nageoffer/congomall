@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.springboot.starter.convention.exception;
 
-import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCode;
 
 /**
@@ -33,7 +33,7 @@ public class ClientException extends AbstractException {
     }
     
     public ClientException(String message) {
-        this(message, null, ErrorCode.CLIENT_ERROR);
+        this(message, null, BaseErrorCode.CLIENT_ERROR);
     }
     
     public ClientException(String message, Throwable throwable, IErrorCode errorCode) {
