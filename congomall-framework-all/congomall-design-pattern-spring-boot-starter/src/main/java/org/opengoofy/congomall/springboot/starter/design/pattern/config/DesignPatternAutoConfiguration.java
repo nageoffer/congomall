@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.springboot.starter.design.pattern.config;
 
 import org.opengoofy.congomall.springboot.starter.base.config.ApplicationBaseAutoConfiguration;
+import org.opengoofy.congomall.springboot.starter.design.pattern.chain.AbstractChainContext;
 import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -37,5 +38,13 @@ public class DesignPatternAutoConfiguration {
     @Bean
     public AbstractStrategyChoose abstractStrategyChoose() {
         return new AbstractStrategyChoose();
+    }
+    
+    /**
+     * 责任链上下文
+     */
+    @Bean
+    public AbstractChainContext abstractChainContext() {
+        return new AbstractChainContext();
     }
 }
