@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.convention.exception;
+package org.opengoofy.congomall.springboot.starter.convention.errorcode;
 
 /**
  * 平台错误码

@@ -17,6 +17,9 @@
 
 package org.opengoofy.congomall.springboot.starter.convention.exception;
 
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCode;
+
 /**
  * 服务端异常
  *

@@ -28,7 +28,7 @@ import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.Custo
 import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.CustomerUserRepositoryMapper;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.converter.CustomerUserConverter;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.mq.produce.CustomerUserOperationLogProduce;
-import org.opengoofy.congomall.springboot.starter.convention.exception.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

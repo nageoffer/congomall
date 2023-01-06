@@ -19,6 +19,7 @@ package org.opengoofy.congomall.springboot.starter.convention.exception;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCode;
 
 import java.util.Optional;
 

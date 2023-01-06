@@ -17,6 +17,8 @@
 
 package org.opengoofy.congomall.springboot.starter.convention.exception;
 
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCode;
+
 /**
  * 远程服务调用异常
  *

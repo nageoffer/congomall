@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.test.flowmonitor.agent.message.provide.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.opengoofy.congomall.springboot.starter.convention.exception.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

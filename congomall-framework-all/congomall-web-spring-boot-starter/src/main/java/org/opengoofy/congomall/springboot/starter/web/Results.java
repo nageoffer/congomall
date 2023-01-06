@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.springboot.starter.web;
 
 import org.opengoofy.congomall.springboot.starter.convention.exception.AbstractException;
-import org.opengoofy.congomall.springboot.starter.convention.exception.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 
 import java.util.Optional;

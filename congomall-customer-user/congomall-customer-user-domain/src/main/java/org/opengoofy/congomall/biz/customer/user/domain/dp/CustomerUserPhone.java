@@ -19,7 +19,7 @@ package org.opengoofy.congomall.biz.customer.user.domain.dp;
 
 import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.core.util.StrUtil;
-import org.opengoofy.congomall.springboot.starter.convention.exception.ErrorCode;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.ErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import lombok.Data;
 
