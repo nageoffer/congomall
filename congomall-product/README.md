@@ -36,6 +36,11 @@ Seata 1.5.2
 
 - 部署文档：https://www.yuque.com/magestack/knowledge-planet/trwpfp57tuusw51b
 
+SkyWalking 9.3.0 可选
+
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/go4sgtgxgp33r27i
+- 使用文档：https://www.yuque.com/magestack/knowledge-planet/qwle7f3hz4r5adcv
+
 ### 配置项修改
 
 如果 XXL-Job 为 Docker 部署，需要修改 `congomall-product/congomall-product-job/src/main/resources/application.properties` 以下属性。

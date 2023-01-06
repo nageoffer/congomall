@@ -31,6 +31,11 @@ RocketMQ 4.5.1
 
 - 部署文档：https://www.yuque.com/magestack/knowledge-planet/ox5gn3
 
+SkyWalking 9.3.0 可选
+
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/go4sgtgxgp33r27i
+- 使用文档：https://www.yuque.com/magestack/knowledge-planet/qwle7f3hz4r5adcv
+
 ### 配置项修改
 
 邮箱账号发送默认在配置文件中指定，用户可自定义。

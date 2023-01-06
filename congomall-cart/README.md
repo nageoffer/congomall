@@ -35,6 +35,11 @@ Seata 1.5.2
 
 - 部署文档：https://www.yuque.com/magestack/knowledge-planet/trwpfp57tuusw51b
 
+SkyWalking 9.3.0 可选
+
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/go4sgtgxgp33r27i
+- 使用文档：https://www.yuque.com/magestack/knowledge-planet/qwle7f3hz4r5adcv
+
 ### 配置项修改
 
 无。
