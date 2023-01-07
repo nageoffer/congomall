@@ -19,10 +19,14 @@ package org.opengoofy.congomall.biz.order.infrastructure.remote;
 
 import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductLockStockReqDTO;
 import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductUnlockStockReqDTO;
+import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductVerifyStockReqDTO;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * 商品库存服务远程调用
@@ -32,6 +36,12 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignClient("product-service")
 public interface ProductStockRemoteService {
+    
+    /**
+     * 验证商品库存
+     */
+    @PostMapping("/api/product/stock/verify")
+    Result<Boolean> verifyProductStock(@RequestBody List<ProductVerifyStockReqDTO> requestParams);
     
     /**
      * 锁定商品库存

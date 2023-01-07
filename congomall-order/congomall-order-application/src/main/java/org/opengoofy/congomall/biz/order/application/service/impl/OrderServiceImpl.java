@@ -17,11 +17,12 @@
 
 package org.opengoofy.congomall.biz.order.application.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSON;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.congomall.biz.order.application.enums.OrderChainMarkEnum;
+import org.opengoofy.congomall.biz.order.application.filter.OrderCreateProductSkuStockChainHandler;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
 import org.opengoofy.congomall.biz.order.domain.aggregate.CneeInfo;
@@ -41,11 +42,11 @@ import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.ProductStockD
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
+import org.opengoofy.congomall.springboot.starter.design.pattern.chain.AbstractChainContext;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -67,9 +68,13 @@ public class OrderServiceImpl implements OrderService {
     
     private final ProductStockRemoteService productStockRemoteService;
     
+    private final AbstractChainContext abstractChainContext;
+    
     @GlobalTransactional
     @Override
     public String createOrder(OrderCreateCommand requestParam) {
+        // 执行订单创建参数责任链验证
+        abstractChainContext.handler(OrderChainMarkEnum.ORDER_CREATE_FILTER.name(), requestParam);
         // 创建订单号
         String orderSn = SnowflakeIdUtil.nextIdStr();
         // 调用购物车服务获取已选中参与结算商品
@@ -107,17 +112,15 @@ public class OrderServiceImpl implements OrderService {
     
     /**
      * 根据用户ID查询选中状态购物车商品
+     * <p>
+     * 因为创建订单前 {@link OrderCreateProductSkuStockChainHandler#handler(OrderCreateCommand)} 已经验证过，这里直接获取 Data
      *
      * @param customerUserId 用户ID
      * @return 用户购物车选中商品，参与订单结算
      */
     private List<CartItemQuerySelectRespDTO> querySelectCartByCustomerUserId(String customerUserId) {
         Result<List<CartItemQuerySelectRespDTO>> cartProductsResult = cartRemoteService.querySelectCartByCustomerUserId(customerUserId);
-        return Optional.ofNullable(cartProductsResult)
-                .filter(each -> each.isSuccess())
-                .filter(each -> CollUtil.isNotEmpty(each.getData()))
-                .map(each -> each.getData())
-                .orElseThrow(() -> new ServiceException("购物车选中商品为空"));
+        return cartProductsResult.getData();
     }
     
     /**
