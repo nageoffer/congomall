@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
 import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
+import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStockDetail;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductBrand;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductSku;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductSpu;
@@ -76,6 +77,18 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
     
     @Override
+    public Boolean verifyProductStock(ProductStock productStock) {
+        for (ProductStockDetail each : productStock.getProductStockDetails()) {
+            ProductSkuDO productSkuDO = productSkuMapper.selectOne(Wrappers.lambdaQuery(ProductSkuDO.class).eq(ProductSkuDO::getId, each.getProductSkuId()));
+            int actualStock = productSkuDO.getStock() - productSkuDO.getLockStock();
+            if (actualStock - each.getProductQuantity() < 0) {
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
+    }
+    
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean lockProductStock(ProductStock productStock) {
         productStock.getProductStockDetails().forEach(each -> {
@@ -86,7 +99,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 throw new ServiceException("锁定库存失败，请检查相关商品库存是否充足");
             }
         });
-        return true;
+        return Boolean.TRUE;
     }
     
     @Override
@@ -99,6 +112,6 @@ public class ProductRepositoryImpl implements ProductRepository {
                 throw new ServiceException("解锁库存失败，请检查相关商品库存数据是否正确");
             }
         });
-        return true;
+        return Boolean.TRUE;
     }
 }

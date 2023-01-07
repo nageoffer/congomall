@@ -37,18 +37,26 @@ public interface ProductRepository {
     Product getProductBySpuId(Long spuId);
     
     /**
+     * 验证商品库存
+     *
+     * @param productStock 商品库存聚合根
+     * @return 商品库存是否充足，全部商品库存验证无问题返回 {@link Boolean#TRUE}，反之返回 {@link Boolean#FALSE}
+     */
+    Boolean verifyProductStock(ProductStock productStock);
+    
+    /**
      * 锁定商品库存
      *
-     * @param productStock
-     * @return
+     * @param productStock 商品库存聚合根
+     * @return 是否锁定相关商品库存返回结果，锁定成功返回 {@link Boolean#TRUE}，反之返回 {@link Boolean#FALSE}
      */
     Boolean lockProductStock(ProductStock productStock);
     
     /**
      * 解锁商品库存
      *
-     * @param productStock
-     * @return
+     * @param productStock 商品库存聚合根
+     * @return 是否解锁相关商品库存返回结果，解锁成功返回 {@link Boolean#TRUE}，反之返回 {@link Boolean#FALSE}
      */
     Boolean unlockProductStock(ProductStock productStock);
 }

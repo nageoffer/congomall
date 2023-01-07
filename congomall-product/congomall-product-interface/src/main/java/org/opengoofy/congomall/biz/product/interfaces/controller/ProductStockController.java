@@ -21,15 +21,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
+import org.opengoofy.congomall.biz.product.application.req.ProductStockVerifyQuery;
 import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
 import org.opengoofy.congomall.biz.product.application.service.ProductService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 商品库存控制层
@@ -41,19 +41,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Api(tags = "商品库存")
-@RequestMapping("/api/product/stock")
 public class ProductStockController {
     
     private final ProductService productService;
     
-    @PutMapping("/lock")
+    @PostMapping("/api/product/stock/verify")
+    @ApiOperation(value = "验证商品库存", notes = "批量验证，可一次性传入多个商品信息")
+    public Result<Boolean> verifyProductStock(@RequestBody List<ProductStockVerifyQuery> requestParams) {
+        boolean result = productService.verifyProductStock(requestParams);
+        return Results.success(result);
+    }
+    
+    @PutMapping("/api/product/stock/lock")
     @ApiOperation(value = "锁定商品库存")
     public Result<Boolean> lockProductStock(@RequestBody ProductLockStockCommand requestParam) {
         boolean result = productService.lockProductStock(requestParam);
         return Results.success(result);
     }
     
-    @PutMapping("/unlock")
+    @PutMapping("/api/product/stock/unlock")
     @ApiOperation(value = "解锁商品库存")
     public Result<Boolean> unlockProductStock(@RequestBody ProductUnlockStockCommand requestParam) {
         boolean result = productService.unlockProductStock(requestParam);
