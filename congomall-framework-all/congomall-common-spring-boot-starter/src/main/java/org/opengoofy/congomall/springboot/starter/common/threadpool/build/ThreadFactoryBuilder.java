@@ -24,7 +24,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 线程工厂 {@link ThreadFactory} 构建器
+ * 线程工厂 {@link ThreadFactory} 构建器, 构建者模式
  *
  * @author chen.ma
  * @github https://github.com/opengoofy

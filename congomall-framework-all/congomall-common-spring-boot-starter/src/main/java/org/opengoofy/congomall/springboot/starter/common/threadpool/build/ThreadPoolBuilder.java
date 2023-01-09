@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.concurrent.*;
 
 /**
- * 线程池 {@link ThreadPoolExecutor} 构建器
+ * 线程池 {@link ThreadPoolExecutor} 构建器, 构建者模式
  *
  * @author chen.ma
  * @github https://github.com/opengoofy

@@ -48,6 +48,7 @@ public abstract class AbstractWorkIdChooseTemplate {
      * 选择 WorkId 并初始化雪花
      */
     public void chooseAndInit() {
+        // 模板方法模式: 通过抽象方法获取 WorkId 包装器创建雪花算法
         WorkIdWrapper workIdWrapper = chooseWorkId();
         long workId = workIdWrapper.getWorkId();
         long dataCenterId = workIdWrapper.getDataCenterId();

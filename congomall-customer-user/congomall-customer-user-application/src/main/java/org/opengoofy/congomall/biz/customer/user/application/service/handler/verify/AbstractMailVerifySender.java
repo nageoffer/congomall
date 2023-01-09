@@ -67,7 +67,7 @@ public abstract class AbstractMailVerifySender {
      */
     public void mailVerifySend(UserVerifyCodeCommand requestParam) {
         String verifyCode = RandomUtil.randomNumbers(6);
-        // 验证码放入缓存，并设置超时时间
+        // 模版方法模式: 验证码放入缓存，并设置超时时间
         distributedCache.put(CacheUtil.buildKey(getCachePrefixKey(), requestParam.getReceiver()), verifyCode, REGISTER_USER_VERIFY_CODE_TIMEOUT);
         MailSendRemoteCommand remoteCommand = new MailSendRemoteCommand();
         remoteCommand.setTitle("刚果商城邮箱验证码提醒")

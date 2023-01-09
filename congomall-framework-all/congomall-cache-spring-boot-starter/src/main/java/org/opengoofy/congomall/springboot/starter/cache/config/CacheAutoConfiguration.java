@@ -39,7 +39,7 @@ public class CacheAutoConfiguration {
     private final RedisDistributedProperties redisDistributedProperties;
     
     /**
-     * 创建 redis key 序列化器，可自定义 key prefix
+     * 创建 Redis Key 序列化器，可自定义 Key Prefix
      */
     @Bean
     public RedisKeySerializer redisKeySerializer() {
@@ -59,7 +59,7 @@ public class CacheAutoConfiguration {
     }
     
     /**
-     * redis 客户端代理类增强
+     * 代理模式: Redis 客户端代理类增强
      */
     @Bean
     public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer,

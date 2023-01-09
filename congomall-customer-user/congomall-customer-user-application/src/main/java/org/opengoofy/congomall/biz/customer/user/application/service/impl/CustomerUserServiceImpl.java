@@ -54,6 +54,7 @@ public class CustomerUserServiceImpl implements CustomerUserService {
          * {@link MailRegisterVerifyCommandHandler}
          * ...
          */
+        // 策略模式: 根据 mark 选择用户登录或者注册逻辑
         abstractStrategyChoose.chooseAndExecute(mark, requestParam);
     }
     
