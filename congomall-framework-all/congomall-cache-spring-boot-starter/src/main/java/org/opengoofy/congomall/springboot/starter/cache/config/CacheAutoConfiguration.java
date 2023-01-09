@@ -59,7 +59,7 @@ public class CacheAutoConfiguration {
     }
     
     /**
-     * 代理模式: Redis 客户端代理类增强
+     * 静态代理模式: Redis 客户端代理类增强
      */
     @Bean
     public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer,
