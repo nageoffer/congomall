@@ -35,6 +35,10 @@ RocketMQ 4.5.1
 
 - 部署文档：https://www.yuque.com/magestack/knowledge-planet/ox5gn3
 
+Seata 1.5.2
+
+- 部署文档：https://www.yuque.com/magestack/knowledge-planet/trwpfp57tuusw51b
+
 SkyWalking 9.3.0 可选
 
 - 部署文档：https://www.yuque.com/magestack/knowledge-planet/go4sgtgxgp33r27i
@@ -48,6 +52,15 @@ SkyWalking 9.3.0 可选
 
 1）商品下单引入分布式事务。商品服务 -> 购物车服务 -> 商品服务。
 
-2）商品下单后，通过 RocketMQ 延迟消息关闭订单。
+2）订单创建使用责任链模式验证参数必填、参数正确性、商品库存是否正确等逻辑。
+
+- 代码地址：`org.opengoofy.congomall.biz.order.application.service.impl.OrderServiceImpl.createOrder`
+
+3）订单创建逻辑使用观察者模式解耦合，基于 Spring ApplicationEvent 实现。
+
+- 代码地址：`org.opengoofy.congomall.biz.order.application.service.impl.OrderServiceImpl.createOrder`
+
+4）商品下单后，通过 RocketMQ 延迟消息关闭订单。
 
 - 代码地址：`org.opengoofy.congomall.biz.order.infrastructure.mq.provide.DelayCloseOrderProvide`
+
