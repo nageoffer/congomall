@@ -58,10 +58,8 @@ public class CacheAutoConfiguration {
         return cachePenetrationBloomFilter;
     }
     
-    /**
-     * 静态代理模式: Redis 客户端代理类增强
-     */
     @Bean
+    // 静态代理模式: Redis 客户端代理类增强
     public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer,
                                                  StringRedisTemplate stringRedisTemplate,
                                                  RedissonClient redissonClient,
