@@ -17,12 +17,13 @@
 
 package org.opengoofy.congomall.biz.message.infrastructure.mq.produce;
 
-import org.opengoofy.congomall.biz.message.domain.common.MessageRocketMQConstants;
-import org.opengoofy.congomall.biz.message.domain.event.MailMessageSendEvent;
+import cn.hutool.core.date.SystemClock;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageConst;
+import org.opengoofy.congomall.biz.message.domain.common.MessageRocketMQConstants;
+import org.opengoofy.congomall.biz.message.domain.event.MailMessageSendEvent;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -55,12 +56,12 @@ public class MessageSendProduce {
                 .setHeader(MessageConst.PROPERTY_KEYS, keys)
                 .setHeader(MessageConst.PROPERTY_TAGS, MessageRocketMQConstants.MESSAGE_MAIL_SEND_TAG)
                 .build();
-        long startTime = System.currentTimeMillis();
+        long startTime = SystemClock.now();
         boolean sendResult = false;
         try {
             sendResult = output.send(message, 2000L);
         } finally {
-            log.info("邮箱消息发送，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, System.currentTimeMillis() - startTime, JSON.toJSONString(mailMessageSendEvent));
+            log.info("邮箱消息发送，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, SystemClock.now() - startTime, JSON.toJSONString(mailMessageSendEvent));
         }
     }
 }

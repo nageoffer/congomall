@@ -18,14 +18,14 @@
 package org.opengoofy.congomall.springboot.starter.log.aspect;
 
 import cn.hutool.core.date.DateUtil;
-import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
+import cn.hutool.core.date.SystemClock;
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -36,8 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
-
-import static com.alibaba.fastjson2.JSONWriter.Feature.MapSortField;
 
 /**
  * {@link MLog} 日志打印 AOP 切面
@@ -53,9 +51,9 @@ public class MLogPrintAspect {
      */
     @Around("@within(org.opengoofy.congomall.springboot.starter.log.annotation.MLog) || @annotation(org.opengoofy.congomall.springboot.starter.log.annotation.MLog)")
     public Object printMLog(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = SystemClock.now();
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Logger log = LoggerFactory.getLogger(methodSignature.getDeclaringType());
-        long startTime = System.currentTimeMillis();
         String beginTime = DateUtil.now();
         Object result = null;
         try {
@@ -79,7 +77,7 @@ public class MLogPrintAspect {
                     requestURI = servletRequestAttributes.getRequest().getRequestURI();
                 } catch (Exception ignored) {
                 }
-                log.info("[{}] {}, executeTime: {}ms, info: {}", methodType, requestURI, System.currentTimeMillis() - startTime, JSON.toJSONString(logPrint, MapSortField));
+                log.info("[{}] {}, executeTime: {}ms, info: {}", methodType, requestURI, SystemClock.now() - startTime, JSON.toJSONString(logPrint));
             }
         }
         return result;
@@ -106,13 +104,10 @@ public class MLogPrintAspect {
     @Data
     private class MLogPrint {
         
-        @JSONField
         private String beginTime;
         
-        @JSONField(ordinal = 1)
         private Object[] inputParams;
         
-        @JSONField(ordinal = 2)
         private Object outputParams;
     }
 }

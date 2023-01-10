@@ -18,15 +18,15 @@
 package org.opengoofy.congomall.biz.message.application.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.IdUtil;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.message.application.req.MailSendCommand;
 import org.opengoofy.congomall.biz.message.application.resp.MessageSendRespDTO;
 import org.opengoofy.congomall.biz.message.application.service.MessageSendService;
 import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
 import org.opengoofy.congomall.biz.message.domain.event.MailMessageSendEvent;
 import org.opengoofy.congomall.biz.message.infrastructure.mq.produce.MessageSendProduce;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
 import org.springframework.stereotype.Service;
 
 /**
@@ -44,7 +44,7 @@ public class SendMessageServiceImpl implements MessageSendService {
     
     @Override
     public MessageSendRespDTO mailMessageSend(MailSendCommand mailSendCommand) {
-        String messageSendId = IdUtil.getSnowflakeNextIdStr();
+        String messageSendId = SnowflakeIdUtil.nextIdStr();
         MessageSend messageSend = MessageSend.builder()
                 .title(mailSendCommand.getTitle())
                 .sender(mailSendCommand.getSender())
