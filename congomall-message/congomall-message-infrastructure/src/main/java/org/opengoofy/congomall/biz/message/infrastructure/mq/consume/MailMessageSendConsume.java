@@ -18,14 +18,13 @@
 package org.opengoofy.congomall.biz.message.infrastructure.mq.consume;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.opengoofy.congomall.biz.message.domain.acl.MailMessageProduce;
+import com.alibaba.fastjson.JSON;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
 import org.opengoofy.congomall.biz.message.domain.event.MailMessageSendEvent;
-import org.opengoofy.congomall.biz.message.domain.repository.MessageSendRepository;
+import org.opengoofy.congomall.biz.message.infrastructure.facade.MessageSendFacade;
 import org.opengoofy.congomall.biz.message.infrastructure.mq.messaging.MessageSink;
-import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -41,21 +40,18 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MailMessageSendConsume {
     
-    private final MessageSendRepository messageSendRepository;
-    
-    private final MailMessageProduce mailMessageProduce;
+    private final MessageSendFacade messageSendFacade;
     
     @StreamListener(MessageSink.MAIL_SEND)
     public void mailMessageSend(@Payload MailMessageSendEvent mailMessageSendEvent, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
         try {
             MessageSend messageSend = BeanUtil.toBean(mailMessageSendEvent, MessageSend.class);
-            boolean sendResult = mailMessageProduce.send(messageSend);
-            messageSend.setSendResult(sendResult);
-            messageSendRepository.mailMessageSave(messageSend);
+            // 外观模式: 抽象消息发送、消息存储以及失败回调业务方等逻辑
+            messageSendFacade.mailMessageSend(messageSend);
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
                     JSON.toJSONString(mailMessageSendEvent));

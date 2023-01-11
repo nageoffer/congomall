@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.message.infrastructure.service;
+package org.opengoofy.congomall.biz.message.infrastructure.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;

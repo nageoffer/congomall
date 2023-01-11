@@ -15,29 +15,36 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.order.application.event.order.create;
+package org.opengoofy.congomall.biz.message.infrastructure.facade;
 
 import lombok.RequiredArgsConstructor;
-import org.opengoofy.congomall.biz.order.domain.repository.OrderRepository;
-import org.springframework.context.ApplicationListener;
-import org.springframework.core.annotation.Order;
+import org.opengoofy.congomall.biz.message.domain.acl.MailMessageProduce;
+import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
+import org.opengoofy.congomall.biz.message.domain.repository.MessageSendRepository;
 import org.springframework.stereotype.Component;
 
 /**
- * 订单创建监听
+ * 邮件消息发送外观
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Order(0)
 @Component
 @RequiredArgsConstructor
-public final class OrderCreateListener implements ApplicationListener<OrderCreateEvent> {
+public final class MessageSendFacade {
     
-    private final OrderRepository orderRepository;
+    private final MessageSendRepository messageSendRepository;
     
-    @Override
-    public void onApplicationEvent(OrderCreateEvent event) {
-        orderRepository.createOrder(event.getOrder());
+    private final MailMessageProduce mailMessageProduce;
+    
+    /**
+     * 邮箱消息发送
+     *
+     * @param messageSend 消息发送实体
+     */
+    public void mailMessageSend(MessageSend messageSend) {
+        boolean sendResult = mailMessageProduce.send(messageSend);
+        messageSend.setSendResult(sendResult);
+        messageSendRepository.mailMessageSave(messageSend);
     }
 }
