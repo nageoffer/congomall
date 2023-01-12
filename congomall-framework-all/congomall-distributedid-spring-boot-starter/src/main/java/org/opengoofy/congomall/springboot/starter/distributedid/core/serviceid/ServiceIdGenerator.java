@@ -29,9 +29,14 @@ import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.S
 public interface ServiceIdGenerator extends IdGenerator {
     
     /**
-     * 根据 {@param bizId} 生成雪花算法 ID
+     * 根据 {@param serviceId} 生成雪花算法 ID
      */
     long nextId(long serviceId);
+    
+    /**
+     * 根据 {@param serviceId} 生成字符串类型雪花算法 ID
+     */
+    String nextIdStr(long serviceId);
     
     /**
      * 解析雪花算法

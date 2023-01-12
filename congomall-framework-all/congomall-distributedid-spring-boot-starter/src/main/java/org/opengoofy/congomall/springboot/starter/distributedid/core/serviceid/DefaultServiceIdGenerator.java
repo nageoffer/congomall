@@ -50,6 +50,11 @@ public final class DefaultServiceIdGenerator implements ServiceIdGenerator {
     }
     
     @Override
+    public String nextIdStr(long serviceId) {
+        return Long.toString(nextId(serviceId));
+    }
+    
+    @Override
     public SnowflakeIdInfo parseSnowflakeId(long snowflakeId) {
         SnowflakeIdInfo snowflakeIdInfo = SnowflakeIdInfo.builder()
                 .workerId((int) ((snowflakeId >> WORKER_ID_SHIFT) & ~(-1L << WORKER_ID_BITS)))

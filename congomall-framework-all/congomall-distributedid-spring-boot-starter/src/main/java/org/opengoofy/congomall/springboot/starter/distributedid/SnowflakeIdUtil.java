@@ -19,6 +19,7 @@ package org.opengoofy.congomall.springboot.starter.distributedid;
 
 import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.Snowflake;
 import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.SnowflakeIdInfo;
+import org.opengoofy.congomall.springboot.starter.distributedid.handler.IdGeneratorManager;
 
 /**
  * 分布式雪花 ID 生成器
@@ -73,5 +74,19 @@ public final class SnowflakeIdUtil {
      */
     public static SnowflakeIdInfo parseSnowflakeId(long snowflakeId) {
         return SNOWFLAKE.parseSnowflakeId(snowflakeId);
+    }
+    
+    /**
+     * 根据 {@param serviceId} 生成雪花算法 ID
+     */
+    public static long nextIdByService(String serviceId) {
+        return IdGeneratorManager.getDefaultServiceIdGenerator().nextId(Long.parseLong(serviceId));
+    }
+    
+    /**
+     * 根据 {@param serviceId} 生成字符串类型雪花算法 ID
+     */
+    public static String nextIdStrByService(String serviceId) {
+        return IdGeneratorManager.getDefaultServiceIdGenerator().nextIdStr(Long.parseLong(serviceId));
     }
 }

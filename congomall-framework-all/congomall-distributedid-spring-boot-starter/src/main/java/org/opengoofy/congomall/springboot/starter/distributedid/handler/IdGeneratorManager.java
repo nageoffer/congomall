@@ -67,7 +67,7 @@ public final class IdGeneratorManager {
     /**
      * 获取默认 ID 生成器 {@link DefaultServiceIdGenerator}
      */
-    public static ServiceIdGenerator getDefaultSnowflakeIdGenerator() {
+    public static ServiceIdGenerator getDefaultServiceIdGenerator() {
         return Optional.ofNullable(MANAGER.get("default")).map(each -> (ServiceIdGenerator) each).orElse(null);
     }
 }
