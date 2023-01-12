@@ -31,7 +31,7 @@ public class DefaultServiceIdGeneratorTest {
         SnowflakeIdUtil.initSnowflake(snowflake);
         for (int i = 0; i < 100; i++) {
             long nextId = SnowflakeIdUtil.nextId();
-            ServiceIdGenerator idGenerator = IdGeneratorManager.getDefaultSnowflakeIdGenerator();
+            ServiceIdGenerator idGenerator = IdGeneratorManager.getDefaultServiceIdGenerator();
             long serviceId = idGenerator.nextId(nextId);
             System.out.println(String.format("雪花算法ID: %d, 业务ID: %d", nextId, serviceId));
             SnowflakeIdInfo snowflakeIdInfo = idGenerator.parseSnowflakeId(serviceId);
