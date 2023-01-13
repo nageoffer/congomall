@@ -35,7 +35,7 @@ import java.util.Properties;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public class SnowflakeServiceShardingAlgorithm implements ComplexKeysShardingAlgorithm {
+public class OrderSnowflakeServiceShardingAlgorithm implements ComplexKeysShardingAlgorithm {
     
     @Getter
     private Properties props;
