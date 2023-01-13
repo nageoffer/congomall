@@ -49,6 +49,20 @@ public class OrderRepositoryImpl implements OrderRepository {
     private final OrderItemMapper orderItemMapper;
     
     @Override
+    public Order findOrderByOrderSn(String orderSn) {
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getOrderSn, orderSn);
+        OrderDO orderDO = orderMapper.selectOne(queryWrapper);
+        return BeanUtil.convert(orderDO, Order.class);
+    }
+    
+    @Override
+    public List<Order> findOrderByCustomerUserId(String customerUserId) {
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getCustomerUserId, customerUserId);
+        List<OrderDO> orderDOList = orderMapper.selectList(queryWrapper);
+        return BeanUtil.convert(orderDOList, Order.class);
+    }
+    
+    @Override
     public void createOrder(Order order) {
         long orderId = SnowflakeIdUtil.nextId();
         OrderDO orderDO = BeanUtil.convert(order, OrderDO.class);
@@ -58,13 +72,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         List<OrderItemDO> orderItemDOList = BeanUtil.convert(order.getOrderProducts(), OrderItemDO.class);
         orderItemDOList.forEach(each -> each.setOrderId(orderId));
         orderItemDOList.forEach(orderItemMapper::insert);
-    }
-    
-    @Override
-    public Order findOrderByOrderSn(String orderSn) {
-        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getOrderSn, orderSn);
-        OrderDO orderDO = orderMapper.selectOne(queryWrapper);
-        return BeanUtil.convert(orderDO, Order.class);
     }
     
     @Override

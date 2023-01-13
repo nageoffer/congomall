@@ -18,6 +18,9 @@
 package org.opengoofy.congomall.biz.order.application.service;
 
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
+import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
+
+import java.util.List;
 
 /**
  * 订单接口
@@ -34,4 +37,20 @@ public interface OrderService {
      * @return 订单号
      */
     String createOrder(OrderCreateCommand requestParam);
+    
+    /**
+     * 查询订单信息
+     *
+     * @param orderSn 订单号
+     * @return 订单基本信息
+     */
+    OrderRespDTO getOrderByOrderSn(String orderSn);
+    
+    /**
+     * 查询订单信息
+     *
+     * @param customerUserId 用户 ID
+     * @return 用户订单信息集合
+     */
+    List<OrderRespDTO> getOrderByCustomerUserId(String customerUserId);
 }

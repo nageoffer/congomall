@@ -17,18 +17,19 @@
 
 package org.opengoofy.congomall.biz.order.application.service.impl;
 
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.order.application.enums.OrderChainMarkEnum;
 import org.opengoofy.congomall.biz.order.application.event.order.create.OrderCreateEvent;
 import org.opengoofy.congomall.biz.order.application.filter.OrderCreateProductSkuStockChainHandler;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
+import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
 import org.opengoofy.congomall.biz.order.domain.aggregate.CneeInfo;
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
 import org.opengoofy.congomall.biz.order.domain.aggregate.OrderProduct;
 import org.opengoofy.congomall.biz.order.domain.common.OrderStatusEnum;
+import org.opengoofy.congomall.biz.order.domain.repository.OrderRepository;
 import org.opengoofy.congomall.biz.order.infrastructure.remote.CartRemoteService;
 import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
@@ -54,15 +55,17 @@ public class OrderServiceImpl implements OrderService {
     
     private final CartRemoteService cartRemoteService;
     
+    private final OrderRepository orderRepository;
+    
     private final AbstractChainContext abstractChainContext;
     
-    @GlobalTransactional
+    // @GlobalTransactional
     @Override
     public String createOrder(OrderCreateCommand requestParam) {
         // 责任链模式: 执行订单创建参数验证
         abstractChainContext.handler(OrderChainMarkEnum.ORDER_CREATE_FILTER.name(), requestParam);
         // 创建订单号
-        String orderSn = SnowflakeIdUtil.nextIdStr();
+        String orderSn = SnowflakeIdUtil.nextIdStrByService(requestParam.getCustomerUserId());
         // 调用购物车服务获取已选中参与结算商品
         List<CartItemQuerySelectRespDTO> cartProducts = querySelectCartByCustomerUserId(requestParam.getCustomerUserId());
         List<OrderProduct> orderProducts = cartProducts.stream()
@@ -85,6 +88,17 @@ public class OrderServiceImpl implements OrderService {
         // 观察者模式: 发布商品下单事件
         ApplicationContextHolder.getInstance().publishEvent(new OrderCreateEvent(this, order));
         return orderSn;
+    }
+    
+    @Override
+    public OrderRespDTO getOrderByOrderSn(String orderSn) {
+        return BeanUtil.convert(orderRepository.findOrderByOrderSn(orderSn), OrderRespDTO.class);
+    }
+    
+    @Override
+    public List<OrderRespDTO> getOrderByCustomerUserId(String customerUserId) {
+        orderRepository.findOrderByCustomerUserId(customerUserId);
+        return null;
     }
     
     /**

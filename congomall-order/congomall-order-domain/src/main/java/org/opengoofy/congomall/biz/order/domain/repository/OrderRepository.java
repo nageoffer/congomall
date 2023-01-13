@@ -19,6 +19,8 @@ package org.opengoofy.congomall.biz.order.domain.repository;
 
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
 
+import java.util.List;
+
 /**
  * 订单仓储层
  *
@@ -28,19 +30,27 @@ import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
 public interface OrderRepository {
     
     /**
-     * 订单创建
-     *
-     * @param order 订单聚合根
-     */
-    void createOrder(Order order);
-    
-    /**
      * 根据订单号查询订单
      *
      * @param orderSn 订单号
      * @return 订单聚合根
      */
     Order findOrderByOrderSn(String orderSn);
+    
+    /**
+     * 根据用户 ID 查询订单
+     *
+     * @param customerUserId 用户 ID
+     * @return 订单聚合根集合
+     */
+    List<Order> findOrderByCustomerUserId(String customerUserId);
+    
+    /**
+     * 订单创建
+     *
+     * @param order 订单聚合根
+     */
+    void createOrder(Order order);
     
     /**
      * 关闭订单

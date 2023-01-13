@@ -21,14 +21,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
+import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 订单控制器
@@ -44,6 +44,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     
     private final OrderService orderService;
+    
+    @GetMapping("/{orderSn}")
+    @ApiOperation(value = "查询订单信息", notes = "根据订单号查询订单信息")
+    public Result<OrderRespDTO> getOrderByOrderSn(@PathVariable("orderSn") String orderSn) {
+        OrderRespDTO result = orderService.getOrderByOrderSn(orderSn);
+        return Results.success(result);
+    }
+    
+    @GetMapping("/customer-user/{customerUserId}")
+    @ApiOperation(value = "查询订单信息", notes = "根据用户ID查询订单信息")
+    public Result<List<OrderRespDTO>> getOrderByCustomerUserId(@PathVariable("customerUserId") String customerUserId) {
+        List<OrderRespDTO> result = orderService.getOrderByCustomerUserId(customerUserId);
+        return Results.success(result);
+    }
     
     @PostMapping
     @ApiOperation("商品订单下单")
