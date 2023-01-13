@@ -64,3 +64,8 @@ SkyWalking 9.3.0 可选
 
 - 代码地址：`org.opengoofy.congomall.biz.order.infrastructure.mq.provide.DelayCloseOrderProvide`
 
+5）订单按照用户 ID 分表，同时支持按照订单号分片查询，基于雪花算法基因实现。
+
+- 代码地址：`org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm`
+
+6）订单明细表按照订单号 HASH_MOD 方式分表。
