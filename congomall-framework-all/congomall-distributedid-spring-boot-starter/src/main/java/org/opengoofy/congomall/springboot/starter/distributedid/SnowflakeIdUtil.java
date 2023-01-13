@@ -89,4 +89,11 @@ public final class SnowflakeIdUtil {
     public static String nextIdStrByService(String serviceId) {
         return IdGeneratorManager.getDefaultServiceIdGenerator().nextIdStr(Long.parseLong(serviceId));
     }
+    
+    /**
+     * 解析雪花算法生成的 ID 为对象
+     */
+    public static SnowflakeIdInfo parseSnowflakeServiceId(String snowflakeId) {
+        return IdGeneratorManager.getDefaultServiceIdGenerator().parseSnowflakeId(Long.parseLong(snowflakeId));
+    }
 }

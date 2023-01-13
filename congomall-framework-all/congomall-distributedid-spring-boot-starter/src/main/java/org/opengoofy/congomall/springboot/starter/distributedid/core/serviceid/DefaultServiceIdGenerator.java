@@ -44,7 +44,7 @@ public final class DefaultServiceIdGenerator implements ServiceIdGenerator {
     
     @Override
     public long nextId(long serviceId) {
-        long id = serviceId % (this.maxBizIdBitsLen);
+        long id = Math.abs(Long.valueOf(serviceId).hashCode()) % (this.maxBizIdBitsLen);
         long nextId = idGenerator.nextId();
         return nextId | id;
     }
