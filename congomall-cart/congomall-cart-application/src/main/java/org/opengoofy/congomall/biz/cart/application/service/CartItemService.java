@@ -35,15 +35,15 @@ public interface CartItemService {
     /**
      * 分页查询购物车商品
      *
-     * @param requestParam
-     * @return
+     * @param requestParam 请求入参
+     * @return 购物车商品分页返回数据
      */
     PageResponse<CartItemRespDTO> pageQueryCartItem(CartItemPageQueryReqDTO requestParam);
     
     /**
      * 查询用户选中购物车商品
      *
-     * @param customerUserId
+     * @param customerUserId 用户 ID
      * @return
      */
     List<CartItemQuerySelectRespDTO> querySelectCartByCustomerUserId(String customerUserId);
@@ -51,28 +51,36 @@ public interface CartItemService {
     /**
      * 新增商品到购物车
      *
-     * @param requestParam
+     * @param requestParam 请求入参
      */
     void addCartItem(CartItemAddReqDTO requestParam);
     
     /**
      * 修改购物车商品勾选状态
      *
-     * @param requestParam
+     * @param requestParam 请求入参
      */
     void updateCheckCartItem(CartItemCheckUpdateReqDTO requestParam);
     
     /**
      * 修改购物车商品
      *
-     * @param requestParam
+     * @param requestParam 请求入参
      */
     void updateCartItem(CartItemNumUpdateReqDTO requestParam);
     
     /**
      * 清理购物车商品
      *
-     * @param requestParam
+     * @param requestParam 请求入参
      */
     void clearCartProduct(CartItemDelReqDTO requestParam);
+    
+    /**
+     * 统计用户购物车商品数量
+     *
+     * @param customerUserId 用户 ID
+     * @return 统计购物车商品数量
+     */
+    int countUserCartItem(String customerUserId);
 }

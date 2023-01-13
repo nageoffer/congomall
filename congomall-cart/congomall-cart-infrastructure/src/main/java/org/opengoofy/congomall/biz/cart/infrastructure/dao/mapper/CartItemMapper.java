@@ -27,4 +27,9 @@ import org.opengoofy.congomall.biz.cart.infrastructure.dao.entity.CartItemDO;
  * @github https://github.com/opengoofy
  */
 public interface CartItemMapper extends BaseMapper<CartItemDO> {
+    
+    /**
+     * 统计用户购物车商品数量
+     */
+    Integer countUserCartItem(String customerUserId);
 }

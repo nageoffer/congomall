@@ -93,4 +93,11 @@ public class CartItemController {
         cartItemService.clearCartProduct(requestParam);
         return Results.success();
     }
+    
+    @GetMapping("/count/{customerUserId}")
+    @ApiOperation(value = "统计用户购物车商品数量")
+    public Result<Integer> countUserCartItem(@PathVariable("customerUserId") String customerUserId) {
+        int result = cartItemService.countUserCartItem(customerUserId);
+        return Results.success(result);
+    }
 }

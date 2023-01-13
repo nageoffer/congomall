@@ -92,4 +92,9 @@ public class CartItemServiceImpl implements CartItemService {
         CartItem cartItem = CartItem.builder().customerUserId(Long.parseLong(requestParam.getCustomerUserId())).productSkuIds(requestParam.getProductSkuIds()).build();
         cartItemRepository.deleteCartItem(cartItem);
     }
+    
+    @Override
+    public int countUserCartItem(String customerUserId) {
+        return cartItemRepository.countUserCartItem(customerUserId);
+    }
 }

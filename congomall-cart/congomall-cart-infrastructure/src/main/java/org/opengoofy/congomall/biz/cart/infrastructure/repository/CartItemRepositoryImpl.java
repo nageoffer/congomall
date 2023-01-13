@@ -36,6 +36,7 @@ import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 购物车仓储层
@@ -92,5 +93,10 @@ public class CartItemRepositoryImpl implements CartItemRepository {
                 .in(CartItemDO::getProductSkuId, cartItem.getProductSkuIds());
         int updateFlag = cartItemMapper.delete(updateWrapper);
         Assert.isTrue(updateFlag > 0, () -> new ServiceException("删除购物车失败"));
+    }
+    
+    @Override
+    public int countUserCartItem(String customerUserId) {
+        return Optional.ofNullable(cartItemMapper.countUserCartItem(customerUserId)).orElse(0);
     }
 }
