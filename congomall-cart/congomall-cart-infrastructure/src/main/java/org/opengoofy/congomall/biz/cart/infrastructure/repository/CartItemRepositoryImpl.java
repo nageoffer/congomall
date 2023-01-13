@@ -89,7 +89,7 @@ public class CartItemRepositoryImpl implements CartItemRepository {
     public void deleteCartItem(CartItem cartItem) {
         LambdaUpdateWrapper<CartItemDO> updateWrapper = Wrappers.lambdaUpdate(CartItemDO.class)
                 .eq(CartItemDO::getCustomerUserId, cartItem.getCustomerUserId())
-                .in(CartItemDO::getProductSkuId, cartItem.getSkuIds());
+                .in(CartItemDO::getProductSkuId, cartItem.getProductSkuIds());
         int updateFlag = cartItemMapper.delete(updateWrapper);
         Assert.isTrue(updateFlag > 0, () -> new ServiceException("删除购物车失败"));
     }

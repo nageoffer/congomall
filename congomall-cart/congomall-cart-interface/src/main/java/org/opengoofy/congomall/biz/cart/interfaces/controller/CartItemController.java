@@ -88,7 +88,7 @@ public class CartItemController {
     }
     
     @DeleteMapping
-    @ApiOperation(value = "清除购物车商品")
+    @ApiOperation(value = "删除购物车商品")
     public Result<Void> clearCartProduct(@RequestBody CartItemDelReqDTO requestParam) {
         cartItemService.clearCartProduct(requestParam);
         return Results.success();

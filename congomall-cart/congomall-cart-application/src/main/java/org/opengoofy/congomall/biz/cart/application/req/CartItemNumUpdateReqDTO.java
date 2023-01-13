@@ -29,14 +29,8 @@ import lombok.Data;
 @Data
 public class CartItemNumUpdateReqDTO {
     
-    @ApiModelProperty("商品 spu id")
-    private String productId;
-    
-    @ApiModelProperty("商品 sku id")
-    private String productSkuId;
-    
-    @ApiModelProperty("c 端用户 id")
-    private String customerUserId;
+    @ApiModelProperty("id")
+    private String id;
     
     @ApiModelProperty("加购物车数量")
     private Integer productQuantity;

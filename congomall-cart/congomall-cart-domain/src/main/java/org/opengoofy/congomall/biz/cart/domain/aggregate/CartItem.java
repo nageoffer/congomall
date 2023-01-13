@@ -96,5 +96,5 @@ public class CartItem implements AggregateRoot {
     /**
      * 商品 sku ids
      */
-    private List<String> skuIds;
+    private List<String> productSkuIds;
 }

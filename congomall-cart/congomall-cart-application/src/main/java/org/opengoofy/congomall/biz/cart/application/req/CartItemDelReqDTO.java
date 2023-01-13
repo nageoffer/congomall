@@ -35,5 +35,5 @@ public class CartItemDelReqDTO {
     private String customerUserId;
     
     @ApiModelProperty("商品SKU集合")
-    private List<String> skuIds;
+    private List<String> productSkuIds;
 }

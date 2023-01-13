@@ -89,7 +89,7 @@ public class CartItemServiceImpl implements CartItemService {
     @GlobalTransactional
     @Override
     public void clearCartProduct(CartItemDelReqDTO requestParam) {
-        CartItem cartItem = CartItem.builder().customerUserId(Long.parseLong(requestParam.getCustomerUserId())).skuIds(requestParam.getSkuIds()).build();
+        CartItem cartItem = CartItem.builder().customerUserId(Long.parseLong(requestParam.getCustomerUserId())).productSkuIds(requestParam.getProductSkuIds()).build();
         cartItemRepository.deleteCartItem(cartItem);
     }
 }
