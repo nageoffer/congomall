@@ -12,7 +12,7 @@
 
 congomall-customer-user-interface 为可独立部署的应用。
 
-接口文档：https://www.apifox.cn/apidoc/project-1038592/api-21806863
+接口文档：https://www.yuque.com/magestack/knowledge-planet/kgvgcgc749grt928
 
 ## 启动说明
 
@@ -50,17 +50,3 @@ SkyWalking 9.3.0 可选
 验证码发送默认在配置文件中指定，用户可自定义。
 
 - customer.user.register.verify.sender：验证码发送邮箱账户
-
-## 核心功能
-
-1）用户数据使用 ShardingSphere 框架 `HASH_MOD` 分片算法对用户 ID 进行分片。
-
-2）用户相关敏感信息采用 ShardingSphere 框架 AES 加密算法对手机号、邮箱字段进行加密存储。
-
-3）用户验证码发送使用策略模式、模板方法模式抽象。
-
-- 代码地址：`org.opengoofy.congomall.biz.customer.user.web.controller.CustomerUserController.verifyCodeSend`
-
-4）用户变更日志通过 RocketMQ 异步存储。
-
-- 代码地址：`org.opengoofy.congomall.biz.customer.user.infrastructure.mq.produce.CustomerUserOperationLogProduce.recordCustomerUserOperationLog`

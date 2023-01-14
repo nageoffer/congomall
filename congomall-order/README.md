@@ -11,7 +11,7 @@
 
 congomall-order-interface 为可独立部署的应用。
 
-接口文档：https://www.apifox.cn/apidoc/project-1038592/api-21806863
+接口文档：https://www.yuque.com/magestack/knowledge-planet/kgvgcgc749grt928
 
 ## 启动说明
 
@@ -47,25 +47,3 @@ SkyWalking 9.3.0 可选
 ### 配置项修改
 
 无
-
-## 核心功能
-
-1）商品下单引入分布式事务。商品服务 -> 购物车服务 -> 商品服务。
-
-2）订单创建使用责任链模式验证参数必填、参数正确性、商品库存是否正确等逻辑。
-
-- 代码地址：`org.opengoofy.congomall.biz.order.application.service.impl.OrderServiceImpl.createOrder`
-
-3）订单创建逻辑使用观察者模式解耦合，基于 Spring ApplicationEvent 实现。
-
-- 代码地址：`org.opengoofy.congomall.biz.order.application.service.impl.OrderServiceImpl.createOrder`
-
-4）商品下单后，通过 RocketMQ 延迟消息关闭订单。
-
-- 代码地址：`org.opengoofy.congomall.biz.order.infrastructure.mq.provide.DelayCloseOrderProvide`
-
-5）订单按照用户 ID 分表，同时支持按照订单号分片查询，基于雪花算法基因实现。
-
-- 代码地址：`org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm`
-
-6）订单明细表按照订单号 HASH_MOD 方式分表。

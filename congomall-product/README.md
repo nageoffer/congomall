@@ -12,7 +12,7 @@
 
 congomall-product-interface、congomall-product-job 都是可独立部署的应用。
 
-接口文档：https://www.apifox.cn/apidoc/project-1038592/api-21806863
+接口文档：https://www.yuque.com/magestack/knowledge-planet/kgvgcgc749grt928
 
 ## 启动说明
 
@@ -47,10 +47,3 @@ SkyWalking 9.3.0 可选
 
 - xxl.job.executor.logpath：替换为本地目录。
 - xxl.job.executor.ip：替换为本机 ID。
-
-## 核心功能
-
-千万数据通过并发编程高性能导入三方数据库，比如 ElasticSearch。
-
-- 代码地址：`congomall-product/congomall-product-job/src/main/java/org/opengoofy/congomall/biz/product/job/handler/InitializeProductJobHandler.java`
-- 文档地址：https://www.yuque.com/magestack/knowledge-planet/nya8aa

@@ -23,4 +23,4 @@ https://www.yuque.com/magestack/public/knowledge-planet
 
 ## 接口文档
 
-https://www.apifox.cn/apidoc/project-1038592/api-21806863
+https://www.yuque.com/magestack/knowledge-planet/kgvgcgc749grt928

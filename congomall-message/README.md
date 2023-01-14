@@ -11,7 +11,7 @@
 
 congomall-message-interface 为可独立部署的应用。
 
-接口文档：https://www.apifox.cn/apidoc/project-1038592/api-21806863
+接口文档：https://www.yuque.com/magestack/knowledge-planet/kgvgcgc749grt928
 
 ## 启动说明
 
@@ -41,15 +41,3 @@ SkyWalking 9.3.0 可选
 邮箱账号发送默认在配置文件中指定，用户可自定义。
 
 - spring.mail.username：发送邮箱账户
-
-## 核心功能
-
-1）自定义复合分片算法，根据消息 ID 以及消息发送时间分片存储。
-
-复合分片配置文件相对单分片来说，越显复杂，需要仔细梳理配置项。简单来说复合分片的逻辑：通过消息发送时间进行分片存储，同时支持按照消息 ID 精确查询。
-
-- 代码地址：`org.opengoofy.congomall.biz.message.infrastructure.algorithm.SnowflakeDateShardingAlgorithm`
-
-2）消息发送通过 RocketMQ 异步发送，减轻系统压力。
-
-- 代码地址：`org.opengoofy.congomall.biz.message.infrastructure.mq.consume.MailMessageSendConsume.mailMessageSend`

@@ -11,7 +11,7 @@
 
 congomall-cart-interface 为可独立部署的应用。
 
-接口文档：https://www.apifox.cn/apidoc/project-1038592/api-21806863
+接口文档：https://www.yuque.com/magestack/knowledge-planet/kgvgcgc749grt928
 
 ## 启动说明
 
