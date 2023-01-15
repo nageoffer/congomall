@@ -17,11 +17,13 @@
 
 package org.opengoofy.congomall.biz.order.infrastructure.repository;
 
+import cn.hutool.core.text.StrBuilder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
+import org.opengoofy.congomall.biz.order.domain.common.OrderCanalErrorCodeEnum;
 import org.opengoofy.congomall.biz.order.domain.common.OrderStatusEnum;
 import org.opengoofy.congomall.biz.order.domain.repository.OrderRepository;
 import org.opengoofy.congomall.biz.order.infrastructure.dao.entity.OrderDO;
@@ -29,7 +31,11 @@ import org.opengoofy.congomall.biz.order.infrastructure.dao.entity.OrderItemDO;
 import org.opengoofy.congomall.biz.order.infrastructure.dao.mapper.OrderItemMapper;
 import org.opengoofy.congomall.biz.order.infrastructure.dao.mapper.OrderMapper;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
+import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
+import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,6 +53,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     private final OrderMapper orderMapper;
     
     private final OrderItemMapper orderItemMapper;
+    
+    private final RedissonClient redissonClient;
     
     @Override
     public Order findOrderByOrderSn(String orderSn) {
@@ -80,5 +88,34 @@ public class OrderRepositoryImpl implements OrderRepository {
         updateOrderDO.setStatus(OrderStatusEnum.CLOSED.getStatus());
         LambdaUpdateWrapper<OrderDO> updateWrapper = Wrappers.lambdaUpdate(OrderDO.class).eq(OrderDO::getOrderSn, orderSn);
         orderMapper.update(updateOrderDO, updateWrapper);
+    }
+    
+    @Override
+    public void canalOrder(String orderSn) {
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
+                .eq(OrderDO::getOrderSn, orderSn);
+        OrderDO orderDO = orderMapper.selectOne(queryWrapper);
+        if (orderDO == null) {
+            throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_UNKNOWN_ERROR);
+        } else if (orderDO.getStatus() != OrderStatusEnum.PENDING_PAYMENT.getStatus()) {
+            throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_STATUS_ERROR);
+        }
+        RLock lock = redissonClient.getLock(StrBuilder.create("order:canal:order_sn_").append(orderSn).toString());
+        if (!lock.tryLock()) {
+            throw new ClientException(OrderCanalErrorCodeEnum.ORDER_CANAL_REPETITION_ERROR);
+        }
+        try {
+            OrderDO updateOrderDO = new OrderDO();
+            updateOrderDO.setStatus(OrderStatusEnum.CLOSED.getStatus());
+            updateOrderDO.setOrderSn(orderSn);
+            LambdaUpdateWrapper<OrderDO> updateWrapper = Wrappers.lambdaUpdate(OrderDO.class)
+                    .eq(OrderDO::getOrderSn, orderSn);
+            int updateResult = orderMapper.update(updateOrderDO, updateWrapper);
+            if (updateResult <= 0) {
+                throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_ERROR);
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 }

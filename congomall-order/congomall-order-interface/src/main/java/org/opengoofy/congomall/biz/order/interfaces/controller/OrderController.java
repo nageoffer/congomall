@@ -68,4 +68,11 @@ public class OrderController {
         String orderNo = orderService.createOrder(requestParam);
         return Results.success(orderNo);
     }
+    
+    @PutMapping("/{orderSn}")
+    @ApiOperation("商品订单取消")
+    public Result<Void> canalOrder(@PathVariable("orderSn") String orderSn) {
+        orderService.canalOrder(orderSn);
+        return Results.success();
+    }
 }

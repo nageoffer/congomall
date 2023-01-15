@@ -15,54 +15,45 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.order.domain.repository;
+package org.opengoofy.congomall.biz.order.domain.common;
 
-import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCode;
 
 /**
- * 订单仓储层
+ * 订单取消错误码枚举
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface OrderRepository {
+@AllArgsConstructor
+public enum OrderCanalErrorCodeEnum implements IErrorCode {
+    
+    ORDER_CANAL_UNKNOWN_ERROR("B006001", "订单不存在，请检查相关订单记录"),
+    
+    ORDER_CANAL_STATUS_ERROR("B006002", "订单状态不正确，请检查相关订单记录"),
+    
+    ORDER_CANAL_ERROR("B006003", "订单取消失败，请稍后再试"),
+    
+    ORDER_CANAL_REPETITION_ERROR("B006004", "订单重复取消，请稍后再试");
     
     /**
-     * 根据订单号查询订单
-     *
-     * @param orderSn 订单号
-     * @return 订单聚合根
+     * 错误码
      */
-    Order findOrderByOrderSn(String orderSn);
+    private final String code;
     
     /**
-     * 根据用户 ID 查询订单
-     *
-     * @param customerUserId 用户 ID
-     * @return 订单聚合根集合
+     * 错误提示消息
      */
-    List<Order> findOrderByCustomerUserId(String customerUserId);
+    private final String message;
     
-    /**
-     * 订单创建
-     *
-     * @param order 订单聚合根
-     */
-    void createOrder(Order order);
+    @Override
+    public String code() {
+        return code;
+    }
     
-    /**
-     * 关闭订单
-     *
-     * @param orderSn 订单号
-     */
-    void closeOrder(String orderSn);
-    
-    /**
-     * 取消订单
-     *
-     * @param orderSn 订单号
-     */
-    void canalOrder(String orderSn);
+    @Override
+    public String message() {
+        return message;
+    }
 }

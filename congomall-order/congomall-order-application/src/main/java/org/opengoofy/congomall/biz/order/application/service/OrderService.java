@@ -53,4 +53,11 @@ public interface OrderService {
      * @return 用户订单信息集合
      */
     List<OrderRespDTO> getOrderByCustomerUserId(String customerUserId);
+    
+    /**
+     * 取消订单
+     *
+     * @param orderSn 订单号
+     */
+    void canalOrder(String orderSn);
 }

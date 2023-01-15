@@ -101,6 +101,11 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
     
+    @Override
+    public void canalOrder(String orderSn) {
+        orderRepository.canalOrder(orderSn);
+    }
+    
     /**
      * 根据用户ID查询选中状态购物车商品
      * <p>
