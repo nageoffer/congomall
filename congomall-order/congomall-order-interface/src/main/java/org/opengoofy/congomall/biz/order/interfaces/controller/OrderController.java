@@ -24,6 +24,8 @@ import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
 import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
+import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +63,7 @@ public class OrderController {
     
     @PostMapping
     @ApiOperation("商品订单下单")
+    @Idempotent(type = IdempotentTypeEnum.PARAM, message = "订单已创建，请稍后再试")
     public Result<String> createOrder(@RequestBody OrderCreateCommand requestParam) {
         String orderNo = orderService.createOrder(requestParam);
         return Results.success(orderNo);
