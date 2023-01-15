@@ -44,7 +44,7 @@ public final class ClearCartProductListener implements ApplicationListener<Order
     public void onApplicationEvent(OrderCreateEvent event) {
         CartItemDelReqDTO cartItemDelReqDTO = new CartItemDelReqDTO();
         cartItemDelReqDTO.setCustomerUserId(String.valueOf(event.getOrder().getCustomerUserId()));
-        cartItemDelReqDTO.setSkuIds(event.getOrder().getOrderProducts().stream().map(OrderProduct::getProductSkuId).map(String::valueOf).collect(Collectors.toList()));
+        cartItemDelReqDTO.setProductSkuIds(event.getOrder().getOrderProducts().stream().map(OrderProduct::getProductSkuId).map(String::valueOf).collect(Collectors.toList()));
         cartRemoteService.clearCartProduct(cartItemDelReqDTO);
     }
 }
