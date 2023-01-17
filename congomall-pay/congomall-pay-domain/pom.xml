@@ -4,16 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.opengoofy.congomall</groupId>
-        <artifactId>congomall-all</artifactId>
+        <artifactId>congomall-pay</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>congomall-pay</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>congomall-pay-domain</artifactId>
     
-    <modules>
-        <module>congomall-pay-application</module>
-        <module>congomall-pay-domain</module>
-        <module>congomall-pay-infrastructure</module>
-        <module>congomall-pay-interface</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+    </dependencies>
 </project>

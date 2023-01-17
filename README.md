@@ -16,6 +16,7 @@
 | 5 | congomall-product-job | 商品 Job 服务 | http://localhost:9001 |
 | 6 | congomall-cart | 购物车服务 | http://localhost:8005 |
 | 7 | congomall-order | 订单服务 | http://localhost:8006 |
+| 8 | congomall-pay | 支付服务 | http://localhost:8007 |
 
 ## 功能清单
 
