@@ -7,9 +7,7 @@
         <artifactId>congomall-framework-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>org.opengoofy.congomall</groupId>
     <artifactId>congomall-web-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     
     <dependencies>
         <dependency>
@@ -26,7 +24,12 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool-all.version}</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-trace</artifactId>
+            <version>${apm-toolkit-trace.version}</version>
         </dependency>
     </dependencies>
 </project>
