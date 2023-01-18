@@ -15,32 +15,22 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.pay.application.service;
+package org.opengoofy.congomall.biz.pay.infrastructure.handler.base;
 
-import org.opengoofy.congomall.biz.pay.application.resp.PayRespDTO;
 import org.opengoofy.congomall.biz.pay.domain.base.PayCallbackRequest;
-import org.opengoofy.congomall.biz.pay.domain.base.PayRequest;
 
 /**
- * 支付接口
+ * 抽象支付回调组件
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface PayService {
+public abstract class AbstractPayCallbackHandler {
     
     /**
-     * 公共支付，对接支付宝、微信等常用支付方式
+     * 支付回调抽象接口
      *
-     * @param requestParam 支付请求入参
-     * @return 支付返回结果
+     * @param payCallbackRequest 支付回调请求参数
      */
-    PayRespDTO commonPay(PayRequest requestParam);
-    
-    /**
-     * 对接三方支付平台支付结果回调
-     *
-     * @param requestParam 支付回调请求入参
-     */
-    void callback(PayCallbackRequest requestParam);
+    public abstract void callback(PayCallbackRequest payCallbackRequest);
 }

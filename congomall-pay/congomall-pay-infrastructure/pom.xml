@@ -31,5 +31,17 @@
             <artifactId>congomall-common-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-log-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-mybatisplus-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

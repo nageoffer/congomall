@@ -17,59 +17,53 @@
 
 package org.opengoofy.congomall.biz.pay.domain.base;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
+import lombok.Data;
+import org.opengoofy.congomall.biz.pay.domain.common.PayChannelEnum;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
- * 抽象支付入参实体
+ * 支付宝回调请求入参
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public abstract class AbstractPayRequest implements PayRequest {
-    
-    /**
-     * 交易环境，H5、小程序、网站等
-     */
-    @Getter
-    @Setter
-    private String tradeType;
-    
-    /**
-     * 订单号
-     */
-    @Getter
-    @Setter
-    private String orderSn;
+@Data
+public final class AliPayCallbackRequest extends AbstractPayCallbackRequest {
     
     /**
      * 支付渠道
      */
-    @Getter
-    @Setter
     private String channel;
     
     /**
-     * 商户订单号
-     * 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
+     * 支付状态
      */
-    @Getter
-    @Setter
-    private String orderRequestId = SnowflakeIdUtil.nextIdStr();
+    private String tradeStatus;
+    
+    /**
+     * 支付凭证号
+     */
+    private String tradeNo;
+    
+    /**
+     * 买家付款时间
+     */
+    private Date gmtPayment;
+    
+    /**
+     * 买家付款金额
+     */
+    private BigDecimal buyerPayAmount;
     
     @Override
-    public AliPayRequest getAliPayRequest() {
-        return null;
-    }
-    
-    @Override
-    public String getOrderRequestId() {
-        return orderRequestId;
+    public AliPayCallbackRequest getAliPayCallBackRequest() {
+        return this;
     }
     
     @Override
     public String buildMark() {
-        return null;
+        return PayChannelEnum.ALI_PAY.name();
     }
 }

@@ -19,53 +19,22 @@ package org.opengoofy.congomall.biz.pay.domain.base;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
 
 /**
- * 抽象支付入参实体
+ * 抽象支付回调入参实体
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public abstract class AbstractPayRequest implements PayRequest {
+public abstract class AbstractPayCallbackRequest implements PayCallbackRequest {
     
-    /**
-     * 交易环境，H5、小程序、网站等
-     */
     @Getter
     @Setter
-    private String tradeType;
-    
-    /**
-     * 订单号
-     */
-    @Getter
-    @Setter
-    private String orderSn;
-    
-    /**
-     * 支付渠道
-     */
-    @Getter
-    @Setter
-    private String channel;
-    
-    /**
-     * 商户订单号
-     * 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
-     */
-    @Getter
-    @Setter
-    private String orderRequestId = SnowflakeIdUtil.nextIdStr();
+    private String orderRequestId;
     
     @Override
-    public AliPayRequest getAliPayRequest() {
+    public AliPayCallbackRequest getAliPayCallBackRequest() {
         return null;
-    }
-    
-    @Override
-    public String getOrderRequestId() {
-        return orderRequestId;
     }
     
     @Override

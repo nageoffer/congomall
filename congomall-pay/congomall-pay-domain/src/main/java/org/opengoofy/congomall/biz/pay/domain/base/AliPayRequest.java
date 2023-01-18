@@ -17,7 +17,10 @@
 
 package org.opengoofy.congomall.biz.pay.domain.base;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
+import org.opengoofy.congomall.biz.pay.domain.common.PayChannelEnum;
 
 /**
  * 支付宝支付请求入参
@@ -26,13 +29,14 @@ import lombok.Data;
  * @github https://github.com/opengoofy
  */
 @Data
+@Accessors(chain = true)
 public final class AliPayRequest extends AbstractPayRequest {
     
     /**
      * 商户订单号
      * 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
      */
-    private String outTradeNo;
+    private String outOrderSn;
     
     /**
      * 订单总金额
@@ -47,15 +51,21 @@ public final class AliPayRequest extends AbstractPayRequest {
     private String subject;
     
     /**
-     * 产品码
-     * 商家和支付宝签约的产品码。 枚举值（点击查看签约情况）：
-     * <a target="_blank" href="https://opensupport.alipay.com/support/codelab/detail/766/772">FAST_INSTANT_TRADE_PAY</a>：新快捷即时到账产品
-     * 注：目前仅支持FAST_INSTANT_TRADE_PAY
+     * 交易凭证号
      */
-    private String productCode;
+    private String tradeNo;
     
     @Override
     public AliPayRequest getAliPayRequest() {
         return this;
+    }
+    
+    @Override
+    public String buildMark() {
+        String mark = PayChannelEnum.ALI_PAY.name();
+        if (StrUtil.isNotBlank(getTradeType())) {
+            mark = PayChannelEnum.ALI_PAY.name() + "_" + getTradeType();
+        }
+        return mark;
     }
 }

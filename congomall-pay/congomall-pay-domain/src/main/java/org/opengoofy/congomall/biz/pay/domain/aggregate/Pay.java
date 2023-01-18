@@ -15,61 +15,86 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.pay.domain.base;
+package org.opengoofy.congomall.biz.pay.domain.aggregate;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.opengoofy.congomall.ddd.framework.core.domain.AggregateRoot;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
- * 抽象支付入参实体
+ * 支付聚合根
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public abstract class AbstractPayRequest implements PayRequest {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Pay implements AggregateRoot {
     
     /**
-     * 交易环境，H5、小程序、网站等
+     * id
      */
-    @Getter
-    @Setter
-    private String tradeType;
+    private Long id;
     
     /**
      * 订单号
      */
-    @Getter
-    @Setter
     private String orderSn;
+    
+    /**
+     * 商户订单号
+     */
+    private String outOrderSn;
     
     /**
      * 支付渠道
      */
-    @Getter
-    @Setter
     private String channel;
     
     /**
-     * 商户订单号
-     * 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
+     * 支付环境
      */
-    @Getter
-    @Setter
-    private String orderRequestId = SnowflakeIdUtil.nextIdStr();
+    private String tradeType;
     
-    @Override
-    public AliPayRequest getAliPayRequest() {
-        return null;
-    }
+    /**
+     * 订单标题
+     */
+    private String subject;
     
-    @Override
-    public String getOrderRequestId() {
-        return orderRequestId;
-    }
+    /**
+     * 交易凭证号
+     */
+    private String tradeNo;
     
-    @Override
-    public String buildMark() {
-        return null;
-    }
+    /**
+     * 交易总金额
+     */
+    private BigDecimal totalAmount;
+    
+    /**
+     * 付款时间
+     */
+    private Date gmtPayment;
+    
+    /**
+     * 支付金额
+     */
+    private BigDecimal payAmount;
+    
+    /**
+     * 支付状态
+     */
+    private String status;
+    
+    /**
+     * 商户订单号
+     */
+    private String orderRequestId;
 }

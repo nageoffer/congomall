@@ -15,32 +15,16 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.pay.application.service;
+package org.opengoofy.congomall.biz.pay.infrastructure.dao.mapper;
 
-import org.opengoofy.congomall.biz.pay.application.resp.PayRespDTO;
-import org.opengoofy.congomall.biz.pay.domain.base.PayCallbackRequest;
-import org.opengoofy.congomall.biz.pay.domain.base.PayRequest;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.opengoofy.congomall.biz.pay.infrastructure.dao.entity.PayDO;
 
 /**
- * 支付接口
+ * 支付持久层
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface PayService {
-    
-    /**
-     * 公共支付，对接支付宝、微信等常用支付方式
-     *
-     * @param requestParam 支付请求入参
-     * @return 支付返回结果
-     */
-    PayRespDTO commonPay(PayRequest requestParam);
-    
-    /**
-     * 对接三方支付平台支付结果回调
-     *
-     * @param requestParam 支付回调请求入参
-     */
-    void callback(PayCallbackRequest requestParam);
+public interface PayMapper extends BaseMapper<PayDO> {
 }

@@ -59,14 +59,20 @@ public final class AliPayNativeHandler extends AbstractPayHandler implements Abs
         AlipayConfig alipayConfig = BeanUtil.convert(aliPayProperties, AlipayConfig.class);
         AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig);
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
-        model.setOutTradeNo(aliPayRequest.getOutTradeNo());
+        model.setOutTradeNo(aliPayRequest.getOrderRequestId());
         model.setTotalAmount(aliPayRequest.getTotalAmount());
         model.setSubject(aliPayRequest.getSubject());
-        model.setProductCode(aliPayRequest.getProductCode());
+        model.setProductCode("FAST_INSTANT_TRADE_PAY");
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
+        request.setNotifyUrl(aliPayProperties.getNotifyUrl());
         request.setBizModel(model);
         AlipayTradePagePayResponse response = alipayClient.pageExecute(request);
-        log.info("发起支付宝支付，订单号: {}，订单金额: {} \n调用支付返回: {}", aliPayRequest.getOutTradeNo(), aliPayRequest.getTotalAmount(), response.getBody());
+        log.info("发起支付宝支付，订单号：{}，子订单号：{}，订单请求号：{}，订单金额：{} \n调用支付返回：\n\n{}\n",
+                aliPayRequest.getOrderSn(),
+                aliPayRequest.getOutOrderSn(),
+                aliPayRequest.getOrderRequestId(),
+                aliPayRequest.getTotalAmount(),
+                response.getBody());
         return new PayResponse(response.getBody());
     }
     

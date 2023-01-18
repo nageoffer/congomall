@@ -57,6 +57,11 @@ public class AliPayProperties {
     private String serverUrl;
     
     /**
+     * 支付结果回调地址
+     */
+    private String notifyUrl;
+    
+    /**
      * 报文格式，推荐：json
      */
     private String format;

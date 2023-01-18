@@ -17,9 +17,11 @@
 
 package org.opengoofy.congomall.biz.pay.interfaces;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@MapperScan("org.opengoofy.congomall.biz.pay.infrastructure.dao")
 @SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.biz.pay")
 public class PayApplication {
     
