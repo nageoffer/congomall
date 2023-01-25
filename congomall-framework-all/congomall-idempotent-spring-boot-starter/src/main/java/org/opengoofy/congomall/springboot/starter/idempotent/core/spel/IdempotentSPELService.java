@@ -15,25 +15,15 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core;
+package org.opengoofy.congomall.springboot.starter.idempotent.core.spel;
 
-import org.aspectj.lang.ProceedingJoinPoint;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentExecuteHandler;
 
 /**
- * 基于 Token 验证请求幂等性, 通常应用于 Rest API 方法
+ * SPEL方式幂等实现接口
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler {
-    
-    @Override
-    protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {
-        return null;
-    }
-    
-    @Override
-    public void handler(IdempotentParamWrapper wrapper) {
-        
-    }
+public interface IdempotentSPELService extends IdempotentExecuteHandler {
 }

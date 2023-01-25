@@ -18,8 +18,14 @@
 package org.opengoofy.congomall.springboot.starter.idempotent.config;
 
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenService;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -30,13 +36,38 @@ import org.springframework.context.annotation.Bean;
  */
 public class IdempotentAutoConfiguration {
     
+    /**
+     * 幂等切面
+     */
     @Bean
     public IdempotentAspect idempotentAspect() {
         return new IdempotentAspect();
     }
     
+    /**
+     * 参数方式幂等实现
+     */
     @Bean
-    public IdempotentParamExecuteHandler idempotentParamExecuteHandler(RedissonClient redissonClient) {
+    @ConditionalOnMissingBean
+    public IdempotentParamService idempotentParamExecuteHandler(RedissonClient redissonClient) {
         return new IdempotentParamExecuteHandler(redissonClient);
+    }
+    
+    /**
+     * Token方式幂等实现
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public IdempotentTokenService idempotentTokenExecuteHandler(RedissonClient redissonClient) {
+        return new IdempotentTokenExecuteHandler(redissonClient);
+    }
+    
+    /**
+     * SPEL方式幂等实现
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public IdempotentSPELService idempotentSPELExecuteHandler() {
+        return new IdempotentSPELExecuteHandler();
     }
 }

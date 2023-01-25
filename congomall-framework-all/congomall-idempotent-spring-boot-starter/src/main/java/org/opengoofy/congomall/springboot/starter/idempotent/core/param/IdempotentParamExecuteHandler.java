@@ -15,13 +15,16 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core;
+package org.opengoofy.congomall.springboot.starter.idempotent.core.param;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson2.JSON;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentContext;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -34,7 +37,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @github https://github.com/opengoofy
  */
 @RequiredArgsConstructor
-public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecuteHandler {
+public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentParamService {
     
     private final RedissonClient redissonClient;
     

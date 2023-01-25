@@ -15,17 +15,24 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core;
+package org.opengoofy.congomall.springboot.starter.idempotent.core.token;
 
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
+import org.redisson.api.RedissonClient;
 
 /**
- * 基于 SPEL 方法验证请求幂等性
+ * 基于 Token 验证请求幂等性, 通常应用于 Rest API 方法
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class IdempotentSPELExecuteHandler extends AbstractIdempotentExecuteHandler {
+@RequiredArgsConstructor
+public final class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentTokenService {
+    
+    private final RedissonClient redissonClient;
     
     @Override
     protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {

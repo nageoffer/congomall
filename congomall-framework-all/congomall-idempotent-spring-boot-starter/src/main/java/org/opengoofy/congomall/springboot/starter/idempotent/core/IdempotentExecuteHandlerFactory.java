@@ -18,6 +18,9 @@
 package org.opengoofy.congomall.springboot.starter.idempotent.core;
 
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenService;
 import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
 
 /**
@@ -41,13 +44,13 @@ public final class IdempotentExecuteHandlerFactory {
         IdempotentExecuteHandler result = null;
         switch (type) {
             case SPEL:
-                result = ApplicationContextHolder.getBean(IdempotentSPELExecuteHandler.class);
+                result = ApplicationContextHolder.getBean(IdempotentSPELService.class);
                 break;
             case PARAM:
-                result = ApplicationContextHolder.getBean(IdempotentParamExecuteHandler.class);
+                result = ApplicationContextHolder.getBean(IdempotentParamService.class);
                 break;
             case TOKEN:
-                result = ApplicationContextHolder.getBean(IdempotentTokenExecuteHandler.class);
+                result = ApplicationContextHolder.getBean(IdempotentTokenService.class);
                 break;
             default:
                 break;
