@@ -19,39 +19,37 @@ package org.opengoofy.congomall.springboot.starter.idempotent.annotation;
 
 import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentSceneEnum;
 import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
 /**
- * 幂等注解
+ * RestAPI业务场景幂等注解
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Idempotent {
+@Idempotent(scene = IdempotentSceneEnum.RESTAPI)
+public @interface RestAPIIdempotent {
     
     /**
-     * 幂等Key，只有在 {@link Idempotent#type()} 为 {@link IdempotentTypeEnum#SPEL} 时生效
+     * {@link Idempotent#key} 的别名
      */
+    @AliasFor(annotation = Idempotent.class, attribute = "key")
     String key() default "";
     
     /**
-     * 触发幂等失败逻辑时，返回的错误提示信息
+     * {@link Idempotent#message} 的别名
      */
+    @AliasFor(annotation = Idempotent.class, attribute = "message")
     String message() default "您操作太快，请稍后再试";
     
     /**
-     * 验证幂等类型，支持多种幂等方式
-     * RestAPI 建议使用 {@link IdempotentTypeEnum#TOKEN} 或 {@link IdempotentTypeEnum#PARAM}
-     * 其它类型幂等验证，使用 {@link IdempotentTypeEnum#SPEL}
+     * {@link Idempotent#type} 的别名
      */
+    @AliasFor(annotation = Idempotent.class, attribute = "type")
     IdempotentTypeEnum type() default IdempotentTypeEnum.PARAM;
-    
-    /**
-     * 验证幂等场景，支持多种 {@link IdempotentSceneEnum}
-     */
-    IdempotentSceneEnum scene() default IdempotentSceneEnum.RESTAPI;
 }
