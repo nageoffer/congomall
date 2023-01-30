@@ -17,18 +17,29 @@
 
 package org.opengoofy.congomall.springboot.starter.idempotent.core.token;
 
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentExecuteHandler;
+import lombok.RequiredArgsConstructor;
+import org.opengoofy.congomall.springboot.starter.convention.result.Result;
+import org.opengoofy.congomall.springboot.starter.web.Results;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Token实现幂等接口
+ * 基于Token验证请求幂等性控制器
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface IdempotentTokenService extends IdempotentExecuteHandler {
+@RestController
+@RequiredArgsConstructor
+public class IdempotentTokenController {
+    
+    private final IdempotentTokenService idempotentTokenService;
     
     /**
-     * 创建幂等验证Token
+     * 请求申请Token
      */
-    String createToken();
+    @GetMapping("/token")
+    public Result<String> createToken() {
+        return Results.success(idempotentTokenService.createToken());
+    }
 }

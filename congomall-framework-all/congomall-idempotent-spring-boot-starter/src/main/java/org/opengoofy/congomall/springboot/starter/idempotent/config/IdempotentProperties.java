@@ -15,20 +15,35 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core.token;
+package org.opengoofy.congomall.springboot.starter.idempotent.config;
 
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentExecuteHandler;
+import lombok.Data;
+import org.opengoofy.congomall.springboot.starter.cache.config.RedisDistributedProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.concurrent.TimeUnit;
 
 /**
- * Token实现幂等接口
+ * 幂等属性配置
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface IdempotentTokenService extends IdempotentExecuteHandler {
+@Data
+@ConfigurationProperties(prefix = IdempotentProperties.PREFIX)
+public class IdempotentProperties {
+    
+    public static final String PREFIX = "congomall.idempotent.token";
     
     /**
-     * 创建幂等验证Token
+     * Token幂等Key前缀
      */
-    String createToken();
+    private String prefix;
+    
+    /**
+     * Token申请后过期时间
+     * 单位默认毫秒 {@link TimeUnit#MILLISECONDS}
+     * 随着分布式缓存过期时间单位 {@link RedisDistributedProperties#valueTimeUnit} 而变化
+     */
+    private Long timeout;
 }

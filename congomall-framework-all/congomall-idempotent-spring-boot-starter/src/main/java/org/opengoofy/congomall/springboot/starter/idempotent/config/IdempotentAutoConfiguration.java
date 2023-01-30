@@ -17,15 +17,18 @@
 
 package org.opengoofy.congomall.springboot.starter.idempotent.config;
 
+import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamExecuteHandler;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamService;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELExecuteHandler;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenController;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenExecuteHandler;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenService;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -34,6 +37,7 @@ import org.springframework.context.annotation.Bean;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@EnableConfigurationProperties(IdempotentProperties.class)
 public class IdempotentAutoConfiguration {
     
     /**
@@ -58,8 +62,17 @@ public class IdempotentAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public IdempotentTokenService idempotentTokenExecuteHandler(RedissonClient redissonClient) {
-        return new IdempotentTokenExecuteHandler(redissonClient);
+    public IdempotentTokenService idempotentTokenExecuteHandler(DistributedCache distributedCache,
+                                                                IdempotentProperties idempotentProperties) {
+        return new IdempotentTokenExecuteHandler(distributedCache, idempotentProperties);
+    }
+    
+    /**
+     * 申请幂等Token控制器
+     */
+    @Bean
+    public IdempotentTokenController idempotentTokenController(IdempotentTokenService idempotentTokenService) {
+        return new IdempotentTokenController(idempotentTokenService);
     }
     
     /**

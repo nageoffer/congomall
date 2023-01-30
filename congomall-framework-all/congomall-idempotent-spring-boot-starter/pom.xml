@@ -26,7 +26,14 @@
             <artifactId>congomall-cache-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
-    
+        
+        <dependency>
+            <groupId>org.opengoofy.congomall</groupId>
+            <artifactId>congomall-web-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+            <optional>true</optional>
+        </dependency>
+        
         <dependency>
             <groupId>org.opengoofy.congomall</groupId>
             <artifactId>congomall-convention-spring-boot-starter</artifactId>
@@ -42,10 +49,16 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
-    
+        
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>
