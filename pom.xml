@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -42,21 +59,20 @@
     </modules>
     
     <properties>
-        <!-- 编译 & 格式化 Start -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spotless-maven-plugin.version>2.22.1</spotless-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
-        <!-- 编译 & 格式化 End -->
-        <!-- 框架 Start -->
+        <!-- framework start -->
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <spring-cloud-dependencies.version>Hoxton.SR12</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2.2.9.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-starter-openfeign.version>2.2.5.RELEASE</spring-cloud-starter-openfeign.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <redisson-spring-boot-starter.version>3.17.3</redisson-spring-boot-starter.version>
-        <shardingsphere-jdbc-core-spring-boot-starter.version>5.2.0</shardingsphere-jdbc-core-spring-boot-starter.version>
+        <shardingsphere-jdbc-core-spring-boot-starter.version>5.2.0
+        </shardingsphere-jdbc-core-spring-boot-starter.version>
         <spring-cloud-starter-stream-rocketmq.version>2.2.6.RELEASE</spring-cloud-starter-stream-rocketmq.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.2.7.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <minio.verion>8.4.2</minio.verion>
@@ -65,20 +81,20 @@
         <xxl-job.version>2.3.1</xxl-job.version>
         <canal-client.version>1.1.6</canal-client.version>
         <apm-toolkit-trace.version>8.14.0</apm-toolkit-trace.version>
-        <!-- 框架 End -->
-        <!-- 工具类 Start -->
+        <!-- framework end -->
+        <!-- tool start -->
+        <lombok.version>1.18.24</lombok.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <dozer.version>6.5.2</dozer.version>
         <fastjson2.version>2.0.7</fastjson2.version>
-        <lombok.version>1.18.24</lombok.version>
         <hutool-all.version>5.8.2</hutool-all.version>
         <guava.version>31.1-jre</guava.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <jjwt.version>0.9.1</jjwt.version>
         <okhttp3.version>4.9.3</okhttp3.version>
         <javafaker.version>1.0.2</javafaker.version>
-        <!-- 工具类 End -->
+        <!-- tool end -->
     </properties>
     
     <dependencyManagement>
