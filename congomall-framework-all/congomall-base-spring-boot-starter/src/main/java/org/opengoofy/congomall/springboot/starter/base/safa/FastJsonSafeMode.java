@@ -20,7 +20,7 @@ package org.opengoofy.congomall.springboot.starter.base.safa;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * FastJson 安全模式
+ * FastJson安全模式，开启后关闭类型隐式传递
  *
  * @author chen.ma
  * @github https://github.com/opengoofy

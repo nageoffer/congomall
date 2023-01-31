@@ -42,8 +42,8 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationIn
     /**
      * 根据 mark 查询具体策略
      *
-     * @param mark
-     * @return
+     * @param mark 策略标识
+     * @return 实际执行策略
      */
     public AbstractExecuteStrategy choose(String mark) {
         return Optional.ofNullable(abstractExecuteStrategyMap.get(mark)).orElseThrow(() -> new ServiceException(String.format("[%s] 策略未定义", mark)));
@@ -52,9 +52,9 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationIn
     /**
      * 根据 mark 查询具体策略并执行
      *
-     * @param mark
-     * @param requestParam
-     * @param <REQUEST>
+     * @param mark         策略标识
+     * @param requestParam 执行策略入参
+     * @param <REQUEST>    执行策略入参范型
      */
     public <REQUEST> void chooseAndExecute(String mark, REQUEST requestParam) {
         AbstractExecuteStrategy executeStrategy = choose(mark);
@@ -64,10 +64,10 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationIn
     /**
      * 根据 mark 查询具体策略并执行，带返回结果
      *
-     * @param mark
-     * @param requestParam
-     * @param <REQUEST>
-     * @param <RESPONSE>
+     * @param mark         策略标识
+     * @param requestParam 执行策略入参
+     * @param <REQUEST>    执行策略入参范型
+     * @param <RESPONSE>   执行策略出参范型
      * @return
      */
     public <REQUEST, RESPONSE> RESPONSE chooseAndExecuteResp(String mark, REQUEST requestParam) {

@@ -24,7 +24,7 @@ import org.springframework.context.ApplicationListener;
 import javax.annotation.Resource;
 
 /**
- * 应用初始化后置处理器，防止 spring 事件被多次执行
+ * 应用初始化后置处理器，防止Spring事件被多次执行
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
@@ -34,6 +34,9 @@ public class ApplicationContentPostProcessor implements ApplicationListener<Appl
     @Resource
     private ApplicationContext applicationContext;
     
+    /**
+     * 执行标识，确保Spring事件 {@link ApplicationReadyEvent} 有且执行一次
+     */
     private boolean executeOnlyOnce = true;
     
     @Override
