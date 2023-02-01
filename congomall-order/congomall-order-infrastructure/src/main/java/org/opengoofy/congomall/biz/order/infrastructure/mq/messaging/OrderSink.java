@@ -35,4 +35,12 @@ public interface OrderSink {
      */
     @Input(OrderSink.DELAY_CLOSE_ORDER)
     SubscribableChannel delayCloseOrder();
+    
+    String PAY_RESULT_NOTIFY = "pay-result-notify";
+    
+    /**
+     * 支付结果通知
+     */
+    @Input(OrderSink.PAY_RESULT_NOTIFY)
+    SubscribableChannel payResultNotify();
 }

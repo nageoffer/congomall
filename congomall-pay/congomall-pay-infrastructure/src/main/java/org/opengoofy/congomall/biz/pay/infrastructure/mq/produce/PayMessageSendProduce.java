@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageConst;
 import org.opengoofy.congomall.biz.pay.domain.common.MessageRocketMQConstants;
-import org.opengoofy.congomall.biz.pay.domain.event.PayResultMessageSendEvent;
+import org.opengoofy.congomall.biz.pay.domain.event.PayResultNotifyMessageEvent;
 import org.opengoofy.congomall.rocketmq.springboot.starter.core.MessageWrapper;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -50,12 +50,12 @@ public class PayMessageSendProduce {
      *
      * @param event 支付结果消息发送事件
      */
-    public void payResultNotifyMessageSend(PayResultMessageSendEvent event) {
+    public void payResultNotifyMessageSend(PayResultNotifyMessageEvent event) {
         String keys = UUID.randomUUID().toString();
         Message<?> message = MessageBuilder
-                .withPayload(new MessageWrapper(keys, JSON.toJSONString(event)))
+                .withPayload(new MessageWrapper(keys, event))
                 .setHeader(MessageConst.PROPERTY_KEYS, keys)
-                .setHeader(MessageConst.PROPERTY_TAGS, MessageRocketMQConstants.ALIPAY_RESULT_MESSAGE_SEND_TAG)
+                .setHeader(MessageConst.PROPERTY_TAGS, MessageRocketMQConstants.PAY_RESULT_MESSAGE_SEND_TAG)
                 .build();
         long startTime = SystemClock.now();
         boolean sendResult = false;

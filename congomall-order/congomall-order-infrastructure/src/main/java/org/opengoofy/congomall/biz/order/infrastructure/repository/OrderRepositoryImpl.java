@@ -18,10 +18,12 @@
 package org.opengoofy.congomall.biz.order.infrastructure.repository;
 
 import cn.hutool.core.text.StrBuilder;
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
 import org.opengoofy.congomall.biz.order.domain.common.OrderCanalErrorCodeEnum;
 import org.opengoofy.congomall.biz.order.domain.common.OrderStatusEnum;
@@ -46,6 +48,7 @@ import java.util.List;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@Slf4j
 @Repository
 @AllArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
@@ -113,6 +116,34 @@ public class OrderRepositoryImpl implements OrderRepository {
             int updateResult = orderMapper.update(updateOrderDO, updateWrapper);
             if (updateResult <= 0) {
                 throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_ERROR);
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+    
+    @Override
+    public void statusReversal(Order order) {
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
+                .eq(OrderDO::getOrderSn, order.getOrderSn());
+        OrderDO orderDO = orderMapper.selectOne(queryWrapper);
+        if (orderDO == null) {
+            throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_UNKNOWN_ERROR);
+        } else if (orderDO.getStatus() != OrderStatusEnum.PENDING_PAYMENT.getStatus()) {
+            throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_STATUS_ERROR);
+        }
+        RLock lock = redissonClient.getLock(StrBuilder.create("order:status-reversal:order_sn_").append(order.getOrderSn()).toString());
+        if (!lock.tryLock()) {
+            log.warn("订单重复修改状态，订单聚合根：{}", JSON.toJSONString(order));
+        }
+        try {
+            OrderDO updateOrderDO = new OrderDO();
+            updateOrderDO.setStatus(order.getStatus());
+            LambdaUpdateWrapper<OrderDO> updateWrapper = Wrappers.lambdaUpdate(OrderDO.class)
+                    .eq(OrderDO::getOrderSn, order.getOrderSn());
+            int updateResult = orderMapper.update(updateOrderDO, updateWrapper);
+            if (updateResult <= 0) {
+                throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_STATUS_REVERSAL_ERROR);
             }
         } finally {
             lock.unlock();

@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 支付结果消息发送事件
+ * 支付结果通知事件
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
@@ -36,7 +36,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PayResultMessageSendEvent implements DomainEvent {
+public class PayResultNotifyMessageEvent implements DomainEvent {
     
     /**
      * id

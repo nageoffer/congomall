@@ -65,4 +65,11 @@ public interface OrderRepository {
      * @param orderSn 订单号
      */
     void canalOrder(String orderSn);
+    
+    /**
+     * 订单状态反转
+     *
+     * @param order 订单聚合根
+     */
+    void statusReversal(Order order);
 }

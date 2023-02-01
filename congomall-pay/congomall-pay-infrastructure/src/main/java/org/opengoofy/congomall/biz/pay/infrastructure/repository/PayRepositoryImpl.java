@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.pay.domain.aggregate.Pay;
 import org.opengoofy.congomall.biz.pay.domain.common.TradeStatusEnum;
-import org.opengoofy.congomall.biz.pay.domain.event.PayResultMessageSendEvent;
+import org.opengoofy.congomall.biz.pay.domain.event.PayResultNotifyMessageEvent;
 import org.opengoofy.congomall.biz.pay.domain.repository.PayRepository;
 import org.opengoofy.congomall.biz.pay.infrastructure.dao.entity.PayDO;
 import org.opengoofy.congomall.biz.pay.infrastructure.dao.mapper.PayMapper;
@@ -82,7 +82,9 @@ public class PayRepositoryImpl implements PayRepository {
             log.error("修改支付单支付结果失败，支付单信息：{}", JSON.toJSONString(payDO));
             throw new ServiceException("修改支付单支付结果失败");
         }
-        // 回调订单服务告知支付结果，修改订单流转状态
-        payMessageSendProduce.payResultNotifyMessageSend(BeanUtil.convert(payDO, PayResultMessageSendEvent.class));
+        // 交易成功，回调订单服务告知支付结果，修改订单流转状态
+        if (Objects.equals(pay.getStatus(), TradeStatusEnum.TRADE_SUCCESS.name())) {
+            payMessageSendProduce.payResultNotifyMessageSend(BeanUtil.convert(payDO, PayResultNotifyMessageEvent.class));
+        }
     }
 }

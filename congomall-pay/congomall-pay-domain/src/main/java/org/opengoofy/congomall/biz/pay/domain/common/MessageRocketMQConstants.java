@@ -26,7 +26,7 @@ package org.opengoofy.congomall.biz.pay.domain.common;
 public class MessageRocketMQConstants {
     
     /**
-     * 支付宝支付结果回调消息发送 TAG
+     * 支付结果回调消息发送 TAG
      */
-    public static final String ALIPAY_RESULT_MESSAGE_SEND_TAG = "common_pay-service_alipay-result-send_tag";
+    public static final String PAY_RESULT_MESSAGE_SEND_TAG = "pay-service_pay-result-notify_tag";
 }
