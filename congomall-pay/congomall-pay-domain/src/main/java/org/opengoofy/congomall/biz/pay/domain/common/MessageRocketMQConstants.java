@@ -15,20 +15,18 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.pay.interfaces;
+package org.opengoofy.congomall.biz.pay.domain.common;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Source;
-
-@EnableBinding(Source.class)
-@MapperScan("org.opengoofy.congomall.biz.pay.infrastructure.dao")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.biz.pay")
-public class PayApplication {
+/**
+ * RocketMQ 常量
+ *
+ * @author chen.ma
+ * @github https://github.com/opengoofy
+ */
+public class MessageRocketMQConstants {
     
-    public static void main(String[] args) {
-        SpringApplication.run(PayApplication.class, args);
-    }
+    /**
+     * 支付宝支付结果回调消息发送 TAG
+     */
+    public static final String ALIPAY_RESULT_MESSAGE_SEND_TAG = "common_pay-service_alipay-result-send_tag";
 }

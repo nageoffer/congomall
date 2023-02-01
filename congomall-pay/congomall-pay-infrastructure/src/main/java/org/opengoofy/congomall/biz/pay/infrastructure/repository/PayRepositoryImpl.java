@@ -17,18 +17,24 @@
 
 package org.opengoofy.congomall.biz.pay.infrastructure.repository;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.pay.domain.aggregate.Pay;
 import org.opengoofy.congomall.biz.pay.domain.common.TradeStatusEnum;
+import org.opengoofy.congomall.biz.pay.domain.event.PayResultMessageSendEvent;
 import org.opengoofy.congomall.biz.pay.domain.repository.PayRepository;
 import org.opengoofy.congomall.biz.pay.infrastructure.dao.entity.PayDO;
 import org.opengoofy.congomall.biz.pay.infrastructure.dao.mapper.PayMapper;
+import org.opengoofy.congomall.biz.pay.infrastructure.mq.produce.PayMessageSendProduce;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 /**
  * 支付聚合根
@@ -36,11 +42,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class PayRepositoryImpl implements PayRepository {
     
     private final PayMapper payMapper;
+    
+    private final PayMessageSendProduce payMessageSendProduce;
     
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -49,6 +58,7 @@ public class PayRepositoryImpl implements PayRepository {
         insertPay.setStatus(TradeStatusEnum.WAIT_BUYER_PAY.name());
         int result = payMapper.insert(insertPay);
         if (result <= 0) {
+            log.error("支付单创建失败，支付聚合根：{}", JSON.toJSONString(pay));
             throw new ServiceException("支付单创建失败");
         }
     }
@@ -56,16 +66,23 @@ public class PayRepositoryImpl implements PayRepository {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void callbackPay(Pay pay) {
-        LambdaUpdateWrapper<PayDO> updateWrapper = Wrappers.lambdaUpdate(PayDO.class)
+        LambdaQueryWrapper<PayDO> queryWrapper = Wrappers.lambdaQuery(PayDO.class)
                 .eq(PayDO::getOrderRequestId, pay.getOrderRequestId());
-        PayDO updatePay = new PayDO();
-        updatePay.setTradeNo(pay.getTradeNo());
-        updatePay.setStatus(pay.getStatus());
-        updatePay.setPayAmount(pay.getPayAmount());
-        updatePay.setGmtPayment(pay.getGmtPayment());
-        int result = payMapper.update(updatePay, updateWrapper);
-        if (result <= 0) {
-            throw new ServiceException("支付单回调失败");
+        PayDO payDO = payMapper.selectOne(queryWrapper);
+        if (Objects.isNull(payDO)) {
+            log.error("支付单不存在，orderRequestId：{}", pay.getOrderRequestId());
+            throw new ServiceException("支付单不存在");
         }
+        payDO.setTradeNo(pay.getTradeNo());
+        payDO.setStatus(pay.getStatus());
+        payDO.setPayAmount(pay.getPayAmount());
+        payDO.setGmtPayment(pay.getGmtPayment());
+        int result = payMapper.updateById(payDO);
+        if (result <= 0) {
+            log.error("修改支付单支付结果失败，支付单信息：{}", JSON.toJSONString(payDO));
+            throw new ServiceException("修改支付单支付结果失败");
+        }
+        // 回调订单服务告知支付结果，修改订单流转状态
+        payMessageSendProduce.payResultNotifyMessageSend(BeanUtil.convert(payDO, PayResultMessageSendEvent.class));
     }
 }
