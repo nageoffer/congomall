@@ -35,7 +35,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * 基于Token验证请求幂等性, 通常应用于RestAPI方法
+ * 基于 Token 验证请求幂等性, 通常应用于 RestAPI 方法
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
@@ -44,13 +44,10 @@ import java.util.UUID;
 public final class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentTokenService {
     
     private final DistributedCache distributedCache;
-    
     private final IdempotentProperties idempotentProperties;
     
     private static final String TOKEN_KEY = "token";
-    
     private static final String TOKEN_PREFIX_KEY = "idempotent:token:";
-    
     private static final long TOKEN_EXPIRED_TIME = 6000;
     
     @Override

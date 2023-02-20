@@ -40,17 +40,19 @@ public final class IdempotentAspect {
     @Around("@annotation(org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent)")
     public Object idempotentHandler(ProceedingJoinPoint joinPoint) throws Throwable {
         Idempotent idempotent = getIdempotent(joinPoint);
-        IdempotentExecuteHandler instance = IdempotentExecuteHandlerFactory.getInstance(idempotent.type());
-        instance.execute(joinPoint, idempotent);
+        IdempotentExecuteHandler instance = IdempotentExecuteHandlerFactory.getInstance(idempotent.scene(), idempotent.type());
         try {
+            instance.execute(joinPoint, idempotent);
             return joinPoint.proceed();
+        } catch (RepeatConsumptionException ignored) {
         } finally {
             instance.postProcessing();
             IdempotentContext.clean();
         }
+        return null;
     }
     
-    private Idempotent getIdempotent(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
+    public static Idempotent getIdempotent(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method targetMethod = joinPoint.getTarget().getClass().getDeclaredMethod(methodSignature.getName(), methodSignature.getMethod().getParameterTypes());
         return targetMethod.getAnnotation(Idempotent.class);

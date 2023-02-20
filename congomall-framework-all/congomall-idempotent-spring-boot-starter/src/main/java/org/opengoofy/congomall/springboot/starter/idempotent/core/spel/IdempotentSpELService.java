@@ -15,20 +15,15 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core.token;
+package org.opengoofy.congomall.springboot.starter.idempotent.core.spel;
 
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentExecuteHandler;
 
 /**
- * Token 实现幂等接口
+ * SpEL 方式幂等实现接口
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface IdempotentTokenService extends IdempotentExecuteHandler {
-    
-    /**
-     * 创建幂等验证Token
-     */
-    String createToken();
+public interface IdempotentSpELService extends IdempotentExecuteHandler {
 }

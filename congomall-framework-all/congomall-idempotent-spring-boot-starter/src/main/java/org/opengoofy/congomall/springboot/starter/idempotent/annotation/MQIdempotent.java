@@ -24,12 +24,13 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 /**
- * MQ业务场景幂等注解
- * TODO：待实现，预留注解配置
+ * MQ 业务场景幂等注解
+ * 暂时没有找到在 AOP 处理比较优雅的方式，暂时废弃
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
+@Deprecated
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -46,5 +47,5 @@ public @interface MQIdempotent {
      * {@link Idempotent#type} 的别名
      */
     @AliasFor(annotation = Idempotent.class, attribute = "type")
-    IdempotentTypeEnum type() default IdempotentTypeEnum.PARAM;
+    IdempotentTypeEnum type() default IdempotentTypeEnum.SPEL;
 }

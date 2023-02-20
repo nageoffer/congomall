@@ -21,8 +21,9 @@ import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamExecuteHandler;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamService;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELExecuteHandler;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSpELByMQExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSpELByRestAPIExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSpELService;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenController;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenExecuteHandler;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenService;
@@ -49,7 +50,7 @@ public class IdempotentAutoConfiguration {
     }
     
     /**
-     * 参数方式幂等实现
+     * 参数方式幂等实现，基于 RestAPI 场景
      */
     @Bean
     @ConditionalOnMissingBean
@@ -58,7 +59,7 @@ public class IdempotentAutoConfiguration {
     }
     
     /**
-     * Token方式幂等实现
+     * Token 方式幂等实现，基于 RestAPI 场景
      */
     @Bean
     @ConditionalOnMissingBean
@@ -68,7 +69,7 @@ public class IdempotentAutoConfiguration {
     }
     
     /**
-     * 申请幂等Token控制器
+     * 申请幂等 Token 控制器，基于 RestAPI 场景
      */
     @Bean
     public IdempotentTokenController idempotentTokenController(IdempotentTokenService idempotentTokenService) {
@@ -76,11 +77,21 @@ public class IdempotentAutoConfiguration {
     }
     
     /**
-     * SPEL方式幂等实现
+     * SpEL 方式幂等实现，基于 RestAPI 场景
      */
     @Bean
     @ConditionalOnMissingBean
-    public IdempotentSPELService idempotentSPELExecuteHandler() {
-        return new IdempotentSPELExecuteHandler();
+    public IdempotentSpELService idempotentSpELByRestAPIExecuteHandler(RedissonClient redissonClient) {
+        return new IdempotentSpELByRestAPIExecuteHandler(redissonClient);
+    }
+    
+    /**
+     * SpEL 方式幂等实现，基于 MQ 场景
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public IdempotentSpELByMQExecuteHandler idempotentSpELByMQExecuteHandler(DistributedCache distributedCache,
+                                                                             RedissonClient redissonClient) {
+        return new IdempotentSpELByMQExecuteHandler(distributedCache, redissonClient);
     }
 }

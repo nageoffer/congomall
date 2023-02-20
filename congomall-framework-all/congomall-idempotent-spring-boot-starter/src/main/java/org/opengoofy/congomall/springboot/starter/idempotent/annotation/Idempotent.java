@@ -54,4 +54,16 @@ public @interface Idempotent {
      * 验证幂等场景，支持多种 {@link IdempotentSceneEnum}
      */
     IdempotentSceneEnum scene() default IdempotentSceneEnum.RESTAPI;
+    
+    /**
+     * 设置防重令牌 Key 前缀，MQ 幂等去重可选设置
+     * {@link IdempotentSceneEnum#MQ} and {@link IdempotentTypeEnum#SPEL} 时生效
+     */
+    String uniqueKeyPrefix() default "";
+    
+    /**
+     * 设置防重令牌 Key 过期时间，单位秒，默认 1 小时，MQ 幂等去重可选设置
+     * {@link IdempotentSceneEnum#MQ} and {@link IdempotentTypeEnum#SPEL} 时生效
+     */
+    long keyTimeout() default 3600L;
 }

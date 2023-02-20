@@ -36,7 +36,7 @@ public enum IdempotentTypeEnum {
     PARAM,
     
     /**
-     * 基于 SPEL 表达式方式验证
+     * 基于 SpEL 表达式方式验证
      */
     SPEL
 }

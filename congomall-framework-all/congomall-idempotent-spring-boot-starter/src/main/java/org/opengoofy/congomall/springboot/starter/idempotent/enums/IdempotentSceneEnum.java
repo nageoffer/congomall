@@ -26,12 +26,12 @@ package org.opengoofy.congomall.springboot.starter.idempotent.enums;
 public enum IdempotentSceneEnum {
     
     /**
-     * 基于RestAPI场景验证
+     * 基于 RestAPI 场景验证
      */
     RESTAPI,
     
     /**
-     * 基于MQ场景验证
+     * 基于 MQ 场景验证
      */
     MQ
 }

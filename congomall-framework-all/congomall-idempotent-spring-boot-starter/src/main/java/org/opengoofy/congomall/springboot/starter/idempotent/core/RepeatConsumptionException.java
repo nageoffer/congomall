@@ -15,27 +15,13 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core.spel;
-
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
+package org.opengoofy.congomall.springboot.starter.idempotent.core;
 
 /**
- * 基于 SPEL 方法验证请求幂等性
+ * 重复消费异常
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public final class IdempotentSPELExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSPELService {
-    
-    @Override
-    protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {
-        return null;
-    }
-    
-    @Override
-    public void handler(IdempotentParamWrapper wrapper) {
-        
-    }
+public class RepeatConsumptionException extends RuntimeException {
 }

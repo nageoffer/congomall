@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 基于Token验证请求幂等性控制器
+ * 基于 Token 验证请求幂等性控制器
  *
  * @author chen.ma
  * @github https://github.com/opengoofy

@@ -15,61 +15,40 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core.param;
+package org.opengoofy.congomall.springboot.starter.idempotent.core.spel;
 
-import cn.hutool.crypto.digest.DigestUtil;
-import com.alibaba.fastjson2.JSON;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentContext;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
+import org.opengoofy.congomall.springboot.starter.idempotent.toolkit.SpELUtil;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * 基于方法参数验证请求幂等性
+ * 基于 SpEL 方法验证请求幂等性，适用于 RestAPI 场景
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @RequiredArgsConstructor
-public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentParamService {
+public final class IdempotentSpELByRestAPIExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSpELService {
     
     private final RedissonClient redissonClient;
     
-    private final static String LOCK = "lock:param:restAPI";
+    private final static String LOCK = "lock:spEL:restAPI";
     
+    @SneakyThrows
     @Override
     protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {
-        String lockKey = String.format("idempotent:path:%s:currentUserId:%s:md5:%s", getServletPath(), getCurrentUserId(), calcArgsMD5(joinPoint));
-        return IdempotentParamWrapper.builder().lockKey(lockKey).build();
-    }
-    
-    /**
-     * @return 获取当前线程上下文 ServletPath
-     */
-    private String getServletPath() {
-        ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        return sra.getRequest().getServletPath();
-    }
-    
-    /**
-     * @return 当前操作用户 ID
-     */
-    private String getCurrentUserId() {
-        return null;
-    }
-    
-    /**
-     * @return joinPoint md5
-     */
-    private String calcArgsMD5(ProceedingJoinPoint joinPoint) {
-        String md5 = DigestUtil.md5Hex(JSON.toJSONBytes(joinPoint.getArgs()));
-        return md5;
+        Idempotent idempotent = IdempotentAspect.getIdempotent(joinPoint);
+        String key = (String) SpELUtil.parseKey(idempotent.key(), ((MethodSignature) joinPoint.getSignature()).getMethod(), joinPoint.getArgs());
+        return IdempotentParamWrapper.builder().lockKey(key).build();
     }
     
     @Override
@@ -77,7 +56,7 @@ public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecu
         String lockKey = wrapper.getLockKey();
         RLock lock = redissonClient.getLock(lockKey);
         if (!lock.tryLock()) {
-            throw new ClientException(wrapper.getIdempotent().message());
+            return;
         }
         IdempotentContext.put(LOCK, lock);
     }

@@ -19,8 +19,10 @@ package org.opengoofy.congomall.springboot.starter.idempotent.core;
 
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.param.IdempotentParamService;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSPELService;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSpELByMQExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.spel.IdempotentSpELByRestAPIExecuteHandler;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.token.IdempotentTokenService;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentSceneEnum;
 import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
 
 /**
@@ -37,20 +39,30 @@ public final class IdempotentExecuteHandlerFactory {
     /**
      * 获取幂等执行处理器
      *
-     * @param type 指定幂等处理类型
+     * @param scene 指定幂等验证场景类型
+     * @param type  指定幂等处理类型
      * @return 幂等执行处理器
      */
-    public static IdempotentExecuteHandler getInstance(IdempotentTypeEnum type) {
+    public static IdempotentExecuteHandler getInstance(IdempotentSceneEnum scene, IdempotentTypeEnum type) {
         IdempotentExecuteHandler result = null;
-        switch (type) {
-            case SPEL:
-                result = ApplicationContextHolder.getBean(IdempotentSPELService.class);
+        switch (scene) {
+            case RESTAPI:
+                switch (type) {
+                    case PARAM:
+                        result = ApplicationContextHolder.getBean(IdempotentParamService.class);
+                        break;
+                    case TOKEN:
+                        result = ApplicationContextHolder.getBean(IdempotentTokenService.class);
+                        break;
+                    case SPEL:
+                        result = ApplicationContextHolder.getBean(IdempotentSpELByRestAPIExecuteHandler.class);
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            case PARAM:
-                result = ApplicationContextHolder.getBean(IdempotentParamService.class);
-                break;
-            case TOKEN:
-                result = ApplicationContextHolder.getBean(IdempotentTokenService.class);
+            case MQ:
+                result = ApplicationContextHolder.getBean(IdempotentSpELByMQExecuteHandler.class);
                 break;
             default:
                 break;
