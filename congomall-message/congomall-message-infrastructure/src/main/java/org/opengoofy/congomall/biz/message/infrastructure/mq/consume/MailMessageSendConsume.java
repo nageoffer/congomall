@@ -25,6 +25,9 @@ import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
 import org.opengoofy.congomall.biz.message.domain.event.MailMessageSendEvent;
 import org.opengoofy.congomall.biz.message.infrastructure.facade.MessageSendFacade;
 import org.opengoofy.congomall.biz.message.infrastructure.mq.messaging.MessageSink;
+import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentSceneEnum;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -45,6 +48,13 @@ public class MailMessageSendConsume {
     
     private final MessageSendFacade messageSendFacade;
     
+    @Idempotent(
+            uniqueKeyPrefix = "mail_message_send:",
+            key = "#mailMessageSendEvent.messageSendId+'_'+#mailMessageSendEvent.hashCode()",
+            type = IdempotentTypeEnum.SPEL,
+            scene = IdempotentSceneEnum.MQ,
+            keyTimeout = 7200L
+    )
     @StreamListener(MessageSink.MAIL_SEND)
     public void mailMessageSend(@Payload MailMessageSendEvent mailMessageSendEvent, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
