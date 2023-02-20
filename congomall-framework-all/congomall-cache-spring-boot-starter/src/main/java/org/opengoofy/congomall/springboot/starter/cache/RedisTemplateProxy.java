@@ -39,6 +39,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis 缓存代理
@@ -68,7 +69,7 @@ public class RedisTemplateProxy implements DistributedCache {
     
     @Override
     public void put(String key, Object value) {
-        put(key, value, redisProperties.getValueTimout());
+        put(key, value, redisProperties.getValueTimeout());
     }
     
     @Override
@@ -80,7 +81,7 @@ public class RedisTemplateProxy implements DistributedCache {
             redisScript.setResultType(Boolean.class);
             return redisScript;
         });
-        Object result = stringRedisTemplate.execute(actual, Lists.newArrayList(keys), redisProperties.getValueTimout().toString());
+        Object result = stringRedisTemplate.execute(actual, Lists.newArrayList(keys), redisProperties.getValueTimeout().toString());
         return result == null ? false : (Boolean) result;
     }
     
@@ -133,8 +134,13 @@ public class RedisTemplateProxy implements DistributedCache {
     
     @Override
     public void put(String key, Object value, long timeout) {
+        put(key, value, timeout, redisProperties.getValueTimeUnit());
+    }
+    
+    @Override
+    public void put(String key, Object value, long timeout, TimeUnit timeUnit) {
         String actual = value instanceof String ? (String) value : JSON.toJSONString(value);
-        stringRedisTemplate.opsForValue().set(key, actual, timeout, redisProperties.getValueTimeUnit());
+        stringRedisTemplate.opsForValue().set(key, actual, timeout, timeUnit);
     }
     
     @Override

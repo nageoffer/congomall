@@ -31,51 +31,31 @@ public interface Cache {
     
     /**
      * 获取缓存
-     *
-     * @param key
-     * @param clazz
-     * @param <T>
-     * @return
      */
     <T> T get(@NotBlank String key, Class<T> clazz);
     
     /**
      * 放入缓存
-     *
-     * @param key
-     * @param value
      */
     void put(@NotBlank String key, Object value);
     
     /**
      * 如果 keys 全部不存在，则新增，返回 true，反之 false
-     *
-     * @param keys
-     * @return
      */
     Boolean putIfAllAbsent(@NotNull Collection<String> keys);
     
     /**
      * 删除缓存
-     *
-     * @param key
-     * @return
      */
     Boolean delete(@NotBlank String key);
     
     /**
      * 删除 keys，返回删除数量
-     *
-     * @param keys
-     * @return
      */
     Long delete(@NotNull Collection<String> keys);
     
     /**
      * 判断 key 是否存在
-     *
-     * @param key
-     * @return
      */
     Boolean hasKey(@NotBlank String key);
 }

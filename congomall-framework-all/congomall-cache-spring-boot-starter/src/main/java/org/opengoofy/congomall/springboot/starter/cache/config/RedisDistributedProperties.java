@@ -47,7 +47,7 @@ public class RedisDistributedProperties {
     /**
      * 默认超时时间
      */
-    private Long valueTimout = 30000L;
+    private Long valueTimeout = 30000L;
     
     /**
      * 时间单位
