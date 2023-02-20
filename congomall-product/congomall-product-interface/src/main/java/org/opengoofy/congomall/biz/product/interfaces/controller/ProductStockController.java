@@ -25,6 +25,9 @@ import org.opengoofy.congomall.biz.product.application.req.ProductStockVerifyQue
 import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
 import org.opengoofy.congomall.biz.product.application.service.ProductService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
+import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentSceneEnum;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +55,11 @@ public class ProductStockController {
         return Results.success(result);
     }
     
+    @Idempotent(
+            type = IdempotentTypeEnum.SPEL,
+            scene = IdempotentSceneEnum.RESTAPI,
+            key = "'stock_lock_'+#requestParam.orderSn+'_'+#requestParam.hashCode()"
+    )
     @PutMapping("/api/product/stock/lock")
     @ApiOperation(value = "锁定商品库存")
     public Result<Boolean> lockProductStock(@RequestBody ProductLockStockCommand requestParam) {
@@ -59,6 +67,11 @@ public class ProductStockController {
         return Results.success(result);
     }
     
+    @Idempotent(
+            type = IdempotentTypeEnum.SPEL,
+            scene = IdempotentSceneEnum.RESTAPI,
+            key = "'stock_unlock_'+#requestParam.orderSn+'_'+#requestParam.hashCode()"
+    )
     @PutMapping("/api/product/stock/unlock")
     @ApiOperation(value = "解锁商品库存")
     public Result<Boolean> unlockProductStock(@RequestBody ProductUnlockStockCommand requestParam) {
