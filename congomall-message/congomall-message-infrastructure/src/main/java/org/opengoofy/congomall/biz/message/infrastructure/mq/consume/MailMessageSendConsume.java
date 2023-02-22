@@ -48,23 +48,17 @@ public class MailMessageSendConsume {
     
     private final MessageSendFacade messageSendFacade;
     
-    @Idempotent(
-            uniqueKeyPrefix = "mail_message_send:",
-            key = "#mailMessageSendEvent.messageSendId+'_'+#mailMessageSendEvent.hashCode()",
-            type = IdempotentTypeEnum.SPEL,
-            scene = IdempotentSceneEnum.MQ,
-            keyTimeout = 7200L
-    )
+    @Idempotent(uniqueKeyPrefix = "mail_message_send:", key = "#event.messageSendId+'_'+#event.hashCode()", type = IdempotentTypeEnum.SPEL, scene = IdempotentSceneEnum.MQ, keyTimeout = 7200L)
     @StreamListener(MessageSink.MAIL_SEND)
-    public void mailMessageSend(@Payload MailMessageSendEvent mailMessageSendEvent, @Headers Map headers) {
+    public void mailMessageSend(@Payload MailMessageSendEvent event, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
         try {
-            MessageSend messageSend = BeanUtil.toBean(mailMessageSendEvent, MessageSend.class);
+            MessageSend messageSend = BeanUtil.toBean(event, MessageSend.class);
             // 外观模式: 抽象消息发送、消息存储以及失败回调业务方等逻辑
             messageSendFacade.mailMessageSend(messageSend);
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
-                    JSON.toJSONString(mailMessageSendEvent));
+                    JSON.toJSONString(event));
         }
     }
 }

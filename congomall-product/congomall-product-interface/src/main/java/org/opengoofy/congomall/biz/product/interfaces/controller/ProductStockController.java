@@ -55,11 +55,7 @@ public class ProductStockController {
         return Results.success(result);
     }
     
-    @Idempotent(
-            type = IdempotentTypeEnum.SPEL,
-            scene = IdempotentSceneEnum.RESTAPI,
-            key = "'stock_lock_'+#requestParam.orderSn+'_'+#requestParam.hashCode()"
-    )
+    @Idempotent(key = "'stock_lock_'+#requestParam.orderSn+'_'+#requestParam.hashCode()", type = IdempotentTypeEnum.SPEL, scene = IdempotentSceneEnum.RESTAPI)
     @PutMapping("/api/product/stock/lock")
     @ApiOperation(value = "锁定商品库存")
     public Result<Boolean> lockProductStock(@RequestBody ProductLockStockCommand requestParam) {
@@ -67,11 +63,7 @@ public class ProductStockController {
         return Results.success(result);
     }
     
-    @Idempotent(
-            type = IdempotentTypeEnum.SPEL,
-            scene = IdempotentSceneEnum.RESTAPI,
-            key = "'stock_unlock_'+#requestParam.orderSn+'_'+#requestParam.hashCode()"
-    )
+    @Idempotent(key = "'stock_unlock_'+#requestParam.orderSn+'_'+#requestParam.hashCode()", type = IdempotentTypeEnum.SPEL, scene = IdempotentSceneEnum.RESTAPI)
     @PutMapping("/api/product/stock/unlock")
     @ApiOperation(value = "解锁商品库存")
     public Result<Boolean> unlockProductStock(@RequestBody ProductUnlockStockCommand requestParam) {

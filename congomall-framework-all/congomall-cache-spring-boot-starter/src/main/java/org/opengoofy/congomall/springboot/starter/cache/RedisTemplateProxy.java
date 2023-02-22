@@ -111,7 +111,8 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
-    public <T> T safeGet(String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, RBloomFilter<String> bloomFilter, CacheGetFilter<String> cacheGetFilter, CacheGetIfAbsent<String> cacheGetIfAbsent) {
+    public <T> T safeGet(String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout,
+                         RBloomFilter<String> bloomFilter, CacheGetFilter<String> cacheGetFilter, CacheGetIfAbsent<String> cacheGetIfAbsent) {
         T result = get(key, clazz);
         // 缓存不等于空返回；缓存为空判断布隆过滤器是否存在，不存在返回空；如果前两者都不成立，通过函数判断是否返回空
         if (!CacheUtil.isNullOrBlank(result) || (bloomFilter != null && !bloomFilter.contains(key)) || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)) {
