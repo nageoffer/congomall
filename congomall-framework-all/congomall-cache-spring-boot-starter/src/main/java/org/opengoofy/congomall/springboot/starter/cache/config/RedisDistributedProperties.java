@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @ConfigurationProperties(prefix = RedisDistributedProperties.PREFIX)
 public class RedisDistributedProperties {
     
-    public static final String PREFIX = "spring.redis";
+    public static final String PREFIX = "congomall.cache.redis";
     
     /**
      * Key 前缀
