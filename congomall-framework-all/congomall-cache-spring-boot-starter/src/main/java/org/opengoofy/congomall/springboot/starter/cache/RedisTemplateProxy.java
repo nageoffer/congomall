@@ -161,6 +161,11 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
+    public Object getInstance() {
+        return stringRedisTemplate;
+    }
+    
+    @Override
     public Long countExistingKeys(String... keys) {
         return stringRedisTemplate.countExistingKeys(Lists.newArrayList(keys));
     }

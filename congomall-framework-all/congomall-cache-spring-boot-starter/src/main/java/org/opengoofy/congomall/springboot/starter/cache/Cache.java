@@ -58,4 +58,9 @@ public interface Cache {
      * 判断 key 是否存在
      */
     Boolean hasKey(@NotBlank String key);
+    
+    /**
+     * 获取缓存组件实例
+     */
+    Object getInstance();
 }
