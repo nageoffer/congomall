@@ -51,12 +51,8 @@ import java.util.concurrent.TimeUnit;
 public class RedisTemplateProxy implements DistributedCache {
     
     private final StringRedisTemplate stringRedisTemplate;
-    
     private final RedisDistributedProperties redisProperties;
-    
     private final RedissonClient redissonClient;
-    
-    private final RBloomFilter<String> cachePenetrationBloomFilter;
     
     @Override
     public <T> T get(String key, Class<T> clazz) {
@@ -101,19 +97,24 @@ public class RedisTemplateProxy implements DistributedCache {
         if (!CacheUtil.isNullOrBlank(result)) {
             return result;
         }
-        return loadAndSet(key, cacheLoader, timeout, false);
+        return loadAndSet(key, cacheLoader, timeout, null);
     }
     
     @Override
     public <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout) {
-        return safeGet(key, clazz, cacheLoader, timeout, null, null);
+        return safeGet(key, clazz, cacheLoader, timeout, null);
     }
     
     @Override
-    public <T> T safeGet(String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, CacheGetFilter<String> cacheGetFilter, CacheGetIfAbsent<String> cacheGetIfAbsent) {
+    public <T> T safeGet(@NotBlank String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, RBloomFilter<String> bloomFilter) {
+        return safeGet(key, clazz, cacheLoader, timeout, bloomFilter, null, null);
+    }
+    
+    @Override
+    public <T> T safeGet(String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, RBloomFilter<String> bloomFilter, CacheGetFilter<String> cacheGetFilter, CacheGetIfAbsent<String> cacheGetIfAbsent) {
         T result = get(key, clazz);
         // 缓存不等于空返回；缓存为空判断布隆过滤器是否存在，不存在返回空；如果前两者都不成立，通过函数判断是否返回空
-        if (!CacheUtil.isNullOrBlank(result) || !cachePenetrationBloomFilter.contains(key) || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)) {
+        if (!CacheUtil.isNullOrBlank(result) || (bloomFilter != null && !bloomFilter.contains(key)) || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)) {
             return result;
         }
         RLock lock = redissonClient.getLock(CacheUtil.buildKey("distributed_lock_lock_get", key));
@@ -122,7 +123,7 @@ public class RedisTemplateProxy implements DistributedCache {
             // 双重判定锁，减轻数据库访问压力
             if (CacheUtil.isNullOrBlank(result = get(key, clazz))) {
                 // 如果访问 load 数据为空，通过函数执行后置操作
-                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout, true))) {
+                if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout, bloomFilter))) {
                     Optional.ofNullable(cacheGetIfAbsent).ifPresent(each -> each.execute(key));
                 }
             }
@@ -144,10 +145,14 @@ public class RedisTemplateProxy implements DistributedCache {
     }
     
     @Override
-    public void safePut(String key, Object value, long timeout) {
-        put(key, value, timeout);
-        // key 放入步隆过滤器
-        cachePenetrationBloomFilter.add(key);
+    public void safePut(String key, Object value, long timeout, RBloomFilter<String> bloomFilter) {
+        safePut(key, value, timeout, redisProperties.getValueTimeUnit(), bloomFilter);
+    }
+    
+    @Override
+    public void safePut(String key, Object value, long timeout, TimeUnit timeUnit, RBloomFilter<String> bloomFilter) {
+        put(key, value, timeout, timeUnit);
+        bloomFilter.add(key);
     }
     
     @Override
@@ -160,13 +165,13 @@ public class RedisTemplateProxy implements DistributedCache {
         return stringRedisTemplate.countExistingKeys(Lists.newArrayList(keys));
     }
     
-    private <T> T loadAndSet(String key, CacheLoader<T> cacheLoader, long timeout, boolean safe) {
+    private <T> T loadAndSet(String key, CacheLoader<T> cacheLoader, long timeout, RBloomFilter<String> bloomFilter) {
         T result = cacheLoader.load();
         if (CacheUtil.isNullOrBlank(result)) {
             return result;
         }
-        if (safe) {
-            safePut(key, result, timeout);
+        if (bloomFilter != null) {
+            safePut(key, result, timeout, bloomFilter);
         } else {
             put(key, result, timeout);
         }

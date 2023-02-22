@@ -64,9 +64,8 @@ public class CacheAutoConfiguration {
     // 静态代理模式: Redis 客户端代理类增强
     public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer,
                                                  StringRedisTemplate stringRedisTemplate,
-                                                 RedissonClient redissonClient,
-                                                 RBloomFilter<String> cachePenetrationBloomFilter) {
+                                                 RedissonClient redissonClient) {
         stringRedisTemplate.setKeySerializer(redisKeySerializer);
-        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient, cachePenetrationBloomFilter);
+        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient);
     }
 }
