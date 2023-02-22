@@ -30,10 +30,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = BloomFilterPenetrateProperties.PREFIX)
 public class BloomFilterPenetrateProperties {
     
-    public static final String PREFIX = "spring.redis.bloom-filter";
+    public static final String PREFIX = "congomall.cache.bloom-filter.default";
     
     /**
-     * 布隆过滤器实例名称
+     * 布隆过滤器默认实例名称
      */
     private String name = "cache_penetration_bloom_filter";
     
