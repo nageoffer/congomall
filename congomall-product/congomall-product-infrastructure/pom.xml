@@ -46,7 +46,7 @@
         
         <dependency>
             <groupId>org.opengoofy.congomall</groupId>
-            <artifactId>congomall-mybatisplus-spring-boot-starter</artifactId>
+            <artifactId>congomall-database-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         

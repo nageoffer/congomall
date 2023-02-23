@@ -39,7 +39,7 @@
         <module>congomall-idempotent-spring-boot-starter</module>
         <module>congomall-log-spring-boot-starter</module>
         <module>congomall-minio-spring-boot-starter</module>
-        <module>congomall-mybatisplus-spring-boot-starter</module>
+        <module>congomall-database-spring-boot-starter</module>
         <module>congomall-openfeign-spring-boot-starter</module>
         <module>congomall-rocketmq-spring-boot-starter</module>
         <module>congomall-sensitive-spring-boot-starter</module>

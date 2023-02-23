@@ -24,7 +24,7 @@
         <artifactId>congomall-framework-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>congomall-mybatisplus-spring-boot-starter</artifactId>
+    <artifactId>congomall-database-spring-boot-starter</artifactId>
     
     <properties>
         <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
