@@ -54,6 +54,9 @@ public class RedisTemplateProxy implements DistributedCache {
     private final RedisDistributedProperties redisProperties;
     private final RedissonClient redissonClient;
     
+    private static final String LUA_PUT_IF_ALL_ABSENT_SCRIPT_PATH = "lua/putIfAllAbsent.lua";
+    private static final String SAFE_GET_DISTRIBUTED_LOCK_KEY_PREFIX = "safe_get_distributed_lock_get:";
+    
     @Override
     public <T> T get(String key, Class<T> clazz) {
         String value = stringRedisTemplate.opsForValue().get(key);
@@ -70,10 +73,9 @@ public class RedisTemplateProxy implements DistributedCache {
     
     @Override
     public Boolean putIfAllAbsent(@NotNull Collection<String> keys) {
-        String scriptPathKey = "lua/putIfAllAbsent.lua";
-        DefaultRedisScript<Boolean> actual = Singleton.get(scriptPathKey, () -> {
+        DefaultRedisScript<Boolean> actual = Singleton.get(LUA_PUT_IF_ALL_ABSENT_SCRIPT_PATH, () -> {
             DefaultRedisScript redisScript = new DefaultRedisScript();
-            redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(scriptPathKey)));
+            redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(LUA_PUT_IF_ALL_ABSENT_SCRIPT_PATH)));
             redisScript.setResultType(Boolean.class);
             return redisScript;
         });
@@ -139,7 +141,7 @@ public class RedisTemplateProxy implements DistributedCache {
         if (!CacheUtil.isNullOrBlank(result) || (bloomFilter != null && !bloomFilter.contains(key)) || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)) {
             return result;
         }
-        RLock lock = redissonClient.getLock(CacheUtil.buildKey("distributed_lock_lock_get", key));
+        RLock lock = redissonClient.getLock(CacheUtil.buildKey(SAFE_GET_DISTRIBUTED_LOCK_KEY_PREFIX, key));
         lock.lock();
         try {
             // 双重判定锁，减轻数据库访问压力
