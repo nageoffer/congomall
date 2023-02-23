@@ -33,7 +33,7 @@
         <module>congomall-cache-spring-boot-starter</module>
         <module>congomall-common-spring-boot-starter</module>
         <module>congomall-convention-spring-boot-starter</module>
-        <module>congomall-design-pattern-spring-boot-starter</module>
+        <module>congomall-designpattern-spring-boot-starter</module>
         <module>congomall-distributedid-spring-boot-starter</module>
         <module>congomall-httputil-spring-boot-starter</module>
         <module>congomall-idempotent-spring-boot-starter</module>

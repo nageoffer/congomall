@@ -71,7 +71,7 @@
         
         <dependency>
             <groupId>org.opengoofy.congomall</groupId>
-            <artifactId>congomall-design-pattern-spring-boot-starter</artifactId>
+            <artifactId>congomall-designpattern-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

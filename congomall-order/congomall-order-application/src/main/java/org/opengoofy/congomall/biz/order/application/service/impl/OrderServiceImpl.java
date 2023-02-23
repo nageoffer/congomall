@@ -35,7 +35,7 @@ import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.CartItemQuery
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
-import org.opengoofy.congomall.springboot.starter.design.pattern.chain.AbstractChainContext;
+import org.opengoofy.congomall.springboot.starter.designpattern.chain.AbstractChainContext;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
 import org.springframework.stereotype.Service;
 

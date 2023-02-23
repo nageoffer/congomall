@@ -36,7 +36,7 @@ import org.opengoofy.congomall.biz.pay.domain.common.PayTradeTypeEnum;
 import org.opengoofy.congomall.biz.pay.infrastructure.config.AliPayProperties;
 import org.opengoofy.congomall.biz.pay.infrastructure.handler.base.AbstractPayHandler;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractExecuteStrategy;
+import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractExecuteStrategy;
 import org.springframework.stereotype.Service;
 
 /**

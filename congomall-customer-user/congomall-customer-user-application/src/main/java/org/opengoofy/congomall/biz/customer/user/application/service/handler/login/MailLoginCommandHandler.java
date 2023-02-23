@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.congomall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.cache.toolkit.CacheUtil;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractExecuteStrategy;
+import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractExecuteStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

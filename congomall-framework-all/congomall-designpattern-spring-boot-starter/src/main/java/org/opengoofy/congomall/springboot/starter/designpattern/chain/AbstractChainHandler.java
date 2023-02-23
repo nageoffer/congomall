@@ -15,36 +15,27 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.design.pattern.config;
+package org.opengoofy.congomall.springboot.starter.designpattern.chain;
 
-import org.opengoofy.congomall.springboot.starter.base.config.ApplicationBaseAutoConfiguration;
-import org.opengoofy.congomall.springboot.starter.design.pattern.chain.AbstractChainContext;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 
 /**
- * 设计模式自动装配
+ * 抽象业务责任链组件
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@ImportAutoConfiguration(ApplicationBaseAutoConfiguration.class)
-public class DesignPatternAutoConfiguration {
+public interface AbstractChainHandler<T> extends Ordered {
     
     /**
-     * 策略模式选择器
+     * 执行责任链逻辑
+     *
+     * @param requestParam 责任链执行入参
      */
-    @Bean
-    public AbstractStrategyChoose abstractStrategyChoose() {
-        return new AbstractStrategyChoose();
-    }
+    void handler(T requestParam);
     
     /**
-     * 责任链上下文
+     * @return 责任链组件标识
      */
-    @Bean
-    public AbstractChainContext abstractChainContext() {
-        return new AbstractChainContext();
-    }
+    String mark();
 }

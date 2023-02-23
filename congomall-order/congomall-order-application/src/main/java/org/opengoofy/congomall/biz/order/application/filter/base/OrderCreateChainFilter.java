@@ -19,7 +19,7 @@ package org.opengoofy.congomall.biz.order.application.filter.base;
 
 import org.opengoofy.congomall.biz.order.application.enums.OrderChainMarkEnum;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
-import org.opengoofy.congomall.springboot.starter.design.pattern.chain.AbstractChainHandler;
+import org.opengoofy.congomall.springboot.starter.designpattern.chain.AbstractChainHandler;
 
 /**
  * 订单创建责任链过滤器

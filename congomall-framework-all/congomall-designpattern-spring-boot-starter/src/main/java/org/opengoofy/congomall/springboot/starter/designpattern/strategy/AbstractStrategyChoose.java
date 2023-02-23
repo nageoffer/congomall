@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.design.pattern.strategy;
+package org.opengoofy.congomall.springboot.starter.designpattern.strategy;
 
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.opengoofy.congomall.springboot.starter.base.init.ApplicationInitializingEvent;

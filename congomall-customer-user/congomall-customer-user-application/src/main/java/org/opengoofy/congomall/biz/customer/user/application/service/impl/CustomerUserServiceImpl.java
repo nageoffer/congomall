@@ -27,7 +27,7 @@ import org.opengoofy.congomall.biz.customer.user.application.resp.UserRegisterRe
 import org.opengoofy.congomall.biz.customer.user.application.service.CustomerUserService;
 import org.opengoofy.congomall.biz.customer.user.application.service.handler.verify.MailRegisterVerifyCommandHandler;
 import org.opengoofy.congomall.ddd.framework.core.domain.CommandHandler;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
+import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractStrategyChoose;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

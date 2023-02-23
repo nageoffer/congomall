@@ -28,7 +28,7 @@ import org.opengoofy.congomall.biz.pay.domain.repository.PayRepository;
 import org.opengoofy.congomall.biz.pay.infrastructure.handler.AliPayCallbackHandler;
 import org.opengoofy.congomall.biz.pay.infrastructure.handler.AliPayNativeHandler;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractStrategyChoose;
+import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractStrategyChoose;
 import org.springframework.stereotype.Service;
 
 /**

@@ -19,7 +19,7 @@ package org.opengoofy.congomall.biz.customer.user.application.service.handler.ve
 
 import org.opengoofy.congomall.biz.customer.user.application.req.UserVerifyCodeCommand;
 import org.opengoofy.congomall.biz.customer.user.domain.common.CacheConstant;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractExecuteStrategy;
+import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractExecuteStrategy;
 import org.springframework.stereotype.Component;
 
 /**

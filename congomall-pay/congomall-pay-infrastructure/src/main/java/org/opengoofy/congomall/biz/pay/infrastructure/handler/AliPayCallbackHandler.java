@@ -25,7 +25,7 @@ import org.opengoofy.congomall.biz.pay.domain.base.PayCallbackRequest;
 import org.opengoofy.congomall.biz.pay.domain.common.PayChannelEnum;
 import org.opengoofy.congomall.biz.pay.domain.repository.PayRepository;
 import org.opengoofy.congomall.biz.pay.infrastructure.handler.base.AbstractPayCallbackHandler;
-import org.opengoofy.congomall.springboot.starter.design.pattern.strategy.AbstractExecuteStrategy;
+import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractExecuteStrategy;
 import org.springframework.stereotype.Service;
 
 /**

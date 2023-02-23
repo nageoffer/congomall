@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.design.pattern.chain;
+package org.opengoofy.congomall.springboot.starter.designpattern.chain;
 
 import com.google.common.collect.Maps;
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;

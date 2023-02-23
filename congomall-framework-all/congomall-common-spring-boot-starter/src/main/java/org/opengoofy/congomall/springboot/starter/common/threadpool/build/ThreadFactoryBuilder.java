@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.springboot.starter.common.threadpool.build;
 
-import org.opengoofy.congomall.springboot.starter.design.pattern.builder.Builder;
+import org.opengoofy.congomall.springboot.starter.designpattern.builder.Builder;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;

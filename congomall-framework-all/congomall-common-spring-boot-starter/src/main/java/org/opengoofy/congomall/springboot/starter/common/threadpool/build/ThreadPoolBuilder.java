@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.springboot.starter.common.threadpool.build;
 
 import org.opengoofy.congomall.springboot.starter.common.toolkit.Assert;
-import org.opengoofy.congomall.springboot.starter.design.pattern.builder.Builder;
+import org.opengoofy.congomall.springboot.starter.designpattern.builder.Builder;
 
 import java.math.BigDecimal;
 import java.util.concurrent.*;

@@ -24,7 +24,7 @@
         <artifactId>congomall-framework-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>congomall-design-pattern-spring-boot-starter</artifactId>
+    <artifactId>congomall-designpattern-spring-boot-starter</artifactId>
     
     <dependencies>
         <dependency>

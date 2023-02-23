@@ -15,27 +15,22 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.design.pattern.chain;
+package org.opengoofy.congomall.springboot.starter.designpattern.builder;
 
-import org.springframework.core.Ordered;
+import java.io.Serializable;
 
 /**
- * 抽象业务责任链组件
+ * Builder 模式抽象接口
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface AbstractChainHandler<T> extends Ordered {
+public interface Builder<T> extends Serializable {
     
     /**
-     * 执行责任链逻辑
+     * 构建方法
      *
-     * @param requestParam 责任链执行入参
+     * @return 构建后的对象
      */
-    void handler(T requestParam);
-    
-    /**
-     * @return 责任链组件标识
-     */
-    String mark();
+    T build();
 }
