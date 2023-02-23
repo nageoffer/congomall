@@ -17,15 +17,9 @@
 
 package org.opengoofy.congomall.biz.message.infrastructure.handler;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import org.opengoofy.congomall.biz.message.domain.acl.MailMessageProduce;
-import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
-import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.MailTemplateDO;
-import org.opengoofy.congomall.biz.message.infrastructure.dao.mapper.MailTemplateMapper;
-import org.opengoofy.congomall.springboot.starter.base.Singleton;
-import org.opengoofy.congomall.springboot.starter.base.init.ApplicationInitializingEvent;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
@@ -33,6 +27,12 @@ import freemarker.template.Template;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.congomall.biz.message.domain.acl.MailMessageProduce;
+import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
+import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.MailTemplateDO;
+import org.opengoofy.congomall.biz.message.infrastructure.dao.mapper.MailTemplateMapper;
+import org.opengoofy.congomall.springboot.starter.base.Singleton;
+import org.opengoofy.congomall.springboot.starter.base.init.ApplicationInitializingEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -44,7 +44,6 @@ import org.springframework.util.ResourceUtils;
 
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,7 +67,7 @@ public class MailMessageProduceImpl implements ApplicationListener<ApplicationIn
     @Override
     public boolean send(MessageSend messageSend) {
         try {
-            List<MailTemplateDO> mailTemplateDOS = mailTemplateMapper.selectList(Wrappers.lambdaQuery(MailTemplateDO.class).eq(MailTemplateDO::getTemplateId, messageSend.getTemplateId()));
+            MailTemplateDO mailTemplateDO = mailTemplateMapper.selectOne(Wrappers.lambdaQuery(MailTemplateDO.class).eq(MailTemplateDO::getTemplateId, messageSend.getTemplateId()));
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
             helper.setFrom(messageSend.getSender());
@@ -80,9 +79,10 @@ public class MailMessageProduceImpl implements ApplicationListener<ApplicationIn
                 helper.setTo(messageSend.getReceiver().split(","));
             }
             Map<String, Object> model = Maps.newHashMap();
-            if (CollUtil.isNotEmpty(messageSend.getParamList())) {
-                for (int i = 0; i < mailTemplateDOS.size(); i++) {
-                    model.put(mailTemplateDOS.get(i).getTemplateParam(), messageSend.getParamList().get(i));
+            String[] templateParams = mailTemplateDO.getTemplateParam().split(",");
+            if (ArrayUtil.isNotEmpty(templateParams)) {
+                for (int i = 0; i < templateParams.length; i++) {
+                    model.put(templateParams[i], messageSend.getParamList().get(i));
                 }
             }
             String templateKey = messageSend.getTemplateId() + ".ftl";
