@@ -15,6 +15,18 @@
 # limitations under the License.
 #
 
-spring.shardingsphere.datasource.ds-0.jdbc-url=jdbc:mysql://localhost:3306/congomall_product?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
-spring.shardingsphere.datasource.ds-0.username=root
-spring.shardingsphere.datasource.ds-0.password=root
+server:
+  port: 8003
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: customer-user-service
+          predicates:
+            - Path=/api/customer-user/**
+          uri: lb://customer-user-service/api/customer-user/**
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848

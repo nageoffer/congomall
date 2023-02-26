@@ -15,6 +15,16 @@
 # limitations under the License.
 #
 
-spring.shardingsphere.datasource.ds-0.jdbc-url=jdbc:mysql://localhost:3306/congomall_order?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
-spring.shardingsphere.datasource.ds-0.username=root
-spring.shardingsphere.datasource.ds-0.password=root
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    username: congomall
+    password: congomall
+    url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_cart?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,92 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+server:
+  port: 9001
+
+spring:
+  application:
+    name: product-service-job
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8686
+        port: 8719
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: select 1
+      connection-timeout: 20000
+      idle-timeout: 300000
+      maximum-pool-size: 5
+      minimum-idle: 5
+    username: congomall
+    password: congomall
+    url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_product?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+  dynamic:
+    thread-pool:
+      default-executor:
+        active-alarm: 80
+        alarm: false
+        allow-core-thread-time-out: true
+        blocking-queue: ResizableCapacityLinkedBlockingQueue
+        capacity-alarm: 80
+        core-pool-size: 20
+        execute-time-out: 100
+        keep-alive-time: 9999
+        maximum-pool-size: 40
+        queue-capacity: 4096
+        rejected-handler: AbortPolicy
+
+congomall:
+  fastjson:
+    safa-mode: true
+  swagger:
+    contact:
+      name: chen.ma
+    description: Product Service Job
+    title: Product Service Job
+    version: 1.0.0
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath:mapper/*.xml
+
+seata:
+  service:
+    grouplist:
+      seata-server: 127.0.0.1:8091
+    vgroup-mapping:
+      my-tx-group: seata-server
+  tx-service-group: my-tx-group
+
+xxl-job:
+  accessToken: default_token
+  admin:
+    addresses: http://localhost:8080/xxl-job-admin
+  executor:
+    appname: xxl-job-executor-sample
+    ip: 192.168.1.5
+    logpath: /Users/single/data/xxljob
+    logretentiondays: 30
+    port: 19999

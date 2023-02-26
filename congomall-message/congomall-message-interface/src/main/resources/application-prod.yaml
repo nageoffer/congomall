@@ -15,11 +15,10 @@
 # limitations under the License.
 #
 
-server.port=8003
-spring.application.name=gateway-service
-
-spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
-
-spring.cloud.gateway.routes[0].id=customer-user-service
-spring.cloud.gateway.routes[0].uri=lb://customer-user-service/api/customer-user/**
-spring.cloud.gateway.routes[0].predicates[0]=Path=/api/customer-user/**
+spring:
+  shardingsphere:
+    datasource:
+      ds-0:
+        username: root
+        password: root
+        jdbc-url: jdbc:mysql://localhost:3306/congomall_message?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8

@@ -1,0 +1,139 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+
+server:
+  port: 8002
+  servlet:
+    context-path: /api/customer-user
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: customer-user-service
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8686
+        port: 8719
+    stream:
+      bindings:
+        input:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: customer-user_topic
+          group: customer-user_operation-log_cg
+        output:
+          content-type: application/json
+          destination: customer-user_topic
+          group: customer-user_general-send_pg
+      rocketmq:
+        bindings:
+          input:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: customer-user_operation-log_tag
+  shardingsphere:
+    datasource:
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+      names: ds-0
+    props:
+      sql-show: true
+    rules:
+      encrypt:
+        encryptors:
+          customer-user-encryptor:
+            props:
+              aes-key-value: ADbisulBtxnnKFoW
+            type: AES
+        tables:
+          customer_user:
+            columns:
+              mail:
+                cipher-column: mail
+                encryptor-name: customer-user-encryptor
+              phone:
+                cipher-column: phone
+                encryptor-name: customer-user-encryptor
+          customer_user_receive_address:
+            columns:
+              phone:
+                cipher-column: phone
+                encryptor-name: customer-user-encryptor
+      sharding:
+        sharding-algorithms:
+          sharding_by_mod:
+            props:
+              sharding-count: 4
+            type: HASH_MOD
+        tables:
+          customer_user:
+            actual-data-nodes: ds-0.customer_user_$->{0..3}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: sharding_by_mod
+                sharding-column: id
+
+congomall:
+  fastjson:
+    safa-mode: true
+  swagger:
+    contact:
+      name: chen.ma
+    description: Customer User Service
+    title: Customer User Service
+    version: 1.0.0
+  cache:
+    redis:
+      prefix: '${spring.application.name}:'
+      value-timout: 50000
+
+customer:
+  user:
+    register:
+      verify:
+        sender: congomall@163.com
+        template-id: userRegisterVerification
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        loggerLevel: HEADERS
+        readTimeout: 5000
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+ribbon:
+  eager-load:
+    clients: message-service
+    enabled: true

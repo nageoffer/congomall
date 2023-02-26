@@ -1,0 +1,97 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: message-service
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8686
+        port: 8719
+    stream:
+      bindings:
+        mail-send:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: message-center_topic
+          group: message-center_mail-send_cg
+        output:
+          content-type: application/json
+          destination: message-center_topic
+          group: message-center_general-send_pg
+      rocketmq:
+        bindings:
+          mail-send:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: common_message-center_mail-send_tag
+  shardingsphere:
+    datasource:
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+      names: ds-0
+    props:
+      sql-show: true
+    rules:
+      sharding:
+        sharding-algorithms:
+          snowflake_date_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.message.infrastructure.algorithm.SnowflakeDateShardingAlgorithm
+              datetime-lower: '2023-06-10 00:00:00'
+              datetime-upper: '2026-06-10 00:00:00'
+              sharding-seconds: 31536000
+              strategy: complex
+            type: CLASS_BASED
+        tables:
+          mail_send_record:
+            actual-data-nodes: ds-0.mail_send_record_$->{0..3}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: snowflake_date_algorithm
+                sharding-columns: send_time,message_send_id
+
+congomall:
+  fastjson:
+    safa-mode: true
+  swagger:
+    contact:
+      name: chen.ma
+    description: Message Service
+    title: Message Service
+    version: 1.0.0
+  cache:
+    redis:
+      prefix: '${spring.application.name}:'
+      value-timout: 50000
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0

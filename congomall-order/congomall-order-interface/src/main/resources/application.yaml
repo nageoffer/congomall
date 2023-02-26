@@ -1,0 +1,144 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+
+server:
+  port: 8006
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: order-service
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8686
+        port: 8719
+    stream:
+      bindings:
+        delay-close-order:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: order-service_topic
+          group: order-service_delay-close-order_cg
+        output:
+          content-type: application/json
+          destination: order-service_topic
+          group: order-service_general-send_pg
+        pay-result-notify:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: pay-service_topic
+          group: order-service_pay-result-notify_cg
+      rocketmq:
+        bindings:
+          delay-close-order:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: order-service_delay-close-order_tag
+          output:
+            producer:
+              sync: true
+          pay-result-notify:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: pay-service_pay-result-notify_tag
+  shardingsphere:
+    datasource:
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+      names: ds-0
+    props:
+      sql-show: true
+    rules:
+      sharding:
+        sharding-algorithms:
+          order-item_sharding_by_mod:
+            props:
+              sharding-count: 16
+            type: HASH_MOD
+          order_snowflake-service_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+        tables:
+          order_info:
+            actual-data-nodes: ds-0.order_info_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: order_snowflake-service_algorithm
+                sharding-columns: customer_user_id,order_sn
+          order_item:
+            actual-data-nodes: ds-0.order_item_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: order-item_sharding_by_mod
+                sharding-column: order_sn
+
+congomall:
+  fastjson:
+    safa-mode: true
+  swagger:
+    contact:
+      name: chen.ma
+    description: Order Service
+    title: Order Service
+    version: 1.0.0
+  cache:
+    redis:
+      prefix: '${spring.application.name}:'
+      value-timout: 50000
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        loggerLevel: HEADERS
+        readTimeout: 5000
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+ribbon:
+  eager-load:
+    clients: cart-service,product-service
+    enabled: true
+
+seata:
+  service:
+    grouplist:
+      seata-server: 127.0.0.1:8091
+    vgroup-mapping:
+      my-tx-group: seata-server
+  tx-service-group: my-tx-group
