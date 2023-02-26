@@ -19,7 +19,7 @@
 server:
   port: 8002
   servlet:
-    context-path: /api/customer-user
+    context-path: 
 
 spring:
   profiles:

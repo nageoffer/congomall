@@ -54,8 +54,6 @@ mybatis-plus:
 
 server:
   port: 8002
-  servlet:
-    context-path: /api/congomall-customer-user
 
 spring:
   application:

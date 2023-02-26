@@ -50,21 +50,21 @@ public class CustomerUserController {
     private final CustomerUserService customerUserService;
     
     @ApiOperation(value = "验证发送", notes = "包含注册验证码、登录验证等")
-    @PostMapping("/verify/code/send")
+    @PostMapping("/api/customer-user/verify/code/send")
     public Result<Void> verifyCodeSend(@RequestBody @Valid UserVerifyCodeCommand requestParam) {
         customerUserService.verifyCodeSend(requestParam);
         return Results.success();
     }
     
     @ApiOperation("注册")
-    @PostMapping("/register")
+    @PostMapping("/api/customer-user/register")
     public Result<UserRegisterRespDTO> register(@RequestBody @Valid UserRegisterCommand requestParam) {
         UserRegisterRespDTO result = customerUserService.register(requestParam);
         return Results.success(result);
     }
     
     @ApiOperation("登录")
-    @PostMapping("/login")
+    @PostMapping("/api/customer-user/login")
     public Result<UserLoginRespDTO> login(@RequestBody @Valid UserLoginCommand requestParam) {
         UserLoginRespDTO result = customerUserService.login(requestParam);
         return Results.success(result);
