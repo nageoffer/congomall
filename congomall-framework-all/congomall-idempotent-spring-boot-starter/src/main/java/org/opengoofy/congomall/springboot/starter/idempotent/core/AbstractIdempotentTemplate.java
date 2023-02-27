@@ -26,7 +26,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempote
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public abstract class AbstractIdempotentExecuteHandler implements IdempotentExecuteHandler {
+public abstract class AbstractIdempotentTemplate implements IdempotentExecuteHandler {
     
     /**
      * 构建幂等验证过程中所需要的参数包装器

@@ -25,7 +25,7 @@ import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.convention.errorcode.BaseErrorCode;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import org.opengoofy.congomall.springboot.starter.idempotent.config.IdempotentProperties;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentTemplate;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -41,7 +41,7 @@ import java.util.UUID;
  * @github https://github.com/opengoofy
  */
 @RequiredArgsConstructor
-public final class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentTokenService {
+public final class IdempotentTokenExecuteHandler extends AbstractIdempotentTemplate implements IdempotentTokenService {
     
     private final DistributedCache distributedCache;
     private final IdempotentProperties idempotentProperties;

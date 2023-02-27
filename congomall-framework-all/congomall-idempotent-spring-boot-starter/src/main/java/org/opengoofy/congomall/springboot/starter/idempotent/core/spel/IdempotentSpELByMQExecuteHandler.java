@@ -23,7 +23,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentTemplate;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentContext;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  * @github https://github.com/opengoofy
  */
 @RequiredArgsConstructor
-public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSpELService {
+public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentTemplate implements IdempotentSpELService {
     
     private final DistributedCache distributedCache;
     private final RedissonClient redissonClient;

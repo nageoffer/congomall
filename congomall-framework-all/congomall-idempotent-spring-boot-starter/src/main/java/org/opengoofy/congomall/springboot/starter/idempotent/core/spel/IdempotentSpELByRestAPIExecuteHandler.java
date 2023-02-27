@@ -22,7 +22,7 @@ import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentExecuteHandler;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentTemplate;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentContext;
 import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
@@ -37,7 +37,7 @@ import org.redisson.api.RedissonClient;
  * @github https://github.com/opengoofy
  */
 @RequiredArgsConstructor
-public final class IdempotentSpELByRestAPIExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSpELService {
+public final class IdempotentSpELByRestAPIExecuteHandler extends AbstractIdempotentTemplate implements IdempotentSpELService {
     
     private final RedissonClient redissonClient;
     
