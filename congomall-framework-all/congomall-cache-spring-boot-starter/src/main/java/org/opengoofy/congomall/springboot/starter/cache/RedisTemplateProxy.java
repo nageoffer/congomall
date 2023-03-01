@@ -42,7 +42,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 缓存代理
+ * 分布式缓存之操作 Redis 模版代理
+ * 底层通过 {@link RedissonClient}、{@link StringRedisTemplate} 完成外观接口行为
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
@@ -147,7 +148,7 @@ public class RedisTemplateProxy implements DistributedCache {
     public <T> T safeGet(String key, Class<T> clazz, CacheLoader<T> cacheLoader, long timeout, TimeUnit timeUnit,
                          RBloomFilter<String> bloomFilter, CacheGetFilter<String> cacheGetFilter, CacheGetIfAbsent<String> cacheGetIfAbsent) {
         T result = get(key, clazz);
-        // 缓存结果不等于空或空字符串直接返回；通过函数判断是否返回空，为了适配布隆过滤器无法删除的场景；两者都不成立，判断布隆过滤器是否存在，存在返回空
+        // 缓存结果不等于空或空字符串直接返回；通过函数判断是否返回空，为了适配布隆过滤器无法删除的场景；两者都不成立，判断布隆过滤器是否存在，不存在返回空
         if (!CacheUtil.isNullOrBlank(result)
                 || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)
                 || Optional.ofNullable(bloomFilter).map(each -> !each.contains(key)).orElse(false)) {
@@ -156,9 +157,9 @@ public class RedisTemplateProxy implements DistributedCache {
         RLock lock = redissonClient.getLock(SAFE_GET_DISTRIBUTED_LOCK_KEY_PREFIX + key);
         lock.lock();
         try {
-            // 双重判定锁，减轻数据库访问压力
+            // 双重判定锁，减轻获得分布式锁后线程访问数据库压力
             if (CacheUtil.isNullOrBlank(result = get(key, clazz))) {
-                // 如果访问 load 数据为空，通过函数执行后置操作
+                // 如果访问 cacheLoader 加载数据为空，执行后置函数操作
                 if (CacheUtil.isNullOrBlank(result = loadAndSet(key, cacheLoader, timeout, timeUnit, true, bloomFilter))) {
                     Optional.ofNullable(cacheGetIfAbsent).ifPresent(each -> each.execute(key));
                 }
