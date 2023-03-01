@@ -150,7 +150,7 @@ public class RedisTemplateProxy implements DistributedCache {
         // 缓存结果不等于空或空字符串直接返回；通过函数判断是否返回空，为了适配布隆过滤器无法删除的场景；两者都不成立，判断布隆过滤器是否存在，存在返回空
         if (!CacheUtil.isNullOrBlank(result)
                 || Optional.ofNullable(cacheGetFilter).map(each -> each.filter(key)).orElse(false)
-                || Optional.ofNullable(bloomFilter).map(each -> each.contains(key)).orElse(false)) {
+                || Optional.ofNullable(bloomFilter).map(each -> !each.contains(key)).orElse(false)) {
             return result;
         }
         RLock lock = redissonClient.getLock(SAFE_GET_DISTRIBUTED_LOCK_KEY_PREFIX + key);
