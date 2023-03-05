@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.springboot.starter.distributedid;
 
 import org.junit.Test;
+import org.opengoofy.congomall.springboot.starter.distributedid.core.serviceid.DefaultServiceIdGenerator;
 import org.opengoofy.congomall.springboot.starter.distributedid.core.serviceid.ServiceIdGenerator;
 import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.Snowflake;
 import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.SnowflakeIdInfo;
@@ -37,5 +38,15 @@ public class DefaultServiceIdGeneratorTest {
             SnowflakeIdInfo snowflakeIdInfo = idGenerator.parseSnowflakeId(serviceId);
             System.out.println(snowflakeIdInfo);
         }
+    }
+    
+    @Test
+    public void parseSnowflakeId() {
+        Snowflake snowflake = new Snowflake(0, 0);
+        SnowflakeIdUtil.initSnowflake(snowflake);
+        DefaultServiceIdGenerator defaultServiceIdGenerator = new DefaultServiceIdGenerator();
+        long nextId = defaultServiceIdGenerator.nextId(123L);
+        SnowflakeIdInfo snowflakeIdInfo = defaultServiceIdGenerator.parseSnowflakeId(nextId);
+        System.out.println(snowflakeIdInfo.getGene());
     }
 }
