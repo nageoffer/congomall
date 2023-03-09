@@ -21,7 +21,7 @@ congomall:
   cache:
     redis:
       prefix: '${spring.application.name}:'
-      value-timout: 50000
+      value-timeout: 50000
   swagger:
     contact:
       name: chen.ma

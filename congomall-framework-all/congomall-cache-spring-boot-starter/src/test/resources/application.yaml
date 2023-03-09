@@ -15,16 +15,22 @@
 # limitations under the License.
 #
 
-# base
-spring.application.name=cache-test
-# redis
-spring.redis.host=localhost
-spring.redis.port=6379
-spring.redis.password=123456
-congomall.cache.redis.prefix=${spring.application.name}:
-congomall.cache.redis.value-timout=50000
-# 布隆过滤器
-congomall.cache.redis.bloom-filter.default.enabled=true
-congomall.cache.redis.bloom-filter.default.name=cache_penetration_bloom_filter
-congomall.cache.redis.bloom-filter.default.expected-insertions=10000
-congomall.cache.redis.bloom-filter.default.false-probability=0.01
+spring:
+  application:
+    name: cache-test
+  redis:
+    host: localhost
+    password: 123456
+    port: 6379
+
+congomall:
+  cache:
+    redis:
+      bloom-filter:
+        default:
+          enabled: true
+          expected-insertions: 10000
+          false-probability: 0.01
+          name: cache_penetration_bloom_filter
+      prefix: '${spring.application.name}:'
+      value-timeout: 50000

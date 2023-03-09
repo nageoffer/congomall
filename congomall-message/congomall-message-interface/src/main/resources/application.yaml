@@ -87,7 +87,7 @@ congomall:
   cache:
     redis:
       prefix: '${spring.application.name}:'
-      value-timout: 50000
+      value-timeout: 50000
 
 mybatis-plus:
   global-config:
