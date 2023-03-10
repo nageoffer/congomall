@@ -74,6 +74,11 @@ public class MessageSend {
      */
     private Boolean sendResult;
     
+    /**
+     * 模板类型 0：短信-验证码 1：短信-通知 2：短信-营销 3：微信模板消息 4：邮箱 5...
+     */
+    private Integer msgType;
+    
     public void setSendResult(boolean sendResult) {
         this.sendResult = sendResult;
     }

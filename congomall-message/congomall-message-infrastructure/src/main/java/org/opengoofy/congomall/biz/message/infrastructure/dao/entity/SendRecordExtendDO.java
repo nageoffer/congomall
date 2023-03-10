@@ -15,18 +15,45 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.message.infrastructure.dao.mapper;
+package org.opengoofy.congomall.biz.message.infrastructure.dao.entity;
 
-import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.MailSendRecordDO;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 
 /**
- * 邮件发送记录 Mapper
+ * 消息发送扩展记录 DO
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Mapper
-public interface MailSendRecordMapper extends BaseMapper<MailSendRecordDO> {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@TableName("send_record_extend")
+public class SendRecordExtendDO extends BaseDO {
+    
+    /**
+     * id
+     */
+    private Long id;
+    
+    /**
+     * 消息发送id
+     */
+    private String msgId;
+    
+    /**
+     * 发送参数
+     */
+    private String msgParam;
+    
+    /**
+     * 消息文本
+     */
+    private String msgContent;
 }

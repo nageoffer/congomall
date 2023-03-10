@@ -15,41 +15,30 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.message.infrastructure.converter;
+package org.opengoofy.congomall.biz.message.domain.common;
 
-import org.opengoofy.congomall.biz.message.domain.entity.MessageSend;
-import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.MailSendRecordDO;
-import com.alibaba.fastjson2.JSON;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import cn.hutool.core.collection.ListUtil;
 
 import java.util.List;
 
 /**
- * C 端用户 Entity 转换 DO
+ * 消息常量类
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-@Mapper(componentModel = "spring")
-public interface MailSendMessageConverter {
+public class MessageConstants {
     
     /**
-     * C 端用户 Entity 转换 DO
-     *
-     * @param customerUser
-     * @return
+     * 短信发送渠道集合
      */
-    @Mapping(target = "paramList", expression = "java(paramListConvert(customerUser.getParamList()))")
-    MailSendRecordDO customerUserToDO(MessageSend customerUser);
+    public static final List<Integer> SMS_MESSAGE_CHANNELS = ListUtil.of(
+            MessageTypeEnum.SMS_VERIFICATION_MESSAGE.getType(),
+            MessageTypeEnum.SMS_INFORM_MESSAGE.getType(),
+            MessageTypeEnum.SMS_MARKETING_MESSAGE.getType());
     
     /**
-     * 参数集合转换
-     *
-     * @param paramList
-     * @return
+     * 短信消息模板
      */
-    default String paramListConvert(List<String> paramList) {
-        return JSON.toJSONString(paramList);
-    }
+    public static final String SMS_MESSAGE_KEY = "SMS_MESSAGE_";
 }

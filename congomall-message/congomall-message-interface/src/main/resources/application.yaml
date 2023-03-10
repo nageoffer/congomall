@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-
 server:
   port: 8001
 
@@ -62,18 +61,21 @@ spring:
           snowflake_date_algorithm:
             props:
               algorithmClassName: org.opengoofy.congomall.biz.message.infrastructure.algorithm.SnowflakeDateShardingAlgorithm
-              datetime-lower: '2023-06-10 00:00:00'
-              datetime-upper: '2026-06-10 00:00:00'
-              sharding-seconds: 31536000
               strategy: complex
             type: CLASS_BASED
         tables:
-          mail_send_record:
-            actual-data-nodes: ds-0.mail_send_record_$->{0..3}
+          send_record:
+            actual-data-nodes: ds-0.send_record_$->{2023..2026}_m$->{1..12}
             table-strategy:
               complex:
                 sharding-algorithm-name: snowflake_date_algorithm
-                sharding-columns: send_time,message_send_id
+                sharding-columns: create_time,msg_id
+          send_record_extend:
+            actual-data-nodes: ds-0.send_record_extend_$->{2023..2026}_m$->{1..12}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: snowflake_date_algorithm
+                sharding-columns: create_time,msg_id
 
 congomall:
   fastjson:

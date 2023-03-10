@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.biz.message.infrastructure.dao.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -24,14 +25,14 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 邮件消息发送 DO
+ * 消息发送记录 DO
  *
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
 @Data
-@TableName("mail_send_record")
-public class MailSendRecordDO extends BaseDO {
+@TableName("send_record")
+public class SendRecordDO extends BaseDO {
     
     /**
      * id
@@ -41,12 +42,18 @@ public class MailSendRecordDO extends BaseDO {
     /**
      * 消息发送id
      */
+    @TableField("msg_id")
     private String messageSendId;
     
     /**
      * 模板id
      */
     private String templateId;
+    
+    /**
+     * 模板类型 0：短信-验证码 1：短信-通知 2：短信-营销 3：微信模板消息 4：邮箱 5...
+     */
+    private Integer msgType;
     
     /**
      * 发送者
@@ -62,11 +69,6 @@ public class MailSendRecordDO extends BaseDO {
      * 抄送者
      */
     private String cc;
-    
-    /**
-     * 文本参数
-     */
-    private String paramList;
     
     /**
      * 状态 0：失败 1：成功

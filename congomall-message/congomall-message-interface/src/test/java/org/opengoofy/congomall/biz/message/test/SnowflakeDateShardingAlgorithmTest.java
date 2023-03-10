@@ -24,8 +24,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.MailSendRecordDO;
-import org.opengoofy.congomall.biz.message.infrastructure.dao.mapper.MailSendRecordMapper;
+import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.SendRecordDO;
+import org.opengoofy.congomall.biz.message.infrastructure.dao.mapper.SendRecordMapper;
 import org.opengoofy.congomall.biz.message.web.MessageApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -45,31 +45,31 @@ import java.util.List;
 public class SnowflakeDateShardingAlgorithmTest {
     
     @Resource
-    private MailSendRecordMapper mailSendRecordMapper;
+    private SendRecordMapper sendRecordMapper;
     
     @Test
     public void testSendTimeQuery() {
-        LambdaQueryWrapper<MailSendRecordDO> queryWrapper = Wrappers.lambdaQuery(MailSendRecordDO.class)
-                .eq(MailSendRecordDO::getSendTime, DateUtil.now());
+        LambdaQueryWrapper<SendRecordDO> queryWrapper = Wrappers.lambdaQuery(SendRecordDO.class)
+                .eq(SendRecordDO::getSendTime, DateUtil.now());
         executeQuery(queryWrapper);
     }
     
     @Test
     public void testSnowflakeQuery() {
-        LambdaQueryWrapper<MailSendRecordDO> queryWrapper = Wrappers.lambdaQuery(MailSendRecordDO.class)
-                .eq(MailSendRecordDO::getMessageSendId, 1547434279292878848L);
+        LambdaQueryWrapper<SendRecordDO> queryWrapper = Wrappers.lambdaQuery(SendRecordDO.class)
+                .eq(SendRecordDO::getMessageSendId, 1547434279292878848L);
         executeQuery(queryWrapper);
     }
     
     @Test
     public void testBetweenQuery() {
-        LambdaQueryWrapper<MailSendRecordDO> queryWrapper = Wrappers.lambdaQuery(MailSendRecordDO.class)
-                .between(MailSendRecordDO::getSendTime, DateUtil.parse("2023-07-14 12:12:18"), DateUtil.parse("2024-08-14 12:15:18"));
+        LambdaQueryWrapper<SendRecordDO> queryWrapper = Wrappers.lambdaQuery(SendRecordDO.class)
+                .between(SendRecordDO::getSendTime, DateUtil.parse("2023-07-14 12:12:18"), DateUtil.parse("2024-08-14 12:15:18"));
         executeQuery(queryWrapper);
     }
     
     private void executeQuery(LambdaQueryWrapper queryWrapper) {
-        List<MailSendRecordDO> mailSendRecords = mailSendRecordMapper.selectList(queryWrapper);
-        log.info("mailSendRecords: {}", JSON.toJSONString(mailSendRecords));
+        List<SendRecordDO> sendRecords = sendRecordMapper.selectList(queryWrapper);
+        log.info("sendRecords: {}", JSON.toJSONString(sendRecords));
     }
 }
