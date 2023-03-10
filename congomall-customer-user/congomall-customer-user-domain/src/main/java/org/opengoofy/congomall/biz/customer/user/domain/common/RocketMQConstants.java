@@ -28,5 +28,5 @@ public class RocketMQConstants {
     /**
      * C 端用户操作日志 TAG
      */
-    public static final String CUSTOMER_USER_OPERATION_LOG_TAG = "mall-4j_customer-user_operation-log_tag";
+    public static final String CUSTOMER_USER_OPERATION_LOG_TAG = "customer-user_operation-log_tag";
 }
