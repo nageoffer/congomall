@@ -17,7 +17,7 @@
 
 package org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper;
 
-import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.entity.CustomerOperationLogDO;
+import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.entity.OperationLogDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -26,5 +26,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author chen.ma
  * @github https://github.com/opengoofy
  */
-public interface CustomerOperationLogMapper extends BaseMapper<CustomerOperationLogDO> {
+public interface OperationLogMapper extends BaseMapper<OperationLogDO> {
 }

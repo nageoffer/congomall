@@ -33,8 +33,8 @@ import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
  */
 @Data
 @NoArgsConstructor
-@TableName("customer_user_operation_log")
-public class CustomerOperationLogDO extends BaseDO {
+@TableName("operation_log")
+public class OperationLogDO extends BaseDO {
     
     /**
      * id
@@ -62,11 +62,11 @@ public class CustomerOperationLogDO extends BaseDO {
      */
     private String operationContent;
     
-    public CustomerOperationLogDO(String afterContent) {
+    public OperationLogDO(String afterContent) {
         this.afterContent = afterContent;
     }
     
-    public CustomerOperationLogDO(String beforeContent, String afterContent, String operationContent) {
+    public OperationLogDO(String beforeContent, String afterContent, String operationContent) {
         this.beforeContent = beforeContent;
         this.afterContent = afterContent;
         this.operationContent = operationContent;

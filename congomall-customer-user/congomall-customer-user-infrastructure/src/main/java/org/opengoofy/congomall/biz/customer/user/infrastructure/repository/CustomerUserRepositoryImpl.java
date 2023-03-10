@@ -19,12 +19,12 @@ package org.opengoofy.congomall.biz.customer.user.infrastructure.repository;
 
 import cn.hutool.core.bean.BeanUtil;
 import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
-import org.opengoofy.congomall.biz.customer.user.domain.event.CustomerOperationLogEvent;
+import org.opengoofy.congomall.biz.customer.user.domain.event.OperationLogEvent;
 import org.opengoofy.congomall.biz.customer.user.domain.repository.CustomerUserRepository;
 import org.opengoofy.congomall.biz.customer.user.domain.dto.CustomerUserDTO;
-import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.entity.CustomerOperationLogDO;
+import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.entity.OperationLogDO;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.entity.CustomerUserDO;
-import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.CustomerOperationLogMapper;
+import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.OperationLogMapper;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.dao.mapper.CustomerUserRepositoryMapper;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.converter.CustomerUserConverter;
 import org.opengoofy.congomall.biz.customer.user.infrastructure.mq.produce.CustomerUserOperationLogProduce;
@@ -52,7 +52,7 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
     
     private final CustomerUserOperationLogProduce customerUserOperationLogProduce;
     
-    private final CustomerOperationLogMapper customerOperationLogMapper;
+    private final OperationLogMapper operationLogMapper;
     
     @Override
     public CustomerUser find(Long customerUserId) {
@@ -83,18 +83,18 @@ public class CustomerUserRepositoryImpl implements CustomerUserRepository {
         }
         Long customerUserId = customerUserDO.getId();
         // 异步记录操作日志
-        customerUserOperationLogProduce.recordCustomerUserOperationLog(new CustomerOperationLogEvent(BeanUtil.toBean(customerUserDO, CustomerUserDTO.class)));
+        customerUserOperationLogProduce.recordCustomerUserOperationLog(new OperationLogEvent(BeanUtil.toBean(customerUserDO, CustomerUserDTO.class)));
         return find(customerUserId);
     }
     
     @Override
     public void saveOperationLog(CustomerUser customerUser) {
-        CustomerOperationLogEvent customerOperationLogEvent = customerUser.getCustomerOperationLogEvent();
-        CustomerOperationLogDO customerOperationLogDO = new CustomerOperationLogDO(JSON.toJSONString(customerOperationLogEvent.getAfterCustomerUser()));
+        OperationLogEvent customerOperationLogEvent = customerUser.getOperationLogEvent();
+        OperationLogDO operationLogDO = new OperationLogDO(JSON.toJSONString(customerOperationLogEvent.getAfterCustomerUser()));
         if (customerOperationLogEvent.getBeforeCustomerUser() != null) {
-            customerOperationLogDO.setBeforeContent(JSON.toJSONString(customerOperationLogEvent.getBeforeCustomerUser()));
+            operationLogDO.setBeforeContent(JSON.toJSONString(customerOperationLogEvent.getBeforeCustomerUser()));
         }
-        customerOperationLogDO.setCustomerUserId(customerUser.getCustomerUserId());
-        customerOperationLogMapper.insert(customerOperationLogDO);
+        operationLogDO.setCustomerUserId(customerUser.getCustomerUserId());
+        operationLogMapper.insert(operationLogDO);
     }
 }

@@ -28,7 +28,7 @@ import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
  * @github https://github.com/opengoofy
  */
 @Data
-@TableName("customer_user_receive_address")
+@TableName("receive_address")
 public class ReceiveAddressDO extends BaseDO {
     
     /**

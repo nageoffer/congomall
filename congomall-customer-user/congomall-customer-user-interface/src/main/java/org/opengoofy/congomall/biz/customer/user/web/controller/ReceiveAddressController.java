@@ -37,7 +37,8 @@ import java.util.List;
  * 收货地址控制层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
+ * @公众号 龙台的技术笔记
  */
 @MLog
 @RestController
@@ -49,9 +50,7 @@ public class ReceiveAddressController {
     
     @GetMapping("/api/customer-user/{customerUserId}/receive-address")
     @ApiOperation(value = "获取用户收货地址", notes = "根据用户ID获取用户收货地址")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "customerUserId", value = "用户 id", required = true, example = "1547742028312375296")
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "customerUserId", value = "用户 id", required = true, example = "1547742028312375296")})
     public Result<List<ReceiveAddressRespDTO>> listReceiveAddress(@PathVariable("customerUserId") String customerUserId) {
         return Results.success(receiveAddressService.listReceiveAddressByCustomerUserId(customerUserId));
     }

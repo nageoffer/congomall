@@ -20,7 +20,7 @@ package org.opengoofy.congomall.biz.customer.user.domain.aggregate;
 import cn.hutool.core.util.StrUtil;
 import lombok.*;
 import org.opengoofy.congomall.biz.customer.user.domain.dp.*;
-import org.opengoofy.congomall.biz.customer.user.domain.event.CustomerOperationLogEvent;
+import org.opengoofy.congomall.biz.customer.user.domain.event.OperationLogEvent;
 import org.opengoofy.congomall.biz.customer.user.domain.mode.ReceiveAddress;
 import org.opengoofy.congomall.biz.customer.user.domain.toolkit.JWTUtil;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.EnvironmentUtil;
@@ -57,7 +57,7 @@ public class CustomerUser {
     
     private String verifyCode;
     
-    private CustomerOperationLogEvent customerOperationLogEvent;
+    private OperationLogEvent operationLogEvent;
     
     private List<ReceiveAddress> receiveAddresses;
     

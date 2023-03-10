@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class CustomerOperationLogEvent implements DomainEvent {
+public class OperationLogEvent implements DomainEvent {
     
     /**
      * 之前的
@@ -42,11 +42,11 @@ public class CustomerOperationLogEvent implements DomainEvent {
      */
     private CustomerUserDTO afterCustomerUser;
     
-    public CustomerOperationLogEvent(CustomerUserDTO afterCustomerUser) {
+    public OperationLogEvent(CustomerUserDTO afterCustomerUser) {
         this.afterCustomerUser = afterCustomerUser;
     }
     
-    public CustomerOperationLogEvent(CustomerUserDTO beforeCustomerUser, CustomerUserDTO afterCustomerUser) {
+    public OperationLogEvent(CustomerUserDTO beforeCustomerUser, CustomerUserDTO afterCustomerUser) {
         this.beforeCustomerUser = beforeCustomerUser;
         this.afterCustomerUser = afterCustomerUser;
     }

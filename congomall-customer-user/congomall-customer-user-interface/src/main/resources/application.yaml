@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-
 server:
   port: 8002
   servlet:
@@ -58,6 +57,7 @@ spring:
       names: ds-0
     props:
       sql-show: true
+      max-connections-size-per-query: 10
     rules:
       encrypt:
         encryptors:
@@ -83,15 +83,27 @@ spring:
         sharding-algorithms:
           sharding_by_mod:
             props:
-              sharding-count: 4
+              sharding-count: 16
             type: HASH_MOD
         tables:
           customer_user:
-            actual-data-nodes: ds-0.customer_user_$->{0..3}
+            actual-data-nodes: ds-0.customer_user_$->{0..15}
             table-strategy:
               standard:
                 sharding-algorithm-name: sharding_by_mod
                 sharding-column: id
+          operation_log:
+            actual-data-nodes: ds-0.operation_log_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: sharding_by_mod
+                sharding-column: customer_user_id
+          receive_address:
+            actual-data-nodes: ds-0.receive_address_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: sharding_by_mod
+                sharding-column: customer_user_id
 
 congomall:
   fastjson:

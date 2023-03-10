@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageConst;
 import org.opengoofy.congomall.biz.customer.user.domain.common.RocketMQConstants;
-import org.opengoofy.congomall.biz.customer.user.domain.event.CustomerOperationLogEvent;
+import org.opengoofy.congomall.biz.customer.user.domain.event.OperationLogEvent;
 import org.opengoofy.congomall.rocketmq.springboot.starter.core.MessageWrapper;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -49,7 +49,7 @@ public class CustomerUserOperationLogProduce {
      *
      * @param customerOperationLogEvent
      */
-    public void recordCustomerUserOperationLog(CustomerOperationLogEvent customerOperationLogEvent) {
+    public void recordCustomerUserOperationLog(OperationLogEvent customerOperationLogEvent) {
         String keys = UUID.randomUUID().toString();
         Message<?> message = MessageBuilder
                 .withPayload(new MessageWrapper(keys, customerOperationLogEvent))
