@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * 微服务流量监控加载 URI
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class FlowMonitorVirtualUriLoader {
     

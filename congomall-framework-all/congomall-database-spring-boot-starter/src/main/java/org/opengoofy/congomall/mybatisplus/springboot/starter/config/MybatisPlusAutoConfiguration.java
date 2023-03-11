@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Primary;
  * MybatisPlus 配置文件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class MybatisPlusAutoConfiguration {
     

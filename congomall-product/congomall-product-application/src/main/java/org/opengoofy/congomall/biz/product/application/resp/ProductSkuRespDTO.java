@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  * 商品 SKU 出参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class ProductSkuRespDTO {

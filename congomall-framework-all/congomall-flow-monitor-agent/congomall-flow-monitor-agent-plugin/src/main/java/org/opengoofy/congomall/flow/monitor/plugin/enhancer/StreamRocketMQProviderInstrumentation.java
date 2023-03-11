@@ -29,7 +29,7 @@ import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING
  * SpringCloud Stream RocketMQ 生产端切面拦截定义
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class StreamRocketMQProviderInstrumentation implements ClassEnhancePluginDefine {
     

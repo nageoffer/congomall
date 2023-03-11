@@ -25,7 +25,7 @@ import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
  * 抽象支付入参实体
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public abstract class AbstractPayRequest implements PayRequest {
     

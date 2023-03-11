@@ -41,7 +41,7 @@ import java.util.Optional;
  * {@link MLog} 日志打印 AOP 切面
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Aspect
 public class MLogPrintAspect {

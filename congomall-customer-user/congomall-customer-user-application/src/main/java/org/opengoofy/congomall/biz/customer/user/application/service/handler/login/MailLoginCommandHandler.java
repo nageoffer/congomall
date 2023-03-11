@@ -33,7 +33,7 @@ import static org.opengoofy.congomall.biz.customer.user.domain.common.CacheConst
  * 邮箱登录
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 @AllArgsConstructor

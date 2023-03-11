@@ -27,7 +27,7 @@ import java.util.Objects;
  * 应用环境工具类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class Environments {
     

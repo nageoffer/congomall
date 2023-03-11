@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * 日志工具类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class LogUtil {
     

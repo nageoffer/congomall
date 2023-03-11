@@ -29,7 +29,7 @@ import java.util.List;
  * 商品信息
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

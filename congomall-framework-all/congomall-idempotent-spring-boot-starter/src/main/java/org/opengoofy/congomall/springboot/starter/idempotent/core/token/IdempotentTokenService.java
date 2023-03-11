@@ -23,7 +23,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentExec
  * Token 实现幂等接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface IdempotentTokenService extends IdempotentExecuteHandler {
     

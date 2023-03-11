@@ -38,7 +38,7 @@ import java.util.Map;
  * 支付结果回调
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RestController
 @RequiredArgsConstructor

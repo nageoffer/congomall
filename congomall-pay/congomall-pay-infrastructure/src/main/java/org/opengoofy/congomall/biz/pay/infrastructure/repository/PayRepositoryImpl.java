@@ -40,7 +40,7 @@ import java.util.Objects;
  * 支付聚合根
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Repository

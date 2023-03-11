@@ -36,7 +36,7 @@ import java.util.Date;
  * 支付控制层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RestController
 @AllArgsConstructor

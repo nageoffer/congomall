@@ -30,7 +30,7 @@ import static org.opengoofy.congomall.springboot.starter.web.config.WebAutoConfi
  * 通过 {@link InitializeDispatcherServletController} 初始化 {@link DispatcherServlet}
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public final class InitializeDispatcherServletHandler implements CommandLineRunner {

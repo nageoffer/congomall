@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * 消息发送远程服务调用
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @FeignClient("message-service")
 public interface MessageSendRemoteService {

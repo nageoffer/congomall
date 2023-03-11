@@ -19,7 +19,7 @@ package org.opengoofy.congomall.flow.monitor.core.conf;
 
 /**
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class Config {
     

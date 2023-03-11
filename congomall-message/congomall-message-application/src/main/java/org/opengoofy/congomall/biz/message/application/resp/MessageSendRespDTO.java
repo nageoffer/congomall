@@ -24,7 +24,7 @@ import lombok.Data;
  * 消息发送返回实体
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @AllArgsConstructor

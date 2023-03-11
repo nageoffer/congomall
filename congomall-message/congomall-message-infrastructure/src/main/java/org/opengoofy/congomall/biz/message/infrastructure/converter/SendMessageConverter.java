@@ -25,7 +25,7 @@ import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.SendRecordD
  * 消息发送 Entity 转换 DO
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Mapper(componentModel = "spring")
 public interface SendMessageConverter {

@@ -25,7 +25,7 @@ import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
  * 分页查询购物车入参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class CartItemPageQueryReqDTO extends PageRequest {

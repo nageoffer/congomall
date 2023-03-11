@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.product.domain.mode.ProductCategory;
  * 商品分类仓储层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface ProductCategoryRepository {
     

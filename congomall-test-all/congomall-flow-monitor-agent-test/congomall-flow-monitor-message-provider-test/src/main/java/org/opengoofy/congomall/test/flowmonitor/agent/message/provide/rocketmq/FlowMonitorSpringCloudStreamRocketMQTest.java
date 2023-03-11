@@ -35,7 +35,7 @@ import java.util.Random;
  * 流量治理之 RocketMQ 测试
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @RestController

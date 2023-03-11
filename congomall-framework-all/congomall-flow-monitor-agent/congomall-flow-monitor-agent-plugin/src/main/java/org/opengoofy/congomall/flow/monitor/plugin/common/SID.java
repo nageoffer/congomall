@@ -28,7 +28,7 @@ import java.util.Optional;
  * 服务标识
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class SID {
     

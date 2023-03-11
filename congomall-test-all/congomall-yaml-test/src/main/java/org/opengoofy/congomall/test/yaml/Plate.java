@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
  * 盘子
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

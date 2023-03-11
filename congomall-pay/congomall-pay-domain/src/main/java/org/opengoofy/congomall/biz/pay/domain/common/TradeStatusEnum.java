@@ -29,7 +29,7 @@ import java.util.Optional;
  * 映射不同平台状态码，最终入库的值为枚举名
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum TradeStatusEnum {
     

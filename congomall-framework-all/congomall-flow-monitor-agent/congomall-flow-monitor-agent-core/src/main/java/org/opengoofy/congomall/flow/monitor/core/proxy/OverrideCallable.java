@@ -21,7 +21,7 @@ package org.opengoofy.congomall.flow.monitor.core.proxy;
  * 覆盖可调用接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface OverrideCallable {
     

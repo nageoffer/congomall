@@ -25,7 +25,7 @@ import java.util.Map;
  * 初始化钩子函数管理
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum InitializingHookManager {
     

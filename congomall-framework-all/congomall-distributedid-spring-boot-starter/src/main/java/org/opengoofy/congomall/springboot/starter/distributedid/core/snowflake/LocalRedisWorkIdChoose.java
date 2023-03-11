@@ -34,7 +34,7 @@ import java.util.List;
  * 使用 Redis 获取雪花 WorkId
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 public class LocalRedisWorkIdChoose extends AbstractWorkIdChooseTemplate implements InitializingBean {

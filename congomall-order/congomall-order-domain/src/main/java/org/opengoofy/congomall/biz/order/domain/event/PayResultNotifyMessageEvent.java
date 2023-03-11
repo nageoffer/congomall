@@ -29,7 +29,7 @@ import java.util.Date;
  * 支付结果通知事件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

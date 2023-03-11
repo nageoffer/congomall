@@ -35,7 +35,7 @@ import java.util.UUID;
  * C 端用户操作日志消息生产者
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

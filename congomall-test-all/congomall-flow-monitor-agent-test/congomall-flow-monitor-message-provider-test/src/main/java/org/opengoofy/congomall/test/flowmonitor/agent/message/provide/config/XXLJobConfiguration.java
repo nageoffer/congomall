@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
  * XXL-Job 配置类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Configuration

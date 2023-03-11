@@ -47,7 +47,7 @@ import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.*;
  * 微服务流量监控拦截插桩
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class FlowMonitorInterceptAgent {
     

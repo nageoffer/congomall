@@ -28,7 +28,7 @@ import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING
  * Spring MVC 流量拦截
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class SpringMvcInstrumentation implements ClassEnhancePluginDefine {
     

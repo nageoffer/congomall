@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.Email;
  * 用户登录
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @ApiModel("用户登录")

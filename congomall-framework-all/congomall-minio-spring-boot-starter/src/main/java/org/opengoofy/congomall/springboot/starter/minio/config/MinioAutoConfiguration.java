@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Bean;
  * Minio 自动装配配置
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @AllArgsConstructor
 @EnableConfigurationProperties(MinioProperties.class)

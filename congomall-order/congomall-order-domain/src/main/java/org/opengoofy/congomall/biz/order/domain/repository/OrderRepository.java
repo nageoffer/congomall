@@ -25,7 +25,7 @@ import java.util.List;
  * 订单仓储层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface OrderRepository {
     

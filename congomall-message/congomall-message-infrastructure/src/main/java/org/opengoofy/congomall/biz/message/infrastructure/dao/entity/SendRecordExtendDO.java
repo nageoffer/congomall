@@ -28,7 +28,7 @@ import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
  * 消息发送扩展记录 DO
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

@@ -34,7 +34,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * 基于方法参数验证请求幂等性
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public final class IdempotentParamExecuteHandler extends AbstractIdempotentTemplate implements IdempotentParamService {

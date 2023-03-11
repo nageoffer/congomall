@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
  * 雪花算法组成部分，通常用来反解析使用
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

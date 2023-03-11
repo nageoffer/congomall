@@ -31,7 +31,7 @@ import java.util.List;
  * 用户收货地址
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Service
 @AllArgsConstructor

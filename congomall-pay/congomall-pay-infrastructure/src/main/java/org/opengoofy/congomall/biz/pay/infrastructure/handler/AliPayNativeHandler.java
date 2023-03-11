@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service;
  * 阿里支付组件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Service

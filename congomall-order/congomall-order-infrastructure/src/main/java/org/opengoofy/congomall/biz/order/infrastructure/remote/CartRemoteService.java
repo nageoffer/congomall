@@ -32,7 +32,7 @@ import java.util.List;
  * 购物车远程调用
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @FeignClient("cart-service")
 public interface CartRemoteService {

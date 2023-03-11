@@ -23,7 +23,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentExec
  * 参数方式幂等实现接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface IdempotentParamService extends IdempotentExecuteHandler {
 }

@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.order.infrastructure.dao.entity.OrderDO;
  * 订单持久层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface OrderMapper extends BaseMapper<OrderDO> {
 }

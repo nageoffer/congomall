@@ -33,7 +33,7 @@ import java.util.Properties;
  * 基因雪花算法实现，customer_user_id 作为 order_sn 的一部分
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class OrderSnowflakeServiceShardingAlgorithm implements ComplexKeysShardingAlgorithm {
     

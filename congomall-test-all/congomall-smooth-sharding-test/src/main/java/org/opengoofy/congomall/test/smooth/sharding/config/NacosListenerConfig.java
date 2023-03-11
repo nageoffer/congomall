@@ -35,7 +35,7 @@ import java.util.concurrent.Executor;
  * 初始化 Nacos 监听
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 public class NacosListenerConfig implements InitializingBean {

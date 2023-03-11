@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * ID 生成器管理
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class IdGeneratorManager {
     

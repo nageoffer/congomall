@@ -35,7 +35,7 @@ import java.util.Optional;
  * 消息发送 Repository
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Repository
 @AllArgsConstructor

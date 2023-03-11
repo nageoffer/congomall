@@ -24,7 +24,7 @@ import lombok.Data;
  * 修改购物车商品SKU数量入参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class CartItemNumUpdateReqDTO {

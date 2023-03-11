@@ -27,7 +27,7 @@ import java.util.concurrent.Callable;
  * 增强代理
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class EnhancerProxy {
     

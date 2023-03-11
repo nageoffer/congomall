@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
  * C 端用户仓储层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface CustomerUserRepository {
     

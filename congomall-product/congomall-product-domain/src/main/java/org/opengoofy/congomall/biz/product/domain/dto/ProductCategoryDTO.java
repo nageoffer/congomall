@@ -23,7 +23,7 @@ import lombok.Data;
  * 商品分类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class ProductCategoryDTO {

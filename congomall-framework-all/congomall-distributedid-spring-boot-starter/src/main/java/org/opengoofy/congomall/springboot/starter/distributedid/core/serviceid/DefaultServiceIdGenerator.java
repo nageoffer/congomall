@@ -25,7 +25,7 @@ import org.opengoofy.congomall.springboot.starter.distributedid.core.snowflake.S
  * 默认业务 ID 生成器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class DefaultServiceIdGenerator implements ServiceIdGenerator {
     

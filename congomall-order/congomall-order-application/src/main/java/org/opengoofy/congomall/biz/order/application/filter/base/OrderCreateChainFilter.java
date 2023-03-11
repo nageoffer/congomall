@@ -25,7 +25,7 @@ import org.opengoofy.congomall.springboot.starter.designpattern.chain.AbstractCh
  * 订单创建责任链过滤器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface OrderCreateChainFilter<T extends OrderCreateCommand> extends AbstractChainHandler<OrderCreateCommand> {
     

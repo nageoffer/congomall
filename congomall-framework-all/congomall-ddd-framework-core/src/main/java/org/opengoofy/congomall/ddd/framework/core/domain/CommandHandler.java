@@ -21,7 +21,7 @@ package org.opengoofy.congomall.ddd.framework.core.domain;
  * 命令处理器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface CommandHandler<T, R> {
     

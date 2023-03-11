@@ -23,7 +23,7 @@ import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCod
  * 远程服务调用异常
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class RemoteException extends AbstractException {
     

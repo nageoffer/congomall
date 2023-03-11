@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.convention.errorcode;
  * 基础错误码定义
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum BaseErrorCode implements IErrorCode {
     

@@ -29,7 +29,7 @@ import static org.opengoofy.congomall.biz.message.domain.common.MessageConstants
  * 消息类型枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public enum MessageTypeEnum {

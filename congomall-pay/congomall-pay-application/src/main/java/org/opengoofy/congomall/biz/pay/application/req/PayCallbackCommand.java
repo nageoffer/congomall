@@ -28,7 +28,7 @@ import java.util.Date;
  * 支付回调请求命令
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public final class PayCallbackCommand extends AbstractPayRequest {

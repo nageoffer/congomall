@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * 高并发场景下 System.currentTimeMillis() 的性能问题的优化
  *
  * @author https://github.com/yu120/neural
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class SystemClock {
     

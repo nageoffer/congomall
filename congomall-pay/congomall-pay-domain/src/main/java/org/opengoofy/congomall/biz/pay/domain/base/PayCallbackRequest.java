@@ -21,7 +21,7 @@ package org.opengoofy.congomall.biz.pay.domain.base;
  * 支付回调请求入参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface PayCallbackRequest {
     

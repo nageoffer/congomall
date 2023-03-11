@@ -26,7 +26,7 @@ import java.util.List;
  * 删除购物车入参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class CartItemDelReqDTO {

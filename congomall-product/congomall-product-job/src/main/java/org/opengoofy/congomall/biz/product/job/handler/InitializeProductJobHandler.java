@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.LongAdder;
  * 初始化商品任务
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

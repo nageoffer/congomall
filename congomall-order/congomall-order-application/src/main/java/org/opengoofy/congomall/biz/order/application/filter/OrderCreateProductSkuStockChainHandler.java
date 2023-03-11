@@ -39,7 +39,7 @@ import java.util.Optional;
  * 订单创建商品 SKU 库存验证
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

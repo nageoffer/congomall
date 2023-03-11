@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  * 全局异常拦截器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

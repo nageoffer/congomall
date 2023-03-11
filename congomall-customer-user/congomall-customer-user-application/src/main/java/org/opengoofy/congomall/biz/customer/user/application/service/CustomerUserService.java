@@ -27,7 +27,7 @@ import org.opengoofy.congomall.biz.customer.user.application.resp.UserRegisterRe
  * C 端用户接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface CustomerUserService {
     

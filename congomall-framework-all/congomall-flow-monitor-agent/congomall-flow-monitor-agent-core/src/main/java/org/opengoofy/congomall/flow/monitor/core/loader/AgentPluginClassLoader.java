@@ -31,7 +31,7 @@ import java.util.jar.JarFile;
  * 自定义代理插件类加载器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class AgentPluginClassLoader extends ClassLoader {
     

@@ -28,7 +28,7 @@ import java.util.Date;
  * 支付持久层实体
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @TableName("pay_info")

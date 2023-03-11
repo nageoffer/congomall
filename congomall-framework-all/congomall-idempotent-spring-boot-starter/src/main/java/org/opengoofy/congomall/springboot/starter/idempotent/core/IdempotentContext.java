@@ -26,7 +26,7 @@ import java.util.Map;
  * 幂等上下文
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class IdempotentContext {
     

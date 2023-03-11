@@ -28,7 +28,7 @@ import java.lang.annotation.*;
  * 暂时没有找到在 AOP 处理比较优雅的方式，暂时废弃
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Deprecated
 @Target(ElementType.METHOD)

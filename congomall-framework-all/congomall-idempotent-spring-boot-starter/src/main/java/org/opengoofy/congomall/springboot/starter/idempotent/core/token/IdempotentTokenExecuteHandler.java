@@ -38,7 +38,7 @@ import java.util.UUID;
  * 基于 Token 验证请求幂等性, 通常应用于 RestAPI 方法
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public final class IdempotentTokenExecuteHandler extends AbstractIdempotentTemplate implements IdempotentTokenService {

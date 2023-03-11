@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * 用户远程调用接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @FeignClient("flow-monitor-user-provider-test")
 public interface UserRemoteService {

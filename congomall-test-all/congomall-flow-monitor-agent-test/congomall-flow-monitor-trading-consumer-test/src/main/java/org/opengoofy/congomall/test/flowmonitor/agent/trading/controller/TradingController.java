@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 交易控制层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RestController
 @AllArgsConstructor

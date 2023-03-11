@@ -21,7 +21,7 @@ package org.opengoofy.congomall.biz.customer.user.domain.common;
  * 缓存 Key
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class CacheConstant {
     

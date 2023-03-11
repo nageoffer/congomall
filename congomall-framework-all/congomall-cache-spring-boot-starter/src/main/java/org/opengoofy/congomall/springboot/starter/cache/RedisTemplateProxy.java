@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit;
  * 底层通过 {@link RedissonClient}、{@link StringRedisTemplate} 完成外观接口行为
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public class RedisTemplateProxy implements DistributedCache {

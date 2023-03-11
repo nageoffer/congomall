@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  * SpEL 表达式解析工具
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class SpELUtil {
     

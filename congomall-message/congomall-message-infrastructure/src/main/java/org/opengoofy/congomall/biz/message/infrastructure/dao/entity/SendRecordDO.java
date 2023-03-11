@@ -28,7 +28,7 @@ import java.util.Date;
  * 消息发送记录 DO
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @TableName("send_record")

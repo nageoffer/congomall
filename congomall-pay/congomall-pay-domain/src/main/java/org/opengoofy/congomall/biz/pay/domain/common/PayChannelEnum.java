@@ -21,7 +21,7 @@ package org.opengoofy.congomall.biz.pay.domain.common;
  * 支付渠道枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum PayChannelEnum {
     

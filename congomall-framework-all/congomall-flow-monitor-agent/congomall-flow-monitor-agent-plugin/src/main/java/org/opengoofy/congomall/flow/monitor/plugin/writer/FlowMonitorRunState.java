@@ -29,7 +29,7 @@ import java.io.Serializable;
  * 微服务流量监控运行数据
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

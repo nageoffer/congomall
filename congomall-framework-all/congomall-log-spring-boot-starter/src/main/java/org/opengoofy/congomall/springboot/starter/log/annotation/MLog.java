@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * 标记在类上，类下所有方法都会打印；标记在方法上，仅打印标记方法；如果类或者方法上都有标记，以方法上注解为准
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

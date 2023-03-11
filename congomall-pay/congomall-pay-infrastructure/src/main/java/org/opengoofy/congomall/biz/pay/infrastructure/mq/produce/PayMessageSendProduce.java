@@ -36,7 +36,7 @@ import java.util.UUID;
  * 支付消息通用发送生产者
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

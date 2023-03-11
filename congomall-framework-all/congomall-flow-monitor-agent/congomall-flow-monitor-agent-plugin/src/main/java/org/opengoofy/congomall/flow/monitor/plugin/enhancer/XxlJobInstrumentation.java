@@ -28,7 +28,7 @@ import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.XXL_JO
  * XXL-Job 任务执行流量拦截
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class XxlJobInstrumentation implements ClassEnhancePluginDefine {
     

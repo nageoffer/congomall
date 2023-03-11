@@ -34,7 +34,7 @@ import org.redisson.api.RedissonClient;
  * 基于 SpEL 方法验证请求幂等性，适用于 RestAPI 场景
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public final class IdempotentSpELByRestAPIExecuteHandler extends AbstractIdempotentTemplate implements IdempotentSpELService {

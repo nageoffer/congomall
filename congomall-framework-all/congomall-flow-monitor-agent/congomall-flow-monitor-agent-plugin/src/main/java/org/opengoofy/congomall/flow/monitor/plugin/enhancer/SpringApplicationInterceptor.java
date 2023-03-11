@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  * SpringApplication 增强，获取 Spring 应用上下文
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class SpringApplicationInterceptor implements InstanceMethodsAroundInterceptor {
     

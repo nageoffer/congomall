@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.pay.domain.aggregate.Pay;
  * 支付仓储层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface PayRepository {
     

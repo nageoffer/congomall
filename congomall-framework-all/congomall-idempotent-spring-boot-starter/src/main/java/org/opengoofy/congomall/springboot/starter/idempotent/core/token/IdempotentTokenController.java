@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 基于 Token 验证请求幂等性控制器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RestController
 @RequiredArgsConstructor

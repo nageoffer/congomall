@@ -41,7 +41,7 @@ import static org.opengoofy.congomall.flow.monitor.plugin.common.FlowMonitorCons
  * OpenFeign 增强
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class OpenFeignInterceptor implements InstanceMethodsAroundInterceptor {
     

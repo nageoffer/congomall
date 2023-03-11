@@ -23,7 +23,7 @@ import lombok.Data;
  * 支付返回实体
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public final class PayRespDTO {

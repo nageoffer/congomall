@@ -34,7 +34,7 @@ package org.opengoofy.congomall.test.smooth.sharding.canal;
 // * Canal 客户端测试
 // *
 // * @author chen.ma
-// * @github https://github.com/opengoofy
+// * @github <a href="https://github.com/opengoofy" />
 // */
 // @Slf4j
 // @Component

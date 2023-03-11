@@ -24,7 +24,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempote
  * 幂等执行处理器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface IdempotentExecuteHandler {
     

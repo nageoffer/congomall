@@ -24,7 +24,7 @@ import org.opengoofy.congomall.ddd.framework.core.domain.ValueObject;
  * 商品库存详情
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

@@ -38,7 +38,7 @@ import java.util.List;
  * 购物车控制器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @MLog
 @RestController

@@ -34,7 +34,7 @@ import java.util.Properties;
  * 自定义分片算法
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class SnowflakeDateShardingAlgorithm implements ComplexKeysShardingAlgorithm<Date> {
     

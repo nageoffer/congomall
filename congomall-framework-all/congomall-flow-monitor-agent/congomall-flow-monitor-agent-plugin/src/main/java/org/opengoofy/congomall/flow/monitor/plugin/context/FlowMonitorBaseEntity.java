@@ -23,7 +23,7 @@ import lombok.Data;
  * 微服务流量监控基础实体信息
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class FlowMonitorBaseEntity {

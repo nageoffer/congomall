@@ -27,7 +27,7 @@ import static org.opengoofy.congomall.springboot.starter.web.config.WebAutoConfi
  * 初始化 {@link org.springframework.web.servlet.DispatcherServlet}
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j(topic = "Initialize DispatcherServlet")
 @RestController

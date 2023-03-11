@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 抽象一组基本 Minio 操作的接口，由 {@link MinioTemplate} 实现
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface MinioOperations {
     

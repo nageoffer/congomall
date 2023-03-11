@@ -24,7 +24,7 @@ import lombok.Data;
  * 用户收货地址出参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class ReceiveAddressRespDTO {

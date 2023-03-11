@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * 邮件消息发送外观
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 @RequiredArgsConstructor

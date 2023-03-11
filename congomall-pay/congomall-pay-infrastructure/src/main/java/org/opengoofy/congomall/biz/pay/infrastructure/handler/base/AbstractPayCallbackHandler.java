@@ -23,7 +23,7 @@ import org.opengoofy.congomall.biz.pay.domain.base.PayCallbackRequest;
  * 抽象支付回调组件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public abstract class AbstractPayCallbackHandler {
     

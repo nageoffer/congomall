@@ -21,7 +21,7 @@ package org.opengoofy.congomall.flow.monitor.plugin.common;
  * 流量监控常量类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class FlowMonitorConstant {
     

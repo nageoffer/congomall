@@ -25,7 +25,7 @@ import java.util.List;
  * 消息发送 Entity
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

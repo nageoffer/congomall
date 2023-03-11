@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * 订单创建监听
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Order(0)
 @Component

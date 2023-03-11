@@ -21,7 +21,7 @@ package org.opengoofy.congomall.flow.monitor.plugin.common;
  * 流量监控框架枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum FlowMonitorFrameTypeEnum {
     

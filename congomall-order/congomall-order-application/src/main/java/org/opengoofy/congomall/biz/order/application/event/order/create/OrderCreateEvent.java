@@ -25,7 +25,7 @@ import org.springframework.context.ApplicationEvent;
  * 订单创建事件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class OrderCreateEvent extends ApplicationEvent {
     

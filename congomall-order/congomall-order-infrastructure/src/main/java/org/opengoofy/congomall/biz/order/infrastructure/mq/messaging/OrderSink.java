@@ -24,7 +24,7 @@ import org.springframework.messaging.SubscribableChannel;
  * 订单 Sink
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface OrderSink {
     

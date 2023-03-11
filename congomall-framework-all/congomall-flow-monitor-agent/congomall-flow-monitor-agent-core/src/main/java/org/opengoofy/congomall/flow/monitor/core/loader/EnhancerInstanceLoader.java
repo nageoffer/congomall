@@ -26,7 +26,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 增强器实例加载
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class EnhancerInstanceLoader {
     

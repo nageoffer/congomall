@@ -21,7 +21,7 @@ package org.opengoofy.congomall.biz.order.domain.common;
  * 订单 RocketMQ 常量
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class OrderRocketMQConstants {
     

@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
  * 来源客户端参数
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

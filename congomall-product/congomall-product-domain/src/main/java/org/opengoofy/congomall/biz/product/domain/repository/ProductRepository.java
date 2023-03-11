@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
  * 商品仓储层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface ProductRepository {
     

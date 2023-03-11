@@ -29,7 +29,7 @@ import java.util.Date;
  * 收货人信息
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

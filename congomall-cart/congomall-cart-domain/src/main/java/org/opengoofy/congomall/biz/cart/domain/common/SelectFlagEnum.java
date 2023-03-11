@@ -24,7 +24,7 @@ import lombok.Getter;
  * 购物车勾选状态
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @AllArgsConstructor
 public enum SelectFlagEnum {

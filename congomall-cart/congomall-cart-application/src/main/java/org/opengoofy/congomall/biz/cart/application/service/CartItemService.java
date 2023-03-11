@@ -28,7 +28,7 @@ import java.util.List;
  * 购物车
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface CartItemService {
     

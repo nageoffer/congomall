@@ -38,7 +38,7 @@ import java.util.Objects;
  * 延迟关闭订单消费者
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

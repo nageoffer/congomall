@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.distributedid.core;
  * ID 生成器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface IdGenerator {
     

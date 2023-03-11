@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 消息远程调用接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @FeignClient("flow-monitor-message-provider-test")
 public interface MessageRemoteService {

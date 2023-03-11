@@ -23,7 +23,7 @@ import lombok.Data;
  * C 端用户密码
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class CustomerUserPassword {

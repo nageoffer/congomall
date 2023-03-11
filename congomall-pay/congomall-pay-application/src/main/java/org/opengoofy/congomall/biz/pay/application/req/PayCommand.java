@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.pay.domain.base.AbstractPayRequest;
  * 支付请求命令
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public final class PayCommand extends AbstractPayRequest {

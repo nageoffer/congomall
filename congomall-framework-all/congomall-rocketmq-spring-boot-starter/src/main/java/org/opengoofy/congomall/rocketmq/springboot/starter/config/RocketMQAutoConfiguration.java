@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Bean;
  * RocketMQ 自动装配
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class RocketMQAutoConfiguration {
     

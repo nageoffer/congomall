@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  * 分片回滚配置类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 @RefreshScope

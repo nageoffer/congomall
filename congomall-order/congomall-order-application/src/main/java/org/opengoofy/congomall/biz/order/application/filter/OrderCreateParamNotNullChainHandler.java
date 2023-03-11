@@ -29,7 +29,7 @@ import java.util.Objects;
  * 订单创建参数必填检验
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 public final class OrderCreateParamNotNullChainHandler implements OrderCreateChainFilter<OrderCreateCommand> {

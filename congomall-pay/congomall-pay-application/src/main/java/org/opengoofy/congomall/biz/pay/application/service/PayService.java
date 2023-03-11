@@ -25,7 +25,7 @@ import org.opengoofy.congomall.biz.pay.domain.base.PayRequest;
  * 支付接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface PayService {
     

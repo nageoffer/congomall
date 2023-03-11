@@ -24,7 +24,7 @@ import lombok.Getter;
  * 订单状态枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @AllArgsConstructor
 public enum OrderStatusEnum {

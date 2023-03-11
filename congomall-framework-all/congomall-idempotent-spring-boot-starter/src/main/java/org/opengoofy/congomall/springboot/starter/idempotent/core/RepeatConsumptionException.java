@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.idempotent.core;
  * 重复消费异常
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class RepeatConsumptionException extends RuntimeException {
 }

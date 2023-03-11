@@ -32,7 +32,7 @@ import java.util.Map;
  * 自定义 Representer
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class CustomerRepresenter extends Representer {
     

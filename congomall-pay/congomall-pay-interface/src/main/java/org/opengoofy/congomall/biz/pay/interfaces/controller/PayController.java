@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 支付接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RestController
 @RequiredArgsConstructor

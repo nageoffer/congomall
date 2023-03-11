@@ -24,7 +24,7 @@ import lombok.Setter;
  * 抽象支付回调入参实体
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public abstract class AbstractPayCallbackRequest implements PayCallbackRequest {
     

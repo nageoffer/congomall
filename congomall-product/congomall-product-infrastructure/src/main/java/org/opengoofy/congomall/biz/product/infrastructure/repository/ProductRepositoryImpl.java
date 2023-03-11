@@ -46,7 +46,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * 商品仓储层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 @AllArgsConstructor

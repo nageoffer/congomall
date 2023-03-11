@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.message.application.resp.MessageSendRespDTO;
  * 消息发送
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface MessageSendService {
     

@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * 线程池拒绝策略代理执行器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @AllArgsConstructor

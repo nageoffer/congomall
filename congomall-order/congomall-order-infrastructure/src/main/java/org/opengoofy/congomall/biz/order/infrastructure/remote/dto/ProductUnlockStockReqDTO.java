@@ -28,7 +28,7 @@ import java.util.List;
  * 解锁商品库存
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

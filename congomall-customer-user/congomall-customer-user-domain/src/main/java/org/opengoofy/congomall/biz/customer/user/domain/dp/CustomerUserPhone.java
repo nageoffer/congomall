@@ -27,7 +27,7 @@ import lombok.Data;
  * C 端用户注册手机号
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class CustomerUserPhone {

@@ -35,7 +35,7 @@ import java.util.Map;
  * </p>
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class ApplicationContextHolderProxy {
     

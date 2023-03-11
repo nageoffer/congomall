@@ -30,7 +30,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTyp
  * 幂等参数包装
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Builder

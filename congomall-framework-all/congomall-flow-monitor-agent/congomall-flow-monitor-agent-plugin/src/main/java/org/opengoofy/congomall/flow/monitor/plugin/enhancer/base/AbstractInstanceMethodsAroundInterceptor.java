@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  * 抽象类切面增强定义
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public abstract class AbstractInstanceMethodsAroundInterceptor implements InstanceMethodsAroundInterceptor {
     

@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
  * Redis Key 序列化
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @RequiredArgsConstructor
 public class RedisKeySerializer implements InitializingBean, RedisSerializer<String> {

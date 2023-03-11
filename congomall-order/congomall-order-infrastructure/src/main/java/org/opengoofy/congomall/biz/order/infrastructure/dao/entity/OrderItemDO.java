@@ -27,7 +27,7 @@ import java.math.BigDecimal;
  * 订单商品详情
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @TableName("order_item")

@@ -25,7 +25,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 消息发送记录 Mapper
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Mapper
 public interface SendRecordMapper extends BaseMapper<SendRecordDO> {

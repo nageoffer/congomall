@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
  * 日志自动装配
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class LogAutoConfiguration {
     

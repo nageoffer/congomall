@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
  * 幂等注解 AOP 拦截器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Aspect
 public final class IdempotentAspect {

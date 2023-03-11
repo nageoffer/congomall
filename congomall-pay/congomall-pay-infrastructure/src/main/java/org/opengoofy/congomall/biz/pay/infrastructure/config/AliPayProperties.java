@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * 支付宝配置
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Configuration

@@ -29,7 +29,7 @@ import java.math.BigDecimal;
  * 订单创建参数正确性检验
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 public final class OrderCreateParamVerificationChainHandler implements OrderCreateChainFilter<OrderCreateCommand> {

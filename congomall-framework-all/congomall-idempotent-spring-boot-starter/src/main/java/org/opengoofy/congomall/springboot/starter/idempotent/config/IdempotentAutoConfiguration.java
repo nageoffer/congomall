@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Bean;
  * 幂等自动装配
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @EnableConfigurationProperties(IdempotentProperties.class)
 public class IdempotentAutoConfiguration {

@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.pay.domain.base.PayResponse;
  * 抽象支付组件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public abstract class AbstractPayHandler {
     

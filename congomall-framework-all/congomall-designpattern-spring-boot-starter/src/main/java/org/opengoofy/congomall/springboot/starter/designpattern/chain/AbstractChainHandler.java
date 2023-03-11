@@ -23,7 +23,7 @@ import org.springframework.core.Ordered;
  * 抽象业务责任链组件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface AbstractChainHandler<T> extends Ordered {
     

@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component;
  * 锁定商品库存监听
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
  * 商品SKU库存
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

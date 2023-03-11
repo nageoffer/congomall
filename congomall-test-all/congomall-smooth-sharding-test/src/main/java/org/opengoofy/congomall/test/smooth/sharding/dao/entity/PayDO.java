@@ -27,7 +27,7 @@ import java.util.Date;
  * 支付 DO
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @TableName("pay_info")

@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
  * 阿里支付回调组件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Service

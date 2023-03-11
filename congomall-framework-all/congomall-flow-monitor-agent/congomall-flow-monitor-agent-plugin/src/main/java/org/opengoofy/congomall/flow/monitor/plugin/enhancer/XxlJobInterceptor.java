@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * XXL-Job 任务执行流量增强
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class XxlJobInterceptor extends AbstractInstanceMethodsAroundInterceptor {
     

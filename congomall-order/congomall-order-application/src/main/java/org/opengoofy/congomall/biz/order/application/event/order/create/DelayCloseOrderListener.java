@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * 发送延迟队列取消未付款订单监听
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Order(3)
 @Component

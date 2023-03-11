@@ -34,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * SpringCloud Stream RocketMQ 生产端切面拦截增强
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class StreamRocketMQConsumerInterceptor extends AbstractInstanceMethodsAroundInterceptor {
     

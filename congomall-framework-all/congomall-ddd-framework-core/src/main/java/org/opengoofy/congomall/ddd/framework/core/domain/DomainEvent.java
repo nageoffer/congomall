@@ -21,7 +21,7 @@ package org.opengoofy.congomall.ddd.framework.core.domain;
  * 领域事件
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface DomainEvent {
 }

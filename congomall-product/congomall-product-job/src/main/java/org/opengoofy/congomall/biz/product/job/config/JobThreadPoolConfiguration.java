@@ -28,7 +28,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * 线程池配置类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Configuration
 public class JobThreadPoolConfiguration {

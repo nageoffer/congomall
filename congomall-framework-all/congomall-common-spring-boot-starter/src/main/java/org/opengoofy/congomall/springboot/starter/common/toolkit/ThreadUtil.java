@@ -23,7 +23,7 @@ import lombok.SneakyThrows;
  * 线程池工具类
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class ThreadUtil {
     

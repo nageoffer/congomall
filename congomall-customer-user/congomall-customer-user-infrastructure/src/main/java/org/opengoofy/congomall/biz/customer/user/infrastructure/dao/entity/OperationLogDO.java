@@ -29,7 +29,7 @@ import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
  * C 端用户操作日志
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @NoArgsConstructor

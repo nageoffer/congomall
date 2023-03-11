@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.cache;
  * 多级缓存
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface MultistageCache extends Cache {
 }

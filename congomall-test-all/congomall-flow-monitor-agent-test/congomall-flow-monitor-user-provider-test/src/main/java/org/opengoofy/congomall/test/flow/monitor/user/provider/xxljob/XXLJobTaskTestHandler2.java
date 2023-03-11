@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  * XXL-Job 任务测试
  *
  * @author chen.ma
- * @github https://github.com/OpenGoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

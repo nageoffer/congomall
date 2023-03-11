@@ -27,7 +27,7 @@ import java.util.Date;
  * 数据持久层基础属性
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class BaseDO {

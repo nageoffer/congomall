@@ -31,7 +31,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * 缓存配置自动装配
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @AllArgsConstructor
 @EnableConfigurationProperties({RedisDistributedProperties.class, BloomFilterPenetrateProperties.class})

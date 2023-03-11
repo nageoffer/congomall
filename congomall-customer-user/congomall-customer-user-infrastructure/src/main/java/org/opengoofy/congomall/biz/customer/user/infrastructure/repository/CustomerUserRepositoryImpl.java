@@ -40,7 +40,7 @@ import org.springframework.stereotype.Repository;
  * C 端用户仓储层实现
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Repository
 @AllArgsConstructor

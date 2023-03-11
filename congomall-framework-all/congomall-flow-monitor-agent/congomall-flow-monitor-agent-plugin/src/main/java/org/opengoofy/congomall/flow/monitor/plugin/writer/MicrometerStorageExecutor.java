@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 对接指标存储模式
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class MicrometerStorageExecutor {
     

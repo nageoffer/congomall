@@ -25,7 +25,7 @@ import org.apache.ibatis.annotations.Mapper;
  * C 端用户
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Mapper
 public interface CustomerUserRepositoryMapper extends BaseMapper<CustomerUserDO> {

@@ -23,7 +23,7 @@ import lombok.Data;
  * 用户注册响应
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 public class UserRegisterRespDTO {

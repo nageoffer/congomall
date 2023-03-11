@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.idempotent.enums;
  * 幂等验证类型枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum IdempotentTypeEnum {
     

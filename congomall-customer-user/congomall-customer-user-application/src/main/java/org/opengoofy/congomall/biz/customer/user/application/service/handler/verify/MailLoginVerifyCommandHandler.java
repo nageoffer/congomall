@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  * 用户登录使用邮箱验证
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Component
 public class MailLoginVerifyCommandHandler extends AbstractMailVerifySender implements AbstractExecuteStrategy<UserVerifyCodeCommand, Void> {

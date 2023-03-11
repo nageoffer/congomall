@@ -33,7 +33,7 @@ import java.util.List;
  * 微服务流量监控来源客户端参数提供工厂
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class FlowMonitorSourceParamProviderFactory {
     

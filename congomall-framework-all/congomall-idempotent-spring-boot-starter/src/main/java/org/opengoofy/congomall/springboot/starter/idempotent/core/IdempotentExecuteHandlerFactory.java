@@ -32,7 +32,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTyp
  * A：策略模式同样可以达到获取真正幂等处理器功能。只是为了模拟更多设计模式，所以选择了简单工厂
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class IdempotentExecuteHandlerFactory {
     

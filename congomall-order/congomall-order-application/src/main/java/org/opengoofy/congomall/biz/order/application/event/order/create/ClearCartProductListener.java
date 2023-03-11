@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * 清理购物车商品监听
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Order(1)
 @Component

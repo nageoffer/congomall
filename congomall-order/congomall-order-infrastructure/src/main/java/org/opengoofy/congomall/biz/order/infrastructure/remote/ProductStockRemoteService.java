@@ -32,7 +32,7 @@ import java.util.List;
  * 商品库存服务远程调用
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @FeignClient("product-service")
 public interface ProductStockRemoteService {

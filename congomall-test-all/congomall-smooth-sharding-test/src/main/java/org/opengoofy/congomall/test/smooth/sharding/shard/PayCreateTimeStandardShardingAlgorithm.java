@@ -33,7 +33,7 @@ import java.util.Properties;
  * 支付创建时间分片算法
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class PayCreateTimeStandardShardingAlgorithm implements StandardShardingAlgorithm<Date> {
     

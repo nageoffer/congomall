@@ -27,7 +27,7 @@ import java.util.List;
  * 邮件发送
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Accessors(chain = true)

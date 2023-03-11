@@ -32,7 +32,7 @@ import org.springframework.web.client.RestTemplate;
  * Web 组件自动装配
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Configuration
 public class WebAutoConfiguration {

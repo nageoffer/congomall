@@ -26,7 +26,7 @@ import org.opengoofy.congomall.biz.pay.domain.common.PayChannelEnum;
  * 支付宝支付请求入参
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Data
 @Accessors(chain = true)

@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.entity.ProductBran
  * 商品品牌
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface ProductBrandMapper extends BaseMapper<ProductBrandDO> {
 }

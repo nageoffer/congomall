@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 微服务流量监控写入器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class FlowMonitorWrite {
     

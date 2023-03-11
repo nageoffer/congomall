@@ -35,7 +35,7 @@ import java.util.UUID;
  * 延迟关闭订单生产者
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Slf4j
 @Component

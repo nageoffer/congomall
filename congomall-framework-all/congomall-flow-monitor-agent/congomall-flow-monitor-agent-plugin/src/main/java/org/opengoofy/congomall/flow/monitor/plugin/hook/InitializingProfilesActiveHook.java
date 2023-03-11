@@ -24,7 +24,7 @@ import org.opengoofy.congomall.flow.monitor.plugin.toolkit.Environments;
  * 初始化 `spring.profiles.active` 属性值
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public class InitializingProfilesActiveHook implements InitializingHook {
     

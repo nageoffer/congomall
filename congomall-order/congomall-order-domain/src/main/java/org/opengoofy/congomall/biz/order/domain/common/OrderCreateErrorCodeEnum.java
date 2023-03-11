@@ -24,7 +24,7 @@ import org.opengoofy.congomall.springboot.starter.convention.errorcode.IErrorCod
  * 订单创建错误码枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @AllArgsConstructor
 public enum OrderCreateErrorCodeEnum implements IErrorCode {

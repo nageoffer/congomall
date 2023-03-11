@@ -21,7 +21,7 @@ package org.opengoofy.congomall.springboot.starter.cache.core;
  * 缓存过滤
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @FunctionalInterface
 public interface CacheGetFilter<T> {

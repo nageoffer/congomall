@@ -21,7 +21,7 @@ package org.opengoofy.congomall.biz.order.application.enums;
  * 订单相关责任链 Mark 枚举
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public enum OrderChainMarkEnum {
     

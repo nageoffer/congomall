@@ -30,7 +30,7 @@ import static org.opengoofy.congomall.flow.monitor.core.conf.Config.Agent.SPRING
  * SpringApplication 拦截，获取 Spring 应用上下文
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class SpringApplicationInstrumentation implements ClassEnhancePluginDefine {
     

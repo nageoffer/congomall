@@ -29,7 +29,7 @@ import java.util.Objects;
  * 支付回调请求入参转换器
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public final class PayCallbackRequestConvert {
     

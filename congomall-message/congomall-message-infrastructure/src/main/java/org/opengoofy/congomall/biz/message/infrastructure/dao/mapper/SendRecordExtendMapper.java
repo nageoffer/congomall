@@ -24,7 +24,7 @@ import org.opengoofy.congomall.biz.message.infrastructure.dao.entity.SendRecordE
  * 消息发送扩展记录持久层
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 public interface SendRecordExtendMapper extends BaseMapper<SendRecordExtendDO> {
 }

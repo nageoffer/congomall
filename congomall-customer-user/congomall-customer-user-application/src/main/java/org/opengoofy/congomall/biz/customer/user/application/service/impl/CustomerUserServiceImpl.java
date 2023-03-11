@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
  * C 端用户接口
  *
  * @author chen.ma
- * @github https://github.com/opengoofy
+ * @github <a href="https://github.com/opengoofy" />
  */
 @Service
 @AllArgsConstructor
