@@ -36,4 +36,11 @@ public interface ReceiveAddressRepository {
      * @return
      */
     List<ReceiveAddress> listReceiveAddressByCustomerUserId(String customerUserId);
+    
+    /**
+     * 新增用户收货地址
+     *
+     * @param receiveAddress
+     */
+    void saveReceiveAddress(ReceiveAddress receiveAddress);
 }

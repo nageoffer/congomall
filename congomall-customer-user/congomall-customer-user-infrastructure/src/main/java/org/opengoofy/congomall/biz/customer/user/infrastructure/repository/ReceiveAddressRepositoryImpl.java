@@ -45,4 +45,10 @@ public class ReceiveAddressRepositoryImpl implements ReceiveAddressRepository {
         List<ReceiveAddressDO> receiveAddressDOList = receiveAddressMapper.selectList(Wrappers.lambdaQuery(ReceiveAddressDO.class).eq(ReceiveAddressDO::getCustomerUserId, customerUserId));
         return BeanUtil.convert(receiveAddressDOList, ReceiveAddress.class);
     }
+    
+    @Override
+    public void saveReceiveAddress(ReceiveAddress receiveAddress) {
+        ReceiveAddressDO receiveAddressDO = BeanUtil.convert(receiveAddress, ReceiveAddressDO.class);
+        receiveAddressMapper.insert(receiveAddressDO);
+    }
 }

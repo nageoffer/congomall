@@ -54,12 +54,12 @@ public class ReceiveAddressDO extends BaseDO {
     /**
      * 是否默认 0：否 1：是
      */
-    private int defaultFlag;
+    private Integer defaultFlag;
     
     /**
      * 标签 0：家 1：公司
      */
-    private int tag;
+    private Integer tag;
     
     /**
      * 邮政编码

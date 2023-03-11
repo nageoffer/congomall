@@ -22,6 +22,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.opengoofy.congomall.biz.customer.user.application.req.ReceiveAddressSaveCommand;
 import org.opengoofy.congomall.biz.customer.user.application.resp.ReceiveAddressRespDTO;
 import org.opengoofy.congomall.biz.customer.user.application.service.ReceiveAddressService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
@@ -29,6 +30,8 @@ import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,10 +51,19 @@ public class ReceiveAddressController {
     
     private final ReceiveAddressService receiveAddressService;
     
-    @GetMapping("/api/customer-user/{customerUserId}/receive-address")
+    @GetMapping("/api/customer-user/receive-address/{customerUserId}")
     @ApiOperation(value = "获取用户收货地址", notes = "根据用户ID获取用户收货地址")
-    @ApiImplicitParams({@ApiImplicitParam(name = "customerUserId", value = "用户 id", required = true, example = "1547742028312375296")})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634213066546319360")
+    })
     public Result<List<ReceiveAddressRespDTO>> listReceiveAddress(@PathVariable("customerUserId") String customerUserId) {
         return Results.success(receiveAddressService.listReceiveAddressByCustomerUserId(customerUserId));
+    }
+    
+    @PostMapping("/api/customer-user/receive-address")
+    @ApiOperation(value = "新增用户收货地址", notes = "根据用户ID获取用户收货地址")
+    public Result<Void> saveReceiveAddress(@RequestBody ReceiveAddressSaveCommand requestParam) {
+        receiveAddressService.saveReceiveAddress(requestParam);
+        return Results.success();
     }
 }

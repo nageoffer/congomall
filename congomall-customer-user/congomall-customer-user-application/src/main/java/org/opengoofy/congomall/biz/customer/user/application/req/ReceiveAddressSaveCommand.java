@@ -15,33 +15,68 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.customer.user.application.service;
+package org.opengoofy.congomall.biz.customer.user.application.req;
 
-import org.opengoofy.congomall.biz.customer.user.application.req.ReceiveAddressSaveCommand;
-import org.opengoofy.congomall.biz.customer.user.application.resp.ReceiveAddressRespDTO;
-
-import java.util.List;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
 /**
- * 用户收货地址
+ * 新增收货地址
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  */
-public interface ReceiveAddressService {
+@Data
+@ApiModel("新增收货地址")
+public class ReceiveAddressSaveCommand {
     
     /**
-     * 根据用户 ID 查询收货地址
-     *
-     * @param customerUserId
-     * @return
+     * c端用户id
      */
-    List<ReceiveAddressRespDTO> listReceiveAddressByCustomerUserId(String customerUserId);
+    private String customerUserId;
     
     /**
-     * 新增用户收货地址
-     *
-     * @param requestParam
+     * 收货人名称
      */
-    void saveReceiveAddress(ReceiveAddressSaveCommand requestParam);
+    private String name;
+    
+    /**
+     * 收货人电话
+     */
+    private String phone;
+    
+    /**
+     * 是否默认 0：否 1：是
+     */
+    private Integer defaultFlag;
+    
+    /**
+     * 标签 0：家 1：公司
+     */
+    private Integer tag;
+    
+    /**
+     * 邮政编码
+     */
+    private String postCode;
+    
+    /**
+     * 省
+     */
+    private String province;
+    
+    /**
+     * 市
+     */
+    private String city;
+    
+    /**
+     * 区
+     */
+    private String region;
+    
+    /**
+     * 详细地址
+     */
+    private String detailAddress;
 }
