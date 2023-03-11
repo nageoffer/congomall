@@ -37,7 +37,7 @@ public class Result<T> implements Serializable {
     /**
      * 正确返回码
      */
-    public static final String SUCCESS_CODE = "00000";
+    public static final String SUCCESS_CODE = "0";
     
     /**
      * 返回码
