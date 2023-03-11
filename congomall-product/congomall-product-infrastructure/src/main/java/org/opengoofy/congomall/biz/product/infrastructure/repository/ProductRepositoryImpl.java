@@ -53,11 +53,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ProductRepositoryImpl implements ProductRepository {
     
     private final ProductSpuMapper productSpuMapper;
-    
     private final ProductBrandMapper productBrandMapper;
-    
     private final ProductSkuMapper productSkuMapper;
-    
     private final ThreadPoolExecutor productThreadPoolExecutor;
     
     @Override
