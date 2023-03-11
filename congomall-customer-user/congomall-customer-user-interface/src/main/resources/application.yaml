@@ -74,10 +74,13 @@ spring:
               phone:
                 cipher-column: phone
                 encryptor-name: customer-user-encryptor
-          customer_user_receive_address:
+          receive_address:
             columns:
               phone:
                 cipher-column: phone
+                encryptor-name: customer-user-encryptor
+              detail_address:
+                cipher-column: detail_address
                 encryptor-name: customer-user-encryptor
       sharding:
         sharding-algorithms:
