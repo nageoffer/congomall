@@ -29,7 +29,6 @@ import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -42,12 +41,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Api(tags = "商品服务")
-@RequestMapping("/api/product")
 public class ProductController {
     
     private final ProductService productService;
     
-    @GetMapping("/spu/{spuId}")
+    @GetMapping("/api/product/spu/{spuId}")
     @ApiOperation(value = "根据 spuId 查询商品详情")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "spuId", value = "商品 spuId", required = true, example = "1477055850256982016")

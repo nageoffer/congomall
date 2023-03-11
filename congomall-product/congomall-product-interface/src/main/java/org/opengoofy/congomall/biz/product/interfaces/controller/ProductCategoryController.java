@@ -17,16 +17,15 @@
 
 package org.opengoofy.congomall.biz.product.interfaces.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.product.application.resp.ProductCategoryRespDTO;
 import org.opengoofy.congomall.biz.product.application.service.ProductCategoryService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -41,13 +40,12 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Api(tags = "商品分类")
-@RequestMapping("/api/product")
 public class ProductCategoryController {
     
     private final ProductCategoryService productCategoryService;
     
+    @GetMapping("/api/product/categories")
     @ApiOperation(value = "查询商品分类集合", notes = "返回全部分类")
-    @GetMapping("/categories")
     public Result<List<ProductCategoryRespDTO>> listAllProductCategory() {
         return Results.success(productCategoryService.listAllProductCategory());
     }
