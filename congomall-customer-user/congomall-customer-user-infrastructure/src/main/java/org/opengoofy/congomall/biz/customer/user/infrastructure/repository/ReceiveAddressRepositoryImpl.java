@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.biz.customer.user.infrastructure.repository;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.domain.mode.ReceiveAddress;
@@ -50,5 +51,13 @@ public class ReceiveAddressRepositoryImpl implements ReceiveAddressRepository {
     public void saveReceiveAddress(ReceiveAddress receiveAddress) {
         ReceiveAddressDO receiveAddressDO = BeanUtil.convert(receiveAddress, ReceiveAddressDO.class);
         receiveAddressMapper.insert(receiveAddressDO);
+    }
+    
+    @Override
+    public void removeReceiveAddress(String customerUserId, String receiveAddressId) {
+        LambdaUpdateWrapper<ReceiveAddressDO> updateWrapper = Wrappers.lambdaUpdate(ReceiveAddressDO.class)
+                .eq(ReceiveAddressDO::getCustomerUserId, customerUserId)
+                .eq(ReceiveAddressDO::getId, receiveAddressId);
+        receiveAddressMapper.delete(updateWrapper);
     }
 }

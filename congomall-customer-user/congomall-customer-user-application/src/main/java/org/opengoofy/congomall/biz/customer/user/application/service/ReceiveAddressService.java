@@ -44,4 +44,12 @@ public interface ReceiveAddressService {
      * @param requestParam
      */
     void saveReceiveAddress(ReceiveAddressSaveCommand requestParam);
+    
+    /**
+     * 根据用户 ID、收货地址 ID 删除收货地址
+     *
+     * @param customerUserId
+     * @param receiveAddressId
+     */
+    void removeReceiveAddress(String customerUserId, String receiveAddressId);
 }

@@ -51,4 +51,9 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService {
         ReceiveAddress receiveAddress = BeanUtil.convert(requestParam, ReceiveAddress.class);
         receiveAddressRepository.saveReceiveAddress(receiveAddress);
     }
+    
+    @Override
+    public void removeReceiveAddress(String customerUserId, String receiveAddressId) {
+        receiveAddressRepository.removeReceiveAddress(customerUserId, receiveAddressId);
+    }
 }

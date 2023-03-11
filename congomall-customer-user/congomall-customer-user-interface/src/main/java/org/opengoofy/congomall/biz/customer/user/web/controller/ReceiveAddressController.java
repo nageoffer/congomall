@@ -28,6 +28,7 @@ import org.opengoofy.congomall.biz.customer.user.application.service.ReceiveAddr
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +42,6 @@ import java.util.List;
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
- * @公众号 龙台的技术笔记
  */
 @MLog
 @RestController
@@ -54,16 +54,27 @@ public class ReceiveAddressController {
     @GetMapping("/api/customer-user/receive-address/{customerUserId}")
     @ApiOperation(value = "获取用户收货地址", notes = "根据用户ID获取用户收货地址")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634213066546319360")
+            @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634554535496892416")
     })
     public Result<List<ReceiveAddressRespDTO>> listReceiveAddress(@PathVariable("customerUserId") String customerUserId) {
         return Results.success(receiveAddressService.listReceiveAddressByCustomerUserId(customerUserId));
     }
     
     @PostMapping("/api/customer-user/receive-address")
-    @ApiOperation(value = "新增用户收货地址", notes = "根据用户ID获取用户收货地址")
+    @ApiOperation(value = "新增用户收货地址", notes = "新增用户收货地址")
     public Result<Void> saveReceiveAddress(@RequestBody ReceiveAddressSaveCommand requestParam) {
         receiveAddressService.saveReceiveAddress(requestParam);
+        return Results.success();
+    }
+    
+    @DeleteMapping("/api/customer-user/{customerUserId}/receive-address/{receiveAddressId}")
+    @ApiOperation(value = "删除用户收货地址", notes = "根据用户ID和收货ID删除用户收货地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634554535496892416"),
+            @ApiImplicitParam(name = "customerUserId", value = "收货地址ID", required = true, example = "1634561618543894528")
+    })
+    public Result<Void> removeReceiveAddress(@PathVariable("customerUserId") String customerUserId, @PathVariable("receiveAddressId") String receiveAddressId) {
+        receiveAddressService.removeReceiveAddress(customerUserId, receiveAddressId);
         return Results.success();
     }
 }
