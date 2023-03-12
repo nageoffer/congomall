@@ -26,17 +26,50 @@ spring:
       transport:
         dashboard: localhost:8686
         port: 8719
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      connection-test-query: select 1
-      connection-timeout: 20000
-      idle-timeout: 300000
-      maximum-pool-size: 5
-      minimum-idle: 5
-    username: congomall
-    password: congomall
-    url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_product?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+  shardingsphere:
+    datasource:
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        username: congomall
+        password: congomall
+        jdbc-url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_product?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+      names: ds-0
+    props:
+      sql-show: true
+    rules:
+      sharding:
+        sharding-algorithms:
+          product_sharding_by_mod_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.product.infrastructure.algorithm.ProductSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+          product-sku_sharding_by_mod_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.product.infrastructure.algorithm.ProductSkuSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+        tables:
+          product_spu:
+            actual-data-nodes: ds-0.product_spu_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: product_sharding_by_mod_algorithm
+                sharding-columns: brand_id,id
+          product_sku:
+            actual-data-nodes: ds-0.product_sku_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: product-sku_sharding_by_mod_algorithm
+                sharding-columns: brand_id,product_id
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+
   dynamic:
     thread-pool:
       default-executor:

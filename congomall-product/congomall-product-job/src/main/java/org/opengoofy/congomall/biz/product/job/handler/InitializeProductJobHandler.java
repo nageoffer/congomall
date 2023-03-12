@@ -31,9 +31,10 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.LongAdder;
+import java.util.stream.Collectors;
 
 /**
- * 初始化商品任务
+ * 初始化商品任务，通过并发编程完成生产-消费模型，达到快速同步的效果
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
@@ -54,29 +55,29 @@ public class InitializeProductJobHandler extends IJobHandler {
     private final ThreadPoolExecutor productSkuInitSyncThreadPoolExecutor;
     
     /**
-     * 单次同步 ES 数量
+     * 单次同步 ElasticSearch 数量
      */
-    private Integer MAX_SYNC_SIZE = 5000;
+    private static final Integer MAX_SYNC_SIZE = 5000;
     
     /**
      * 阻塞队列最大容量，相当于一个缓冲池大小
      */
-    private Integer MAX_POOL_SIZE = 200000;
+    private static final Integer MAX_POOL_SIZE = 200000;
     
     /**
      * 记录开始时间
      */
-    private Long START_TIME = 0L;
+    private static Long START_TIME = 0L;
     
     /**
      * 记录同步
      */
-    private final AtomicInteger COUNT_NUM = new AtomicInteger(0);
+    private static final AtomicInteger COUNT_NUM = new AtomicInteger(0);
     
     /**
      * 记录实际同步数量
      */
-    private final LongAdder SYNC_SUM = new LongAdder();
+    private static final LongAdder SYNC_SUM = new LongAdder();
     
     /**
      * 打印输出监控定时器
@@ -95,30 +96,28 @@ public class InitializeProductJobHandler extends IJobHandler {
     }
     
     void executeProductSkuSync() {
-        BlockingQueue<ProductSkuDO> blockingQueueCachePool = new LinkedBlockingDeque(MAX_POOL_SIZE);
+        BlockingQueue<ProductSkuDO> blockingQueueCachePool = new LinkedBlockingDeque<>(MAX_POOL_SIZE);
         productSkuMapper.listAllProductSkuStreamQuery(resultContext -> {
-            int temp;
-            int queueSize;
             // 记录流式查询总数量
             COUNT_NUM.incrementAndGet();
             // 每次向缓冲池添加 MAX_SYNC_SIZE 记录
             try {
                 blockingQueueCachePool.put(resultContext.getResultObject());
-            } catch (Exception ignored) {
+            } catch (Exception ex) {
                 log.error("商品SKU基础数据初始化流程, 添加阻塞队列缓冲池失败, 数据记录: {}",
-                        JSON.toJSONString(resultContext.getResultObject()), ignored);
+                        JSON.toJSONString(resultContext.getResultObject()), ex);
             }
-            // 避免请求目标数据库次数过多，所以建议每次 MAX_SYNC_SIZE 条数，虽然可能不够这个数
-            if ((temp = (queueSize = blockingQueueCachePool.size()) % MAX_SYNC_SIZE) >= 0 && temp != queueSize) {
+            // 避免请求目标数据库（ElasticSearch 或其它）次数过多，所以建议每次 MAX_SYNC_SIZE 条数，虽然可能不够这个数
+            if (blockingQueueCachePool.size() >= MAX_SYNC_SIZE) {
                 productSkuInitSyncThreadPoolExecutor.execute(() -> executeTask(blockingQueueCachePool));
             }
         });
         // 兜底，将最后缓冲的任务执行
-        productSkuInitSyncThreadPoolExecutor.execute(() -> executeTask(blockingQueueCachePool));
+        productSkuInitSyncThreadPoolExecutor.execute(() -> lastOnceExecuteTask(blockingQueueCachePool));
     }
     
     private void executeTask(BlockingQueue<ProductSkuDO> blockingQueueCachePool) {
-        List<ProductSkuDO> copyList = new ArrayList(MAX_SYNC_SIZE);
+        List<ProductSkuDO> copyList = new ArrayList<>(MAX_SYNC_SIZE);
         try {
             int drainTo = blockingQueueCachePool.drainTo(copyList, MAX_SYNC_SIZE);
             if (drainTo > 0) {
@@ -128,6 +127,17 @@ public class InitializeProductJobHandler extends IJobHandler {
             }
         } catch (Exception ex) {
             log.error("商品SKU基础数据初始化流程执行失败", ex);
+        }
+    }
+    
+    private void lastOnceExecuteTask(BlockingQueue<ProductSkuDO> blockingQueueCachePool) {
+        List<ProductSkuDO> lastProductSkus = blockingQueueCachePool.stream().parallel().collect(Collectors.toList());
+        try {
+            SYNC_SUM.add(lastProductSkus.size());
+            // 此处决定向何处同步数据
+            // ......
+        } catch (Exception ex) {
+            log.error("商品SKU基础数据初始化流程执行最后一次同步失败", ex);
         }
     }
     

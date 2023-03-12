@@ -37,11 +37,10 @@ public class JobThreadPoolConfiguration {
     @DynamicThreadPool
     public ThreadPoolExecutor productSkuInitSyncThreadPoolExecutor() {
         String productSkuInitSyncThreadPoolId = "product-sku-init-sync-executor";
-        ThreadPoolExecutor threadPoolExecutor = ThreadPoolBuilder.builder()
+        return ThreadPoolBuilder.builder()
                 .threadPoolId(productSkuInitSyncThreadPoolId)
                 .threadFactory(productSkuInitSyncThreadPoolId)
                 .dynamicPool()
                 .build();
-        return threadPoolExecutor;
     }
 }
