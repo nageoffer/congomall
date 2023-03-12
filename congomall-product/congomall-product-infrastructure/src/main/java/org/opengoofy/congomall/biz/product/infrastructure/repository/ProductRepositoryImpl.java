@@ -65,12 +65,11 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .submit(() -> productBrandMapper.selectById(productSpuDO.getBrandId()));
         Future<List<ProductSkuDO>> productSkuDOListFuture = productThreadPoolExecutor
                 .submit(() -> productSkuMapper.selectList(Wrappers.lambdaQuery(ProductSkuDO.class).eq(ProductSkuDO::getProductId, spuId)));
-        Product product = Product.builder()
+        return Product.builder()
                 .productBrand(BeanUtil.convert(productBrandDOFuture.get(), ProductBrand.class))
                 .productSpu(BeanUtil.convert(productSpuDO, ProductSpu.class))
                 .productSkus(BeanUtil.convert(productSkuDOListFuture.get(), ProductSku.class))
                 .build();
-        return product;
     }
     
     @Override

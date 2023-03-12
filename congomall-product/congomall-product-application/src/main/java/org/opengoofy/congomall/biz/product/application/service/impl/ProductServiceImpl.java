@@ -17,7 +17,6 @@
 
 package org.opengoofy.congomall.biz.product.application.service.impl;
 
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
 import org.opengoofy.congomall.biz.product.application.req.ProductStockVerifyQuery;
@@ -57,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.verifyProductStock(productStock);
     }
     
-    @GlobalTransactional
+    // @GlobalTransactional
     @Override
     public Boolean lockProductStock(ProductLockStockCommand requestParam) {
         return productRepository.lockProductStock(BeanUtil.convert(requestParam, ProductStock.class));
