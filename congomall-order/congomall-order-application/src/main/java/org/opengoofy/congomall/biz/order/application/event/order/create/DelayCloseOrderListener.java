@@ -46,8 +46,7 @@ public class DelayCloseOrderListener implements ApplicationListener<OrderCreateE
                 new DelayCloseOrderEvent(
                         event.getOrder().getOrderSn(),
                         event.getOrder().getOrderProducts().stream()
-                                .map(each -> new ProductSkuStockDTO(String.valueOf(each.getProductSkuId()), each.getProductQuantity()))
+                                .map(each -> new ProductSkuStockDTO(String.valueOf(each.getProductId()), String.valueOf(each.getProductSkuId()), each.getProductQuantity()))
                                 .collect(Collectors.toList())));
-        
     }
 }

@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-
 server:
   port: 8006
 
@@ -75,8 +74,10 @@ spring:
         sharding-algorithms:
           order-item_sharding_by_mod:
             props:
+              algorithmClassName: org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm
               sharding-count: 16
-            type: HASH_MOD
+              strategy: complex
+            type: CLASS_BASED
           order_snowflake-service_algorithm:
             props:
               algorithmClassName: org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm
@@ -93,9 +94,9 @@ spring:
           order_item:
             actual-data-nodes: ds-0.order_item_$->{0..15}
             table-strategy:
-              standard:
-                sharding-algorithm-name: order-item_sharding_by_mod
-                sharding-column: order_sn
+              complex:
+                sharding-algorithm-name: order_snowflake-service_algorithm
+                sharding-columns: customer_user_id,order_sn
 
 congomall:
   fastjson:

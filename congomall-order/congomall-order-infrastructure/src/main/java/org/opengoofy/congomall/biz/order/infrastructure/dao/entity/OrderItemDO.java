@@ -19,6 +19,7 @@ package org.opengoofy.congomall.biz.order.infrastructure.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 
 import java.math.BigDecimal;
@@ -30,6 +31,7 @@ import java.math.BigDecimal;
  * @github <a href="https://github.com/opengoofy" />
  */
 @Data
+@Accessors(chain = true)
 @TableName("order_item")
 public class OrderItemDO extends BaseDO {
     
@@ -37,6 +39,11 @@ public class OrderItemDO extends BaseDO {
      * id
      */
     private Long id;
+    
+    /**
+     * 用户id
+     */
+    private Long customerUserId;
     
     /**
      * 订单id
@@ -47,6 +54,11 @@ public class OrderItemDO extends BaseDO {
      * 订单编号
      */
     private String orderSn;
+    
+    /**
+     * 商品spu id
+     */
+    private Long productId;
     
     /**
      * 商品sku id

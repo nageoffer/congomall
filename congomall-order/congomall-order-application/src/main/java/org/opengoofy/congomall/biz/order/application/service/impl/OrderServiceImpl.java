@@ -54,10 +54,8 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     
     private final CartRemoteService cartRemoteService;
-    
     private final OrderRepository orderRepository;
-    
-    private final AbstractChainContext abstractChainContext;
+    private final AbstractChainContext<OrderCreateCommand> abstractChainContext;
     
     // @GlobalTransactional
     @Override

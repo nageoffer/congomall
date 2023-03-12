@@ -81,7 +81,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         BeanUtil.convertIgnoreNullAndBlank(order.getCneeInfo(), orderDO);
         orderMapper.insert(orderDO);
         List<OrderItemDO> orderItemDOList = BeanUtil.convert(order.getOrderProducts(), OrderItemDO.class);
-        orderItemDOList.forEach(each -> each.setOrderId(orderId));
+        orderItemDOList.forEach(each -> each.setOrderId(orderId).setCustomerUserId(order.getCustomerUserId()));
         orderItemDOList.forEach(orderItemMapper::insert);
     }
     

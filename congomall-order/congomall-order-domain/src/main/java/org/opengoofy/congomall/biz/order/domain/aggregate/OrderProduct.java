@@ -50,7 +50,12 @@ public class OrderProduct implements Entity {
     private String orderSn;
     
     /**
-     * 商品id
+     * 商品 SPU ID
+     */
+    private Long productId;
+    
+    /**
+     * 商品 SKU ID
      */
     private Long productSkuId;
     
