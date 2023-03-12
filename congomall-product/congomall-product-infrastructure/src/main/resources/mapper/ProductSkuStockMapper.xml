@@ -25,7 +25,8 @@
             product_sku
         SET stock      = stock + #{stock},
             lock_stock = lock_stock + #{lockStock}
-        WHERE id = #{id}
+        WHERE id = #{id} 
+          AND product_id = #{productId}
           AND stock + #{stock} > 0
     </update>
     
@@ -36,5 +37,6 @@
         SET stock      = stock + #{stock},
             lock_stock = lock_stock + #{lockStock}
         WHERE id = #{id}
+          AND product_id = #{productId}
     </update>
 </mapper>
