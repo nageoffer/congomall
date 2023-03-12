@@ -33,6 +33,11 @@ import org.opengoofy.congomall.ddd.framework.core.domain.ValueObject;
 public class ProductStockDetail implements ValueObject {
     
     /**
+     * 商品 SPU ID
+     */
+    private String productId;
+    
+    /**
      * 商品 SKU ID
      */
     private String productSkuId;

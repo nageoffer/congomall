@@ -44,7 +44,17 @@ public class ProductSkuDO extends BaseDO {
     private Long id;
     
     /**
-     * 商品 id
+     * 商品分类id
+     */
+    private Long categoryId;
+    
+    /**
+     * 商品品牌id
+     */
+    private Long brandId;
+    
+    /**
+     * 商品id
      */
     private Long productId;
     

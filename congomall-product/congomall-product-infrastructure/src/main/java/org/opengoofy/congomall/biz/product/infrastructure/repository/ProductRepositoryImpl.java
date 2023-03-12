@@ -89,8 +89,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Transactional(rollbackFor = Exception.class)
     public Boolean lockProductStock(ProductStock productStock) {
         productStock.getProductStockDetails().forEach(each -> {
-            ProductSkuDO lockStock = ProductSkuDO.builder().id(Long.parseLong(each.getProductSkuId()))
-                    .stock(-each.getProductQuantity()).lockStock(each.getProductQuantity()).build();
+            ProductSkuDO lockStock = ProductSkuDO.builder()
+                    .id(Long.parseLong(each.getProductSkuId()))
+                    .productId(Long.parseLong(each.getProductId()))
+                    .stock(-each.getProductQuantity())
+                    .lockStock(each.getProductQuantity())
+                    .build();
             int updateFlag = productSkuMapper.lockSkuStock(lockStock);
             if (updateFlag <= 0) {
                 throw new ServiceException("锁定库存失败，请检查相关商品库存是否充足");
@@ -102,8 +106,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Boolean unlockProductStock(ProductStock productStock) {
         productStock.getProductStockDetails().forEach(each -> {
-            ProductSkuDO lockStock = ProductSkuDO.builder().id(Long.parseLong(each.getProductSkuId()))
-                    .stock(each.getProductQuantity()).lockStock(-each.getProductQuantity()).build();
+            ProductSkuDO lockStock = ProductSkuDO.builder()
+                    .id(Long.parseLong(each.getProductSkuId()))
+                    .productId(Long.parseLong(each.getProductId()))
+                    .stock(each.getProductQuantity())
+                    .lockStock(-each.getProductQuantity())
+                    .build();
             int updateFlag = productSkuMapper.unlockSkuStock(lockStock);
             if (updateFlag <= 0) {
                 throw new ServiceException("解锁库存失败，请检查相关商品库存数据是否正确");
