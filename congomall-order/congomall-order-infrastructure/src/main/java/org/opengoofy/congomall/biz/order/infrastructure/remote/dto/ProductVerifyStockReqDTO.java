@@ -35,6 +35,11 @@ import lombok.NoArgsConstructor;
 public class ProductVerifyStockReqDTO {
     
     /**
+     * 商品 SPU ID
+     */
+    private String productId;
+    
+    /**
      * 商品 SKU ID
      */
     private String productSkuId;

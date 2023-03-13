@@ -56,7 +56,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.verifyProductStock(productStock);
     }
     
-    // @GlobalTransactional
     @Override
     public Boolean lockProductStock(ProductLockStockCommand requestParam) {
         return productRepository.lockProductStock(BeanUtil.convert(requestParam, ProductStock.class));

@@ -29,6 +29,9 @@ import lombok.Data;
 @Data
 public class ProductStockVerifyQuery {
     
+    @ApiModelProperty("商品 id")
+    private String productId;
+    
     @ApiModelProperty("商品 sku id")
     private String productSkuId;
     

@@ -25,8 +25,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableDiscoveryClient
+@EnableTransactionManagement(proxyTargetClass = true)
 @EnableBinding({Source.class, OrderSink.class})
 @EnableFeignClients("org.opengoofy.congomall.biz.order.infrastructure.remote")
 @SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.biz.order")

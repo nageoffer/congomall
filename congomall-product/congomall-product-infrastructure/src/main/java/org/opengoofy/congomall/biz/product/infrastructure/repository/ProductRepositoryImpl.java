@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.biz.product.infrastructure.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -36,7 +37,6 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductSpuM
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -75,7 +75,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Boolean verifyProductStock(ProductStock productStock) {
         for (ProductStockDetail each : productStock.getProductStockDetails()) {
-            ProductSkuDO productSkuDO = productSkuMapper.selectOne(Wrappers.lambdaQuery(ProductSkuDO.class).eq(ProductSkuDO::getId, each.getProductSkuId()));
+            LambdaQueryWrapper<ProductSkuDO> queryWrapper = Wrappers.lambdaQuery(ProductSkuDO.class)
+                    .eq(ProductSkuDO::getProductId, each.getProductId())
+                    .eq(ProductSkuDO::getId, each.getProductSkuId());
+            ProductSkuDO productSkuDO = productSkuMapper.selectOne(queryWrapper);
             int actualStock = productSkuDO.getStock() - productSkuDO.getLockStock();
             if (actualStock - each.getProductQuantity() < 0) {
                 return Boolean.FALSE;
@@ -85,7 +88,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
     
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public Boolean lockProductStock(ProductStock productStock) {
         productStock.getProductStockDetails().forEach(each -> {
             ProductSkuDO lockStock = ProductSkuDO.builder()
@@ -99,6 +101,9 @@ public class ProductRepositoryImpl implements ProductRepository {
                 throw new ServiceException("锁定库存失败，请检查相关商品库存是否充足");
             }
         });
+        if (true) {
+            throw new RuntimeException();
+        }
         return Boolean.TRUE;
     }
     

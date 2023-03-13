@@ -17,9 +17,12 @@
 
 package org.opengoofy.congomall.biz.cart.application.service.impl;
 
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.AllArgsConstructor;
-import org.opengoofy.congomall.biz.cart.application.req.*;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemAddReqDTO;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemDelReqDTO;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemNumUpdateReqDTO;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemPageQueryReqDTO;
 import org.opengoofy.congomall.biz.cart.application.resp.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.biz.cart.application.resp.CartItemRespDTO;
 import org.opengoofy.congomall.biz.cart.application.service.CartItemService;
@@ -86,7 +89,6 @@ public class CartItemServiceImpl implements CartItemService {
         cartItemRepository.updateCartItem(BeanUtil.convert(requestParam, CartItem.class));
     }
     
-    @GlobalTransactional
     @Override
     public void clearCartProduct(CartItemDelReqDTO requestParam) {
         CartItem cartItem = CartItem.builder().customerUserId(Long.parseLong(requestParam.getCustomerUserId())).productSkuIds(requestParam.getProductSkuIds()).build();

@@ -19,6 +19,8 @@ package org.opengoofy.congomall.biz.order.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shardingsphere.transaction.annotation.ShardingSphereTransactionType;
+import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.opengoofy.congomall.biz.order.application.enums.OrderChainMarkEnum;
 import org.opengoofy.congomall.biz.order.application.event.order.create.OrderCreateEvent;
 import org.opengoofy.congomall.biz.order.application.filter.OrderCreateProductSkuStockChainHandler;
@@ -38,6 +40,7 @@ import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.designpattern.chain.AbstractChainContext;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,7 +60,8 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final AbstractChainContext<OrderCreateCommand> abstractChainContext;
     
-    // @GlobalTransactional
+    @Transactional
+    @ShardingSphereTransactionType(TransactionType.BASE)
     @Override
     public String createOrder(OrderCreateCommand requestParam) {
         // 责任链模式: 执行订单创建参数验证

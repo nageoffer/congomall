@@ -137,9 +137,12 @@ ribbon:
     enabled: true
 
 seata:
+  application-id: ${spring.application.name}
+  enable-auto-data-source-proxy: false
   service:
     grouplist:
       seata-server: 127.0.0.1:8091
     vgroup-mapping:
       my-tx-group: seata-server
   tx-service-group: my-tx-group
+  use-jdk-proxy: true

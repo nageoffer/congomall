@@ -28,14 +28,28 @@ spring:
       transport:
         dashboard: localhost:8686
         port: 8719
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      connection-test-query: select 1
-      connection-timeout: 20000
-      idle-timeout: 300000
-      maximum-pool-size: 5
-      minimum-idle: 5
+  shardingsphere:
+    datasource:
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+      names: ds-0
+    props:
+      sql-show: true
+    rules:
+      sharding:
+        sharding-algorithms:
+          cart-item_sharding_by_mod:
+            props:
+              sharding-count: 16
+            type: HASH_MOD
+        tables:
+          cart_item:
+            actual-data-nodes: ds-0.cart_item_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: cart-item_sharding_by_mod
+                sharding-column: customer_user_id
 
 congomall:
   fastjson:
@@ -55,9 +69,12 @@ mybatis-plus:
       logic-not-delete-value: 0
 
 seata:
+  application-id: ${spring.application.name}
+  enable-auto-data-source-proxy: false
   service:
     grouplist:
       seata-server: 127.0.0.1:8091
     vgroup-mapping:
       my-tx-group: seata-server
   tx-service-group: my-tx-group
+  use-jdk-proxy: true
