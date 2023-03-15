@@ -123,6 +123,7 @@ https://www.yuque.com/magestack/public/knowledge-planet
 
         - [如何防止配置文件敏感信息泄漏](https://magestack.cn/scene/data-safety/config-file.html)
         - [如何实现前端返回数据脱敏](https://magestack.cn/scene/data-safety/front.html)
+
     - 生产问题
 
         - [为什么线上异常信息为空，而本地可以正常打印](https://magestack.cn/scene/prod-issue/jvm-fast-throw.html)
@@ -150,6 +151,7 @@ https://www.yuque.com/magestack/public/knowledge-planet
         - [说说布隆过滤器查询误判和数据不能删除解决方案](https://magestack.cn/scene/cache/bloom-filter.html)
         - [如何通过咖啡因 & Redis 实现多级缓存](https://magestack.cn/scene/cache/multistage-cache.html)
         - [缓存和数据库一致性问题如何解决](https://magestack.cn/scene/cache/consistency.html)
+
 - 设计模式实战
 
     - 设计模式介绍
