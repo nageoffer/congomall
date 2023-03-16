@@ -35,6 +35,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
+ * @公众号 马丁玩编程，关注回复：资料，领取面试常问技术和视频教学
  */
 @RequiredArgsConstructor
 public final class IdempotentParamExecuteHandler extends AbstractIdempotentTemplate implements IdempotentParamService {

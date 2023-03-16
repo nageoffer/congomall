@@ -27,7 +27,8 @@ import java.util.stream.Stream;
  * 缓存工具类
  *
  * @author chen.ma
- * @github <a href="https://github.com/opengoofy" />s
+ * @github <a href="https://github.com/opengoofy" />
+ * @公众号 马丁玩编程，关注回复：资料，领取面试常问技术和视频教学s
  */
 public class CacheUtil {
     
