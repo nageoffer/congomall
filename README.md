@@ -145,6 +145,8 @@
 
         - [如何保证雪花算法集群环境下不重复](https://magestack.cn/scene/distributed/snowflake.html)
 
+        - [彻底掌握分布式事务 2PC、3PC 模型](https://magestack.cn/scene/distributed/23pc.html)
+
     - 应用安全
 
         - [如何防止数据库敏感信息泄漏](https://magestack.cn/scene/data-safety/database.html)
@@ -179,6 +181,13 @@
         - [说说布隆过滤器查询误判和数据不能删除解决方案](https://magestack.cn/scene/cache/bloom-filter.html)
         - [如何通过咖啡因 & Redis 实现多级缓存](https://magestack.cn/scene/cache/multistage-cache.html)
         - [缓存和数据库一致性问题如何解决](https://magestack.cn/scene/cache/consistency.html)
+
+    - 源码解析
+
+        - [MyBatis 整体架构设计分享](https://magestack.cn/scene/source-code/mybatis.html)
+        
+        - [花一个周末，掌握 OpenFeign 核心原理](https://magestack.cn/scene/source-code/openfeign.html)
+        - [花一个周末，掌握 SpringCloud Ribbon 核心原理](https://magestack.cn/scene/source-code/ribbon.html)
 
 - 设计模式实战
 
