@@ -179,7 +179,7 @@
         - [如何解决缓存穿透&击穿&雪崩](https://magestack.cn/scene/cache/issue.html)
 
         - [说说布隆过滤器查询误判和数据不能删除解决方案](https://magestack.cn/scene/cache/bloom-filter.html)
-        - [如何通过咖啡因 & Redis 实现多级缓存](https://magestack.cn/scene/cache/multistage-cache.html)
+        - [如何通过 Caffeine & Redis 实现多级缓存](https://magestack.cn/scene/cache/multistage-cache.html)
         - [缓存和数据库一致性问题如何解决](https://magestack.cn/scene/cache/consistency.html)
 
     - 源码解析
@@ -234,6 +234,20 @@
 | 6   | congomall-cart          | 购物车服务                        | [http://localhost:8005](http://localhost:8005) |
 | 7   | congomall-order         | 订单服务                          | [http://localhost:8006](http://localhost:8006) |
 | 8   | congomall-pay           | 支付服务                          | [http://localhost:8007](http://localhost:8007) |
+
+
+### 🧨 接口文档
+
+---
+
+目前刚果商城已开发的接口已汇总至下述接口文档中，本地启动对应项目，通过接口文档访问查看效果。
+
+[https://www.apifox.cn/web/project/1038592/apis/api-50106328-run](https://www.apifox.cn/web/project/1038592/apis/api-50106328-run)
+
+如果需要通过 Apifox 直接调用，需要安装对应浏览器内网插件，考虑到一部分同学没有科学上网，这里把插件安装包带上，跟着教程安装即可使用。
+安装文档：[https://www.apifox.cn/help/app/web/browser-extension](https://www.apifox.cn/help/app/web/browser-extension)
+
+![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673619450701-2c7d5fe3-bf39-4c79-84e8-2ae4f0211a79.png)
 
 
 ### 🛡 模块介绍
