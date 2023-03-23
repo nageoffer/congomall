@@ -235,8 +235,7 @@
 | 7   | congomall-order         | 订单服务                          | [http://localhost:8006](http://localhost:8006) |
 | 8   | congomall-pay           | 支付服务                          | [http://localhost:8007](http://localhost:8007) |
 
-
-### 🧨 接口文档
+### 🚅 接口请求
 
 ---
 
@@ -248,7 +247,6 @@
 安装文档：[https://www.apifox.cn/help/app/web/browser-extension](https://www.apifox.cn/help/app/web/browser-extension)
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673619450701-2c7d5fe3-bf39-4c79-84e8-2ae4f0211a79.png)
-
 
 ### 🛡 模块介绍
 
