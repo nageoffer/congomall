@@ -249,6 +249,14 @@
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673619450701-2c7d5fe3-bf39-4c79-84e8-2ae4f0211a79.png)
 
+### 🛡 模块介绍
+
+---
+
+刚果商城后端系统模块介绍如下所示。
+
+<img width="886" alt="image" src="https://user-images.githubusercontent.com/77398366/227092561-1aaee46b-cc4c-44e3-a8f5-a052c41f2cca.png">
+
 ### 📈 技术选型
 
 ---
