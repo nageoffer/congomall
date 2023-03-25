@@ -1,4 +1,3 @@
-
 ### 🎉 刚果商城，不一样的C端商城系统
 
 ---
@@ -7,7 +6,8 @@
 
 刚果商城是个从零到一的C端商城项目，包含商城核心业务和基础架构两大模块。
 
-参照商城系统原型，推出用户、消息、商品、订单、优惠券、支付、网关、购物车 等业务模块，通过商城系统中复杂场景，给出对应解决方案。使用 DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正确的开发思路。
+参照商城系统原型，推出用户、消息、商品、订单、优惠券、支付、网关、购物车 等业务模块，通过商城系统中复杂场景，给出对应解决方案。使用
+DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正确的开发思路。
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673165270664-5d0c4381-96ef-427b-a58d-9b21140eabe0-20230306173625527.png)
 
@@ -107,6 +107,8 @@
         - [如何保证雪花算法集群环境下不重复](https://magestack.cn/scene/distributed/snowflake.html)
 
         - [彻底掌握分布式事务 2PC、3PC 模型](https://magestack.cn/scene/distributed/23pc.html)
+        - [从根上理解 Redis 分布式锁演进架构](https://magestack.cn/scene/distributed/lock.html)
+        - [从 Redisson 源码到红锁 RedLock 算法思想](https://magestack.cn/scene/distributed/redisson.html)
 
     - 应用安全
 
@@ -178,23 +180,22 @@
     - [代码整洁为什么如此重要](https://magestack.cn/convention/code-format.html)
     - [如何提升代码质量](https://magestack.cn/convention/check-style.html)
 
-
 ### 👍 模块分类
 
 ---
 
 刚果商城项目是马哥从零到一写出来的，当前已开发模块如下所述，没有完成的请耐心等待。
 
-|     | 模块名称                | 服务名称                          | 访问地址                                       |
-| --- | ----------------------- | --------------------------------- | ---------------------------------------------- |
-| 1   | congomall-message       | 消息发送 eg：邮件、公众号、短信等 | [http://localhost:8001](http://localhost:8001) |
-| 2   | congomall-customer-user | 用户服务                          | [http://localhost:8002](http://localhost:8002) |
-| 3   | congomall-gateway       | 外部网关                          | [http://localhost:8003](http://localhost:8003) |
-| 4   | congomall-product       | 商品服务                          | [http://localhost:8004](http://localhost:8004) |
-| 5   | congomall-product-job   | 商品 Job 服务                     | [http://localhost:9001](http://localhost:9001) |
-| 6   | congomall-cart          | 购物车服务                        | [http://localhost:8005](http://localhost:8005) |
-| 7   | congomall-order         | 订单服务                          | [http://localhost:8006](http://localhost:8006) |
-| 8   | congomall-pay           | 支付服务                          | [http://localhost:8007](http://localhost:8007) |
+|   | 模块名称                    | 服务名称               | 访问地址                                           |
+|---|-------------------------|--------------------|------------------------------------------------|
+| 1 | congomall-message       | 消息发送 eg：邮件、公众号、短信等 | [http://localhost:8001](http://localhost:8001) |
+| 2 | congomall-customer-user | 用户服务               | [http://localhost:8002](http://localhost:8002) |
+| 3 | congomall-gateway       | 外部网关               | [http://localhost:8003](http://localhost:8003) |
+| 4 | congomall-product       | 商品服务               | [http://localhost:8004](http://localhost:8004) |
+| 5 | congomall-product-job   | 商品 Job 服务          | [http://localhost:9001](http://localhost:9001) |
+| 6 | congomall-cart          | 购物车服务              | [http://localhost:8005](http://localhost:8005) |
+| 7 | congomall-order         | 订单服务               | [http://localhost:8006](http://localhost:8006) |
+| 8 | congomall-pay           | 支付服务               | [http://localhost:8007](http://localhost:8007) |
 
 ### 🚅 接口请求
 
@@ -224,27 +225,27 @@
 
 当前暂时先梳理后端技术，前端开发后再行梳理。
 
-|     | 技术                | 名称                   | 官网                                                                                               |
-| --- | ------------------- | ---------------------- | -------------------------------------------------------------------------------------------------- |
-| 1   | Spring Boot         | 基础框架               | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)                   |
-| 2   | MyBatis-Plus        | 持久层框架             | [https://baomidou.com](https://baomidou.com)                                                       |
-| 3   | HikariCP            | 数据库连接池           | [https://github.com/brettwooldridge/HikariCP](https://github.com/brettwooldridge/HikariCP)         |
-| 4   | Redis               | 分布式缓存数据库       | [https://redis.io](https://redis.io)                                                               |
-| 5   | RocketMQ            | 消息队列               | [https://rocketmq.apache.org](https://rocketmq.apache.org)                                         |
-| 6   | ShardingSphere      | 数据库生态系统         | [https://shardingsphere.apache.org](https://shardingsphere.apache.org)                             |
-| 7   | SpringCloud Alibaba | 分布式框架             | [https://github.com/alibaba/spring-cloud-alibaba](https://github.com/alibaba/spring-cloud-alibaba) |
-| 8   | SpringCloud Gateway | 网关框架               | [https://spring.io/projects/spring-cloud-gateway](https://spring.io/projects/spring-cloud-gateway) |
-| 9   | Seata               | 分布式事务框架         | [http://seata.io/zh-cn/index.html](http://seata.io/zh-cn/index.html)                               |
-| 10  | Canal               | MySQL 订阅 BinLog 组件 | [https://github.com/alibaba/canal](https://github.com/alibaba/canal)                               |
-| 11  | MinIO               | 文件存储框架           | [https://min.io](https://min.io)                                                                   |
-| 12  | Swagger3            | 项目 API 文档框架      | [http://swagger.io](http://swagger.io)                                                             |
-| 13  | Knife4j             | Swagger 增强框架       | [https://doc.xiaominfo.com](https://doc.xiaominfo.com/)                                            |
-| 14  | Maven               | 项目构建管理           | [http://maven.apache.org](http://maven.apache.org)                                                 |
-| 15  | Redisson            | Redis Java 客户端      | [https://redisson.org](https://redisson.org/)                                                      |
-| 16  | Sentinel            | 流控防护框架           | [https://github.com/alibaba/Sentinel](https://github.com/alibaba/Sentinel)                         |
-| 17  | Hippo4j             | 动态线程池框架         | [https://hippo4j.cn](https://hippo4j.cn)                                                           |
-| 18  | XXL-Job             | 分布式定时任务框架     | [http://www.xuxueli.com/xxl-job](http://www.xuxueli.com/xxl-job)                                   |
-| 19  | SkyWalking          | 分布式链路追踪框架     | [https://skywalking.apache.org](https://skywalking.apache.org/)                                    |
+|    | 技术                  | 名称                 | 官网                                                                                                 |
+|----|---------------------|--------------------|----------------------------------------------------------------------------------------------------|
+| 1  | Spring Boot         | 基础框架               | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)                   |
+| 2  | MyBatis-Plus        | 持久层框架              | [https://baomidou.com](https://baomidou.com)                                                       |
+| 3  | HikariCP            | 数据库连接池             | [https://github.com/brettwooldridge/HikariCP](https://github.com/brettwooldridge/HikariCP)         |
+| 4  | Redis               | 分布式缓存数据库           | [https://redis.io](https://redis.io)                                                               |
+| 5  | RocketMQ            | 消息队列               | [https://rocketmq.apache.org](https://rocketmq.apache.org)                                         |
+| 6  | ShardingSphere      | 数据库生态系统            | [https://shardingsphere.apache.org](https://shardingsphere.apache.org)                             |
+| 7  | SpringCloud Alibaba | 分布式框架              | [https://github.com/alibaba/spring-cloud-alibaba](https://github.com/alibaba/spring-cloud-alibaba) |
+| 8  | SpringCloud Gateway | 网关框架               | [https://spring.io/projects/spring-cloud-gateway](https://spring.io/projects/spring-cloud-gateway) |
+| 9  | Seata               | 分布式事务框架            | [http://seata.io/zh-cn/index.html](http://seata.io/zh-cn/index.html)                               |
+| 10 | Canal               | MySQL 订阅 BinLog 组件 | [https://github.com/alibaba/canal](https://github.com/alibaba/canal)                               |
+| 11 | MinIO               | 文件存储框架             | [https://min.io](https://min.io)                                                                   |
+| 12 | Swagger3            | 项目 API 文档框架        | [http://swagger.io](http://swagger.io)                                                             |
+| 13 | Knife4j             | Swagger 增强框架       | [https://doc.xiaominfo.com](https://doc.xiaominfo.com/)                                            |
+| 14 | Maven               | 项目构建管理             | [http://maven.apache.org](http://maven.apache.org)                                                 |
+| 15 | Redisson            | Redis Java 客户端     | [https://redisson.org](https://redisson.org/)                                                      |
+| 16 | Sentinel            | 流控防护框架             | [https://github.com/alibaba/Sentinel](https://github.com/alibaba/Sentinel)                         |
+| 17 | Hippo4j             | 动态线程池框架            | [https://hippo4j.cn](https://hippo4j.cn)                                                           |
+| 18 | XXL-Job             | 分布式定时任务框架          | [http://www.xuxueli.com/xxl-job](http://www.xuxueli.com/xxl-job)                                   |
+| 19 | SkyWalking          | 分布式链路追踪框架          | [https://skywalking.apache.org](https://skywalking.apache.org/)                                    |
 
 ### 🔍 项目功能
 
