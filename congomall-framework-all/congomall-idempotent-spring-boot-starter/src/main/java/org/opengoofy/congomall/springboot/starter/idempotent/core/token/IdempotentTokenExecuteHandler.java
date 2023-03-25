@@ -47,7 +47,7 @@ public final class IdempotentTokenExecuteHandler extends AbstractIdempotentTempl
     private final DistributedCache distributedCache;
     private final IdempotentProperties idempotentProperties;
     
-    private static final String TOKEN_KEY = "token";
+    private static final String TOKEN_KEY = "idempotent-token";
     private static final String TOKEN_PREFIX_KEY = "idempotent:token:";
     private static final long TOKEN_EXPIRED_TIME = 6000;
     
