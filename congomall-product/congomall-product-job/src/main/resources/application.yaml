@@ -31,9 +31,9 @@ spring:
       ds-0:
         driver-class-name: com.mysql.jdbc.Driver
         type: com.zaxxer.hikari.HikariDataSource
-        username: congomall
-        password: congomall
-        jdbc-url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_product?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+        username: root
+        password: root
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/congomall_product?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
       names: ds-0
     props:
       sql-show: true

@@ -99,9 +99,9 @@ spring:
     datasource:
       ds-0:
         driver-class-name: com.mysql.jdbc.Driver
-        jdbc-url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_customer_user?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
-        username: congomall
-        password: congomall
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/congomall_customer_user?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+        username: root
+        password: root
         type: com.zaxxer.hikari.HikariDataSource
       names: ds-0
     mode:

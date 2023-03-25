@@ -37,6 +37,6 @@ spring:
   shardingsphere:
     datasource:
       ds-0:
-        jdbc-url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_customer_user?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
-        password: congomall
-        username: congomall
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/congomall_customer_user?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+        password: root
+        username: root

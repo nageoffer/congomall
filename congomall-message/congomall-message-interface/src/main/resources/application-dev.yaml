@@ -38,9 +38,9 @@ spring:
   shardingsphere:
     datasource:
       ds-0:
-        username: congomall
-        password: congomall
-        jdbc-url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_message?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+        username: root
+        password: root
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/congomall_message?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
 
 mybatis-plus:
   configuration:

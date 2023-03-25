@@ -26,6 +26,6 @@ spring:
         server-addr: 127.0.0.1:8848
 
   datasource:
-    username: congomall
-    password: congomall
-    url: jdbc:mysql://mysql.dev.magestack.cn:13306/congomall_customer_user?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/congomall_customer_user?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
