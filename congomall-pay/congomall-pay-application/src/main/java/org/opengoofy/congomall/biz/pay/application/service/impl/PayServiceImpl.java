@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.pay.application.service.iimpl;
+package org.opengoofy.congomall.biz.pay.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.biz.pay.application.resp.PayRespDTO;
