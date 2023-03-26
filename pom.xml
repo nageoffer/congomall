@@ -45,7 +45,7 @@
     </developers>
     
     <modules>
-        <module>congomall-base-data</module>
+        <module>congomall-basics-data</module>
         <module>congomall-cart</module>
         <module>congomall-coupon</module>
         <module>congomall-customer-user</module>

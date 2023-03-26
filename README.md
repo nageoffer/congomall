@@ -6,8 +6,8 @@
 
 刚果商城是个从零到一的C端商城项目，包含商城核心业务和基础架构两大模块。
 
-参照商城系统原型，推出用户、消息、商品、订单、优惠券、支付、网关、购物车 等业务模块，通过商城系统中复杂场景，给出对应解决方案。使用
-DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正确的开发思路。
+参照商城系统原型，推出用户、消息、商品、订单、优惠券、支付、网关、购物车等业务模块，通过商城系统中复杂场景，给出对应解决方案。使用
+DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正确地开发思路。
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673165270664-5d0c4381-96ef-427b-a58d-9b21140eabe0-20230306173625527.png)
 
@@ -196,6 +196,7 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 | 6 | congomall-cart          | 购物车服务              | [http://localhost:8005](http://localhost:8005) |
 | 7 | congomall-order         | 订单服务               | [http://localhost:8006](http://localhost:8006) |
 | 8 | congomall-pay           | 支付服务               | [http://localhost:8007](http://localhost:8007) |
+| 9 | congomall-basics-data   | 基础数据服务             | [http://localhost:8008](http://localhost:8008) |
 
 ### 🚅 接口请求
 
@@ -251,6 +252,6 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
 ---
 
-这是刚写这个项目的时候出的一版图，当前已不再维护，可以作为一个基础入门的参考。
+这是刚写这个项目的时候出的一版功能图，当前已不再维护，可以作为一个基础入门的参考。
 
 ![](https://user-images.githubusercontent.com/77398366/226890631-31eb817b-b84f-4220-b69b-dfb094813fbd.png)

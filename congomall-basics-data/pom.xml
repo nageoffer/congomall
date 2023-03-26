@@ -24,7 +24,15 @@
         <artifactId>congomall-all</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>congomall-base-data</artifactId>
+    <artifactId>congomall-basics-data</artifactId>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <module>congomall-basics-data-application</module>
+        <module>congomall-basics-data-domain</module>
+        <module>congomall-basics-data-infrastructure</module>
+        <module>congomall-basics-data-interface</module>
+    </modules>
     
     <dependencies>
         <dependency>
