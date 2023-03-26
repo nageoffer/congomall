@@ -11,7 +11,29 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673165270664-5d0c4381-96ef-427b-a58d-9b21140eabe0-20230306173625527.png)
 
-### 🔨 文档
+### 🔨 如何开始
+
+关注刚果商城的用户分为两个部分，一部分是希望通过商城的复杂业务场景增加自己的复杂业务处理能力，一方面是希望通过基础架构部分提升自己方案设计和公共代码开发能力。所以针对这两个部分，下面拆开来说。
+
+#### 1. 商城核心业务
+
+目前前端页面正在开发中，暂时没有开源出来，所以大家需要通过接口请求访问。接口如何访问详细看下文。
+
+1. [初始化数据库](https://magestack.cn/preparation/init-datasource.html)，比如商品库、订单库、用户库、支付库、购物车库等；
+2. [通过 Docker 安装项目中依赖的中间件](https://magestack.cn/preparation/environment/mysql_5.7_install.html)，比如 Nacos2、MySQL、Seata、RocketMQ 等；
+3. 学习接口调用流程，项目接口目前全量放入 Apifox 软件中，可通过在线访问；
+4. [查看不同微服务之间的依赖关系](https://magestack.cn/fast-start/user.html)，并根据文档中的描述进行修改指定参数；
+5. 找到自己感兴趣的模块功能 Debug 源代码，参考代码设计。
+
+<img width="776" alt="image" src="https://user-images.githubusercontent.com/77398366/227767583-d77ae0f7-36c0-4bde-868c-09342bf12c00.png">
+
+#### 2. 基础架构
+
+基础架构相关的代码都在 `congomall-framework-all` 模块中，可以通过官网查看如何实现，或者通过 [视频教学](https://magestack.cn/preparation/video.html) 来学习如何开发基础架构代码。
+
+<img width="1199" alt="image" src="https://user-images.githubusercontent.com/77398366/227767191-a8a6558c-a8ac-421e-a227-672401785720.png">
+
+### 📝 文档
 
 ---
 
