@@ -33,7 +33,7 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
 基础架构相关的代码都在 `congomall-framework-all` 模块中，可以通过官网查看如何实现，或者通过 [视频教学](https://magestack.cn/preparation/video.html) 来学习如何开发基础架构代码。
 
-<img width="1199" alt="image" src="https://user-images.githubusercontent.com/77398366/227767191-a8a6558c-a8ac-421e-a227-672401785720.png">
+<img width="962" alt="image" src="https://user-images.githubusercontent.com/77398366/227767779-2c17cb10-be92-4149-8a6e-03dd08d38f7c.png">
 
 ### 📝 文档
 
