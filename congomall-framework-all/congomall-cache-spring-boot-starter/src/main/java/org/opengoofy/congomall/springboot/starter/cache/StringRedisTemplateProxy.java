@@ -50,7 +50,7 @@ import java.util.concurrent.TimeUnit;
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @RequiredArgsConstructor
-public class RedisTemplateProxy implements DistributedCache {
+public class StringRedisTemplateProxy implements DistributedCache {
     
     private final StringRedisTemplate stringRedisTemplate;
     private final RedisDistributedProperties redisProperties;

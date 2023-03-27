@@ -18,7 +18,7 @@
 package org.opengoofy.congomall.springboot.starter.cache.config;
 
 import org.opengoofy.congomall.springboot.starter.cache.RedisKeySerializer;
-import org.opengoofy.congomall.springboot.starter.cache.RedisTemplateProxy;
+import org.opengoofy.congomall.springboot.starter.cache.StringRedisTemplateProxy;
 import lombok.AllArgsConstructor;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
@@ -63,10 +63,10 @@ public class CacheAutoConfiguration {
     
     @Bean
     // 静态代理模式: Redis 客户端代理类增强
-    public RedisTemplateProxy redisTemplateProxy(RedisKeySerializer redisKeySerializer,
-                                                 StringRedisTemplate stringRedisTemplate,
-                                                 RedissonClient redissonClient) {
+    public StringRedisTemplateProxy stringRedisTemplateProxy(RedisKeySerializer redisKeySerializer,
+                                                             StringRedisTemplate stringRedisTemplate,
+                                                             RedissonClient redissonClient) {
         stringRedisTemplate.setKeySerializer(redisKeySerializer);
-        return new RedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient);
+        return new StringRedisTemplateProxy(stringRedisTemplate, redisDistributedProperties, redissonClient);
     }
 }
