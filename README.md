@@ -149,6 +149,7 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
         - [为什么线上异常信息为空，而本地可以正常打印](https://magestack.cn/scene/prod-issue/jvm-fast-throw.html)
 
+        - [面试官问生产环境 OOM 怎么解决，别再说不会了](https://magestack.cn/scene/prod-issue/interview-oom.html)
         - [应用出现 OOM 异常，程序员如何第一时间知道](https://magestack.cn/scene/prod-issue/jvm-oom.html)
         - [核心接口请求出错，结果忘记打印相关日志](https://magestack.cn/scene/prod-issue/log.html)
 
@@ -179,6 +180,8 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
         - [花一个周末，掌握 OpenFeign 核心原理](https://magestack.cn/scene/source-code/openfeign.html)
         - [花一个周末，掌握 SpringCloud Ribbon 核心原理](https://magestack.cn/scene/source-code/ribbon.html)
+        - [1.1w字，10图，轻松掌握 BlockingQueue](https://magestack.cn/scene/source-code/blocking-queue.html)
+        - [聊一聊 ReentrantLock 和 AQS 那点事，看完不会你找我](https://magestack.cn/scene/source-code/reentrant-lock-aqs.html)
 
 - 设计模式实战
 
@@ -200,6 +203,10 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
         - [死磕设计模式之如何抽象责任链模式](https://magestack.cn/design-pattern/abstract/chain.html)
 
+- 开源之路
+
+    - [提名 Apache ShardingSphere Committer，说说方法](https://magestack.cn/open-source/apache-committer.html)
+
 - 开发规约
 
     - [Git 使用操作规约](https://magestack.cn/convention/git.html)
@@ -216,17 +223,17 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
 刚果商城项目是马哥从零到一写出来的，当前已开发模块如下所述，没有完成的请耐心等待。
 
-|   | 模块名称                   | 服务名称               | 访问地址                                           |
-|---|------------------------|--------------------|------------------------------------------------|
-| 1 | congomall-message      | 消息发送 eg：邮件、公众号、短信等 | [http://localhost:8001](http://localhost:8001) |
+|   | 模块名称                    | 服务名称               | 访问地址                                           |
+|---|-------------------------|--------------------|------------------------------------------------|
+| 1 | congomall-message       | 消息发送 eg：邮件、公众号、短信等 | [http://localhost:8001](http://localhost:8001) |
 | 2 | congomall-customer-user | 用户服务               | [http://localhost:8002](http://localhost:8002) |
-| 3 | congomall-gateway      | 外部网关               | [http://localhost:8003](http://localhost:8003) |
-| 4 | congomall-product      | 商品服务               | [http://localhost:8004](http://localhost:8004) |
-| 5 | congomall-product-job  | 商品 Job 服务          | [http://localhost:9001](http://localhost:9001) |
-| 6 | congomall-cart         | 购物车服务              | [http://localhost:8005](http://localhost:8005) |
-| 7 | congomall-order        | 订单服务               | [http://localhost:8006](http://localhost:8006) |
-| 8 | congomall-pay          | 支付服务               | [http://localhost:8007](http://localhost:8007) |
-| 9 | congomall-basic-data   | 基础数据服务             | [http://localhost:8008](http://localhost:8008) |
+| 3 | congomall-gateway       | 外部网关               | [http://localhost:8003](http://localhost:8003) |
+| 4 | congomall-product       | 商品服务               | [http://localhost:8004](http://localhost:8004) |
+| 5 | congomall-product-job   | 商品 Job 服务          | [http://localhost:9001](http://localhost:9001) |
+| 6 | congomall-cart          | 购物车服务              | [http://localhost:8005](http://localhost:8005) |
+| 7 | congomall-order         | 订单服务               | [http://localhost:8006](http://localhost:8006) |
+| 8 | congomall-pay           | 支付服务               | [http://localhost:8007](http://localhost:8007) |
+| 9 | congomall-basic-data    | 基础数据服务             | [http://localhost:8008](http://localhost:8008) |
 
 ### 🚅 接口请求
 
