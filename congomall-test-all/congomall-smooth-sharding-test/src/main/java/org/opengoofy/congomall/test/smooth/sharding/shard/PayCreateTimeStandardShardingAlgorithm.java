@@ -51,7 +51,7 @@ public class PayCreateTimeStandardShardingAlgorithm implements StandardShardingA
         if (!getOpenShard() || shardSyncData()) {
             return Lists.newArrayList("pay_info");
         }
-        return Lists.newArrayList("pay_info_shard_2022", "pay_info_shard_2023");
+        return Lists.newArrayList("pay_info_shard_2022", "pay_info_shard_2023", "pay_info_shard_2024", "pay_info_shard_2025");
     }
     
     @Override
