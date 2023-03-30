@@ -125,10 +125,11 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
     - 并发编程
 
-        - [参考 Dubbo 线程池模型实现快速消费线程池](https://magestack.cn/scene/thread/dubbo-fast-consumer.html)
-
-        - [线程池如何监控，才能帮助开发者快速定位错误](https://magestack.cn/scene/thread/thread-pool-monitor.html)
         - [揭秘 Java8 ParallelStream 并行流极端情况串行化](https://magestack.cn/scene/thread/parallel-stream.html)
+
+        - [参考 Dubbo 线程池模型实现快速消费线程池](https://magestack.cn/scene/thread/dubbo-fast-consumer.html)
+        - [线程池如何监控，才能帮助开发者快速定位错误](https://magestack.cn/scene/thread/thread-pool-monitor.html)
+        - [线程池这样用，架构师看了都说好](https://magestack.cn/scene/thread/hippo4j.html)
 
     - 分布式架构
 
