@@ -97,7 +97,7 @@ public class InitializeProductJobHandler extends IJobHandler {
     }
     
     void executeProductSkuSync() {
-        BlockingQueue<ProductSkuDO> blockingQueueCachePool = new LinkedBlockingDeque<>(MAX_POOL_SIZE);
+        BlockingQueue<ProductSkuDO> blockingQueueCachePool = new LinkedBlockingQueue<>(MAX_POOL_SIZE);
         productSkuMapper.listAllProductSkuStreamQuery(resultContext -> {
             // 记录流式查询总数量
             COUNT_NUM.incrementAndGet();
