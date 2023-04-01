@@ -31,13 +31,13 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 4. [查看不同微服务之间的依赖关系](https://magestack.cn/fast-start/user.html)，并根据文档中的描述进行修改指定参数；
 5. 找到自己感兴趣的模块功能 Debug 源代码，参考代码设计。
 
-<img width="776" alt="image" src="https://user-images.githubusercontent.com/77398366/227767583-d77ae0f7-36c0-4bde-868c-09342bf12c00.png">
+<img width="817" alt="image" src="https://user-images.githubusercontent.com/77398366/229265338-dc16abdb-665a-49a7-a42a-653fbe3e5060.png">
 
 2）基础架构
 
 基础架构相关的代码都在 `congomall-framework-all` 模块中，可以通过官网查看如何实现，或者通过 [视频教学](https://magestack.cn/preparation/video.html) 来学习如何开发基础架构代码。
 
-<img width="962" alt="image" src="https://user-images.githubusercontent.com/77398366/227767779-2c17cb10-be92-4149-8a6e-03dd08d38f7c.png">
+<img width="1090" alt="image" src="https://user-images.githubusercontent.com/77398366/229265310-7fa8b406-b621-4334-91d6-911c0b95dce3.png">
 
 ### 📝 文档
 
@@ -256,7 +256,74 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
 刚果商城后端系统模块介绍如下所示。
 
-<img width="886" alt="image" src="https://user-images.githubusercontent.com/77398366/227092561-1aaee46b-cc4c-44e3-a8f5-a052c41f2cca.png">
+```txt
+├── congomall-basic-data  || -- # 基础数据服务
+│   ├── congomall-basic-data-application
+│   ├── congomall-basic-data-domain
+│   ├── congomall-basic-data-infrastructure
+│   ├── congomall-basic-data-interface
+├── congomall-cart  || -- # 购物车服务
+│   ├── congomall-cart-application
+│   ├── congomall-cart-domain
+│   ├── congomall-cart-infrastructure
+│   ├── congomall-cart-interface
+├── congomall-coupon  || -- # 优惠券服务
+├── congomall-customer-user  || -- # C端用户服务
+│   ├── congomall-customer-user-application
+│   ├── congomall-customer-user-domain
+│   ├── congomall-customer-user-infrastructure
+│   ├── congomall-customer-user-interface
+│   ├── congomall-customer-user-mock
+├── congomall-framework-all  || -- # 基础组件
+│   ├── congomall-base-spring-boot-starter  || -- # 顶层抽象基础组件
+│   ├── congomall-cache-spring-boot-starter  || -- # 缓存组件
+│   ├── congomall-common-spring-boot-starter  || -- # 公共工具包组件
+│   ├── congomall-convention-spring-boot-starter  || -- # 项目规约组件
+│   ├── congomall-database-spring-boot-starter  || -- # 数据库持久层组件
+│   ├── congomall-ddd-framework-core  || -- # DDD抽象接口组件
+│   ├── congomall-designpattern-spring-boot-starter  || -- # 设计模式抽象组件
+│   ├── congomall-distributedid-spring-boot-starter  || -- # 分布式ID组件
+│   ├── congomall-flow-monitor-agent  || -- # 微服务流量监控组件
+│   ├── congomall-httputil-spring-boot-starter  || -- # Http网络调用组件
+│   ├── congomall-idempotent-spring-boot-starter  || -- # 分布式幂等组件
+│   ├── congomall-log-spring-boot-starter  || -- # 日志打印组件
+│   ├── congomall-minio-spring-boot-starter  || -- # 文件存储组件
+│   ├── congomall-openfeign-spring-boot-starter  || -- # 微服务调用组件
+│   ├── congomall-rocketmq-spring-boot-starter  || -- # 分布式消息队列组件
+│   ├── congomall-sensitive-spring-boot-starter  || -- # 前端返回数据脱敏组件
+│   ├── congomall-swagger-spring-boot-starter  || -- # 文档API组件
+│   ├── congomall-web-spring-boot-starter  || -- # Web组件
+│   ├── congomall-xxljob-spring-boot-starter  || -- # 定时任务组件
+├── congomall-gateway  || -- # 网关服务
+├── congomall-message  || -- # 消息服务
+│   ├── congomall-message-application
+│   ├── congomall-message-domain
+│   ├── congomall-message-infrastructure
+│   ├── congomall-message-interface
+├── congomall-order  || -- # 订单服务
+│   ├── congomall-order-application
+│   ├── congomall-order-domain
+│   ├── congomall-order-infrastructure
+│   ├── congomall-order-interface
+├── congomall-pay  || -- # 支付服务
+│   ├── congomall-pay-application
+│   ├── congomall-pay-domain
+│   ├── congomall-pay-infrastructure
+│   ├── congomall-pay-interface
+├── congomall-product  || -- # 商品服务
+│   ├── congomall-product-application
+│   ├── congomall-product-domain
+│   ├── congomall-product-infrastructure
+│   ├── congomall-product-interface
+│   ├── congomall-product-job
+├── congomall-test-all  || -- # 测试用例
+│   ├── congomall-flow-monitor-agent-test
+│   ├── congomall-h2-test
+│   ├── congomall-oom-test
+│   ├── congomall-smooth-sharding-test
+│   ├── congomall-yaml-test
+├── dev-support  || -- # 开发工具包
+```
 
 ### 📈 技术选型
 
@@ -285,11 +352,3 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 | 17 | Hippo4j             | 动态线程池框架            | [https://hippo4j.cn](https://hippo4j.cn)                                                           |
 | 18 | XXL-Job             | 分布式定时任务框架          | [http://www.xuxueli.com/xxl-job](http://www.xuxueli.com/xxl-job)                                   |
 | 19 | SkyWalking          | 分布式链路追踪框架          | [https://skywalking.apache.org](https://skywalking.apache.org/)                                    |
-
-### 🔍 项目功能
-
----
-
-这是刚写这个项目的时候出的一版功能图，当前已不再维护，可以作为一个基础入门的参考。
-
-![](https://user-images.githubusercontent.com/77398366/226890631-31eb817b-b84f-4220-b69b-dfb094813fbd.png)
