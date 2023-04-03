@@ -45,6 +45,16 @@ public class DefaultServiceIdGeneratorTest {
         Snowflake snowflake = new Snowflake(0, 0);
         SnowflakeIdUtil.initSnowflake(snowflake);
         DefaultServiceIdGenerator defaultServiceIdGenerator = new DefaultServiceIdGenerator();
+        long nextId = defaultServiceIdGenerator.nextId();
+        SnowflakeIdInfo snowflakeIdInfo = defaultServiceIdGenerator.parseSnowflakeId(nextId);
+        System.out.println(snowflakeIdInfo);
+    }
+    
+    @Test
+    public void nextIdParseSnowflakeId() {
+        Snowflake snowflake = new Snowflake(0, 0);
+        SnowflakeIdUtil.initSnowflake(snowflake);
+        DefaultServiceIdGenerator defaultServiceIdGenerator = new DefaultServiceIdGenerator();
         long nextId = defaultServiceIdGenerator.nextId(123L);
         SnowflakeIdInfo snowflakeIdInfo = defaultServiceIdGenerator.parseSnowflakeId(nextId);
         System.out.println(snowflakeIdInfo.getGene());
