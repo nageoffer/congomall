@@ -165,7 +165,7 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
         - [分库分表如何实现平滑上线 & 回滚](https://magestack.cn/scene/sharding/smooth-sharding.html)
 
         - [按照时间分库分表，如何按照 ID 查询记录](https://magestack.cn/scene/sharding/complex-sharding.html)
-        - [按照用户分库分表，如何按照订单 ID 查询记录](https://magestack.cn/scene/sharding/gene-sharding.html)
+        - [按照用户 ID 分库分表，如何按照订单 ID 高效查询](https://magestack.cn/scene/sharding/gene-sharding.html)
 
     - 本地&分布式缓存
 
@@ -218,7 +218,7 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
     - [代码整洁为什么如此重要](https://magestack.cn/convention/code-format.html)
     - [如何提升代码质量](https://magestack.cn/convention/check-style.html)
 
-### 👍 模块分类
+### 👍 服务列表
 
 ---
 
