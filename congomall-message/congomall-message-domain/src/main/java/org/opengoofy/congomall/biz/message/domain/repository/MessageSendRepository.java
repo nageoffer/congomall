@@ -31,8 +31,8 @@ public interface MessageSendRepository {
     /**
      * 邮箱消息发送
      *
-     * @param messageSend
-     * @return
+     * @param messageSend 邮箱消息发送命令
+     * @return 邮箱消息发送返回结果
      */
     void mailMessageSave(MessageSend messageSend);
 }

@@ -15,25 +15,32 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.message.application.service;
+package org.opengoofy.congomall.biz.message.application.resp;
 
-import org.opengoofy.congomall.biz.message.application.req.MailSendCommand;
-import org.opengoofy.congomall.biz.message.application.resp.MessageSendRespDTO;
+import lombok.Data;
 
 /**
- * 消息发送
+ * 消息发送结果查询返回实体
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface MessageSendService {
+@Data
+public class MessageSendQueryRespDTO {
     
     /**
-     * 邮箱消息发送
-     *
-     * @param mailSendCommand 邮箱消息发送命令
-     * @return 邮箱消息发送返回结果
+     * 消息发送ID
      */
-    MessageSendRespDTO mailMessageSend(MailSendCommand mailSendCommand);
+    private String messageSendId;
+    
+    /**
+     * 接收者
+     */
+    private String receiver;
+    
+    /**
+     * 消息状态: 0：发送成功 1：发送失败 2：发送中 3：提交失败
+     */
+    private Integer status;
 }

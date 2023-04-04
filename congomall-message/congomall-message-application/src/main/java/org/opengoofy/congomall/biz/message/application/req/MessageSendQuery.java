@@ -15,25 +15,33 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.message.application.service;
+package org.opengoofy.congomall.biz.message.application.req;
 
-import org.opengoofy.congomall.biz.message.application.req.MailSendCommand;
-import org.opengoofy.congomall.biz.message.application.resp.MessageSendRespDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.Date;
+import java.util.List;
 
 /**
- * 消息发送
+ * 消息发送查询实体
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface MessageSendService {
+@Data
+public class MessageSendQuery {
     
-    /**
-     * 邮箱消息发送
-     *
-     * @param mailSendCommand 邮箱消息发送命令
-     * @return 邮箱消息发送返回结果
-     */
-    MessageSendRespDTO mailMessageSend(MailSendCommand mailSendCommand);
+    @ApiModelProperty(value = "开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date startTime;
+    
+    @ApiModelProperty(value = "结束时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date endTime;
+    
+    @ApiModelProperty(value = "接收者集合", notes = "限制最大传递条数500")
+    private List<String> receiverList;
 }

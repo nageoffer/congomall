@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * 消息发送 Repository
+ * 消息发送仓储层
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />

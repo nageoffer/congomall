@@ -15,25 +15,59 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.message.application.service;
+package org.opengoofy.congomall.biz.message.domain.entity;
 
-import org.opengoofy.congomall.biz.message.application.req.MailSendCommand;
-import org.opengoofy.congomall.biz.message.application.resp.MessageSendRespDTO;
+import lombok.*;
+import org.opengoofy.congomall.ddd.framework.core.domain.AggregateRoot;
+
+import java.util.Date;
+import java.util.List;
 
 /**
- * 消息发送
+ * 消息发送查询 Entity
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface MessageSendService {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class MessageSendQuery implements AggregateRoot {
     
     /**
-     * 邮箱消息发送
-     *
-     * @param mailSendCommand 邮箱消息发送命令
-     * @return 邮箱消息发送返回结果
+     * 开始时间
      */
-    MessageSendRespDTO mailMessageSend(MailSendCommand mailSendCommand);
+    private Date startTime;
+    
+    /**
+     * 结束时间
+     */
+    private Date endTime;
+    
+    /**
+     * 消息发送 ID 集合
+     */
+    private List<Long> messageSendIdList;
+    
+    /**
+     * 接收者集合
+     */
+    private List<String> receiverList;
+    
+    /**
+     * 消息发送 ID
+     */
+    private Long messageSendId;
+    
+    /**
+     * 接收者
+     */
+    private String receiver;
+    
+    /**
+     * 消息状态: 0：发送成功 1：发送失败 2：发送中 3：提交失败
+     */
+    private Integer status;
 }
