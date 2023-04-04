@@ -50,8 +50,7 @@ public class RegionInfoRepositoryImpl implements RegionInfoRepository {
                 RegionInfoDO::getName,
                 RegionInfoDO::getParent,
                 RegionInfoDO::getLevel,
-                RegionInfoDO::getSort
-        );
+                RegionInfoDO::getSort);
         List<RegionInfoDO> regionInfoDOList = regionInfoMapper.selectList(queryWrapper);
         return BeanUtil.convert(regionInfoDOList, RegionInfo.class);
     }
@@ -66,8 +65,7 @@ public class RegionInfoRepositoryImpl implements RegionInfoRepository {
                         RegionInfoDO::getName,
                         RegionInfoDO::getParent,
                         RegionInfoDO::getLevel,
-                        RegionInfoDO::getSort
-                );
+                        RegionInfoDO::getSort);
         List<RegionInfoDO> regionInfoDOList = regionInfoMapper.selectList(queryWrapper);
         return BeanUtil.convert(regionInfoDOList, RegionInfo.class);
     }
@@ -82,8 +80,7 @@ public class RegionInfoRepositoryImpl implements RegionInfoRepository {
                         RegionInfoDO::getName,
                         RegionInfoDO::getParent,
                         RegionInfoDO::getLevel,
-                        RegionInfoDO::getSort
-                );
+                        RegionInfoDO::getSort);
         List<RegionInfoDO> regionInfoDOList = regionInfoMapper.selectList(queryWrapper);
         return BeanUtil.convert(regionInfoDOList, RegionInfo.class);
     }
@@ -98,8 +95,7 @@ public class RegionInfoRepositoryImpl implements RegionInfoRepository {
                         RegionInfoDO::getName,
                         RegionInfoDO::getParent,
                         RegionInfoDO::getLevel,
-                        RegionInfoDO::getSort
-                );
+                        RegionInfoDO::getSort);
         List<RegionInfoDO> regionInfoDOList = regionInfoMapper.selectList(queryWrapper);
         return BeanUtil.convert(regionInfoDOList, RegionInfo.class);
     }
