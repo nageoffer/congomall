@@ -15,46 +15,31 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.springboot.starter.idempotent.core;
+package org.opengoofy.congomall.springboot.starter.idempotent.enums;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * 幂等执行处理器
+ * 幂等 MQ 消费状态枚举
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface IdempotentExecuteHandler {
+@RequiredArgsConstructor
+public enum IdempotentMQConsumeStatusEnum {
     
     /**
-     * 幂等处理逻辑
-     *
-     * @param wrapper 幂等参数包装器
+     * 消费中
      */
-    void handler(IdempotentParamWrapper wrapper);
+    CONSUMING("0"),
     
     /**
-     * 执行幂等处理逻辑
-     *
-     * @param joinPoint  AOP 方法处理
-     * @param idempotent 幂等注解
+     * 已消费
      */
-    void execute(ProceedingJoinPoint joinPoint, Idempotent idempotent);
+    CONSUMED("1");
     
-    /**
-     * 异常流程处理
-     */
-    default void exceptionProcessing() {
-        
-    }
-    
-    /**
-     * 后置处理
-     */
-    default void postProcessing() {
-        
-    }
+    @Getter
+    private final String code;
 }

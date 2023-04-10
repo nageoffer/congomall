@@ -23,15 +23,11 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.AbstractIdempotentTemplate;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentAspect;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentContext;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.IdempotentParamWrapper;
-import org.opengoofy.congomall.springboot.starter.idempotent.core.RepeatConsumptionException;
+import org.opengoofy.congomall.springboot.starter.idempotent.core.*;
+import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentMQConsumeStatusEnum;
 import org.opengoofy.congomall.springboot.starter.idempotent.toolkit.LogUtil;
 import org.opengoofy.congomall.springboot.starter.idempotent.toolkit.SpELUtil;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,9 +42,8 @@ import java.util.concurrent.TimeUnit;
 public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentTemplate implements IdempotentSpELService {
     
     private final DistributedCache distributedCache;
-    private final RedissonClient redissonClient;
     
-    private final static String LOCK = "lock:spEL:MQ";
+    private final static int TIMEOUT = 600;
     private final static String WRAPPER = "wrapper:spEL:MQ";
     
     @SneakyThrows
@@ -61,15 +56,29 @@ public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentTe
     
     @Override
     public void handler(IdempotentParamWrapper wrapper) {
-        String lockKey = wrapper.getIdempotent().uniqueKeyPrefix() + "lock:" + wrapper.getLockKey();
         String uniqueKey = wrapper.getIdempotent().uniqueKeyPrefix() + wrapper.getLockKey();
-        RLock lock = redissonClient.getLock(lockKey);
-        if (!lock.tryLock() || distributedCache.get(uniqueKey, Object.class) != null) {
-            LogUtil.getLog(wrapper.getJoinPoint()).warn("[{}] MQ重复消费", uniqueKey);
+        Boolean setIfAbsent = ((StringRedisTemplate) distributedCache.getInstance())
+                .opsForValue()
+                .setIfAbsent(uniqueKey, IdempotentMQConsumeStatusEnum.CONSUMING.getCode(), TIMEOUT, TimeUnit.SECONDS);
+        if (setIfAbsent != null && !setIfAbsent) {
+            LogUtil.getLog(wrapper.getJoinPoint()).warn("[{}] MQ repeated consumption.", uniqueKey);
             throw new RepeatConsumptionException();
         }
-        IdempotentContext.put(LOCK, lock);
         IdempotentContext.put(WRAPPER, wrapper);
+    }
+    
+    @Override
+    public void exceptionProcessing() {
+        IdempotentParamWrapper wrapper = (IdempotentParamWrapper) IdempotentContext.getKey(WRAPPER);
+        if (wrapper != null) {
+            Idempotent idempotent = wrapper.getIdempotent();
+            String uniqueKey = idempotent.uniqueKeyPrefix() + wrapper.getLockKey();
+            try {
+                distributedCache.delete(uniqueKey);
+            } catch (Throwable ex) {
+                LogUtil.getLog(wrapper.getJoinPoint()).error("[{}] Failed to del MQ anti-heavy token.", uniqueKey);
+            }
+        }
     }
     
     @Override
@@ -79,18 +88,9 @@ public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentTe
             Idempotent idempotent = wrapper.getIdempotent();
             String uniqueKey = idempotent.uniqueKeyPrefix() + wrapper.getLockKey();
             try {
-                // 重点在于 Key 和过期时间，所以这里 Key 对应的 Val 任意设置字符串即可
-                distributedCache.put(uniqueKey, "", idempotent.keyTimeout(), TimeUnit.SECONDS);
+                distributedCache.put(uniqueKey, IdempotentMQConsumeStatusEnum.CONSUMED.getCode(), idempotent.keyTimeout(), TimeUnit.SECONDS);
             } catch (Throwable ex) {
-                LogUtil.getLog(wrapper.getJoinPoint()).error("[{}] 设置MQ防重令牌失败", uniqueKey);
-            }
-            RLock lock = null;
-            try {
-                lock = (RLock) IdempotentContext.getKey(LOCK);
-            } finally {
-                if (lock != null) {
-                    lock.unlock();
-                }
+                LogUtil.getLog(wrapper.getJoinPoint()).error("[{}] Failed to set MQ anti-heavy token.", uniqueKey);
             }
         }
     }

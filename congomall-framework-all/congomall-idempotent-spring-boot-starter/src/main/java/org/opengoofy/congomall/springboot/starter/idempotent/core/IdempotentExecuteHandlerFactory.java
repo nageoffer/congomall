@@ -29,7 +29,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTyp
  * 幂等执行处理器工厂
  * <p>
  * Q：可能会有同学有疑问：这里为什么要采用简单工厂模式？策略模式不行么？
- * A：策略模式同样可以达到获取真正幂等处理器功能。只是为了模拟更多设计模式，所以选择了简单工厂
+ * A：策略模式同样可以达到获取真正幂等处理器功能。但是从设计模式语义来说，简单工厂模式会更合适
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />

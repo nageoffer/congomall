@@ -45,12 +45,12 @@ public final class IdempotentAspect {
         try {
             instance.execute(joinPoint, idempotent);
             return joinPoint.proceed();
-        } catch (RepeatConsumptionException ignored) {
+        } catch (RepeatConsumptionException ex) {
+            throw ex;
         } finally {
             instance.postProcessing();
             IdempotentContext.clean();
         }
-        return null;
     }
     
     public static Idempotent getIdempotent(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {

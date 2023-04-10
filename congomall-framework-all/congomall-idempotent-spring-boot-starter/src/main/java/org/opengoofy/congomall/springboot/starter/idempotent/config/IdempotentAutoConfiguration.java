@@ -91,8 +91,7 @@ public class IdempotentAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public IdempotentSpELByMQExecuteHandler idempotentSpELByMQExecuteHandler(DistributedCache distributedCache,
-                                                                             RedissonClient redissonClient) {
-        return new IdempotentSpELByMQExecuteHandler(distributedCache, redissonClient);
+    public IdempotentSpELByMQExecuteHandler idempotentSpELByMQExecuteHandler(DistributedCache distributedCache) {
+        return new IdempotentSpELByMQExecuteHandler(distributedCache);
     }
 }
