@@ -61,8 +61,10 @@ public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentTe
                 .opsForValue()
                 .setIfAbsent(uniqueKey, IdempotentMQConsumeStatusEnum.CONSUMING.getCode(), TIMEOUT, TimeUnit.SECONDS);
         if (setIfAbsent != null && !setIfAbsent) {
-            LogUtil.getLog(wrapper.getJoinPoint()).warn("[{}] MQ repeated consumption.", uniqueKey);
-            throw new RepeatConsumptionException();
+            String consumeStatus = distributedCache.get(uniqueKey, String.class);
+            boolean error = IdempotentMQConsumeStatusEnum.isError(consumeStatus);
+            LogUtil.getLog(wrapper.getJoinPoint()).warn("[{}] MQ repeated consumption, {}.", uniqueKey, error ? "Wait for the client to delay consumption" : "");
+            throw new RepeatConsumptionException(error);
         }
         IdempotentContext.put(WRAPPER, wrapper);
     }

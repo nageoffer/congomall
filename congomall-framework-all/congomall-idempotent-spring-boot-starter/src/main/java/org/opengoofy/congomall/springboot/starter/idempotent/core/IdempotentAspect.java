@@ -46,6 +46,9 @@ public final class IdempotentAspect {
             instance.execute(joinPoint, idempotent);
             return joinPoint.proceed();
         } catch (RepeatConsumptionException ex) {
+            if (!ex.getError()) {
+                return null;
+            }
             throw ex;
         } finally {
             instance.postProcessing();
