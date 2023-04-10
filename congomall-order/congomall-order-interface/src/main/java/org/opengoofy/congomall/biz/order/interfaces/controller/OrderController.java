@@ -70,7 +70,10 @@ public class OrderController {
     
     @PostMapping
     @ApiOperation("商品订单下单")
-    @Idempotent(type = IdempotentTypeEnum.PARAM, message = "订单已创建，请稍后再试")
+    @Idempotent(
+            type = IdempotentTypeEnum.PARAM, 
+            message = "订单已创建，请稍后再试"
+    )
     public Result<String> createOrder(@RequestBody OrderCreateCommand requestParam) {
         String orderNo = orderService.createOrder(requestParam);
         return Results.success(orderNo);
@@ -78,7 +81,10 @@ public class OrderController {
     
     @PutMapping("/{orderSn}")
     @ApiOperation("商品订单取消")
-    @Idempotent(type = IdempotentTypeEnum.TOKEN, message = "订单取消失败，请刷新订单状态或重新操作")
+    @Idempotent(
+            type = IdempotentTypeEnum.TOKEN, 
+            message = "订单取消失败，请刷新订单状态或重新操作"
+    )
     public Result<Void> canalOrder(@PathVariable("orderSn") String orderSn) {
         orderService.canalOrder(orderSn);
         return Results.success();

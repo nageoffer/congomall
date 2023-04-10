@@ -49,7 +49,13 @@ public class MailMessageSendConsume {
     
     private final MessageSendFacade messageSendFacade;
     
-    @Idempotent(uniqueKeyPrefix = "mail_message_send:", key = "#event.messageSendId+'_'+#event.hashCode()", type = IdempotentTypeEnum.SPEL, scene = IdempotentSceneEnum.MQ, keyTimeout = 7200L)
+    @Idempotent(
+            uniqueKeyPrefix = "mail_message_send:",
+            key = "#event.messageSendId+'_'+#event.hashCode()",
+            type = IdempotentTypeEnum.SPEL,
+            scene = IdempotentSceneEnum.MQ,
+            keyTimeout = 7200L
+    )
     @StreamListener(MessageSink.MAIL_SEND)
     public void mailMessageSend(@Payload MailMessageSendEvent event, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
