@@ -57,7 +57,8 @@ public class SwaggerAutoConfiguration {
                 .host(swaggerProperties.getHost())
                 .apiInfo(apiInfo(swaggerProperties)).select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
-                .paths(PathSelectors.regex("/.*/error").negate())
+                .paths(PathSelectors.regex("/error.*").negate())
+                .paths(PathSelectors.regex("/initialize/dispatcher-servlet").negate())
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(Collections.singletonList(securityContext(swaggerProperties)));
