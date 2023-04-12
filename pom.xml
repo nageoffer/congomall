@@ -46,6 +46,7 @@
     
     <modules>
         <module>congomall-basic-data</module>
+        <module>congomall-bff</module>
         <module>congomall-cart</module>
         <module>congomall-coupon</module>
         <module>congomall-customer-user</module>
