@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.biz.customer.user.application.service.handler.login;
 
+import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserLoginCommand;
 import org.opengoofy.congomall.biz.customer.user.application.resp.UserLoginRespDTO;
@@ -25,11 +26,13 @@ import org.opengoofy.congomall.biz.customer.user.domain.common.UserLoginTypeEnum
 import org.opengoofy.congomall.biz.customer.user.domain.dp.CustomerUserAccountNumber;
 import org.opengoofy.congomall.biz.customer.user.domain.dp.CustomerUserPassword;
 import org.opengoofy.congomall.biz.customer.user.domain.repository.CustomerUserRepository;
+import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractExecuteStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 账号登录
@@ -42,6 +45,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class AccountLoginCommandHandler implements AbstractExecuteStrategy<UserLoginCommand, UserLoginRespDTO> {
     
+    private final DistributedCache distributedCache;
     private final CustomerUserRepository customerUserRepository;
     
     @Override
@@ -63,6 +67,7 @@ public class AccountLoginCommandHandler implements AbstractExecuteStrategy<UserL
             throw new ClientException("用户名密码错误");
         }
         String accessToken = actual.generateAccessToken();
+        distributedCache.put(accessToken, JSON.toJSONString(actual), 30, TimeUnit.MINUTES);
         return new UserLoginRespDTO(actual.getCustomerUserId(), actual.getUsername(), actual.getAccountNumber(), accessToken);
     }
 }

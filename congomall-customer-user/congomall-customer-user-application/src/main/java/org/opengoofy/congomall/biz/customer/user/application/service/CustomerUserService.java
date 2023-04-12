@@ -35,23 +35,31 @@ public interface CustomerUserService {
     /**
      * C 端用户验证
      *
-     * @param requestParam
+     * @param requestParam 验证用户入参
      */
     void verifyCodeSend(UserVerifyCodeCommand requestParam);
     
     /**
      * C 端用户注册
      *
-     * @param requestParam
-     * @return
+     * @param requestParam 注册用户入参
+     * @return 注册用户成功后信息
      */
     UserRegisterRespDTO register(UserRegisterCommand requestParam);
     
     /**
      * C 端用户登录
      *
-     * @param requestParam
-     * @return
+     * @param requestParam 用户登录入参
+     * @return 用户登录返回信息
      */
     UserLoginRespDTO login(UserLoginCommand requestParam);
+    
+    /**
+     * 通过 Token 检查用户是否登录
+     *
+     * @param accessToken 用户登录 Token
+     * @return 用户是否登录
+     */
+    boolean checkLogin(String accessToken);
 }

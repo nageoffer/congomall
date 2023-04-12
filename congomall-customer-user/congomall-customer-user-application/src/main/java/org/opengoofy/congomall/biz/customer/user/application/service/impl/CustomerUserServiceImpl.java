@@ -26,7 +26,9 @@ import org.opengoofy.congomall.biz.customer.user.application.resp.UserLoginRespD
 import org.opengoofy.congomall.biz.customer.user.application.resp.UserRegisterRespDTO;
 import org.opengoofy.congomall.biz.customer.user.application.service.CustomerUserService;
 import org.opengoofy.congomall.biz.customer.user.application.service.handler.verify.MailRegisterVerifyCommandHandler;
+import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.congomall.ddd.framework.core.domain.CommandHandler;
+import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractStrategyChoose;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,9 +44,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomerUserServiceImpl implements CustomerUserService {
     
-    private final CommandHandler<UserRegisterCommand, UserRegisterRespDTO> customerUserRegisterCommandHandler;
-    
+    private final DistributedCache distributedCache;
     private final AbstractStrategyChoose abstractStrategyChoose;
+    private final CommandHandler<UserRegisterCommand, UserRegisterRespDTO> customerUserRegisterCommandHandler;
     
     @Override
     public void verifyCodeSend(UserVerifyCodeCommand requestParam) {
@@ -72,5 +74,11 @@ public class CustomerUserServiceImpl implements CustomerUserService {
          * {@link MailLoginCommandHandler}
          */
         return abstractStrategyChoose.chooseAndExecuteResp(requestParam.getLoginType(), requestParam);
+    }
+    
+    @Override
+    public boolean checkLogin(String accessToken) {
+        CustomerUser customerUser = distributedCache.get(accessToken, CustomerUser.class);
+        return customerUser == null ? false : true;
     }
 }

@@ -18,6 +18,8 @@
 package org.opengoofy.congomall.biz.customer.user.web.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserLoginCommand;
@@ -25,8 +27,10 @@ import org.opengoofy.congomall.biz.customer.user.application.resp.UserLoginRespD
 import org.opengoofy.congomall.biz.customer.user.application.service.CustomerUserService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.web.Results;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -44,6 +48,16 @@ import javax.validation.Valid;
 public class CustomerUserLoginController {
     
     private final CustomerUserService customerUserService;
+    
+    @GetMapping("/api/customer-user/check-login")
+    @ApiOperation(value = "检查用户是否登录", notes = "通过Token检查用户是否登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "accessToken", value = "用户Token", required = true, example = "JWT Token")
+    })
+    public Result<Boolean> checkLogin(@RequestParam("accessToken") String accessToken) {
+        boolean result = customerUserService.checkLogin(accessToken);
+        return Results.success(result);
+    }
     
     @PostMapping("/api/customer-user/login")
     @ApiOperation(value = "用户登录", notes = "用户登录")
