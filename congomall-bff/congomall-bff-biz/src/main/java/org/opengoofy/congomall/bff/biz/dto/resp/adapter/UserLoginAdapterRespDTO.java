@@ -15,21 +15,43 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.web;
+package org.opengoofy.congomall.bff.biz.dto.resp.adapter;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import lombok.Data;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.congomall.bff.biz.dao.mapper")
-@EnableFeignClients("org.opengoofy.congomall.bff.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.bff")
-public class BFFApplication {
+/**
+ * 用户登录适配返回对象
+ *
+ * @author chen.ma
+ * @github <a href="https://github.com/opengoofy" />
+ * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
+ */
+@Data
+public class UserLoginAdapterRespDTO {
     
-    public static void main(String[] args) {
-        SpringApplication.run(BFFApplication.class, args);
-    }
+    private String address;
+    
+    private String balance;
+    
+    private String description;
+    
+    private String email;
+    
+    private String file;
+    
+    private Long id;
+    
+    private String message;
+    
+    private String phone;
+    
+    private String points;
+    
+    private Integer sex;
+    
+    private Integer state;
+    
+    private String token;
+    
+    private String username;
 }

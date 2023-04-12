@@ -15,21 +15,25 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.web;
+package org.opengoofy.congomall.bff.biz.service;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.UserLoginAdapterRepDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.UserLoginAdapterRespDTO;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.congomall.bff.biz.dao.mapper")
-@EnableFeignClients("org.opengoofy.congomall.bff.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.bff")
-public class BFFApplication {
+/**
+ * 用户登录接口
+ *
+ * @author chen.ma
+ * @github <a href="https://github.com/opengoofy" />
+ * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
+ */
+public interface UserLoginService {
     
-    public static void main(String[] args) {
-        SpringApplication.run(BFFApplication.class, args);
-    }
+    /**
+     * C 端用户登录
+     *
+     * @param requestParam 用户登录入参
+     * @return 用户登录返回信息
+     */
+    UserLoginAdapterRespDTO login(UserLoginAdapterRepDTO requestParam);
 }

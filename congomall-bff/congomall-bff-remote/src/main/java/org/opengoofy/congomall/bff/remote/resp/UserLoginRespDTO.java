@@ -15,21 +15,34 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.web;
+package org.opengoofy.congomall.bff.remote.resp;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.congomall.bff.biz.dao.mapper")
-@EnableFeignClients("org.opengoofy.congomall.bff.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.bff")
-public class BFFApplication {
+/**
+ * 用户登录返回实体
+ *
+ * @author chen.ma
+ * @github <a href="https://github.com/opengoofy" />
+ * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserLoginRespDTO {
     
-    public static void main(String[] args) {
-        SpringApplication.run(BFFApplication.class, args);
-    }
+    @ApiModelProperty(value = "用户ID")
+    private Long customerUserId;
+    
+    @ApiModelProperty(value = "用户名")
+    private String username;
+    
+    @ApiModelProperty(value = "账号")
+    private String accountNumber;
+    
+    @ApiModelProperty(value = "Token")
+    private String accessToken;
 }

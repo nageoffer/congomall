@@ -47,6 +47,18 @@ congomall:
     title: BFF Service
     version: 1.0.0
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        loggerLevel: HEADERS
+        readTimeout: 5000
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
 mybatis-plus:
   global-config:
     db-config:

@@ -15,21 +15,31 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.web;
+package org.opengoofy.congomall.bff.biz.common;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@EnableDiscoveryClient
-@MapperScan("org.opengoofy.congomall.bff.biz.dao.mapper")
-@EnableFeignClients("org.opengoofy.congomall.bff.remote")
-@SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.bff")
-public class BFFApplication {
+/**
+ * 用户登录状态枚举
+ *
+ * @author chen.ma
+ * @github <a href="https://github.com/opengoofy" />
+ * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
+ */
+@RequiredArgsConstructor
+public enum UserLoginSeataEnum {
     
-    public static void main(String[] args) {
-        SpringApplication.run(BFFApplication.class, args);
-    }
+    /**
+     * 成功
+     */
+    SUCCESS(1),
+    
+    /**
+     * 失败
+     */
+    FAIL(0);
+    
+    @Getter
+    private final int code;
 }
