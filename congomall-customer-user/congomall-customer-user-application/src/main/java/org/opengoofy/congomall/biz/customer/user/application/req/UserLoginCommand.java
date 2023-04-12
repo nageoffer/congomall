@@ -33,7 +33,7 @@ import org.hibernate.validator.constraints.Email;
 @ApiModel("用户登录")
 public class UserLoginCommand {
     
-    @ApiModelProperty(value = "登录方式", notes = "邮箱验证码、账号密码、手机号验证码、微信二维码等", example = "customer_user_login_mail")
+    @ApiModelProperty(value = "登录方式", notes = "邮箱验证码、账号密码、手机号验证码、微信二维码等", example = "UserLoginTypeEnum.USER_LOGIN_MAIL")
     private String loginType;
     
     @ApiModelProperty(value = "账号", example = "15601166692")

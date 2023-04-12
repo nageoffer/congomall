@@ -22,16 +22,17 @@ import org.opengoofy.congomall.biz.customer.user.application.req.UserLoginComman
 import org.opengoofy.congomall.biz.customer.user.application.resp.UserLoginRespDTO;
 import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.congomall.biz.customer.user.domain.common.UserLoginTypeEnum;
+import org.opengoofy.congomall.biz.customer.user.domain.dp.CustomerUserAccountNumber;
+import org.opengoofy.congomall.biz.customer.user.domain.dp.CustomerUserPassword;
 import org.opengoofy.congomall.biz.customer.user.domain.repository.CustomerUserRepository;
-import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
-import org.opengoofy.congomall.springboot.starter.cache.toolkit.CacheUtil;
+import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractExecuteStrategy;
 import org.springframework.stereotype.Component;
 
-import static org.opengoofy.congomall.biz.customer.user.domain.common.CacheConstant.LOGIN_USER_VERIFY_CODE;
+import java.util.Objects;
 
 /**
- * 邮箱登录
+ * 账号登录
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
@@ -39,25 +40,28 @@ import static org.opengoofy.congomall.biz.customer.user.domain.common.CacheConst
  */
 @Component
 @AllArgsConstructor
-public class MailLoginCommandHandler implements AbstractExecuteStrategy<UserLoginCommand, UserLoginRespDTO> {
-    
-    private final DistributedCache distributedCache;
+public class AccountLoginCommandHandler implements AbstractExecuteStrategy<UserLoginCommand, UserLoginRespDTO> {
     
     private final CustomerUserRepository customerUserRepository;
     
     @Override
     public String mark() {
-        return UserLoginTypeEnum.USER_LOGIN_MAIL.name();
+        return UserLoginTypeEnum.USER_LOGIN_ACCOUNT.toString();
     }
     
     @Override
     public UserLoginRespDTO executeResp(UserLoginCommand requestParam) {
-        CustomerUser customerUser = CustomerUser.builder().verifyCode(requestParam.getMailValidCode()).build();
-        // 获取缓存中的验证码
-        String verifyCode = distributedCache.get(CacheUtil.buildKey(LOGIN_USER_VERIFY_CODE, requestParam.getMail()), String.class);
-        // 检查验证码正确性
-        customerUser.checkoutValidCode(verifyCode);
-        CustomerUser actual = customerUserRepository.findByMail(requestParam.getMail());
+        CustomerUser customerUser = CustomerUser.builder()
+                .accountNumber(new CustomerUserAccountNumber(requestParam.getAccountNumber()))
+                .password(new CustomerUserPassword(requestParam.getPassword()))
+                .build();
+        CustomerUser actual = customerUserRepository.findByAccountNumber(requestParam.getAccountNumber());
+        if (actual == null) {
+            throw new ClientException("用户名不存在");
+        }
+        if (!Objects.equals(customerUser.getPassword(), actual.getPassword())) {
+            throw new ClientException("用户名密码错误");
+        }
         String accessToken = actual.generateAccessToken();
         return new UserLoginRespDTO(actual.getCustomerUserId(), actual.getUsername(), actual.getAccountNumber(), accessToken);
     }
