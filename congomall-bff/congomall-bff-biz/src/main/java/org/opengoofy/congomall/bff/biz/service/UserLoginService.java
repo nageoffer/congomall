@@ -36,4 +36,12 @@ public interface UserLoginService {
      * @return 用户登录返回信息
      */
     UserLoginAdapterRespDTO login(UserLoginAdapterRepDTO requestParam);
+    
+    /**
+     * 检查 C 端用户是否登录
+     *
+     * @param token JWT Token
+     * @return 用户是否登录
+     */
+    UserLoginAdapterRespDTO checkLogin(String token);
 }

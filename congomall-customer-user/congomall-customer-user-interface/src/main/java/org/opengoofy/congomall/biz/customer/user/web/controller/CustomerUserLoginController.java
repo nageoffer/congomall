@@ -54,8 +54,8 @@ public class CustomerUserLoginController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "用户Token", required = true, example = "JWT Token")
     })
-    public Result<Boolean> checkLogin(@RequestParam("accessToken") String accessToken) {
-        boolean result = customerUserService.checkLogin(accessToken);
+    public Result<UserLoginRespDTO> checkLogin(@RequestParam("accessToken") String accessToken) {
+        UserLoginRespDTO result = customerUserService.checkLogin(accessToken);
         return Results.success(result);
     }
     

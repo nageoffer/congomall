@@ -21,8 +21,10 @@ import org.opengoofy.congomall.bff.remote.req.UserLoginCommand;
 import org.opengoofy.congomall.bff.remote.resp.UserLoginRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * C端用户远程服务调用
@@ -39,4 +41,10 @@ public interface CustomerUserRemoteService {
      */
     @PostMapping("/api/customer-user/login")
     Result<UserLoginRespDTO> login(@RequestBody UserLoginCommand requestParam);
+    
+    /**
+     * 检查用户是否登录
+     */
+    @GetMapping("/api/customer-user/check-login")
+    Result<UserLoginRespDTO> checkLogin(@RequestParam("accessToken") String accessToken);
 }

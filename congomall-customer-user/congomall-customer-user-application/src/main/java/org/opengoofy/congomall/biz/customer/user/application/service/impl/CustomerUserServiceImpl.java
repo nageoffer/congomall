@@ -17,20 +17,19 @@
 
 package org.opengoofy.congomall.biz.customer.user.application.service.impl;
 
+import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserLoginCommand;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserRegisterCommand;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserVerifyCodeCommand;
-import org.opengoofy.congomall.biz.customer.user.application.service.handler.login.MailLoginCommandHandler;
-import org.opengoofy.congomall.biz.customer.user.application.service.handler.verify.MailLoginVerifyCommandHandler;
 import org.opengoofy.congomall.biz.customer.user.application.resp.UserLoginRespDTO;
 import org.opengoofy.congomall.biz.customer.user.application.resp.UserRegisterRespDTO;
 import org.opengoofy.congomall.biz.customer.user.application.service.CustomerUserService;
+import org.opengoofy.congomall.biz.customer.user.application.service.handler.login.MailLoginCommandHandler;
+import org.opengoofy.congomall.biz.customer.user.application.service.handler.verify.MailLoginVerifyCommandHandler;
 import org.opengoofy.congomall.biz.customer.user.application.service.handler.verify.MailRegisterVerifyCommandHandler;
-import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.congomall.ddd.framework.core.domain.CommandHandler;
 import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.designpattern.strategy.AbstractStrategyChoose;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -77,8 +76,7 @@ public class CustomerUserServiceImpl implements CustomerUserService {
     }
     
     @Override
-    public boolean checkLogin(String accessToken) {
-        CustomerUser customerUser = distributedCache.get(accessToken, CustomerUser.class);
-        return customerUser == null ? false : true;
+    public UserLoginRespDTO checkLogin(String accessToken) {
+        return distributedCache.get(accessToken, UserLoginRespDTO.class);
     }
 }

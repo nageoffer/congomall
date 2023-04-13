@@ -18,14 +18,18 @@
 package org.opengoofy.congomall.bff.web.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.common.ResultT;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.UserLoginAdapterRepDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.UserLoginAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.UserLoginService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,6 +45,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserLoginController {
     
     private final UserLoginService userLoginService;
+    
+    @GetMapping("/member/checkLogin")
+    @ApiOperation(value = "检查用户是否登录", notes = "根据Token检查用户是否登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "用户登录Token", required = true, example = "JWT Token")
+    })
+    public ResultT<UserLoginAdapterRespDTO> checkLogin(@RequestParam(value = "token", required = false) String token) {
+        UserLoginAdapterRespDTO result = userLoginService.checkLogin(token);
+        return ResultT.success(result);
+    }
     
     @PostMapping("/member/login")
     @ApiOperation(value = "用户登录", notes = "用户登录")

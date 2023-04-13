@@ -59,7 +59,7 @@ public interface CustomerUserService {
      * 通过 Token 检查用户是否登录
      *
      * @param accessToken 用户登录 Token
-     * @return 用户是否登录
+     * @return 用户登录信息
      */
-    boolean checkLogin(String accessToken);
+    UserLoginRespDTO checkLogin(String accessToken);
 }

@@ -17,8 +17,6 @@
 
 package org.opengoofy.congomall.biz.customer.user.domain.dp;
 
-import cn.hutool.core.util.StrUtil;
-import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import lombok.Data;
 
 /**
@@ -37,9 +35,6 @@ public class CustomerUserMail {
     private final String mail;
     
     public CustomerUserMail(String mail) {
-        if (StrUtil.isBlank(mail)) {
-            throw new ClientException("邮箱不能为空");
-        }
         this.mail = mail;
     }
 }

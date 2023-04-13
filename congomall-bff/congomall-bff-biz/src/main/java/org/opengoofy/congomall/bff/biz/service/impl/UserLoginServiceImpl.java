@@ -30,6 +30,8 @@ import org.opengoofy.congomall.bff.remote.resp.UserLoginRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
  * 用户登录接口实现层
  *
@@ -64,6 +66,29 @@ public class UserLoginServiceImpl implements UserLoginService {
             actualResp.setUsername(resultData.getAccountNumber());
             actualResp.setState(UserLoginSeataEnum.SUCCESS.getCode());
         }
+        return actualResp;
+    }
+    
+    @Override
+    public UserLoginAdapterRespDTO checkLogin(String token) {
+        Result<UserLoginRespDTO> result = null;
+        UserLoginAdapterRespDTO actualResp = new UserLoginAdapterRespDTO();
+        try {
+            result = customerUserRemoteService.checkLogin(token);
+        } catch (Throwable ex) {
+            log.error("调用用户服务检查登录状态失败", ex);
+            actualResp.setState(UserLoginSeataEnum.FAIL.getCode());
+            actualResp.setMessage("检查用户登录状态失败");
+        }
+        if (result != null && result.isSuccess()) {
+            actualResp.setMessage(Objects.isNull(result.getData()) ? "用户登录已过期" : null);
+            actualResp.setState(Objects.isNull(result.getData()) ? UserLoginSeataEnum.FAIL.getCode() : UserLoginSeataEnum.SUCCESS.getCode());
+            if (!Objects.isNull(result.getData())) {
+                actualResp.setId(result.getData().getCustomerUserId());
+                actualResp.setUsername(result.getData().getAccountNumber());
+            }
+        }
+        actualResp.setToken(token);
         return actualResp;
     }
 }

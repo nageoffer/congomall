@@ -17,11 +17,12 @@
 
 package org.opengoofy.congomall.biz.customer.user.application.assembler;
 
-import org.opengoofy.congomall.biz.customer.user.application.resp.UserRegisterRespDTO;
-import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.opengoofy.congomall.biz.customer.user.application.resp.UserLoginRespDTO;
+import org.opengoofy.congomall.biz.customer.user.application.resp.UserRegisterRespDTO;
+import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 
 /**
  * C 端用户 Entity 转换 DTO
@@ -35,9 +36,6 @@ public interface CustomerUserToDTOAssembler {
     
     /**
      * C 端用户 Entity 转换用户注册返回 DTO
-     *
-     * @param customerUser
-     * @return
      */
     @Mappings({
             @Mapping(source = "customerUser.username", target = "name"),
@@ -45,4 +43,14 @@ public interface CustomerUserToDTOAssembler {
             @Mapping(source = "customerUser.accountNumber", target = "accountNumber")
     })
     UserRegisterRespDTO customerUserToUserRegisterRespDTO(CustomerUser customerUser);
+    
+    /**
+     * C 端用户 Entity 转换用户登录返回 DTO
+     */
+    @Mappings({
+            @Mapping(source = "customerUser.customerUserId", target = "customerUserId"),
+            @Mapping(source = "customerUser.username", target = "username"),
+            @Mapping(source = "customerUser.accountNumber", target = "accountNumber")
+    })
+    UserLoginRespDTO customerUserToUserLoginRespDTO(CustomerUser customerUser);
 }
