@@ -263,6 +263,10 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 │   ├── congomall-basic-data-domain
 │   ├── congomall-basic-data-infrastructure
 │   ├── congomall-basic-data-interface
+├── congomall-bff  || -- # 商城 BFF 聚合层
+│   ├── congomall-bff-biz
+│   ├── congomall-bff-remote
+│   ├── congomall-bff-web
 ├── congomall-cart  || -- # 购物车服务
 │   ├── congomall-cart-application
 │   ├── congomall-cart-domain
