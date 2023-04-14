@@ -52,4 +52,11 @@ public interface UserLoginService {
      * @return 初始化后极验配置
      */
     GeeTestAdapterRespDTO initGeeTestConfig();
+    
+    /**
+     * 用户退出登录
+     *
+     * @param accessToken 用户登录 Token
+     */
+    void logout(String accessToken);
 }

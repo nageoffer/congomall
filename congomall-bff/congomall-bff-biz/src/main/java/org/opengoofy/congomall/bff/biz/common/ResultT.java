@@ -70,6 +70,10 @@ public class ResultT<T> implements Serializable {
         return Objects.equals(SUCCESS_CODE, code);
     }
     
+    public static <T> ResultT<T> success() {
+        return new ResultT().setCode(SUCCESS_CODE).setMessage(SUCCESS_MESSAGE);
+    }
+    
     public static <T> ResultT<T> success(T data) {
         return new ResultT().setCode(SUCCESS_CODE).setMessage(SUCCESS_MESSAGE).setResult(data);
     }

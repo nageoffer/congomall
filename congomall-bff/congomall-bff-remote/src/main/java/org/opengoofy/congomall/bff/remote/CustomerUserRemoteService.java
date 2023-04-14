@@ -47,4 +47,10 @@ public interface CustomerUserRemoteService {
      */
     @GetMapping("/api/customer-user/check-login")
     Result<UserLoginRespDTO> checkLogin(@RequestParam("accessToken") String accessToken);
+    
+    /**
+     * 用户退出登录
+     */
+    @GetMapping("/api/customer-user/logout")
+    Result<Void> logout(@RequestParam("accessToken") String accessToken);
 }

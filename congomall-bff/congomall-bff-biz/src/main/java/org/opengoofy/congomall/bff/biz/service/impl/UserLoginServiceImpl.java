@@ -128,4 +128,9 @@ public class UserLoginServiceImpl implements UserLoginService {
         geeTestAdapterRespDTO.setStatusKey(key);
         return geeTestAdapterRespDTO;
     }
+    
+    @Override
+    public void logout(String accessToken) {
+        customerUserRemoteService.logout(accessToken);
+    }
 }

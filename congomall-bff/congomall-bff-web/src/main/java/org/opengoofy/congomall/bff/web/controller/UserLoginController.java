@@ -69,4 +69,14 @@ public class UserLoginController {
     public String geeTestInit() {
         return JSON.toJSONString(userLoginService.initGeeTestConfig());
     }
+    
+    @GetMapping("/member/loginOut")
+    @ApiOperation(value = "用户退出登录", notes = "用户退出登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "accessToken", value = "用户Token", required = true, example = "JWT Token")
+    })
+    public ResultT<Void> logout(@RequestParam(value = "token", required = false) String token) {
+        userLoginService.logout(token);
+        return ResultT.success();
+    }
 }
