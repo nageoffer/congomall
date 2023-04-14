@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.web.controller;
 
+import com.alibaba.fastjson2.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -61,5 +62,11 @@ public class UserLoginController {
     public ResultT<UserLoginAdapterRespDTO> login(@RequestBody UserLoginAdapterRepDTO requestParam) {
         UserLoginAdapterRespDTO result = userLoginService.login(requestParam);
         return ResultT.success(result);
+    }
+    
+    @GetMapping("/member/geetestInit")
+    @ApiOperation(value = "初始化极验验证码", notes = "初始化极验验证码")
+    public String geeTestInit() {
+        return JSON.toJSONString(userLoginService.initGeeTestConfig());
     }
 }

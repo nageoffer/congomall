@@ -15,41 +15,33 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.service;
+package org.opengoofy.congomall.bff.biz.config;
 
-import org.opengoofy.congomall.bff.biz.dto.req.adapter.UserLoginAdapterRepDTO;
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.GeeTestAdapterRespDTO;
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.UserLoginAdapterRespDTO;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
- * 用户登录接口
+ * 极验属性配置
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface UserLoginService {
+@Data
+@Component
+@ConfigurationProperties(prefix = GeeTestProperties.PREFIX)
+public class GeeTestProperties {
+    
+    public static final String PREFIX = "geetest";
     
     /**
-     * C 端用户登录
-     *
-     * @param requestParam 用户登录入参
-     * @return 用户登录返回信息
+     * 公钥
      */
-    UserLoginAdapterRespDTO login(UserLoginAdapterRepDTO requestParam);
+    private String captchaId;
     
     /**
-     * 检查 C 端用户是否登录
-     *
-     * @param token JWT Token
-     * @return 用户是否登录
+     * 私钥
      */
-    UserLoginAdapterRespDTO checkLogin(String token);
-    
-    /**
-     * 获取极验配置
-     *
-     * @return 初始化后极验配置
-     */
-    GeeTestAdapterRespDTO initGeeTestConfig();
+    private String privateKey;
 }

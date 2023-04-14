@@ -17,20 +17,28 @@
 
 package org.opengoofy.congomall.bff.biz.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.bff.biz.assembler.UserLoginAssembler;
 import org.opengoofy.congomall.bff.biz.common.UserLoginSeataEnum;
+import org.opengoofy.congomall.bff.biz.config.GeeTestProperties;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.UserLoginAdapterRepDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.GeeTestAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.UserLoginAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.UserLoginService;
+import org.opengoofy.congomall.bff.biz.toolkit.GeeTestLib;
 import org.opengoofy.congomall.bff.remote.CustomerUserRemoteService;
 import org.opengoofy.congomall.bff.remote.req.UserLoginCommand;
 import org.opengoofy.congomall.bff.remote.resp.UserLoginRespDTO;
+import org.opengoofy.congomall.springboot.starter.cache.DistributedCache;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户登录接口实现层
@@ -46,25 +54,42 @@ public class UserLoginServiceImpl implements UserLoginService {
     
     private final CustomerUserRemoteService customerUserRemoteService;
     private final UserLoginAssembler userLoginAssembler;
+    private final GeeTestProperties geeTestProperties;
+    private final DistributedCache distributedCache;
     
     @Override
     public UserLoginAdapterRespDTO login(UserLoginAdapterRepDTO requestParam) {
-        UserLoginCommand userLoginCommand = userLoginAssembler.loginRequestConvert(requestParam);
-        Result<UserLoginRespDTO> result = null;
-        UserLoginAdapterRespDTO actualResp = new UserLoginAdapterRespDTO();
-        actualResp.setUsername(requestParam.getUserName());
-        try {
-            result = customerUserRemoteService.login(userLoginCommand);
-        } catch (Throwable ex) {
-            actualResp.setState(UserLoginSeataEnum.FAIL.getCode());
-            log.error("调用用户服务登录失败", ex);
+        GeeTestLib geeTestLib = new GeeTestLib(geeTestProperties);
+        int statusKey = Integer.parseInt(distributedCache.get(requestParam.getStatusKey(), String.class));
+        String challenge = requestParam.getChallenge();
+        String validate = requestParam.getValidate();
+        String secCode = requestParam.getSeccode();
+        int gtResult;
+        if (statusKey == 1) {
+            gtResult = geeTestLib.enhancedValidateRequest(challenge, validate, secCode, new HashMap<>());
+        } else {
+            gtResult = geeTestLib.failBackValidateRequest(challenge, validate, secCode);
         }
-        if (result != null && result.isSuccess()) {
-            UserLoginRespDTO resultData = result.getData();
-            actualResp.setToken(resultData.getAccessToken());
-            actualResp.setId(resultData.getCustomerUserId());
-            actualResp.setUsername(resultData.getAccountNumber());
-            actualResp.setState(UserLoginSeataEnum.SUCCESS.getCode());
+        UserLoginAdapterRespDTO actualResp = new UserLoginAdapterRespDTO();
+        if (gtResult == 1) {
+            UserLoginCommand userLoginCommand = userLoginAssembler.loginRequestConvert(requestParam);
+            Result<UserLoginRespDTO> result = null;
+            actualResp.setUsername(requestParam.getUserName());
+            try {
+                result = customerUserRemoteService.login(userLoginCommand);
+            } catch (Throwable ex) {
+                actualResp.setState(UserLoginSeataEnum.FAIL.getCode());
+                log.error("调用用户服务登录失败", ex);
+            }
+            if (result != null && result.isSuccess()) {
+                UserLoginRespDTO resultData = result.getData();
+                actualResp.setToken(resultData.getAccessToken());
+                actualResp.setId(resultData.getCustomerUserId());
+                actualResp.setUsername(resultData.getAccountNumber());
+                actualResp.setState(UserLoginSeataEnum.SUCCESS.getCode());
+            }
+        } else {
+            actualResp.setState(UserLoginSeataEnum.FAIL.getCode());
         }
         return actualResp;
     }
@@ -90,5 +115,17 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         actualResp.setToken(token);
         return actualResp;
+    }
+    
+    @Override
+    public GeeTestAdapterRespDTO initGeeTestConfig() {
+        GeeTestLib geeTestLib = new GeeTestLib(geeTestProperties);
+        int gtServerStatus = geeTestLib.preProcess(new HashMap<>());
+        String key = UUID.randomUUID().toString();
+        distributedCache.put(key, String.valueOf(gtServerStatus), 360, TimeUnit.SECONDS);
+        String resStr = geeTestLib.getResponseStr();
+        GeeTestAdapterRespDTO geeTestAdapterRespDTO = JSON.parseObject(resStr, GeeTestAdapterRespDTO.class);
+        geeTestAdapterRespDTO.setStatusKey(key);
+        return geeTestAdapterRespDTO;
     }
 }

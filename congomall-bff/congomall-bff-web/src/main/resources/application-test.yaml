@@ -28,3 +28,7 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+geetest:
+  captcha-id: '极验申请免费试用'
+  private-key: '同上'

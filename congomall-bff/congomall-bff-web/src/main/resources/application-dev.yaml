@@ -22,6 +22,10 @@ spring:
         server-addr: 127.0.0.1:8848
       password: nacos
       username: nacos
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
   datasource:
     username: root
     password: root
@@ -30,3 +34,7 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+geetest:
+  captcha-id: '极验申请免费试用'
+  private-key: '同上'

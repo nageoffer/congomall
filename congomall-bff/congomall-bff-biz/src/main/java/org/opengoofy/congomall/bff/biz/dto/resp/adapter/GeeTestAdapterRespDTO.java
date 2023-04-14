@@ -15,41 +15,25 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.service;
+package org.opengoofy.congomall.bff.biz.dto.resp.adapter;
 
-import org.opengoofy.congomall.bff.biz.dto.req.adapter.UserLoginAdapterRepDTO;
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.GeeTestAdapterRespDTO;
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.UserLoginAdapterRespDTO;
+import lombok.Data;
 
 /**
- * 用户登录接口
+ * 极验验证码适配返回对象
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface UserLoginService {
+@Data
+public class GeeTestAdapterRespDTO {
     
-    /**
-     * C 端用户登录
-     *
-     * @param requestParam 用户登录入参
-     * @return 用户登录返回信息
-     */
-    UserLoginAdapterRespDTO login(UserLoginAdapterRepDTO requestParam);
+    private String challenge;
     
-    /**
-     * 检查 C 端用户是否登录
-     *
-     * @param token JWT Token
-     * @return 用户是否登录
-     */
-    UserLoginAdapterRespDTO checkLogin(String token);
+    private String gt;
     
-    /**
-     * 获取极验配置
-     *
-     * @return 初始化后极验配置
-     */
-    GeeTestAdapterRespDTO initGeeTestConfig();
+    private String statusKey;
+    
+    private Integer success;
 }
