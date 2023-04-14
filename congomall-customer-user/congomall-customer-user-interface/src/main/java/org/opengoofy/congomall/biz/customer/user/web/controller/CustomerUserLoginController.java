@@ -65,4 +65,14 @@ public class CustomerUserLoginController {
         UserLoginRespDTO result = customerUserService.login(requestParam);
         return Results.success(result);
     }
+    
+    @GetMapping("/api/customer-user/logout")
+    @ApiOperation(value = "用户退出登录", notes = "用户退出登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "accessToken", value = "用户Token", required = true, example = "JWT Token")
+    })
+    public Result<Void> logout(@RequestParam(required = false) String accessToken) {
+        customerUserService.logout(accessToken);
+        return Results.success();
+    }
 }

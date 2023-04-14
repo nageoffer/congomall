@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.biz.customer.user.application.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserLoginCommand;
 import org.opengoofy.congomall.biz.customer.user.application.req.UserRegisterCommand;
@@ -78,5 +79,12 @@ public class CustomerUserServiceImpl implements CustomerUserService {
     @Override
     public UserLoginRespDTO checkLogin(String accessToken) {
         return distributedCache.get(accessToken, UserLoginRespDTO.class);
+    }
+    
+    @Override
+    public void logout(String accessToken) {
+        if (StrUtil.isNotBlank(accessToken)) {
+            distributedCache.delete(accessToken);
+        }
     }
 }

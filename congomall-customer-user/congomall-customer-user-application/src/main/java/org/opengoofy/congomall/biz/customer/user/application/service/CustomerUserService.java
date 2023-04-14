@@ -62,4 +62,11 @@ public interface CustomerUserService {
      * @return 用户登录信息
      */
     UserLoginRespDTO checkLogin(String accessToken);
+    
+    /**
+     * 用户退出登录
+     *
+     * @param accessToken 用户登录 Token
+     */
+    void logout(String accessToken);
 }
