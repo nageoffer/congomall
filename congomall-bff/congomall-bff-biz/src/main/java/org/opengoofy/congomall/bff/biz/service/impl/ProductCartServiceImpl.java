@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.bff.biz.assembler.ProductCartAssembler;
 import org.opengoofy.congomall.bff.biz.common.SelectFlagEnum;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartChecksAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
@@ -31,6 +32,7 @@ import org.opengoofy.congomall.bff.remote.ProductCartRemoteService;
 import org.opengoofy.congomall.bff.remote.ProductRemoteService;
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemChecksUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemRespDTO;
@@ -168,5 +170,23 @@ public class ProductCartServiceImpl implements ProductCartService {
             deleteProductCardResult = 1;
         }
         return deleteProductCardResult;
+    }
+    
+    @Override
+    public Integer updateChecksProductCard(ProductCartChecksAdapterReqDTO requestParam) {
+        CartItemChecksUpdateReqDTO checksRequestParam = new CartItemChecksUpdateReqDTO();
+        checksRequestParam.setCustomerUserId(requestParam.getUserId());
+        checksRequestParam.setSelectFlag(requestParam.getChecked()
+                ? SelectFlagEnum.SELECTED.getCode()
+                : SelectFlagEnum.UNSELECTED.getCode()
+        );
+        int checksProductCardResult = 0;
+        try {
+            productCartRemoteService.updateChecksCartItem(checksRequestParam);
+            checksProductCardResult = 1;
+        } catch (Throwable ex) {
+            log.error("调用购物车服务全选或取消全选购物车商品失败", ex);
+        }
+        return checksProductCardResult;
     }
 }

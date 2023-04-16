@@ -19,6 +19,7 @@ package org.opengoofy.congomall.bff.remote;
 
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemChecksUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemQuerySelectRespDTO;
@@ -72,6 +73,12 @@ public interface ProductCartRemoteService {
      */
     @PutMapping("/api/cart/product/check")
     Result<Void> updateCheckCartItem(@RequestBody CartItemCheckUpdateReqDTO requestParam);
+    
+    /**
+     * 修改全部购物车商品勾选状态
+     */
+    @PutMapping("/api/cart/product/checks")
+    Result<Void> updateChecksCartItem(@RequestBody CartItemChecksUpdateReqDTO requestParam);
     
     /**
      * 修改购物车商品SKU数量
