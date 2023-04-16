@@ -15,55 +15,50 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.remote.req;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
- * 捐赠实体
+ * 新增购物车入参
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-@TableName("donation")
-public class DonationDO extends BaseDO {
+public class CartItemAddReqDTO {
     
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    @ApiModelProperty("商品 spu id")
+    private String productId;
     
-    /**
-     * 昵称
-     */
-    private String nickName;
+    @ApiModelProperty("商品 sku id")
+    private String productSkuId;
     
-    /**
-     * 支付方式 0：支付宝
-     */
-    private Integer payType;
+    @ApiModelProperty("c 端用户 id")
+    private String customerUserId;
     
-    /**
-     * 捐赠金额
-     */
-    private Integer money;
+    @ApiModelProperty("商品图")
+    private String productPic;
     
-    /**
-     * 留言
-     */
-    private String info;
+    @ApiModelProperty("商品名称")
+    private String productName;
     
-    /**
-     * 捐赠时间
-     */
-    private Date time;
+    @ApiModelProperty("商品品牌")
+    private String productBrand;
+    
+    @ApiModelProperty("商品价格")
+    private BigDecimal productPrice;
+    
+    @ApiModelProperty("加购物车数量")
+    private Integer productQuantity;
+    
+    @ApiModelProperty("商品规格，json 格式")
+    private String productAttribute;
+    
+    @ApiModelProperty("选中标志")
+    private Integer selectFlag;
 }

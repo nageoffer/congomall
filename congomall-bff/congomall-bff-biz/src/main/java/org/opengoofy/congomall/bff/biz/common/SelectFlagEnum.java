@@ -15,55 +15,31 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.biz.common;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
-
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
- * 捐赠实体
+ * 购物车勾选状态
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-@Data
-@TableName("donation")
-public class DonationDO extends BaseDO {
+@AllArgsConstructor
+public enum SelectFlagEnum {
     
     /**
-     * id
+     * 购物车商品未选中状态
      */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    UNSELECTED(0),
     
     /**
-     * 昵称
+     * 购物车商品选中状态
      */
-    private String nickName;
+    SELECTED(1);
     
-    /**
-     * 支付方式 0：支付宝
-     */
-    private Integer payType;
-    
-    /**
-     * 捐赠金额
-     */
-    private Integer money;
-    
-    /**
-     * 留言
-     */
-    private String info;
-    
-    /**
-     * 捐赠时间
-     */
-    private Date time;
+    @Getter
+    private final int code;
 }

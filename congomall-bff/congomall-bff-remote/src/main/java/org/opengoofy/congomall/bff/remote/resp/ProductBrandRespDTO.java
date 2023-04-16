@@ -15,55 +15,33 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.remote.resp;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
-
-import java.util.Date;
 
 /**
- * 捐赠实体
+ * 商品品牌
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-@TableName("donation")
-public class DonationDO extends BaseDO {
+public class ProductBrandRespDTO {
     
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
+    @ApiModelProperty("id")
     private Long id;
     
-    /**
-     * 昵称
-     */
-    private String nickName;
+    @ApiModelProperty("品牌名称")
+    private String name;
     
-    /**
-     * 支付方式 0：支付宝
-     */
-    private Integer payType;
+    @ApiModelProperty("品牌介绍")
+    private String desc;
     
-    /**
-     * 捐赠金额
-     */
-    private Integer money;
+    @ApiModelProperty("品牌图")
+    private String pic;
     
-    /**
-     * 留言
-     */
-    private String info;
-    
-    /**
-     * 捐赠时间
-     */
-    private Date time;
+    @ApiModelProperty("排序")
+    private Integer sort;
 }

@@ -1,3 +1,20 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.opengoofy.congomall.bff.web.controller;
 
 import io.swagger.annotations.Api;
@@ -5,6 +22,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.common.ResultT;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,5 +49,11 @@ public class ProductCartController {
     @ApiOperation(value = "查询用户购物车", notes = "根据用户ID查询购物车数据")
     public ResultT<List<ProductCartAdapterRespDTO>> listAllProductCart(@RequestBody ProductCartAdapterReqDTO requestParam) {
         return ResultT.success(productCartService.listAllProductCart(requestParam.getUserId()));
+    }
+    
+    @PostMapping("/member/addCart")
+    @ApiOperation(value = "新增购物车", notes = "新增购物车")
+    public ResultT<Integer> addProductCard(@RequestBody ProductCartAddAdapterReqDTO requestParam) {
+        return ResultT.success(productCartService.addProductCard(requestParam));
     }
 }

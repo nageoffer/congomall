@@ -15,55 +15,23 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.biz.dto.req.adapter;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
-
-import java.util.Date;
 
 /**
- * 捐赠实体
+ * 商品购物车添加适配请求对象
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-@TableName("donation")
-public class DonationDO extends BaseDO {
+public class ProductCartAddAdapterReqDTO {
     
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    private String productId;
     
-    /**
-     * 昵称
-     */
-    private String nickName;
+    private Integer productNum;
     
-    /**
-     * 支付方式 0：支付宝
-     */
-    private Integer payType;
-    
-    /**
-     * 捐赠金额
-     */
-    private Integer money;
-    
-    /**
-     * 留言
-     */
-    private String info;
-    
-    /**
-     * 捐赠时间
-     */
-    private Date time;
+    private String userId;
 }

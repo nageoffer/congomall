@@ -15,55 +15,27 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.remote;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
-
-import java.util.Date;
+import org.opengoofy.congomall.bff.remote.resp.ProductRespDTO;
+import org.opengoofy.congomall.springboot.starter.convention.result.Result;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
- * 捐赠实体
+ * 商品服务远程调用
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-@Data
-@TableName("donation")
-public class DonationDO extends BaseDO {
+@FeignClient("product-service")
+public interface ProductRemoteService {
     
     /**
-     * id
+     * 根据 SpuID 查询商品详情
      */
-    @TableId(type = IdType.AUTO)
-    private Long id;
-    
-    /**
-     * 昵称
-     */
-    private String nickName;
-    
-    /**
-     * 支付方式 0：支付宝
-     */
-    private Integer payType;
-    
-    /**
-     * 捐赠金额
-     */
-    private Integer money;
-    
-    /**
-     * 留言
-     */
-    private String info;
-    
-    /**
-     * 捐赠时间
-     */
-    private Date time;
+    @GetMapping("/api/product/spu/{spuId}")
+    Result<ProductRespDTO> getProductBySpuId(@PathVariable("spuId") String spuId);
 }
