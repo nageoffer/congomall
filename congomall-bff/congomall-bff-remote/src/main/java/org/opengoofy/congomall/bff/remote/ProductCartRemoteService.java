@@ -19,12 +19,14 @@ package org.opengoofy.congomall.bff.remote;
 
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,4 +78,10 @@ public interface ProductCartRemoteService {
      */
     @PutMapping("/api/cart/product/num")
     Result<Void> updateNumCartItem(@RequestBody CartItemNumUpdateReqDTO requestParam);
+    
+    /**
+     * 删除购物车商品
+     */
+    @DeleteMapping("/api/cart/product")
+    Result<Void> clearCartProduct(@RequestBody CartItemDelReqDTO requestParam);
 }

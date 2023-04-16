@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.bff.biz.service;
 
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 
@@ -55,4 +56,12 @@ public interface ProductCartService {
      * @return 修改购物车是否成功
      */
     Integer updateProductCard(ProductCartUpdateAdapterReqDTO requestParam);
+    
+    /**
+     * 删除商品购物车数据
+     *
+     * @param requestParam 删除商品购物车请求数据
+     * @return 删除购物车是否成功
+     */
+    Integer deleteProductCard(ProductCartDeleteAdapterReqDTO requestParam);
 }

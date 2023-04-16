@@ -17,11 +17,13 @@
 
 package org.opengoofy.congomall.bff.biz.service.impl;
 
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.bff.biz.assembler.ProductCartAssembler;
 import org.opengoofy.congomall.bff.biz.common.SelectFlagEnum;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
@@ -29,6 +31,7 @@ import org.opengoofy.congomall.bff.remote.ProductCartRemoteService;
 import org.opengoofy.congomall.bff.remote.ProductRemoteService;
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemRespDTO;
 import org.opengoofy.congomall.bff.remote.resp.ProductRespDTO;
@@ -117,7 +120,7 @@ public class ProductCartServiceImpl implements ProductCartService {
         } catch (Throwable ex) {
             log.error("调用商品服务查询商品详细信息失败", ex);
         }
-        int updateProductCardResult = 1;
+        int updateProductCardResult = 0;
         if (remoteProductResult != null && remoteProductResult.isSuccess()) {
             try {
                 ProductRespDTO productResultData = remoteProductResult.getData();
@@ -135,10 +138,35 @@ public class ProductCartServiceImpl implements ProductCartService {
                 updateCartRequestParam.setProductQuantity(requestParam.getProductNum());
                 productCartRemoteService.updateNumCartItem(updateCartRequestParam);
             } catch (Throwable ex) {
-                updateProductCardResult = 0;
                 log.error("调用购物车服务修改购物车商品失败", ex);
             }
+            updateProductCardResult = 1;
         }
         return updateProductCardResult;
+    }
+    
+    @Override
+    public Integer deleteProductCard(ProductCartDeleteAdapterReqDTO requestParam) {
+        Result<ProductRespDTO> remoteProductResult = null;
+        try {
+            remoteProductResult = productRemoteService.getProductBySpuId(requestParam.getProductId());
+        } catch (Throwable ex) {
+            log.error("调用商品服务查询商品详细信息失败", ex);
+        }
+        int deleteProductCardResult = 0;
+        if (remoteProductResult != null && remoteProductResult.isSuccess()) {
+            try {
+                ProductRespDTO productResultData = remoteProductResult.getData();
+                ProductSkuRespDTO productSkuData = productResultData.getProductSkus().get(0);
+                CartItemDelReqDTO delCartRequestParam = new CartItemDelReqDTO();
+                delCartRequestParam.setCustomerUserId(requestParam.getUserId());
+                delCartRequestParam.setProductSkuIds(Lists.newArrayList(String.valueOf(productSkuData.getId())));
+                productCartRemoteService.clearCartProduct(delCartRequestParam);
+            } catch (Throwable ex) {
+                log.error("调用购物车服务删除购物车商品失败", ex);
+            }
+            deleteProductCardResult = 1;
+        }
+        return deleteProductCardResult;
     }
 }
