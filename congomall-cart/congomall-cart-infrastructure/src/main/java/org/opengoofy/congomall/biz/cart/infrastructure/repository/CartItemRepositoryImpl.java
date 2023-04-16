@@ -17,12 +17,15 @@
 
 package org.opengoofy.congomall.biz.cart.infrastructure.repository;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.opengoofy.congomall.biz.cart.domain.aggregate.CartItem;
 import org.opengoofy.congomall.biz.cart.domain.common.SelectFlagEnum;
 import org.opengoofy.congomall.biz.cart.domain.repository.CartItemRepository;
@@ -33,10 +36,13 @@ import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 购物车仓储层
@@ -50,6 +56,9 @@ import java.util.Optional;
 public class CartItemRepositoryImpl implements CartItemRepository {
     
     private final CartItemMapper cartItemMapper;
+    private final RedissonClient redissonClient;
+    
+    private static final String ADD_CART_LOCK_PREFIX = "add-cart-lock_";
     
     @Override
     public PageResponse<CartItem> pageQueryCartItem(String userId, PageRequest pageRequest) {
@@ -67,10 +76,44 @@ public class CartItemRepositoryImpl implements CartItemRepository {
         return BeanUtil.convert(selectList, CartItem.class);
     }
     
+    @SneakyThrows
     @Override
     public void addCartItem(CartItem cartItem) {
-        int insertFlag = cartItemMapper.insert(BeanUtil.convert(cartItem, CartItemDO.class));
-        Assert.isTrue(insertFlag > 0, () -> new ServiceException("添加购物车失败"));
+        String beforeLockName = StrUtil.builder()
+                .append(cartItem.getCustomerUserId())
+                .append(cartItem.getProductId())
+                .append(cartItem.getProductSkuId())
+                .toString();
+        String actualLockName = StrUtil.builder()
+                .append(ADD_CART_LOCK_PREFIX)
+                .append(Base64.encodeStr(beforeLockName.getBytes(), true, false))
+                .toString();
+        RLock lock = redissonClient.getLock(actualLockName);
+        boolean tryLock = lock.tryLock(3, TimeUnit.SECONDS);
+        if (!tryLock) {
+            throw new ServiceException("添加购物车失败");
+        }
+        try {
+            LambdaQueryWrapper<CartItemDO> queryWrapper = Wrappers.lambdaQuery(CartItemDO.class)
+                    .eq(CartItemDO::getProductId, cartItem.getProductId())
+                    .eq(CartItemDO::getProductSkuId, cartItem.getProductSkuId())
+                    .eq(CartItemDO::getCustomerUserId, cartItem.getCustomerUserId());
+            CartItemDO cartItemDO = cartItemMapper.selectOne(queryWrapper);
+            if (cartItemDO != null) {
+                LambdaUpdateWrapper<CartItemDO> updateWrapper = Wrappers.lambdaUpdate(CartItemDO.class)
+                        .eq(CartItemDO::getProductId, cartItem.getProductId())
+                        .eq(CartItemDO::getProductSkuId, cartItem.getProductSkuId())
+                        .eq(CartItemDO::getCustomerUserId, cartItem.getCustomerUserId());
+                CartItemDO updateCartItem = new CartItemDO();
+                updateCartItem.setProductQuantity(cartItemDO.getProductQuantity() + cartItem.getProductQuantity());
+                cartItemMapper.update(updateCartItem, updateWrapper);
+            } else {
+                int insertFlag = cartItemMapper.insert(BeanUtil.convert(cartItem, CartItemDO.class));
+                Assert.isTrue(insertFlag > 0, () -> new ServiceException("添加购物车失败"));
+            }
+        } finally {
+            lock.unlock();
+        }
     }
     
     @Override
