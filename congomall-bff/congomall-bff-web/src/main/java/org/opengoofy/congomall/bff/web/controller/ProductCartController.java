@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.common.ResultT;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "用户商品购物车")
+@Api(tags = "商品购物车")
 public class ProductCartController {
     
     private final ProductCartService productCartService;
@@ -55,5 +56,11 @@ public class ProductCartController {
     @ApiOperation(value = "新增购物车", notes = "新增购物车")
     public ResultT<Integer> addProductCard(@RequestBody ProductCartAddAdapterReqDTO requestParam) {
         return ResultT.success(productCartService.addProductCard(requestParam));
+    }
+    
+    @PostMapping("/member/cartEdit")
+    @ApiOperation(value = "编辑购物车", notes = "编辑购物车商品数量")
+    public ResultT<Integer> updateProductCard(@RequestBody ProductCartUpdateAdapterReqDTO requestParam) {
+        return ResultT.success(productCartService.updateProductCard(requestParam));
     }
 }

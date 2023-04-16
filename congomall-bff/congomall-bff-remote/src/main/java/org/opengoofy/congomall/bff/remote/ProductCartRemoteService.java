@@ -18,6 +18,8 @@
 package org.opengoofy.congomall.bff.remote;
 
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
@@ -26,6 +28,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,4 +64,16 @@ public interface ProductCartRemoteService {
      */
     @PostMapping("/api/cart/product")
     Result<Void> addCartItem(@RequestBody CartItemAddReqDTO requestParam);
+    
+    /**
+     * 修改购物车商品勾选状态
+     */
+    @PutMapping("/api/cart/product/check")
+    Result<Void> updateCheckCartItem(@RequestBody CartItemCheckUpdateReqDTO requestParam);
+    
+    /**
+     * 修改购物车商品SKU数量
+     */
+    @PutMapping("/api/cart/product/num")
+    Result<Void> updateNumCartItem(@RequestBody CartItemNumUpdateReqDTO requestParam);
 }

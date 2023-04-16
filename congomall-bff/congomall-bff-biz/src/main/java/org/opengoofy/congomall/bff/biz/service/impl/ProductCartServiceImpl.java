@@ -22,11 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.bff.biz.assembler.ProductCartAssembler;
 import org.opengoofy.congomall.bff.biz.common.SelectFlagEnum;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
 import org.opengoofy.congomall.bff.remote.ProductCartRemoteService;
 import org.opengoofy.congomall.bff.remote.ProductRemoteService;
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemRespDTO;
 import org.opengoofy.congomall.bff.remote.resp.ProductRespDTO;
 import org.opengoofy.congomall.bff.remote.resp.ProductSkuRespDTO;
@@ -104,5 +107,38 @@ public class ProductCartServiceImpl implements ProductCartService {
             }
         }
         return (addCartResult == null || !addCartResult.isSuccess()) ? 0 : 1;
+    }
+    
+    @Override
+    public Integer updateProductCard(ProductCartUpdateAdapterReqDTO requestParam) {
+        Result<ProductRespDTO> remoteProductResult = null;
+        try {
+            remoteProductResult = productRemoteService.getProductBySpuId(requestParam.getProductId());
+        } catch (Throwable ex) {
+            log.error("调用商品服务查询商品详细信息失败", ex);
+        }
+        int updateProductCardResult = 1;
+        if (remoteProductResult != null && remoteProductResult.isSuccess()) {
+            try {
+                ProductRespDTO productResultData = remoteProductResult.getData();
+                ProductSkuRespDTO productSkuData = productResultData.getProductSkus().get(0);
+                CartItemCheckUpdateReqDTO updateCheckRequestParam = new CartItemCheckUpdateReqDTO();
+                updateCheckRequestParam.setProductId(requestParam.getProductId());
+                updateCheckRequestParam.setProductSkuId(String.valueOf(productSkuData.getId()));
+                updateCheckRequestParam.setCustomerUserId(requestParam.getUserId());
+                updateCheckRequestParam.setSelectFlag(Integer.parseInt(requestParam.getChecked()));
+                productCartRemoteService.updateCheckCartItem(updateCheckRequestParam);
+                CartItemNumUpdateReqDTO updateCartRequestParam = new CartItemNumUpdateReqDTO();
+                updateCartRequestParam.setProductId(requestParam.getProductId());
+                updateCartRequestParam.setProductSkuId(String.valueOf(productSkuData.getId()));
+                updateCartRequestParam.setCustomerUserId(requestParam.getUserId());
+                updateCartRequestParam.setProductQuantity(requestParam.getProductNum());
+                productCartRemoteService.updateNumCartItem(updateCartRequestParam);
+            } catch (Throwable ex) {
+                updateProductCardResult = 0;
+                log.error("调用购物车服务修改购物车商品失败", ex);
+            }
+        }
+        return updateProductCardResult;
     }
 }
