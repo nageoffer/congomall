@@ -39,6 +39,18 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 
 <img width="1090" alt="image" src="https://user-images.githubusercontent.com/77398366/229265310-7fa8b406-b621-4334-91d6-911c0b95dce3.png">
 
+### 🤩 联系我
+
+---
+
+开源不易，右上角点个 Star 鼓励一下吧！
+
+如果大家想要实时关注 CongoMall 更新的文章以及分享的干货的话，可以关注我的公众号。
+
+使用过程中有任何问题，或者对项目有什么建议，关注公众号回复：加群，和 `1000+` 志同道合的朋友交流讨论。
+
+<img width="586" alt="image" src="https://user-images.githubusercontent.com/77398366/225888779-367f42a6-8401-4867-8e80-44214e1d17c1.png">
+
 ### 📝 文档
 
 ---
