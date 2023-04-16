@@ -33,7 +33,7 @@ public class ProductCartAdapterRespDTO {
     
     private Integer limitNum;
     
-    private Long productId;
+    private String productId;
     
     private String productImg;
     
