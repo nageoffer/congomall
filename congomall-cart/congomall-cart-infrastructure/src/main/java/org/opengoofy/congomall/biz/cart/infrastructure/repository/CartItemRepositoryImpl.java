@@ -118,15 +118,25 @@ public class CartItemRepositoryImpl implements CartItemRepository {
     
     @Override
     public void updateCheckCartItem(CartItem cartItem) {
-        CartItemDO cartItemDO = BeanUtil.convert(cartItem, CartItemDO.class);
-        int updateFlag = cartItemMapper.updateById(cartItemDO);
+        LambdaUpdateWrapper<CartItemDO> updateWrapper = Wrappers.lambdaUpdate(CartItemDO.class)
+                .eq(CartItemDO::getProductId, cartItem.getProductId())
+                .eq(CartItemDO::getProductSkuId, cartItem.getProductSkuId())
+                .eq(CartItemDO::getCustomerUserId, cartItem.getCustomerUserId());
+        CartItemDO updateCartItem = new CartItemDO();
+        updateCartItem.setSelectFlag(cartItem.getSelectFlag());
+        int updateFlag = cartItemMapper.update(updateCartItem, updateWrapper);
         Assert.isTrue(updateFlag > 0, () -> new ServiceException("修改购物车选中状态失败"));
     }
     
     @Override
     public void updateCartItem(CartItem cartItem) {
-        CartItemDO cartItemDO = BeanUtil.convert(cartItem, CartItemDO.class);
-        int updateFlag = cartItemMapper.updateById(cartItemDO);
+        LambdaUpdateWrapper<CartItemDO> updateWrapper = Wrappers.lambdaUpdate(CartItemDO.class)
+                .eq(CartItemDO::getProductId, cartItem.getProductId())
+                .eq(CartItemDO::getProductSkuId, cartItem.getProductSkuId())
+                .eq(CartItemDO::getCustomerUserId, cartItem.getCustomerUserId());
+        CartItemDO updateCartItem = new CartItemDO();
+        updateCartItem.setProductQuantity(cartItem.getProductQuantity());
+        int updateFlag = cartItemMapper.update(updateCartItem, updateWrapper);
         Assert.isTrue(updateFlag > 0, () -> new ServiceException("修改购物车失败"));
     }
     

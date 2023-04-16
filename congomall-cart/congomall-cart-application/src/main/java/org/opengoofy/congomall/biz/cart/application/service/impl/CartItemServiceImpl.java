@@ -79,20 +79,31 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public void updateCheckCartItem(CartItemCheckUpdateReqDTO requestParam) {
         CartItem cartItem = CartItem.builder()
-                .id(Long.parseLong(requestParam.getId()))
                 .selectFlag(requestParam.getSelectFlag())
+                .customerUserId(Long.parseLong(requestParam.getCustomerUserId()))
+                .productId(Long.parseLong(requestParam.getProductId()))
+                .productSkuId(Long.parseLong(requestParam.getProductSkuId()))
                 .build();
         cartItemRepository.updateCheckCartItem(cartItem);
     }
     
     @Override
     public void updateCartItem(CartItemNumUpdateReqDTO requestParam) {
-        cartItemRepository.updateCartItem(BeanUtil.convert(requestParam, CartItem.class));
+        CartItem cartItem = CartItem.builder()
+                .productQuantity(requestParam.getProductQuantity())
+                .customerUserId(Long.parseLong(requestParam.getCustomerUserId()))
+                .productId(Long.parseLong(requestParam.getProductId()))
+                .productSkuId(Long.parseLong(requestParam.getProductSkuId()))
+                .build();
+        cartItemRepository.updateCartItem(cartItem);
     }
     
     @Override
     public void clearCartProduct(CartItemDelReqDTO requestParam) {
-        CartItem cartItem = CartItem.builder().customerUserId(Long.parseLong(requestParam.getCustomerUserId())).productSkuIds(requestParam.getProductSkuIds()).build();
+        CartItem cartItem = CartItem.builder()
+                .customerUserId(Long.parseLong(requestParam.getCustomerUserId()))
+                .productSkuIds(requestParam.getProductSkuIds())
+                .build();
         cartItemRepository.deleteCartItem(cartItem);
     }
     
