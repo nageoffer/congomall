@@ -84,7 +84,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             if (result != null && result.isSuccess()) {
                 UserLoginRespDTO resultData = result.getData();
                 actualResp.setToken(resultData.getAccessToken());
-                actualResp.setId(resultData.getCustomerUserId());
+                actualResp.setId(String.valueOf(resultData.getCustomerUserId()));
                 actualResp.setUsername(resultData.getAccountNumber());
                 actualResp.setState(UserLoginSeataEnum.SUCCESS.getCode());
             }
@@ -108,8 +108,8 @@ public class UserLoginServiceImpl implements UserLoginService {
         if (result != null && result.isSuccess()) {
             actualResp.setMessage(Objects.isNull(result.getData()) ? "用户登录已过期" : null);
             actualResp.setState(Objects.isNull(result.getData()) ? UserLoginSeataEnum.FAIL.getCode() : UserLoginSeataEnum.SUCCESS.getCode());
-            if (!Objects.isNull(result.getData())) {
-                actualResp.setId(result.getData().getCustomerUserId());
+            if (Objects.nonNull(result.getData())) {
+                actualResp.setId(String.valueOf(result.getData().getCustomerUserId()));
                 actualResp.setUsername(result.getData().getAccountNumber());
             }
         }

@@ -39,7 +39,7 @@ public class UserLoginAdapterRespDTO {
     
     private String file;
     
-    private Long id;
+    private String id;
     
     private String message;
     
