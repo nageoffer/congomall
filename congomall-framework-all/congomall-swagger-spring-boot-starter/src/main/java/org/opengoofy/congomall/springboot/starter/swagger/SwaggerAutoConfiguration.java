@@ -59,6 +59,7 @@ public class SwaggerAutoConfiguration {
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
                 .paths(PathSelectors.regex("/error.*").negate())
                 .paths(PathSelectors.regex("/initialize/dispatcher-servlet").negate())
+                .paths(PathSelectors.regex("/actuator.*").negate())
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(Collections.singletonList(securityContext(swaggerProperties)));
