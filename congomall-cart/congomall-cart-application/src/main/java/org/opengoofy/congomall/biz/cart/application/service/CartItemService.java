@@ -64,6 +64,13 @@ public interface CartItemService {
     void updateCheckCartItem(CartItemCheckUpdateReqDTO requestParam);
     
     /**
+     * 修改全部购物车商品勾选状态
+     *
+     * @param requestParam 请求入参
+     */
+    void updateChecksCartItem(CartItemChecksUpdateReqDTO requestParam);
+    
+    /**
      * 修改购物车商品
      *
      * @param requestParam 请求入参

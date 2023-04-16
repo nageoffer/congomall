@@ -20,6 +20,7 @@ package org.opengoofy.congomall.biz.cart.application.service.impl;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemCheckUpdateReqDTO;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemChecksUpdateReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemPageQueryReqDTO;
@@ -85,6 +86,15 @@ public class CartItemServiceImpl implements CartItemService {
                 .productSkuId(Long.parseLong(requestParam.getProductSkuId()))
                 .build();
         cartItemRepository.updateCheckCartItem(cartItem);
+    }
+    
+    @Override
+    public void updateChecksCartItem(CartItemChecksUpdateReqDTO requestParam) {
+        CartItem cartItem = CartItem.builder()
+                .selectFlag(requestParam.getSelectFlag())
+                .customerUserId(Long.parseLong(requestParam.getCustomerUserId()))
+                .build();
+        cartItemRepository.updateChecksCartItem(cartItem);
     }
     
     @Override

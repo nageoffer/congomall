@@ -60,7 +60,7 @@ public class CartItemController {
     @GetMapping("/{customerUserId}")
     @ApiOperation(value = "查询用户选中购物车商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "customer_user_id", value = "用户 id", required = true, example = "1547742028312375296")
+            @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634554535496892416")
     })
     public Result<List<CartItemQuerySelectRespDTO>> querySelectCartByCustomerUserId(@PathVariable("customerUserId") String customerUserId) {
         List<CartItemQuerySelectRespDTO> result = cartItemService.querySelectCartByCustomerUserId(customerUserId);
@@ -81,6 +81,13 @@ public class CartItemController {
         return Results.success();
     }
     
+    @PutMapping("/checks")
+    @ApiOperation(value = "修改全部购物车商品勾选状态")
+    public Result<Void> updateChecksCartItem(@RequestBody CartItemChecksUpdateReqDTO requestParam) {
+        cartItemService.updateChecksCartItem(requestParam);
+        return Results.success();
+    }
+    
     @PutMapping("/num")
     @ApiOperation(value = "修改购物车商品SKU数量")
     public Result<Void> updateNumCartItem(@RequestBody CartItemNumUpdateReqDTO requestParam) {
@@ -97,6 +104,9 @@ public class CartItemController {
     
     @GetMapping("/count/{customerUserId}")
     @ApiOperation(value = "统计用户购物车商品数量")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634554535496892416")
+    })
     public Result<Integer> countUserCartItem(@PathVariable("customerUserId") String customerUserId) {
         int result = cartItemService.countUserCartItem(customerUserId);
         return Results.success(result);

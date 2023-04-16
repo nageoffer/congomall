@@ -64,6 +64,13 @@ public interface CartItemRepository {
     void updateCheckCartItem(CartItem cartItem);
     
     /**
+     * 修改全部购物车商品勾选状态
+     *
+     * @param cartItem 购物车聚合根
+     */
+    void updateChecksCartItem(CartItem cartItem);
+    
+    /**
      * 修改购物车商品
      *
      * @param cartItem 购物车聚合根
