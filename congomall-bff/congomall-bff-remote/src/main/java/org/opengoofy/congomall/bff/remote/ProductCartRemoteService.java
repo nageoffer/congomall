@@ -20,6 +20,7 @@ package org.opengoofy.congomall.bff.remote;
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemChecksUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemDelCheckReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemQuerySelectRespDTO;
@@ -91,4 +92,10 @@ public interface ProductCartRemoteService {
      */
     @DeleteMapping("/api/cart/product")
     Result<Void> clearCartProduct(@RequestBody CartItemDelReqDTO requestParam);
+    
+    /**
+     * 删除选中购物车商品
+     */
+    @DeleteMapping("/api/cart/product/delete/checks")
+    Result<Void> clearCheckCartProduct(@RequestBody CartItemDelCheckReqDTO requestParam);
 }

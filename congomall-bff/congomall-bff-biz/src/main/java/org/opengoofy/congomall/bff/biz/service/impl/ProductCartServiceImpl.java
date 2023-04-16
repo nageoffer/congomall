@@ -25,6 +25,7 @@ import org.opengoofy.congomall.bff.biz.common.SelectFlagEnum;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartChecksAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteChecksAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
@@ -33,6 +34,7 @@ import org.opengoofy.congomall.bff.remote.ProductRemoteService;
 import org.opengoofy.congomall.bff.remote.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemCheckUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemChecksUpdateReqDTO;
+import org.opengoofy.congomall.bff.remote.req.CartItemDelCheckReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.bff.remote.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.bff.remote.resp.CartItemRespDTO;
@@ -188,5 +190,16 @@ public class ProductCartServiceImpl implements ProductCartService {
             log.error("调用购物车服务全选或取消全选购物车商品失败", ex);
         }
         return checksProductCardResult;
+    }
+    
+    @Override
+    public void deleteChecksProductCard(ProductCartDeleteChecksAdapterReqDTO requestParam) {
+        CartItemDelCheckReqDTO delCheckRequestParam = new CartItemDelCheckReqDTO();
+        delCheckRequestParam.setCustomerUserId(requestParam.getUserId());
+        try {
+            productCartRemoteService.clearCheckCartProduct(delCheckRequestParam);
+        } catch (Throwable ex) {
+            log.error("调用购物车服务删除选中购物车商品失败", ex);
+        }
     }
 }

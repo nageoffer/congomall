@@ -25,6 +25,7 @@ import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartAddAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartChecksAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteChecksAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
@@ -76,5 +77,12 @@ public class ProductCartController {
     @ApiOperation(value = "编辑全选购物车", notes = "编辑全选购物车商品")
     public ResultT<Integer> updateChecksProductCard(@RequestBody ProductCartChecksAdapterReqDTO requestParam) {
         return ResultT.success(productCartService.updateChecksProductCard(requestParam));
+    }
+    
+    @PostMapping("/member/delCartChecked")
+    @ApiOperation(value = "删除选中购物车", notes = "删除选中购物车商品")
+    public ResultT<Void> deleteChecksProductCard(@RequestBody ProductCartDeleteChecksAdapterReqDTO requestParam) {
+        productCartService.deleteChecksProductCard(requestParam);
+        return ResultT.success();
     }
 }
