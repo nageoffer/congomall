@@ -91,4 +91,11 @@ public interface CartItemService {
      * @return 统计购物车商品数量
      */
     int countUserCartItem(String customerUserId);
+    
+    /**
+     * 删除选中购物车商品
+     *
+     * @param requestParam 请求入参
+     */
+    void clearCheckCartProduct(CartItemDelCheckReqDTO requestParam);
 }

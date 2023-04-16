@@ -102,6 +102,13 @@ public class CartItemController {
         return Results.success();
     }
     
+    @DeleteMapping("/delete/checks")
+    @ApiOperation(value = "删除选中购物车商品")
+    public Result<Void> clearCheckCartProduct(@RequestBody CartItemDelCheckReqDTO requestParam) {
+        cartItemService.clearCheckCartProduct(requestParam);
+        return Results.success();
+    }
+    
     @GetMapping("/count/{customerUserId}")
     @ApiOperation(value = "统计用户购物车商品数量")
     @ApiImplicitParams({

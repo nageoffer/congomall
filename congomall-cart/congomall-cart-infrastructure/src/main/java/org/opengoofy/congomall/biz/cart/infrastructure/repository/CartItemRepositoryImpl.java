@@ -163,4 +163,13 @@ public class CartItemRepositoryImpl implements CartItemRepository {
     public int countUserCartItem(String customerUserId) {
         return Optional.ofNullable(cartItemMapper.countUserCartItem(customerUserId)).orElse(0);
     }
+    
+    @Override
+    public void deleteChecksCartItem(CartItem cartItem) {
+        LambdaUpdateWrapper<CartItemDO> updateWrapper = Wrappers.lambdaUpdate(CartItemDO.class)
+                .eq(CartItemDO::getCustomerUserId, cartItem.getCustomerUserId())
+                .eq(CartItemDO::getSelectFlag, SelectFlagEnum.SELECTED.getCode());
+        int updateFlag = cartItemMapper.delete(updateWrapper);
+        Assert.isTrue(updateFlag > 0, () -> new ServiceException("删除购物车选中商品失败"));
+    }
 }

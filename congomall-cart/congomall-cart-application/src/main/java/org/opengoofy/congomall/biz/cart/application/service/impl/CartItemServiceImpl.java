@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemAddReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemCheckUpdateReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemChecksUpdateReqDTO;
+import org.opengoofy.congomall.biz.cart.application.req.CartItemDelCheckReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemDelReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemNumUpdateReqDTO;
 import org.opengoofy.congomall.biz.cart.application.req.CartItemPageQueryReqDTO;
@@ -120,5 +121,13 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public int countUserCartItem(String customerUserId) {
         return cartItemRepository.countUserCartItem(customerUserId);
+    }
+    
+    @Override
+    public void clearCheckCartProduct(CartItemDelCheckReqDTO requestParam) {
+        CartItem cartItem = CartItem.builder()
+                .customerUserId(Long.parseLong(requestParam.getCustomerUserId()))
+                .build();
+        cartItemRepository.deleteChecksCartItem(cartItem);
     }
 }

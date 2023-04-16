@@ -91,4 +91,11 @@ public interface CartItemRepository {
      * @return 统计购物车商品数量
      */
     int countUserCartItem(String customerUserId);
+    
+    /**
+     * 删除选中购物车商品
+     *
+     * @param cartItem 购物车聚合根
+     */
+    void deleteChecksCartItem(CartItem cartItem);
 }
