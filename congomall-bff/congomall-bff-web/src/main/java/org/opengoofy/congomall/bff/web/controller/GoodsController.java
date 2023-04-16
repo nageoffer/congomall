@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.web.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.common.ResultT;
@@ -36,6 +37,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
+@Api(tags = "商城首页")
 public class GoodsController {
     
     private final GoodsService goodsService;

@@ -1,5 +1,6 @@
 package org.opengoofy.congomall.bff.web.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
+@Api(tags = "捐赠服务")
 public class DonationController {
     
     private final DonationService donationService;
