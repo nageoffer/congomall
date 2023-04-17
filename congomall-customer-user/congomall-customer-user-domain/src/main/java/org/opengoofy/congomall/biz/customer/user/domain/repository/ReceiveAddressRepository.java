@@ -33,23 +33,30 @@ public interface ReceiveAddressRepository {
     /**
      * 根据用户 ID 查询收货地址
      *
-     * @param customerUserId
-     * @return
+     * @param customerUserId 用户 ID
+     * @return 用户收货地址集合
      */
     List<ReceiveAddress> listReceiveAddressByCustomerUserId(String customerUserId);
     
     /**
      * 新增用户收货地址
      *
-     * @param receiveAddress
+     * @param receiveAddress 用户收货地址聚合根
      */
     void saveReceiveAddress(ReceiveAddress receiveAddress);
     
     /**
      * 根据用户 ID、收货地址 ID 删除收货地址
      *
-     * @param customerUserId
-     * @param receiveAddressId
+     * @param customerUserId   用户 ID
+     * @param receiveAddressId 收货地址 ID
      */
     void removeReceiveAddress(String customerUserId, String receiveAddressId);
+    
+    /**
+     * 修改用户收货地址
+     *
+     * @param receiveAddress 用户收货地址聚合根
+     */
+    void updateReceiveAddress(ReceiveAddress receiveAddress);
 }

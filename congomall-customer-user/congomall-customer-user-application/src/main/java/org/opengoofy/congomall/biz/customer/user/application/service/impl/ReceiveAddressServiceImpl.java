@@ -19,6 +19,7 @@ package org.opengoofy.congomall.biz.customer.user.application.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.application.req.ReceiveAddressSaveCommand;
+import org.opengoofy.congomall.biz.customer.user.application.req.ReceiveAddressUpdateCommand;
 import org.opengoofy.congomall.biz.customer.user.application.resp.ReceiveAddressRespDTO;
 import org.opengoofy.congomall.biz.customer.user.application.service.ReceiveAddressService;
 import org.opengoofy.congomall.biz.customer.user.domain.mode.ReceiveAddress;
@@ -56,5 +57,11 @@ public class ReceiveAddressServiceImpl implements ReceiveAddressService {
     @Override
     public void removeReceiveAddress(String customerUserId, String receiveAddressId) {
         receiveAddressRepository.removeReceiveAddress(customerUserId, receiveAddressId);
+    }
+    
+    @Override
+    public void updateReceiveAddress(ReceiveAddressUpdateCommand requestParam) {
+        ReceiveAddress receiveAddress = BeanUtil.convert(requestParam, ReceiveAddress.class);
+        receiveAddressRepository.updateReceiveAddress(receiveAddress);
     }
 }

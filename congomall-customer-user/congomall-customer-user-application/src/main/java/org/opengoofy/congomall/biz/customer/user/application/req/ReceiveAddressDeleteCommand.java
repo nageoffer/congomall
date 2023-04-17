@@ -15,51 +15,29 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.customer.user.application.resp;
+package org.opengoofy.congomall.biz.customer.user.application.req;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
- * 用户收货地址出参
+ * 删除收货地址
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-public class ReceiveAddressRespDTO {
+@ApiModel("删除收货地址")
+public class ReceiveAddressDeleteCommand {
     
-    @ApiModelProperty("收货地址 id")
+    /**
+     * 收货地址id
+     */
     private String id;
     
-    @ApiModelProperty("c端用户 id")
+    /**
+     * c端用户id
+     */
     private String customerUserId;
-    
-    @ApiModelProperty("收货人名称")
-    private String name;
-    
-    @ApiModelProperty("收货人电话")
-    private String phone;
-    
-    @ApiModelProperty("是否默认 0：否 1：是")
-    private Integer defaultFlag;
-    
-    @ApiModelProperty("标签 0：家 1：公司")
-    private Integer tag;
-    
-    @ApiModelProperty("邮政编码")
-    private String postCode;
-    
-    @ApiModelProperty("省")
-    private String province;
-    
-    @ApiModelProperty("市")
-    private String city;
-    
-    @ApiModelProperty("区")
-    private String region;
-    
-    @ApiModelProperty("详细地址")
-    private String detailAddress;
 }

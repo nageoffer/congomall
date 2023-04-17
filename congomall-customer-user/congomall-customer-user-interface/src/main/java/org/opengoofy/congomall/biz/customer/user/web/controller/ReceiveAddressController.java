@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.customer.user.application.req.ReceiveAddressSaveCommand;
+import org.opengoofy.congomall.biz.customer.user.application.req.ReceiveAddressUpdateCommand;
 import org.opengoofy.congomall.biz.customer.user.application.resp.ReceiveAddressRespDTO;
 import org.opengoofy.congomall.biz.customer.user.application.service.ReceiveAddressService;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,11 +70,18 @@ public class ReceiveAddressController {
         return Results.success();
     }
     
+    @PutMapping("/api/customer-user/receive-address")
+    @ApiOperation(value = "修改用户收货地址", notes = "修改用户收货地址")
+    public Result<Void> updateReceiveAddress(@RequestBody ReceiveAddressUpdateCommand requestParam) {
+        receiveAddressService.updateReceiveAddress(requestParam);
+        return Results.success();
+    }
+    
     @DeleteMapping("/api/customer-user/{customerUserId}/receive-address/{receiveAddressId}")
     @ApiOperation(value = "删除用户收货地址", notes = "根据用户ID和收货ID删除用户收货地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "customerUserId", value = "用户ID", required = true, example = "1634554535496892416"),
-            @ApiImplicitParam(name = "customerUserId", value = "收货地址ID", required = true, example = "1634561618543894528")
+            @ApiImplicitParam(name = "receiveAddressId", value = "收货地址ID", required = true, example = "1634561618543894528")
     })
     public Result<Void> removeReceiveAddress(@PathVariable("customerUserId") String customerUserId, @PathVariable("receiveAddressId") String receiveAddressId) {
         receiveAddressService.removeReceiveAddress(customerUserId, receiveAddressId);
