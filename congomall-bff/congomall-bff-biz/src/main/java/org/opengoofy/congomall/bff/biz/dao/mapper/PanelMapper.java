@@ -35,4 +35,14 @@ public interface PanelMapper extends BaseMapper<PanelDO> {
      * 查询所有板块记录
      */
     List<PanelDO> listAllPanel();
+    
+    /**
+     * 查询捐赠板块
+     */
+    PanelDO getThank();
+    
+    /**
+     * 为您推荐板块
+     */
+    PanelDO getRecommend();
 }

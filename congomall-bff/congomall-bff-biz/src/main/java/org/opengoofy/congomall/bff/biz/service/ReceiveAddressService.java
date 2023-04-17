@@ -17,39 +17,48 @@
 
 package org.opengoofy.congomall.bff.biz.service;
 
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelAdapterRespDTO;
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomeProductDetailAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ReceiveAddressSaveAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.req.adapter.ReceiveAddressUpdateAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ReceiveAddressAdapterRespDTO;
 
 import java.util.List;
 
 /**
- * 商品接口层
+ * 用户收货地址
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface GoodsService {
+public interface ReceiveAddressService {
     
     /**
-     * 查询商城首页板块数据
+     * 根据用户 ID 查询收货地址
      *
-     * @return 商城首页板块返回数据
+     * @param customerUserId 用户 ID
+     * @return 用户收货地址集合
      */
-    List<HomePanelAdapterRespDTO> listHomePanel();
+    List<ReceiveAddressAdapterRespDTO> listReceiveAddressByCustomerUserId(String customerUserId);
     
     /**
-     * 根据商品 ID 查询商品详情
+     * 新增用户收货地址
      *
-     * @param productId 商品 ID
-     * @return 商品详情返回数据
+     * @param requestParam 新增收货地址请求参数
      */
-    HomeProductDetailAdapterRespDTO goodsDetail(String productId);
+    Integer saveReceiveAddress(ReceiveAddressSaveAdapterReqDTO requestParam);
     
     /**
-     * 为您推荐板块
+     * 根据用户 ID、收货地址 ID 删除收货地址
      *
-     * @return 为您推荐板块返回数据
+     * @param userId 用户 ID
+     * @param receiveAddressId 收货地址 ID
      */
-    HomePanelAdapterRespDTO recommend();
+    Integer removeReceiveAddress(String userId, String receiveAddressId);
+    
+    /**
+     * 修改收货地址
+     *
+     * @param requestParam 修改收货地址请求参数
+     */
+    Integer updateReceiveAddress(ReceiveAddressUpdateAdapterReqDTO requestParam);
 }

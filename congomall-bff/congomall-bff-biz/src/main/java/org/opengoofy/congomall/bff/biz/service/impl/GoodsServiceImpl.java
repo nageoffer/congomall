@@ -17,15 +17,30 @@
 
 package org.opengoofy.congomall.bff.biz.service.impl;
 
-import com.alibaba.fastjson2.JSON;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.congomall.bff.biz.dao.entity.PanelDO;
+import org.opengoofy.congomall.bff.biz.dao.entity.PanelProductRelationDO;
 import org.opengoofy.congomall.bff.biz.dao.mapper.PanelMapper;
 import org.opengoofy.congomall.bff.biz.dao.mapper.PanelProductRelationMapper;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelContentAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomeProductDetailAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.GoodsService;
+import org.opengoofy.congomall.bff.remote.ProductRemoteService;
+import org.opengoofy.congomall.bff.remote.resp.ProductRespDTO;
+import org.opengoofy.congomall.bff.remote.resp.ProductSpuRespDTO;
+import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
+import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 商品接口层实现
@@ -40,6 +55,10 @@ public class GoodsServiceImpl implements GoodsService {
     
     private final PanelMapper panelMapper;
     private final PanelProductRelationMapper panelProductRelationMapper;
+    private final ProductRemoteService productRemoteService;
+    
+    private static final int PRODUCT_LIMIT_CART = 1;
+    private static final List<String> TYPE_TWO_LIST = Lists.newArrayList("1647777981810081792", "1647788115844136960", "1647794693754322944"); 
     
     private final String cache = "[\n" +
             "        {\n" +
@@ -722,13 +741,107 @@ public class GoodsServiceImpl implements GoodsService {
     
     @Override
     public List<HomePanelAdapterRespDTO> listHomePanel() {
-        return JSON.parseArray(cache, HomePanelAdapterRespDTO.class);
-        /*List<PanelDO> listAllPanel = panelMapper.listAllPanel();
+        List<PanelDO> listAllPanel = panelMapper.listAllPanel();
         List<HomePanelAdapterRespDTO> result = BeanUtil.convert(listAllPanel, HomePanelAdapterRespDTO.class);
         result.forEach(each -> {
             List<PanelProductRelationDO> panelProductRelationList = panelProductRelationMapper.listPanelProductRelationByPanelId(each.getId());
-            // TODO 调用商品服务获取商品明细，组装为返回数据
+            if (CollUtil.isNotEmpty(panelProductRelationList)) {
+                List<HomePanelContentAdapterRespDTO> panelContents = new ArrayList<>();
+                panelProductRelationList.forEach(item -> {
+                    Result<ProductRespDTO> productResult = productRemoteService.getProductBySpuId(String.valueOf(item.getProductId()));
+                    if (productResult.isSuccess() && productResult.getData() != null) {
+                        ProductRespDTO resultData = productResult.getData();
+                        ProductSpuRespDTO productSpu = resultData.getProductSpu();
+                        HomePanelContentAdapterRespDTO productRespDTO = new HomePanelContentAdapterRespDTO();
+                        productRespDTO.setProductId(String.valueOf(productSpu.getId()));
+                        productRespDTO.setProductName(productSpu.getName());
+                        productRespDTO.setId(String.valueOf(productSpu.getId()));
+                        productRespDTO.setSalePrice(productSpu.getPrice().intValue());
+                        productRespDTO.setSortOrder(item.getSort());
+                        productRespDTO.setSubTitle(productSpu.getSubTitle());
+                        productRespDTO.setPanelId(each.getId());
+                        productRespDTO.setType(0);
+                        productRespDTO.setCreated(new Date());
+                        productRespDTO.setUpdated(new Date());
+                        List<String> pics = StrUtil.split(productSpu.getPic(), ",");
+                        if (pics.size() == 1) {
+                            productRespDTO.setProductImageBig(pics.get(0));
+                            productRespDTO.setPicUrl(pics.get(0));
+                        }
+                        if (pics.size() > 1) {
+                            productRespDTO.setPicUrl(pics.get(1));
+                        }
+                        if (pics.size() > 2) {
+                            productRespDTO.setPicUrl2(pics.get(2));
+                        }
+                        if (pics.size() > 3) {
+                            productRespDTO.setPicUrl3(pics.get(3));
+                        }
+                        if (TYPE_TWO_LIST.contains(String.valueOf(productSpu.getId()))) {
+                            productRespDTO.setType(2);
+                        }
+                        panelContents.add(productRespDTO);
+                    }
+                });
+                each.setPanelContents(panelContents);
+            }
         });
-        return result;*/
+        return result;
+    }
+    
+    @Override
+    public HomeProductDetailAdapterRespDTO goodsDetail(String productId) {
+        Result<ProductRespDTO> productResult = productRemoteService.getProductBySpuId(productId);
+        HomeProductDetailAdapterRespDTO result = new HomeProductDetailAdapterRespDTO();
+        if (productResult.isSuccess() && productResult.getData() != null) {
+            ProductRespDTO resultData = productResult.getData();
+            ProductSpuRespDTO productSpu = resultData.getProductSpu();
+            result.setProductId(productId);
+            result.setDetail(productSpu.getDetail());
+            result.setLimitNum(PRODUCT_LIMIT_CART);
+            result.setSalePrice(productSpu.getPrice().intValue());
+            result.setProductName(productSpu.getName());
+            result.setSubTitle(productSpu.getSubTitle());
+            result.setProductImageBig(productSpu.getPic());
+            String[] split = productSpu.getPhotoAlbum().split(",");
+            result.setProductImageSmall(Arrays.asList(Optional.ofNullable(split).get()));
+        }
+        return result;
+    }
+    
+    @Override
+    public HomePanelAdapterRespDTO recommend() {
+        PanelDO recommend = panelMapper.getRecommend();
+        HomePanelAdapterRespDTO result = BeanUtil.convert(recommend, HomePanelAdapterRespDTO.class);
+        List<PanelProductRelationDO> panelProductRelationList = panelProductRelationMapper.listPanelProductRelationByPanelId(recommend.getId());
+        if (CollUtil.isNotEmpty(panelProductRelationList)) {
+            List<HomePanelContentAdapterRespDTO> panelContents = new ArrayList<>();
+            panelProductRelationList.forEach(item -> {
+                Result<ProductRespDTO> productResult = productRemoteService.getProductBySpuId(String.valueOf(item.getProductId()));
+                if (productResult.isSuccess() && productResult.getData() != null) {
+                    ProductRespDTO resultData = productResult.getData();
+                    ProductSpuRespDTO productSpu = resultData.getProductSpu();
+                    HomePanelContentAdapterRespDTO productRespDTO = new HomePanelContentAdapterRespDTO();
+                    productRespDTO.setProductId(String.valueOf(productSpu.getId()));
+                    productRespDTO.setProductName(productSpu.getName());
+                    productRespDTO.setId(String.valueOf(productSpu.getId()));
+                    productRespDTO.setSalePrice(productSpu.getPrice().intValue());
+                    productRespDTO.setSortOrder(item.getSort());
+                    productRespDTO.setSubTitle(productSpu.getSubTitle());
+                    productRespDTO.setPanelId(recommend.getId());
+                    productRespDTO.setType(0);
+                    productRespDTO.setCreated(new Date());
+                    productRespDTO.setUpdated(new Date());
+                    List<String> pics = StrUtil.split(productSpu.getPic(), ",");
+                    if (pics.size() == 1) {
+                        productRespDTO.setProductImageBig(pics.get(0));
+                        productRespDTO.setPicUrl(pics.get(0));
+                    }
+                    panelContents.add(productRespDTO);
+                }
+            });
+            result.setPanelContents(panelContents);
+        }
+        return result;
     }
 }

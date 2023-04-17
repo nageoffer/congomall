@@ -19,6 +19,7 @@ package org.opengoofy.congomall.bff.biz.service;
 
 import org.opengoofy.congomall.bff.biz.common.PageAdapter;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.DonationAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelAdapterRespDTO;
 
 import java.util.List;
 
@@ -39,4 +40,11 @@ public interface DonationService {
      * @return 返回捐赠列表
      */
     PageAdapter<List<DonationAdapterRespDTO>> pageQueryDonation(int page, int size);
+    
+    /**
+     * 用户捐赠板块
+     *
+     * @return 捐赠板块返回数据
+     */
+    HomePanelAdapterRespDTO queryDonation();
 }

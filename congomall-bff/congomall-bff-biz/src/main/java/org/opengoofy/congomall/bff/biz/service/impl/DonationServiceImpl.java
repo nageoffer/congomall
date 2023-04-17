@@ -17,6 +17,8 @@
 
 package org.opengoofy.congomall.bff.biz.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,12 +26,24 @@ import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.common.PageAdapter;
 import org.opengoofy.congomall.bff.biz.common.PayTypeEnum;
 import org.opengoofy.congomall.bff.biz.dao.entity.DonationDO;
+import org.opengoofy.congomall.bff.biz.dao.entity.PanelDO;
+import org.opengoofy.congomall.bff.biz.dao.entity.PanelProductRelationDO;
 import org.opengoofy.congomall.bff.biz.dao.mapper.DonationMapper;
+import org.opengoofy.congomall.bff.biz.dao.mapper.PanelMapper;
+import org.opengoofy.congomall.bff.biz.dao.mapper.PanelProductRelationMapper;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.DonationAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelContentAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.DonationService;
+import org.opengoofy.congomall.bff.remote.ProductRemoteService;
+import org.opengoofy.congomall.bff.remote.resp.ProductRespDTO;
+import org.opengoofy.congomall.bff.remote.resp.ProductSpuRespDTO;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
+import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +58,9 @@ import java.util.List;
 public class DonationServiceImpl implements DonationService {
     
     private final DonationMapper donationMapper;
+    private final PanelMapper panelMapper;
+    private final PanelProductRelationMapper panelProductRelationMapper;
+    private final ProductRemoteService productRemoteService;
     
     @Override
     public PageAdapter<List<DonationAdapterRespDTO>> pageQueryDonation(int page, int size) {
@@ -60,5 +77,41 @@ public class DonationServiceImpl implements DonationService {
         pageAdapter.setRecordsFiltered(0);
         pageAdapter.setRecordsTotal(donationDOPage.getTotal());
         return pageAdapter;
+    }
+    
+    @Override
+    public HomePanelAdapterRespDTO queryDonation() {
+        PanelDO thank = panelMapper.getThank();
+        HomePanelAdapterRespDTO result = BeanUtil.convert(thank, HomePanelAdapterRespDTO.class);
+        List<PanelProductRelationDO> panelProductRelationList = panelProductRelationMapper.listPanelProductRelationByPanelId(thank.getId());
+        if (CollUtil.isNotEmpty(panelProductRelationList)) {
+            List<HomePanelContentAdapterRespDTO> panelContents = new ArrayList<>();
+            panelProductRelationList.forEach(item -> {
+                Result<ProductRespDTO> productResult = productRemoteService.getProductBySpuId(String.valueOf(item.getProductId()));
+                if (productResult.isSuccess() && productResult.getData() != null) {
+                    ProductRespDTO resultData = productResult.getData();
+                    ProductSpuRespDTO productSpu = resultData.getProductSpu();
+                    HomePanelContentAdapterRespDTO productRespDTO = new HomePanelContentAdapterRespDTO();
+                    productRespDTO.setProductId(String.valueOf(productSpu.getId()));
+                    productRespDTO.setProductName(productSpu.getName());
+                    productRespDTO.setId(String.valueOf(productSpu.getId()));
+                    productRespDTO.setSalePrice(productSpu.getPrice().intValue());
+                    productRespDTO.setSortOrder(item.getSort());
+                    productRespDTO.setSubTitle(productSpu.getSubTitle());
+                    productRespDTO.setPanelId(thank.getId());
+                    productRespDTO.setType(0);
+                    productRespDTO.setCreated(new Date());
+                    productRespDTO.setUpdated(new Date());
+                    List<String> pics = StrUtil.split(productSpu.getPic(), ",");
+                    if (pics.size() == 1) {
+                        productRespDTO.setProductImageBig(pics.get(0));
+                        productRespDTO.setPicUrl(pics.get(0));
+                    }
+                    panelContents.add(productRespDTO);
+                }
+            });
+            result.setPanelContents(panelContents);
+        }
+        return result;
     }
 }

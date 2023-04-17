@@ -24,5 +24,23 @@
         select *
         from panel
         where del_flag = '0'
+          and position = 0
+        order by sort_order
+    </select>
+    
+    <!-- 查询捐赠板块记录 -->
+    <select id="getThank" resultType="org.opengoofy.congomall.bff.biz.dao.entity.PanelDO">
+        select *
+        from panel
+        where del_flag = '0'
+          and position = 2
+    </select>
+    
+    
+    <select id="getRecommend" resultType="org.opengoofy.congomall.bff.biz.dao.entity.PanelDO">
+        select *
+        from panel
+        where del_flag = '0'
+          and position = 1
     </select>
 </mapper>

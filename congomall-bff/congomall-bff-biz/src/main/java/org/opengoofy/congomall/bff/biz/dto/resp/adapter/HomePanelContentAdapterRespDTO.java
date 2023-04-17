@@ -22,7 +22,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 首页板块内容适配请求对象
+ * 首页板块内容适配返回对象
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
@@ -30,6 +30,11 @@ import java.util.Date;
  */
 @Data
 public class HomePanelContentAdapterRespDTO {
+    
+    /**
+     * id
+     */
+    private String id;
     
     /**
      * 地址
@@ -59,7 +64,7 @@ public class HomePanelContentAdapterRespDTO {
     /**
      * 商品ID
      */
-    private Long productId;
+    private String productId;
     
     /**
      * 商品大图

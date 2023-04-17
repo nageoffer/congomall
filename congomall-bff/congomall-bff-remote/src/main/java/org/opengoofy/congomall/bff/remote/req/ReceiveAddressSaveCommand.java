@@ -15,43 +15,69 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.remote.req;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 
 /**
- * 板块商品关联实体
+ * 新增收货地址
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-@TableName("panel_product_relation")
-public class PanelProductRelationDO extends BaseDO {
+@ApiModel("新增收货地址")
+public class ReceiveAddressSaveCommand {
     
     /**
-     * id
+     * c端用户id
      */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    private String customerUserId;
     
     /**
-     * 板块id
+     * 收货人名称
      */
-    private Long panelId;
+    private String name;
     
     /**
-     * 商品id
+     * 收货人电话
      */
-    private Long productId;
+    private String phone;
     
     /**
-     * 排序
+     * 是否默认 0：否 1：是
      */
-    private Integer sort;
+    private Integer defaultFlag;
+    
+    /**
+     * 标签 0：家 1：公司
+     */
+    private Integer tag;
+    
+    /**
+     * 邮政编码
+     */
+    private String postCode;
+    
+    /**
+     * 省
+     */
+    private String province;
+    
+    /**
+     * 市
+     */
+    private String city;
+    
+    /**
+     * 区
+     */
+    private String region;
+    
+    /**
+     * 详细地址
+     */
+    private String detailAddress;
 }
