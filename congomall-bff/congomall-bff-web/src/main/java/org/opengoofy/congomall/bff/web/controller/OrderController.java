@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.common.ResultT;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.OrderCreateAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderResultAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,11 +55,21 @@ public class OrderController {
     @ApiOperation(value = "订单列表查询", notes = "订单列表查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "用户商品列表第几页", required = true, example = "1"),
-            @ApiImplicitParam(name = "size", value = "用户商品列表每页多少条数据", required = true, example = "10")
+            @ApiImplicitParam(name = "size", value = "用户商品列表每页多少条数据", required = true, example = "10"),
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1634554535496892416")
     })
     public ResultT<OrderResultAdapterRespDTO> listOrder(@RequestParam("page") Integer page,
                                                         @RequestParam("size") Integer size,
                                                         @RequestParam("userId") String userId) {
         return ResultT.success(orderService.listOrder(page, size, userId));
+    }
+    
+    @GetMapping("/member/orderDetail")
+    @ApiOperation(value = "订单查询", notes = "根据订单号查询订单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orderId", value = "订单ID", required = true, example = "1648278169705656320")
+    })
+    public ResultT<OrderAdapterRespDTO> getOrderDetail(@RequestParam("orderId") String orderSn) {
+        return ResultT.success(orderService.getOrderDetail(orderSn));
     }
 }

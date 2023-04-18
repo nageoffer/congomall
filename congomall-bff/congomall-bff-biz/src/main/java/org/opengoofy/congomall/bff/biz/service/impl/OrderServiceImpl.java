@@ -140,4 +140,43 @@ public class OrderServiceImpl implements OrderService {
         }
         return new OrderResultAdapterRespDTO(orderListResult.size(), orderListResult);
     }
+    
+    @Override
+    public OrderAdapterRespDTO getOrderDetail(String orderSn) {
+        Result<OrderRespDTO> orderDetailRemoteResult;
+        OrderRespDTO orderRespDTO;
+        try {
+            orderDetailRemoteResult = orderRemoteService.getOrderByOrderSn(orderSn);
+            if (!orderDetailRemoteResult.isSuccess() || orderDetailRemoteResult.getData() == null) {
+                throw new ServiceException("调用订单服务查询详情失败");
+            }
+            orderRespDTO = orderDetailRemoteResult.getData();
+        } catch (Throwable ex) {
+            log.error("调用订单服务查询详情失败", ex);
+            throw ex;
+        }
+        OrderAdapterRespDTO orderListResult = new OrderAdapterRespDTO();
+        orderListResult.setOrderId(orderRespDTO.getOrderSn());
+        orderListResult.setOrderTotal(orderRespDTO.getTotalAmount().intValue());
+        orderListResult.setOrderStatus(String.valueOf(orderRespDTO.getStatus()));
+        orderListResult.setFinishDate(orderRespDTO.getReceiveTime());
+        orderListResult.setCreateDate(orderRespDTO.getCreateTime());
+        OrderAddressAdapterRespDTO addressInfo = new OrderAddressAdapterRespDTO();
+        addressInfo.setTel(orderRespDTO.getCneePhone());
+        addressInfo.setStreetName(orderRespDTO.getCneeDetailAddress());
+        addressInfo.setUserName(orderRespDTO.getCneeName());
+        orderListResult.setAddressInfo(addressInfo);
+        List<OrderGoodsAdapterRespDTO> goodsList = new ArrayList<>();
+        for (OrderProductRespDTO item : orderRespDTO.getOrderProducts()) {
+            OrderGoodsAdapterRespDTO goods = new OrderGoodsAdapterRespDTO();
+            goods.setProductId(item.getProductId());
+            goods.setProductImg(item.getProductPic());
+            goods.setProductName(item.getProductName());
+            goods.setProductNum(item.getProductQuantity());
+            goods.setSalePrice(item.getProductPrice().intValue());
+            goodsList.add(goods);
+        }
+        orderListResult.setGoodsList(goodsList);
+        return orderListResult;
+    }
 }

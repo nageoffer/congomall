@@ -49,4 +49,10 @@ public interface OrderRemoteService {
      */
     @GetMapping("/api/order/customer-user/{customerUserId}")
     Result<List<OrderRespDTO>> getOrderByCustomerUserId(@PathVariable("customerUserId") String customerUserId);
+    
+    /**
+     * 根据订单号查询订单信息
+     */
+    @GetMapping("/api/order/{orderSn}")
+    Result<OrderRespDTO> getOrderByOrderSn(@PathVariable("orderSn") String orderSn);
 }

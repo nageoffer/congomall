@@ -18,6 +18,7 @@
 package org.opengoofy.congomall.bff.biz.service;
 
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.OrderCreateAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderResultAdapterRespDTO;
 
 /**
@@ -46,4 +47,12 @@ public interface OrderService {
      * @return 订单列表返回数据
      */
     OrderResultAdapterRespDTO listOrder(Integer page, Integer size, String userId);
+    
+    /**
+     * 根据订单号查询订单详细记录
+     *
+     * @param orderSn 订单号
+     * @return 订单详细返回记录
+     */
+    OrderAdapterRespDTO getOrderDetail(String orderSn);
 }
