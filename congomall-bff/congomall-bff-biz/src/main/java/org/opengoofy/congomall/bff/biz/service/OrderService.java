@@ -55,4 +55,12 @@ public interface OrderService {
      * @return 订单详细返回记录
      */
     OrderAdapterRespDTO getOrderDetail(String orderSn);
+    
+    /**
+     * 根据订单号删除订单
+     *
+     * @param orderSn 订单号
+     * @return 是否删除成功
+     */
+    Integer deleteOrder(String orderSn);
 }

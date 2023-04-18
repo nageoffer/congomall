@@ -72,4 +72,13 @@ public class OrderController {
     public ResultT<OrderAdapterRespDTO> getOrderDetail(@RequestParam("orderId") String orderSn) {
         return ResultT.success(orderService.getOrderDetail(orderSn));
     }
+    
+    @GetMapping("/member/delOrder")
+    @ApiOperation(value = "订单删除", notes = "根据订单号删除订单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orderId", value = "订单ID", required = true, example = "1648278169705656320")
+    })
+    public ResultT<Integer> deleteOrder(@RequestParam("orderId") String orderSn) {
+        return ResultT.success(orderService.deleteOrder(orderSn));
+    }
 }

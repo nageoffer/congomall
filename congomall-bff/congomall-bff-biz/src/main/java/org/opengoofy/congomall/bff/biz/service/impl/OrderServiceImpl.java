@@ -179,4 +179,18 @@ public class OrderServiceImpl implements OrderService {
         orderListResult.setGoodsList(goodsList);
         return orderListResult;
     }
+    
+    @Override
+    public Integer deleteOrder(String orderSn) {
+        int deleteOrderFlag = 0;
+        try {
+            Result<Void> deletedOrderResult = orderRemoteService.deleteOrder(orderSn);
+            if (deletedOrderResult.isSuccess()) {
+                deleteOrderFlag = 1;
+            }
+        } catch (Throwable ex) {
+            log.error("调用订单服务删除订单失败", ex);
+        }
+        return deleteOrderFlag;
+    }
 }

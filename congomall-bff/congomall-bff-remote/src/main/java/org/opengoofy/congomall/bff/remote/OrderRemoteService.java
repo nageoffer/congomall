@@ -21,6 +21,7 @@ import org.opengoofy.congomall.bff.remote.req.OrderCreateCommand;
 import org.opengoofy.congomall.bff.remote.resp.OrderRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,4 +56,10 @@ public interface OrderRemoteService {
      */
     @GetMapping("/api/order/{orderSn}")
     Result<OrderRespDTO> getOrderByOrderSn(@PathVariable("orderSn") String orderSn);
+    
+    /**
+     * 根据订单号删除商品订单
+     */
+    @DeleteMapping("/api/order/{orderSn}")
+    Result<Void> deleteOrder(@PathVariable("orderSn") String orderSn);
 }
