@@ -102,9 +102,6 @@ public class ProductRepositoryImpl implements ProductRepository {
                 throw new ServiceException("锁定库存失败，请检查相关商品库存是否充足");
             }
         });
-        if (true) {
-            throw new RuntimeException();
-        }
         return Boolean.TRUE;
     }
     
