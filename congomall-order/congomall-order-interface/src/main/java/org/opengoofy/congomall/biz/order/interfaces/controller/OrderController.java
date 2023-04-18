@@ -28,6 +28,7 @@ import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempote
 import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.opengoofy.congomall.springboot.starter.web.Results;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,6 +88,18 @@ public class OrderController {
     )
     public Result<Void> canalOrder(@PathVariable("orderSn") String orderSn) {
         orderService.canalOrder(orderSn);
+        return Results.success();
+    }
+    
+    @DeleteMapping("/{orderSn}")
+    @ApiOperation("商品订单删除")
+    @Idempotent(
+            type = IdempotentTypeEnum.PARAM,
+            uniqueKeyPrefix = "del_",
+            message = "订单删除失败，请刷新订单状态或重新操作"
+    )
+    public Result<Void> deleteOrder(@PathVariable("orderSn") String orderSn) {
+        orderService.deleteOrder(orderSn);
         return Results.success();
     }
 }

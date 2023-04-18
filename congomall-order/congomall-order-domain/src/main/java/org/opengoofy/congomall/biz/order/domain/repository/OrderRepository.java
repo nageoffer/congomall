@@ -73,4 +73,11 @@ public interface OrderRepository {
      * @param order 订单聚合根
      */
     void statusReversal(Order order);
+    
+    /**
+     * 删除订单
+     *
+     * @param orderSn 订单号
+     */
+    void deleteOrder(String orderSn);
 }

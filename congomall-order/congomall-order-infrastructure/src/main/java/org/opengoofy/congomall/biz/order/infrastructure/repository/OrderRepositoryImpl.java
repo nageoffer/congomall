@@ -166,4 +166,20 @@ public class OrderRepositoryImpl implements OrderRepository {
             lock.unlock();
         }
     }
+    
+    @Override
+    public void deleteOrder(String orderSn) {
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
+                .eq(OrderDO::getOrderSn, orderSn);
+        OrderDO orderDO = orderMapper.selectOne(queryWrapper);
+        if (orderDO == null) {
+            throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_CANAL_UNKNOWN_ERROR);
+        }
+        LambdaUpdateWrapper<OrderDO> updateWrapper = Wrappers.lambdaUpdate(OrderDO.class)
+                .eq(OrderDO::getOrderSn, orderSn);
+        int updateResult = orderMapper.delete(updateWrapper);
+        if (updateResult <= 0) {
+            throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_DELETE_ERROR);
+        }
+    }
 }

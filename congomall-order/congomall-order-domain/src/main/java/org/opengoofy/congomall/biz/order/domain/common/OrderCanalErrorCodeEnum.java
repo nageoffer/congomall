@@ -38,7 +38,9 @@ public enum OrderCanalErrorCodeEnum implements IErrorCode {
     
     ORDER_CANAL_REPETITION_ERROR("B006004", "订单重复取消，请稍后再试"),
     
-    ORDER_STATUS_REVERSAL_ERROR("B006005", "订单状态反转失败，请稍后再试");
+    ORDER_STATUS_REVERSAL_ERROR("B006005", "订单状态反转失败，请稍后再试"),
+    
+    ORDER_DELETE_ERROR("B006006", "订单状态反转失败，请稍后再试");
     
     /**
      * 错误码

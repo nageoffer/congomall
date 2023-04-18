@@ -61,4 +61,11 @@ public interface OrderService {
      * @param orderSn 订单号
      */
     void canalOrder(String orderSn);
+    
+    /**
+     * 删除订单
+     *
+     * @param orderSn 订单号
+     */
+    void deleteOrder(String orderSn);
 }

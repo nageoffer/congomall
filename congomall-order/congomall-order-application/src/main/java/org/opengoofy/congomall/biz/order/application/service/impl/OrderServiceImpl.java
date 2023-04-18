@@ -113,6 +113,11 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.canalOrder(orderSn);
     }
     
+    @Override
+    public void deleteOrder(String orderSn) {
+        orderRepository.deleteOrder(orderSn);
+    }
+    
     /**
      * 根据用户ID查询选中状态购物车商品
      * <p>
