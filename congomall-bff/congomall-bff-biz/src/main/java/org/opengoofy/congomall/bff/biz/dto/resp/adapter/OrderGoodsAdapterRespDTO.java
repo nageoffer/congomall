@@ -15,35 +15,31 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.service;
+package org.opengoofy.congomall.bff.biz.dto.resp.adapter;
 
-import org.opengoofy.congomall.bff.biz.dto.req.adapter.OrderCreateAdapterReqDTO;
-import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderResultAdapterRespDTO;
+import lombok.Data;
 
 /**
- * 订单接口
+ * 订单商品适配返回对象
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-public interface OrderService {
+@Data
+public class OrderGoodsAdapterRespDTO {
     
-    /**
-     * 订单创建
-     *
-     * @param requestParam 订单创建请求参数
-     * @return 订单号
-     */
-    String addOrder(OrderCreateAdapterReqDTO requestParam);
+    private Integer checked;
     
-    /**
-     * 订单列表查看
-     *
-     * @param page   当前页
-     * @param size   每页多少条
-     * @param userId 用户 ID
-     * @return 订单列表返回数据
-     */
-    OrderResultAdapterRespDTO listOrder(Integer page, Integer size, String userId);
+    private Integer limitNum;
+    
+    private String productId;
+    
+    private String productImg;
+    
+    private String productName;
+    
+    private Integer productNum;
+    
+    private Integer salePrice;
 }

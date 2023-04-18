@@ -20,16 +20,23 @@ package org.opengoofy.congomall.bff.biz.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.OrderCreateAdapterReqDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderAddressAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderGoodsAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderResultAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.service.OrderService;
 import org.opengoofy.congomall.bff.remote.OrderRemoteService;
 import org.opengoofy.congomall.bff.remote.ProductCartRemoteService;
 import org.opengoofy.congomall.bff.remote.req.OrderCreateCommand;
 import org.opengoofy.congomall.bff.remote.resp.CartItemQuerySelectRespDTO;
+import org.opengoofy.congomall.bff.remote.resp.OrderProductRespDTO;
+import org.opengoofy.congomall.bff.remote.resp.OrderRespDTO;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String addOrder(OrderCreateAdapterReqDTO requestParam) {
         List<CartItemQuerySelectRespDTO> userCartList;
-        Result<List<CartItemQuerySelectRespDTO>> selectCartListResult = null;
+        Result<List<CartItemQuerySelectRespDTO>> selectCartListResult;
         try {
             selectCartListResult = productCartRemoteService.querySelectCartByCustomerUserId(requestParam.getUserId());
             if (!selectCartListResult.isSuccess() || selectCartListResult.getData() == null) {
@@ -88,5 +95,49 @@ public class OrderServiceImpl implements OrderService {
             throw ex;
         }
         return orderCreateRemoteResult.getData();
+    }
+    
+    @Override
+    public OrderResultAdapterRespDTO listOrder(Integer page, Integer size, String userId) {
+        Result<List<OrderRespDTO>> orderListRemoteResult;
+        List<OrderRespDTO> orderList;
+        try {
+            // TODO 订单服务需提供分页查询接口
+            orderListRemoteResult = orderRemoteService.getOrderByCustomerUserId(userId);
+            if (!orderListRemoteResult.isSuccess() || orderListRemoteResult.getData() == null) {
+                throw new ServiceException("调用订单服务查询订单失败");
+            }
+            orderList = orderListRemoteResult.getData();
+        } catch (Throwable ex) {
+            log.error("调用订单服务查询订单失败", ex);
+            throw ex;
+        }
+        List<OrderAdapterRespDTO> orderListResult = new ArrayList<>();
+        for (OrderRespDTO each : orderList) {
+            OrderAdapterRespDTO orderAdapter = new OrderAdapterRespDTO();
+            orderAdapter.setOrderId(each.getOrderSn());
+            orderAdapter.setOrderTotal(each.getTotalAmount().intValue());
+            orderAdapter.setOrderStatus(String.valueOf(each.getStatus()));
+            orderAdapter.setFinishDate(each.getReceiveTime());
+            orderAdapter.setCreateDate(each.getCreateTime());
+            OrderAddressAdapterRespDTO addressInfo = new OrderAddressAdapterRespDTO();
+            addressInfo.setTel(each.getCneePhone());
+            addressInfo.setStreetName(each.getCneeDetailAddress());
+            addressInfo.setUserName(each.getCneeName());
+            orderAdapter.setAddressInfo(addressInfo);
+            List<OrderGoodsAdapterRespDTO> goodsList = new ArrayList<>();
+            for (OrderProductRespDTO item : each.getOrderProducts()) {
+                OrderGoodsAdapterRespDTO goods = new OrderGoodsAdapterRespDTO();
+                goods.setProductId(item.getProductId());
+                goods.setProductImg(item.getProductPic());
+                goods.setProductName(item.getProductName());
+                goods.setProductNum(item.getProductQuantity());
+                goods.setSalePrice(item.getProductPrice().intValue());
+                goodsList.add(goods);
+            }
+            orderAdapter.setGoodsList(goodsList);
+            orderListResult.add(orderAdapter);
+        }
+        return new OrderResultAdapterRespDTO(orderListResult.size(), orderListResult);
     }
 }

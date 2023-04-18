@@ -15,38 +15,69 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.remote;
+package org.opengoofy.congomall.bff.remote.resp;
 
-import org.opengoofy.congomall.bff.remote.req.OrderCreateCommand;
-import org.opengoofy.congomall.bff.remote.resp.OrderRespDTO;
-import org.opengoofy.congomall.springboot.starter.convention.result.Result;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.Data;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
- * 订单远程调用服务
+ * 订单商品出参
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-@FeignClient("order-service")
-public interface OrderRemoteService {
+@Data
+public class OrderProductRespDTO {
     
     /**
-     * 商品订单下单
+     * 订单id
      */
-    @PostMapping("/api/order")
-    Result<String> createOrder(@RequestBody OrderCreateCommand requestParam);
+    private String orderId;
     
     /**
-     * 根据用户ID查询订单信息
+     * 订单编号
      */
-    @GetMapping("/api/order/customer-user/{customerUserId}")
-    Result<List<OrderRespDTO>> getOrderByCustomerUserId(@PathVariable("customerUserId") String customerUserId);
+    private String orderSn;
+    
+    /**
+     * 商品 SPU ID
+     */
+    private String productId;
+    
+    /**
+     * 商品 SKU ID
+     */
+    private String productSkuId;
+    
+    /**
+     * 商品图
+     */
+    private String productPic;
+    
+    /**
+     * 商品名称
+     */
+    private String productName;
+    
+    /**
+     * 商品品牌
+     */
+    private String productBrand;
+    
+    /**
+     * 商品价格
+     */
+    private BigDecimal productPrice;
+    
+    /**
+     * 商品购买数量
+     */
+    private Integer productQuantity;
+    
+    /**
+     * 规格，json 格式
+     */
+    private String productAttribute;
 }
