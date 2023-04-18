@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.congomall.biz.order.domain.aggregate.CneeInfo;
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
 import org.opengoofy.congomall.biz.order.domain.aggregate.OrderProduct;
 import org.opengoofy.congomall.biz.order.domain.common.OrderCanalErrorCodeEnum;
@@ -64,7 +65,13 @@ public class OrderRepositoryImpl implements OrderRepository {
         LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
                 .eq(OrderDO::getOrderSn, orderSn);
         OrderDO orderDO = orderMapper.selectOne(queryWrapper);
-        return BeanUtil.convert(orderDO, Order.class);
+        Order resultOrder = BeanUtil.convert(orderDO, Order.class);
+        resultOrder.setCneeInfo(BeanUtil.convert(orderDO, CneeInfo.class));
+        LambdaQueryWrapper<OrderItemDO> lambdaQueryWrapper = Wrappers.lambdaQuery(OrderItemDO.class)
+                .eq(OrderItemDO::getOrderSn, resultOrder.getOrderSn());
+        List<OrderItemDO> orderItemList = orderItemMapper.selectList(lambdaQueryWrapper);
+        resultOrder.setOrderProducts(BeanUtil.convert(orderItemList, OrderProduct.class));
+        return resultOrder;
     }
     
     @Override

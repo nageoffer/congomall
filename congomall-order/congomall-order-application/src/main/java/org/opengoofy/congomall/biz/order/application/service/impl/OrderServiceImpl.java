@@ -95,7 +95,11 @@ public class OrderServiceImpl implements OrderService {
     
     @Override
     public OrderRespDTO getOrderByOrderSn(String orderSn) {
-        return BeanUtil.convert(orderRepository.findOrderByOrderSn(orderSn), OrderRespDTO.class);
+        Order order = orderRepository.findOrderByOrderSn(orderSn);
+        CneeInfo cneeInfo = order.getCneeInfo();
+        OrderRespDTO result = BeanUtil.convert(order, OrderRespDTO.class);
+        BeanUtil.convertIgnoreNullAndBlank(cneeInfo, result);
+        return result;
     }
     
     @Override
