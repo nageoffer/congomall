@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.web.controller;
 
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -64,7 +65,7 @@ public class GoodsController {
     @GetMapping("/goods/recommend")
     @ApiOperation(value = "为您推荐", notes = "为您推荐")
     public ResultT<List<HomePanelAdapterRespDTO>> recommend() {
-        return ResultT.success(goodsService.recommend());
+        return ResultT.success(Lists.newArrayList(goodsService.recommend()));
     }
     
 }
