@@ -21,6 +21,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单出参
@@ -148,6 +149,11 @@ public class OrderRespDTO {
     private Integer confirmFlag;
     
     /**
+     * 订单创建时间
+     */
+    private Date createTime;
+    
+    /**
      * 发货时间
      */
     private Date deliveryTime;
@@ -156,4 +162,9 @@ public class OrderRespDTO {
      * 订单状态
      */
     private Integer status;
+    
+    /**
+     * 商品集合
+     */
+    private List<OrderProductRespDTO> orderProducts;
 }

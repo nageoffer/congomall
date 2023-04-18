@@ -121,6 +121,11 @@ public class Order implements AggregateRoot {
     private Integer confirmFlag;
     
     /**
+     * 订单创建时间
+     */
+    private Date createTime;
+    
+    /**
      * 发货时间
      */
     private Date deliveryTime;

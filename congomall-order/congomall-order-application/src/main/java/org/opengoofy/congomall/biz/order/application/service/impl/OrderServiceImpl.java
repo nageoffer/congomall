@@ -100,8 +100,8 @@ public class OrderServiceImpl implements OrderService {
     
     @Override
     public List<OrderRespDTO> getOrderByCustomerUserId(String customerUserId) {
-        orderRepository.findOrderByCustomerUserId(customerUserId);
-        return null;
+        List<Order> orderList = orderRepository.findOrderByCustomerUserId(customerUserId);
+        return BeanUtil.convert(orderList, OrderRespDTO.class);
     }
     
     @Override

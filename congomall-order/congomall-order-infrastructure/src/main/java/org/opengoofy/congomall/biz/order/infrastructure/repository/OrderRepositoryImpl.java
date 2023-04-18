@@ -25,6 +25,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
+import org.opengoofy.congomall.biz.order.domain.aggregate.OrderProduct;
 import org.opengoofy.congomall.biz.order.domain.common.OrderCanalErrorCodeEnum;
 import org.opengoofy.congomall.biz.order.domain.common.OrderStatusEnum;
 import org.opengoofy.congomall.biz.order.domain.repository.OrderRepository;
@@ -55,23 +56,30 @@ import java.util.List;
 public class OrderRepositoryImpl implements OrderRepository {
     
     private final OrderMapper orderMapper;
-    
     private final OrderItemMapper orderItemMapper;
-    
     private final RedissonClient redissonClient;
     
     @Override
     public Order findOrderByOrderSn(String orderSn) {
-        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getOrderSn, orderSn);
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
+                .eq(OrderDO::getOrderSn, orderSn);
         OrderDO orderDO = orderMapper.selectOne(queryWrapper);
         return BeanUtil.convert(orderDO, Order.class);
     }
     
     @Override
     public List<Order> findOrderByCustomerUserId(String customerUserId) {
-        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getCustomerUserId, customerUserId);
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
+                .eq(OrderDO::getCustomerUserId, customerUserId);
         List<OrderDO> orderDOList = orderMapper.selectList(queryWrapper);
-        return BeanUtil.convert(orderDOList, Order.class);
+        List<Order> resultOrder = BeanUtil.convert(orderDOList, Order.class);
+        resultOrder.forEach(each -> {
+            LambdaQueryWrapper<OrderItemDO> lambdaQueryWrapper = Wrappers.lambdaQuery(OrderItemDO.class)
+                    .eq(OrderItemDO::getOrderSn, each.getOrderSn());
+            List<OrderItemDO> orderItemList = orderItemMapper.selectList(lambdaQueryWrapper);
+            each.setOrderProducts(BeanUtil.convert(orderItemList, OrderProduct.class));
+        });
+        return resultOrder;
     }
     
     @Override
@@ -90,7 +98,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     public void closeOrder(String orderSn) {
         OrderDO updateOrderDO = new OrderDO();
         updateOrderDO.setStatus(OrderStatusEnum.CLOSED.getStatus());
-        LambdaUpdateWrapper<OrderDO> updateWrapper = Wrappers.lambdaUpdate(OrderDO.class).eq(OrderDO::getOrderSn, orderSn);
+        LambdaUpdateWrapper<OrderDO> updateWrapper = Wrappers.lambdaUpdate(OrderDO.class)
+                .eq(OrderDO::getOrderSn, orderSn);
         orderMapper.update(updateOrderDO, updateWrapper);
     }
     
