@@ -19,6 +19,7 @@ package org.opengoofy.congomall.biz.product.domain.repository;
 
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
 import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 
 /**
  * 商品仓储层
@@ -60,4 +61,12 @@ public interface ProductRepository {
      * @return 是否解锁相关商品库存返回结果，解锁成功返回 {@link Boolean#TRUE}，反之返回 {@link Boolean#FALSE}
      */
     Boolean unlockProductStock(ProductStock productStock);
+    
+    /**
+     * 分页查询商品集合
+     *
+     * @param product 商品聚合根
+     * @return 分页查询商品集合返回数据
+     */
+    PageResponse<Product> pageQueryProduct(Product product);
 }

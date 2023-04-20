@@ -17,11 +17,14 @@
 
 package org.opengoofy.congomall.biz.product.infrastructure.repository;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
+import org.opengoofy.congomall.biz.product.domain.aggregate.ProductPageQuery;
 import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
 import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStockDetail;
 import org.opengoofy.congomall.biz.product.domain.mode.ProductBrand;
@@ -36,11 +39,14 @@ import org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductSkuM
 import org.opengoofy.congomall.biz.product.infrastructure.dao.mapper.ProductSpuMapper;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 /**
  * 商品仓储层
@@ -120,5 +126,19 @@ public class ProductRepositoryImpl implements ProductRepository {
             }
         });
         return Boolean.TRUE;
+    }
+    
+    @Override
+    public PageResponse<Product> pageQueryProduct(Product product) {
+        ProductPageQuery pageQuery = product.getPageQuery();
+        Page<ProductSpuDO> page = new Page<>(pageQuery.getCurrent(), pageQuery.getSize());
+        LambdaQueryWrapper<ProductSpuDO> queryWrapper = Wrappers.lambdaQuery(ProductSpuDO.class)
+                .between(ObjectUtil.isAllNotEmpty(pageQuery.getPriceGt(), pageQuery.getPriceLte()), ProductSpuDO::getPrice, pageQuery.getPriceGt(), pageQuery.getPriceLte())
+                .orderBy(pageQuery.getSort() != null, Optional.ofNullable(pageQuery.getSort()).map(each -> each == 1 ? true : false).orElse(false), ProductSpuDO::getPrice);
+        Page<ProductSpuDO> selectPage = productSpuMapper.selectPage(page, queryWrapper);
+        List<Product> productList = selectPage.getRecords().stream()
+                .map(each -> Product.builder().productSpu(BeanUtil.convert(each, ProductSpu.class)).build())
+                .collect(Collectors.toList());
+        return new PageResponse<>(pageQuery.getCurrent(), pageQuery.getSize(), selectPage.getTotal(), productList);
     }
 }

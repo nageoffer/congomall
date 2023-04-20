@@ -19,6 +19,7 @@ package org.opengoofy.congomall.biz.product.application.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
+import org.opengoofy.congomall.biz.product.application.req.ProductPageQuery;
 import org.opengoofy.congomall.biz.product.application.req.ProductStockVerifyQuery;
 import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
 import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
@@ -28,6 +29,7 @@ import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStock;
 import org.opengoofy.congomall.biz.product.domain.aggregate.ProductStockDetail;
 import org.opengoofy.congomall.biz.product.domain.repository.ProductRepository;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,5 +67,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Boolean unlockProductStock(ProductUnlockStockCommand requestParam) {
         return productRepository.unlockProductStock(BeanUtil.convert(requestParam, ProductStock.class));
+    }
+    
+    @Override
+    public PageResponse<ProductRespDTO> pageQueryProduct(ProductPageQuery requestParam) {
+        Product product = Product.builder()
+                .pageQuery(BeanUtil.convert(requestParam, org.opengoofy.congomall.biz.product.domain.aggregate.ProductPageQuery.class))
+                .build();
+        PageResponse<Product> productPageResponse = productRepository.pageQueryProduct(product);
+        return PageResponse.<ProductRespDTO>builder()
+                .current(productPageResponse.getCurrent())
+                .size(productPageResponse.getSize())
+                .total(productPageResponse.getTotal())
+                .records(BeanUtil.convert(productPageResponse.getRecords(), ProductRespDTO.class))
+                .build();
     }
 }

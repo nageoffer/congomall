@@ -18,9 +18,11 @@
 package org.opengoofy.congomall.biz.product.application.service;
 
 import org.opengoofy.congomall.biz.product.application.req.ProductLockStockCommand;
+import org.opengoofy.congomall.biz.product.application.req.ProductPageQuery;
 import org.opengoofy.congomall.biz.product.application.req.ProductStockVerifyQuery;
 import org.opengoofy.congomall.biz.product.application.req.ProductUnlockStockCommand;
 import org.opengoofy.congomall.biz.product.application.resp.ProductRespDTO;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
 
@@ -64,4 +66,12 @@ public interface ProductService {
      * @return 是否解锁相关商品库存返回结果，解锁成功返回 {@link Boolean#TRUE}，反之返回 {@link Boolean#FALSE}
      */
     Boolean unlockProductStock(ProductUnlockStockCommand requestParam);
+    
+    /**
+     * 分页查询商品集合
+     *
+     * @param requestParam 分页查询参数
+     * @return 分页查询商品集合返回数据
+     */
+    PageResponse<ProductRespDTO> pageQueryProduct(ProductPageQuery requestParam);
 }

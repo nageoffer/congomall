@@ -15,47 +15,24 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.biz.product.domain.aggregate;
+package org.opengoofy.congomall.biz.product.application.req;
 
-import lombok.*;
-import org.opengoofy.congomall.biz.product.domain.mode.ProductBrand;
-import org.opengoofy.congomall.biz.product.domain.mode.ProductSpu;
-import org.opengoofy.congomall.biz.product.domain.mode.ProductSku;
-import org.opengoofy.congomall.ddd.framework.core.domain.AggregateRoot;
-
-import java.util.List;
+import lombok.Data;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
 
 /**
- * 商品信息
+ * 商品分页查询
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter(AccessLevel.PRIVATE)
-public class Product implements AggregateRoot {
+public class ProductPageQuery extends PageRequest {
     
-    /**
-     * 商品品牌
-     */
-    private ProductBrand productBrand;
+    private Integer sort;
     
-    /**
-     * 商品 SPU
-     */
-    private ProductSpu productSpu;
+    private Integer priceGt;
     
-    /**
-     * 商品 SKU 集合
-     */
-    private List<ProductSku> productSkus;
-    
-    /**
-     * 分页查询
-     */
-    private ProductPageQuery pageQuery;
+    private Integer priceLte;
 }
