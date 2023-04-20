@@ -46,6 +46,8 @@ congomall:
     description: BFF Service
     title: BFF Service
     version: 1.0.0
+  bff:
+    qps-count: 1
 
 feign:
   client:

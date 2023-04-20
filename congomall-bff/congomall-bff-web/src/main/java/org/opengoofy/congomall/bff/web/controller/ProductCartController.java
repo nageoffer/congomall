@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.web.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,15 @@ import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteAdapterR
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartDeleteChecksAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ProductCartUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ProductCartAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.handler.CustomBlockHandler;
 import org.opengoofy.congomall.bff.biz.service.ProductCartService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static org.opengoofy.congomall.bff.biz.common.SentinelLimitFlowConstant.ADD_CART_PATH;
 
 /**
  * 购物车控制层
@@ -57,6 +61,11 @@ public class ProductCartController {
     
     @PostMapping("/member/addCart")
     @ApiOperation(value = "新增购物车", notes = "新增购物车")
+    @SentinelResource(
+            value = ADD_CART_PATH,
+            blockHandler = "addCardBlockHandlerMethod",
+            blockHandlerClass = CustomBlockHandler.class
+    )
     public ResultT<Integer> addProductCard(@RequestBody ProductCartAddAdapterReqDTO requestParam) {
         return ResultT.success(productCartService.addProductCard(requestParam));
     }

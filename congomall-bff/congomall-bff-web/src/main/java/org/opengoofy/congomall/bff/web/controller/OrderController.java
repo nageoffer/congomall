@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.web.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -25,12 +26,15 @@ import org.opengoofy.congomall.bff.biz.common.ResultT;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.OrderCreateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.OrderResultAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.handler.CustomBlockHandler;
 import org.opengoofy.congomall.bff.biz.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.opengoofy.congomall.bff.biz.common.SentinelLimitFlowConstant.CREATE_ORDER_PATH;
 
 /**
  * 订单控制层
@@ -47,6 +51,11 @@ public class OrderController {
     
     @PostMapping("/member/addOrder")
     @ApiOperation(value = "订单创建", notes = "订单创建")
+    @SentinelResource(
+            value = CREATE_ORDER_PATH,
+            blockHandler = "createOrderBlockHandlerMethod",
+            blockHandlerClass = CustomBlockHandler.class
+    )
     public ResultT<String> addOrder(@RequestBody OrderCreateAdapterReqDTO requestParam) {
         return ResultT.success(orderService.addOrder(requestParam));
     }

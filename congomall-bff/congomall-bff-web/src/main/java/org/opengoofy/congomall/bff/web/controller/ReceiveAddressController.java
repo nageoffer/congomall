@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.web.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ import org.opengoofy.congomall.bff.biz.dto.req.adapter.ReceiveAddressQueryAdapte
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ReceiveAddressSaveAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.ReceiveAddressUpdateAdapterReqDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.ReceiveAddressAdapterRespDTO;
+import org.opengoofy.congomall.bff.biz.handler.CustomBlockHandler;
 import org.opengoofy.congomall.bff.biz.service.ReceiveAddressService;
 import org.opengoofy.congomall.springboot.starter.log.annotation.MLog;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static org.opengoofy.congomall.bff.biz.common.SentinelLimitFlowConstant.ADD_ADDRESS_PATH;
 
 /**
  * 收货地址控制层
@@ -57,6 +61,11 @@ public class ReceiveAddressController {
     
     @PostMapping("/member/addAddress")
     @ApiOperation(value = "新增用户收货地址", notes = "新增用户收货地址")
+    @SentinelResource(
+            value = ADD_ADDRESS_PATH,
+            blockHandler = "addAddressBlockHandlerMethod",
+            blockHandlerClass = CustomBlockHandler.class
+    )
     public ResultT<Integer> saveReceiveAddress(@RequestBody ReceiveAddressSaveAdapterReqDTO requestParam) {
         return ResultT.success(receiveAddressService.saveReceiveAddress(requestParam));
     }
