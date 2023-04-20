@@ -60,6 +60,8 @@ congomall:
     description: Cart Service
     title: Cart Service
     version: 1.0.0
+  cart:
+    max-product: 500
 
 mybatis-plus:
   global-config:
