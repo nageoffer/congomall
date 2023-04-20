@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.biz.service;
 
+import org.opengoofy.congomall.bff.biz.dto.resp.adapter.GoodsResultAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomePanelAdapterRespDTO;
 import org.opengoofy.congomall.bff.biz.dto.resp.adapter.HomeProductDetailAdapterRespDTO;
 
@@ -52,4 +53,16 @@ public interface GoodsService {
      * @return 为您推荐板块返回数据
      */
     HomePanelAdapterRespDTO recommend();
+    
+    /**
+     * 全部商品集合
+     *
+     * @param page     当前页
+     * @param size     每页多少条
+     * @param sort     排序方式
+     * @param priceGt  价格区间开始
+     * @param priceLte 价格区间结束
+     * @return 全部商品返回数据
+     */
+    GoodsResultAdapterRespDTO allGoods(Integer page, Integer size, Integer sort, Integer priceGt, Integer priceLte);
 }

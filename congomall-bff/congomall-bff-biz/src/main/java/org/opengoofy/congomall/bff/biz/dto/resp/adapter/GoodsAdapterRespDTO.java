@@ -15,53 +15,27 @@
  * limitations under the License.
  */
 
-package org.opengoofy.congomall.bff.biz.dao.entity;
+package org.opengoofy.congomall.bff.biz.dto.resp.adapter;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.opengoofy.congomall.mybatisplus.springboot.starter.BaseDO;
 
 /**
- * 板块商品关联实体
+ * 商品适配返回对象
  *
  * @author chen.ma
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Data
-@TableName("panel_product_relation")
-public class PanelProductRelationDO extends BaseDO {
+public class GoodsAdapterRespDTO {
     
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    private String productId;
     
-    /**
-     * 板块id
-     */
-    private Long panelId;
+    private String productImageBig;
     
-    /**
-     * 商品id
-     */
-    private Long productId;
+    private String productName;
     
-    /**
-     * 商品大图
-     */
-    private String bigPic;
+    private Integer salePrice;
     
-    /**
-     * 商品图
-     */
-    private String pic;
-    
-    /**
-     * 排序
-     */
-    private Integer sort;
+    private String subTitle;
 }
