@@ -77,7 +77,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> findOrderByCustomerUserId(String customerUserId) {
         LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class)
-                .eq(OrderDO::getCustomerUserId, customerUserId);
+                .eq(OrderDO::getCustomerUserId, customerUserId)
+                .orderByDesc(OrderDO::getCreateTime);
         List<OrderDO> orderDOList = orderMapper.selectList(queryWrapper);
         List<Order> resultOrder = BeanUtil.convert(orderDOList, Order.class);
         resultOrder.forEach(each -> {
