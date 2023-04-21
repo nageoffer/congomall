@@ -27,7 +27,7 @@
     <artifactId>congomall-bff-biz</artifactId>
     
     <properties>
-        <kryo.version>3.0.3</kryo.version>
+        <kryo5.version>5.3.0</kryo5.version>
     </properties>
     
     <dependencies>
@@ -78,9 +78,9 @@
         </dependency>
         
         <dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>${kryo.version}</version>
+            <groupId>com.esotericsoftware.kryo</groupId>
+            <artifactId>kryo5</artifactId>
+            <version>${kryo5.version}</version>
         </dependency>
     </dependencies>
     

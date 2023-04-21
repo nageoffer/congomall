@@ -60,8 +60,8 @@ jetcache:
       type: redis.springdata
       keyConvertor: fastjson2
       keyPrefix: 'congomall-bff:'
-      valueEncoder: kryo
-      valueDecoder: kryo
+      valueEncoder: KRYO5
+      valueDecoder: KRYO5
       defaultExpireInMillis: 5000
 
 feign:
