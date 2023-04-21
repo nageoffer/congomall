@@ -19,6 +19,7 @@ package org.opengoofy.congomall.bff.biz.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alicp.jetcache.anno.Cached;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 商品接口层实现
@@ -746,6 +748,7 @@ public class GoodsServiceImpl implements GoodsService {
             "    ]";
     
     @Override
+    @Cached(name = "goods:", key = "'home-panel'", expire = 24, timeUnit = TimeUnit.HOURS)
     public List<HomePanelAdapterRespDTO> listHomePanel() {
         List<PanelDO> listAllPanel = panelMapper.listAllPanel();
         List<HomePanelAdapterRespDTO> result = BeanUtil.convert(listAllPanel, HomePanelAdapterRespDTO.class);
@@ -793,6 +796,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
     
     @Override
+    @Cached(name = "goods:", key = "'detail-'+#productId", expire = 24, timeUnit = TimeUnit.HOURS)
     public HomeProductDetailAdapterRespDTO goodsDetail(String productId) {
         Result<ProductRespDTO> productResult = productRemoteService.getProductBySpuId(productId);
         HomeProductDetailAdapterRespDTO result = new HomeProductDetailAdapterRespDTO();
@@ -813,6 +817,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
     
     @Override
+    @Cached(name = "goods:", key = "'recommend'", expire = 24, timeUnit = TimeUnit.HOURS)
     public HomePanelAdapterRespDTO recommend() {
         PanelDO recommend = panelMapper.getRecommend();
         HomePanelAdapterRespDTO result = BeanUtil.convert(recommend, HomePanelAdapterRespDTO.class);
@@ -849,6 +854,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
     
     @Override
+    @Cached(name = "goods:", key = "'all-goods-page-'+#page+'-'+#size+'-'+#sort+'-'+#priceGt+'-'+#priceLte", expire = 24, timeUnit = TimeUnit.HOURS)
     public GoodsResultAdapterRespDTO allGoods(Integer page, Integer size, Integer sort, Integer priceGt, Integer priceLte) {
         Result<PageResponse<ProductRespDTO>> pageResponseResult = null;
         try {

@@ -19,6 +19,7 @@ package org.opengoofy.congomall.bff.biz.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alicp.jetcache.anno.Cached;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -45,6 +46,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 捐赠接口层实现
@@ -63,6 +65,7 @@ public class DonationServiceImpl implements DonationService {
     private final ProductRemoteService productRemoteService;
     
     @Override
+    @Cached(name = "donation:", key = "'page-query-'+#page+'-'+#size", expire = 24, timeUnit = TimeUnit.HOURS)
     public PageAdapter<List<DonationAdapterRespDTO>> pageQueryDonation(int page, int size) {
         IPage<DonationDO> donationDOPage = donationMapper.selectPage(new Page<>(page, size), Wrappers.emptyWrapper());
         IPage<DonationAdapterRespDTO> resultPage = donationDOPage.convert(each -> {
@@ -80,6 +83,7 @@ public class DonationServiceImpl implements DonationService {
     }
     
     @Override
+    @Cached(name = "donation:", key = "'query'", expire = 24, timeUnit = TimeUnit.HOURS)
     public HomePanelAdapterRespDTO queryDonation() {
         PanelDO thank = panelMapper.getThank();
         HomePanelAdapterRespDTO result = BeanUtil.convert(thank, HomePanelAdapterRespDTO.class);

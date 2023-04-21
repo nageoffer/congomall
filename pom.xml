@@ -95,6 +95,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <okhttp3.version>4.9.3</okhttp3.version>
         <javafaker.version>1.0.2</javafaker.version>
+        <jetcache.version>2.7.3</jetcache.version>
         <!-- tool end -->
     </properties>
     

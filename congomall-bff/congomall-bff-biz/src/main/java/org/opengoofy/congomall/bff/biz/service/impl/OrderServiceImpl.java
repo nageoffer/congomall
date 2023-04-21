@@ -17,6 +17,8 @@
 
 package org.opengoofy.congomall.bff.biz.service.impl;
 
+import com.alicp.jetcache.anno.CacheInvalidate;
+import com.alicp.jetcache.anno.Cached;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.bff.biz.dto.req.adapter.OrderCreateAdapterReqDTO;
@@ -38,6 +40,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 订单接口实现层
@@ -142,6 +145,7 @@ public class OrderServiceImpl implements OrderService {
     }
     
     @Override
+    @Cached(name = "order:", key = "'query-order-'+#orderSn", expire = 24, timeUnit = TimeUnit.HOURS)
     public OrderAdapterRespDTO getOrderDetail(String orderSn) {
         Result<OrderRespDTO> orderDetailRemoteResult;
         OrderRespDTO orderRespDTO;
@@ -181,6 +185,7 @@ public class OrderServiceImpl implements OrderService {
     }
     
     @Override
+    @CacheInvalidate(name = "order:", key = "'query-order-'+#orderSn")
     public Integer deleteOrder(String orderSn) {
         int deleteOrderFlag = 0;
         try {

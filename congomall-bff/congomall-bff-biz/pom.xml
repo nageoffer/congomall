@@ -26,6 +26,10 @@
     </parent>
     <artifactId>congomall-bff-biz</artifactId>
     
+    <properties>
+        <kryo.version>3.0.3</kryo.version>
+    </properties>
+    
     <dependencies>
         <dependency>
             <groupId>org.opengoofy.congomall</groupId>
@@ -59,6 +63,24 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-annotation-aspectj</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-starter-redis-springdata</artifactId>
+            <version>${jetcache.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
         </dependency>
     </dependencies>
     

@@ -17,6 +17,8 @@
 
 package org.opengoofy.congomall.bff.web;
 
+import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
+import com.alicp.jetcache.anno.config.EnableMethodCache;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +26,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
+@EnableCreateCacheAnnotation
+@EnableMethodCache(basePackages = "org.opengoofy.congomall.bff")
 @MapperScan("org.opengoofy.congomall.bff.biz.dao.mapper")
 @EnableFeignClients("org.opengoofy.congomall.bff.remote")
 @SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.bff")

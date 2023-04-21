@@ -17,6 +17,7 @@
 
 package org.opengoofy.congomall.bff.biz.service.impl;
 
+import com.alicp.jetcache.anno.Cached;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.congomall.bff.biz.assembler.NavigationAssembler;
@@ -30,6 +31,7 @@ import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 导航栏接口实现
@@ -46,6 +48,7 @@ public class NavigationServiceImpl implements NavigationService {
     private final NavigationAssembler navigationAssembler;
     
     @Override
+    @Cached(name = "navigation:", key = "'list-all-navigation'", expire = 24, timeUnit = TimeUnit.HOURS)
     public List<NavigationAdapterRespDTO> listAllNavigation() {
         List<NavigationDO> navigationDOList = navigationMapper.selectList(Wrappers.emptyWrapper());
         List<NavigationRespDTO> navigationRespDTOList = BeanUtil.convert(navigationDOList, NavigationRespDTO.class);
