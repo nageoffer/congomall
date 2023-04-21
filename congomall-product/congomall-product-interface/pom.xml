@@ -66,4 +66,21 @@
             <artifactId>hippo4j-config-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
+    
+    <build>
+        <finalName>congomall-product-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
