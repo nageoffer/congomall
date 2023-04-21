@@ -4,12 +4,26 @@
 
 官网地址：[magestack.cn](https://magestack.cn)
 
+体验地址：[cmall.magestack.cn](http://cmall.magestack.cn)
+
 刚果商城是个从零到一的C端商城项目，包含商城核心业务和基础架构两大模块。
 
 参照商城系统原型，推出用户、消息、商品、订单、优惠券、支付、网关、购物车等业务模块，通过商城系统中复杂场景，给出对应解决方案。使用
 DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正确地开发思路。
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673165270664-5d0c4381-96ef-427b-a58d-9b21140eabe0-20230306173625527.png)
+
+### 🤩 联系我
+
+---
+
+开源不易，右上角点个 Star 鼓励一下吧！
+
+如果大家想要实时关注 CongoMall 更新的文章以及分享的干货的话，可以关注我的公众号。
+
+使用过程中有任何问题，或者对项目有什么建议，关注公众号回复：加群，和 `1000+` 志同道合的朋友交流讨论。
+
+<img width="586" alt="image" src="https://user-images.githubusercontent.com/77398366/225888779-367f42a6-8401-4867-8e80-44214e1d17c1.png">
 
 ### 🔨 如何开始
 
@@ -38,18 +52,6 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 基础架构相关的代码都在 `congomall-framework-all` 模块中，可以通过官网查看如何实现，或者通过 [视频教学](https://magestack.cn/preparation/video.html) 来学习如何开发基础架构代码。
 
 <img width="1090" alt="image" src="https://user-images.githubusercontent.com/77398366/229265310-7fa8b406-b621-4334-91d6-911c0b95dce3.png">
-
-### 🤩 联系我
-
----
-
-开源不易，右上角点个 Star 鼓励一下吧！
-
-如果大家想要实时关注 CongoMall 更新的文章以及分享的干货的话，可以关注我的公众号。
-
-使用过程中有任何问题，或者对项目有什么建议，关注公众号回复：加群，和 `1000+` 志同道合的朋友交流讨论。
-
-<img width="586" alt="image" src="https://user-images.githubusercontent.com/77398366/225888779-367f42a6-8401-4867-8e80-44214e1d17c1.png">
 
 ### 📝 文档
 
