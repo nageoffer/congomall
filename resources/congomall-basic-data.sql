@@ -1,3 +1,17 @@
+CREATE TABLE `region_info`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `code`        varchar(30)  NOT NULL COMMENT '行政区划编号',
+    `name`        varchar(100) NOT NULL DEFAULT '' COMMENT '行政区划名称',
+    `parent`      varchar(30)  NOT NULL COMMENT '上级行政区划',
+    `sort`        int(11) DEFAULT NULL COMMENT '排序',
+    `level`       int(11) NOT NULL COMMENT '层级',
+    `create_time` datetime     NOT NULL COMMENT '创建时间',
+    `update_time` datetime     NOT NULL COMMENT '修改时间',
+    `del_flag`    tinyint(1) NOT NULL COMMENT '删除标志',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=28619 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='行政区划表';
+
 INSERT INTO `region_info` (`id`, `code`, `name`, `parent`, `sort`, `level`, `create_time`, `update_time`, `del_flag`)
 VALUES ('1', 'CN0001', '中国', 'XZ0000', '1', '0', '2023-03-26 10:47:20', '2023-03-26 10:47:20', '0'),
        ('2', '110000', '北京市', 'CN0001', '1', '1', '2023-03-26 10:47:20', '2023-03-26 10:47:20', '0'),
