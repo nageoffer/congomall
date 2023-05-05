@@ -18,6 +18,8 @@
 package org.opengoofy.congomall.biz.order.domain.repository;
 
 import org.opengoofy.congomall.biz.order.domain.aggregate.Order;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
 
@@ -80,4 +82,13 @@ public interface OrderRepository {
      * @param orderSn 订单号
      */
     void deleteOrder(String orderSn);
+    
+    /**
+     * 分页查询订单列表
+     *
+     * @param userId      用户 ID
+     * @param pageRequest 分页配置
+     * @return 分页查询订单列表返回信息
+     */
+    PageResponse<Order> pageQueryOrder(String userId, PageRequest pageRequest);
 }

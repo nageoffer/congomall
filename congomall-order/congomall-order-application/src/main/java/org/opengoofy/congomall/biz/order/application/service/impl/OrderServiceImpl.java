@@ -25,6 +25,7 @@ import org.opengoofy.congomall.biz.order.application.enums.OrderChainMarkEnum;
 import org.opengoofy.congomall.biz.order.application.event.order.create.OrderCreateEvent;
 import org.opengoofy.congomall.biz.order.application.filter.OrderCreateProductSkuStockChainHandler;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
+import org.opengoofy.congomall.biz.order.application.req.OrderPageQuery;
 import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
 import org.opengoofy.congomall.biz.order.domain.aggregate.CneeInfo;
@@ -36,6 +37,7 @@ import org.opengoofy.congomall.biz.order.infrastructure.remote.CartRemoteService
 import org.opengoofy.congomall.biz.order.infrastructure.remote.dto.CartItemQuerySelectRespDTO;
 import org.opengoofy.congomall.springboot.starter.base.ApplicationContextHolder;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.designpattern.chain.AbstractChainContext;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
@@ -116,6 +118,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(String orderSn) {
         orderRepository.deleteOrder(orderSn);
+    }
+    
+    @Override
+    public PageResponse<OrderRespDTO> pageQueryOrder(OrderPageQuery requestParam) {
+        PageResponse<Order> pageResponse = orderRepository.pageQueryOrder(requestParam.getUserId(), requestParam);
+        return pageResponse.convert(each -> BeanUtil.convert(each, OrderRespDTO.class));
     }
     
     /**

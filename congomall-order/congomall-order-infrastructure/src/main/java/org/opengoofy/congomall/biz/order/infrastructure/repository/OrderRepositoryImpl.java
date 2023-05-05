@@ -22,6 +22,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.order.domain.aggregate.CneeInfo;
@@ -34,9 +35,12 @@ import org.opengoofy.congomall.biz.order.infrastructure.dao.entity.OrderDO;
 import org.opengoofy.congomall.biz.order.infrastructure.dao.entity.OrderItemDO;
 import org.opengoofy.congomall.biz.order.infrastructure.dao.mapper.OrderItemMapper;
 import org.opengoofy.congomall.biz.order.infrastructure.dao.mapper.OrderMapper;
+import org.opengoofy.congomall.mybatisplus.springboot.starter.PageUtil;
 import org.opengoofy.congomall.springboot.starter.common.toolkit.BeanUtil;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ClientException;
 import org.opengoofy.congomall.springboot.starter.convention.exception.ServiceException;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageRequest;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.opengoofy.congomall.springboot.starter.distributedid.SnowflakeIdUtil;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -182,5 +186,12 @@ public class OrderRepositoryImpl implements OrderRepository {
         if (updateResult <= 0) {
             throw new ServiceException(OrderCanalErrorCodeEnum.ORDER_DELETE_ERROR);
         }
+    }
+    
+    @Override
+    public PageResponse<Order> pageQueryOrder(String userId, PageRequest pageRequest) {
+        LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getCustomerUserId, userId);
+        Page<OrderDO> orderDOPage = orderMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()), queryWrapper);
+        return PageUtil.convert(orderDOPage, Order.class);
     }
 }

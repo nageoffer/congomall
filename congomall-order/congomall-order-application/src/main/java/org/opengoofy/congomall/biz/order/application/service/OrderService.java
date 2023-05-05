@@ -18,7 +18,9 @@
 package org.opengoofy.congomall.biz.order.application.service;
 
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
+import org.opengoofy.congomall.biz.order.application.req.OrderPageQuery;
 import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
 
@@ -68,4 +70,12 @@ public interface OrderService {
      * @param orderSn 订单号
      */
     void deleteOrder(String orderSn);
+    
+    /**
+     * 分页查询订单列表
+     *
+     * @param requestParam 分页查询订单列表入参
+     * @return 分页查询订单列表返回数据
+     */
+    PageResponse<OrderRespDTO> pageQueryOrder(OrderPageQuery requestParam);
 }

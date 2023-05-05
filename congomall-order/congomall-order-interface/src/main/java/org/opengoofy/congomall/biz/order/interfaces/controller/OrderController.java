@@ -21,8 +21,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.opengoofy.congomall.biz.order.application.req.OrderCreateCommand;
+import org.opengoofy.congomall.biz.order.application.req.OrderPageQuery;
 import org.opengoofy.congomall.biz.order.application.resp.OrderRespDTO;
 import org.opengoofy.congomall.biz.order.application.service.OrderService;
+import org.opengoofy.congomall.springboot.starter.convention.page.PageResponse;
 import org.opengoofy.congomall.springboot.starter.convention.result.Result;
 import org.opengoofy.congomall.springboot.starter.idempotent.annotation.Idempotent;
 import org.opengoofy.congomall.springboot.starter.idempotent.enums.IdempotentTypeEnum;
@@ -62,6 +64,13 @@ public class OrderController {
         return Results.success(result);
     }
     
+    @GetMapping
+    @ApiOperation(value = "分页查询订单列表", notes = "分页查询订单列表")
+    public Result<PageResponse<OrderRespDTO>> pageQueryOrder(OrderPageQuery requestParam) {
+        PageResponse<OrderRespDTO> result = orderService.pageQueryOrder(requestParam);
+        return Results.success(result);
+    }
+    
     @GetMapping("/customer-user/{customerUserId}")
     @ApiOperation(value = "查询订单信息", notes = "根据用户ID查询订单信息")
     public Result<List<OrderRespDTO>> getOrderByCustomerUserId(@PathVariable("customerUserId") String customerUserId) {
@@ -72,7 +81,7 @@ public class OrderController {
     @PostMapping
     @ApiOperation("商品订单下单")
     @Idempotent(
-            type = IdempotentTypeEnum.PARAM, 
+            type = IdempotentTypeEnum.PARAM,
             message = "订单已创建，请稍后再试"
     )
     public Result<String> createOrder(@RequestBody OrderCreateCommand requestParam) {
@@ -83,7 +92,7 @@ public class OrderController {
     @PutMapping("/{orderSn}")
     @ApiOperation("商品订单取消")
     @Idempotent(
-            type = IdempotentTypeEnum.TOKEN, 
+            type = IdempotentTypeEnum.TOKEN,
             message = "订单取消失败，请刷新订单状态或重新操作"
     )
     public Result<Void> canalOrder(@PathVariable("orderSn") String orderSn) {
