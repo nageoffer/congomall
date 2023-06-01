@@ -270,7 +270,7 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 | 7  | congomall-order         | 订单服务               | [http://localhost:8006](http://localhost:8006) |
 | 8  | congomall-pay           | 支付服务               | [http://localhost:8007](http://localhost:8007) |
 | 9  | congomall-basic-data    | 基础数据服务             | [http://localhost:8008](http://localhost:8008) |
-| 10 | congomall-bff           | BFF 商城聚合层          | [http://localhost:8009](http://localhost:8009) |
+| 10 | congomall-bff           | 商城聚合层（BFF）            | [http://localhost:8009](http://localhost:8009) |
 
 ### 🚅 接口请求
 
