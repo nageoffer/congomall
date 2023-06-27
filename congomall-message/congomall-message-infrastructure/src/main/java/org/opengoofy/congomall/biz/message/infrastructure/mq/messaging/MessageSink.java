@@ -29,7 +29,7 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface MessageSink {
     
-    String MAIL_SEND = "mail-send";
+    String MAIL_SEND = "mailSend";
     
     /**
      * 邮箱发送

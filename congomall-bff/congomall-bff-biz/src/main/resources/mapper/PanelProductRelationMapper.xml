@@ -17,10 +17,10 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.opengoofy.congomall.bff.biz.dao.mapper.PanelProductRelationMapper">
+<mapper namespace="org.opengoofy.congomall.biz.bff.dao.mapper.PanelProductRelationMapper">
     
     <!-- 根据板块ID查询关联记录 -->
-    <select id="listPanelProductRelationByPanelId" resultType="org.opengoofy.congomall.bff.biz.dao.entity.PanelProductRelationDO">
+    <select id="listPanelProductRelationByPanelId" resultType="org.opengoofy.congomall.biz.bff.dao.entity.PanelProductRelationDO">
         select *
         from panel_product_relation
         where del_flag = '0'

@@ -278,7 +278,7 @@ export default {
     this.getRemembered();
     this.login_addCart();
     this.init_geetest();
-    this.open("登录提示", "请添加作者微信号：nocode500，获取测试体验帐号");
+    this.open("登录提示", "请添加作者微信号：magestacks，获取测试体验帐号");
   },
   components: {
     YFooter,

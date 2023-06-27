@@ -43,7 +43,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DelayCloseOrderProvide {
     
-    private final MessageChannel output;
+    private final MessageChannel orderOutput;
     
     /**
      * 延迟发送订单关闭消息
@@ -63,7 +63,7 @@ public class DelayCloseOrderProvide {
         long startTime = System.currentTimeMillis();
         boolean sendResult = false;
         try {
-            sendResult = output.send(message, 2000L);
+            sendResult = orderOutput.send(message, 2000L);
         } finally {
             log.info("延迟关闭订单消息发送，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, System.currentTimeMillis() - startTime, JSON.toJSONString(delayCloseOrderEvent));
         }

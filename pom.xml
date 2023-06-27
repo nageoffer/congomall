@@ -45,10 +45,10 @@
     </developers>
     
     <modules>
+        <module>congomall-aggregation</module>
         <module>congomall-basic-data</module>
         <module>congomall-bff</module>
         <module>congomall-cart</module>
-        <module>congomall-coupon</module>
         <module>congomall-customer-user</module>
         <module>congomall-framework-all</module>
         <module>congomall-gateway</module>
@@ -82,6 +82,7 @@
         <xxl-job.version>2.3.1</xxl-job.version>
         <canal-client.version>1.1.6</canal-client.version>
         <apm-toolkit-trace.version>8.14.0</apm-toolkit-trace.version>
+        <netty-all.version>4.1.68.Final</netty-all.version>
         <!-- framework end -->
         <!-- tool start -->
         <lombok.version>1.18.24</lombok.version>
@@ -237,6 +238,13 @@
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
+            </dependency>
+            
+            <!-- Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-all.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

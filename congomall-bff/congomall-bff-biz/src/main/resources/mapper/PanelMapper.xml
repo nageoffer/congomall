@@ -17,10 +17,10 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.opengoofy.congomall.bff.biz.dao.mapper.PanelMapper">
+<mapper namespace="org.opengoofy.congomall.biz.bff.dao.mapper.PanelMapper">
     
     <!-- 查询所有板块记录 -->
-    <select id="listAllPanel" resultType="org.opengoofy.congomall.bff.biz.dao.entity.PanelDO">
+    <select id="listAllPanel" resultType="org.opengoofy.congomall.biz.bff.dao.entity.PanelDO">
         select *
         from panel
         where del_flag = '0'
@@ -29,7 +29,7 @@
     </select>
     
     <!-- 查询捐赠板块记录 -->
-    <select id="getThank" resultType="org.opengoofy.congomall.bff.biz.dao.entity.PanelDO">
+    <select id="getThank" resultType="org.opengoofy.congomall.biz.bff.dao.entity.PanelDO">
         select *
         from panel
         where del_flag = '0'
@@ -37,7 +37,7 @@
     </select>
     
     
-    <select id="getRecommend" resultType="org.opengoofy.congomall.bff.biz.dao.entity.PanelDO">
+    <select id="getRecommend" resultType="org.opengoofy.congomall.biz.bff.dao.entity.PanelDO">
         select *
         from panel
         where del_flag = '0'

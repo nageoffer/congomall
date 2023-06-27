@@ -20,7 +20,7 @@ congomall:
     safa-mode: true
   cache:
     redis:
-      prefix: '${spring.application.name}:'
+      prefix: ''
       value-timeout: 50000
   swagger:
     contact:

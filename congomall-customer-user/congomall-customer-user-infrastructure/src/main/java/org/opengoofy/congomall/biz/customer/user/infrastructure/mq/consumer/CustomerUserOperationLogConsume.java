@@ -22,9 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.opengoofy.congomall.biz.customer.user.domain.aggregate.CustomerUser;
 import org.opengoofy.congomall.biz.customer.user.domain.event.OperationLogEvent;
 import org.opengoofy.congomall.biz.customer.user.domain.repository.CustomerUserRepository;
+import org.opengoofy.congomall.biz.customer.user.infrastructure.mq.messaging.UserSink;
 import org.opengoofy.congomall.rocketmq.springboot.starter.core.MessageWrapper;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +42,7 @@ public class CustomerUserOperationLogConsume {
     
     private final CustomerUserRepository customerUserRepository;
     
-    @StreamListener(Sink.INPUT)
+    @StreamListener(UserSink.INPUT)
     public void customerUserOperationLog(@Payload MessageWrapper<OperationLogEvent> messageWrapper) {
         CustomerUser customerUser = CustomerUser.builder()
                 .customerUserId(messageWrapper.getMessage().getAfterCustomerUser().getId())

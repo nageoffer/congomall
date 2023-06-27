@@ -43,7 +43,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CustomerUserOperationLogProduce {
     
-    private final MessageChannel output;
+    private final MessageChannel userOutput;
     
     /**
      * 记录 C 用户用户变更日志
@@ -60,7 +60,7 @@ public class CustomerUserOperationLogProduce {
         long startTime = System.currentTimeMillis();
         boolean sendResult = false;
         try {
-            sendResult = output.send(message, 2000L);
+            sendResult = userOutput.send(message, 2000L);
         } finally {
             log.info("C 端用户保存用户日志，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, System.currentTimeMillis() - startTime, JSON.toJSONString(customerOperationLogEvent));
         }

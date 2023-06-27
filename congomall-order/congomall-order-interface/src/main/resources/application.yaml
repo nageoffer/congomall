@@ -30,7 +30,7 @@ spring:
         port: 8719
     stream:
       bindings:
-        delay-close-order:
+        delayCloseOrder:
           consumer:
             concurrency: 4
             max-attempts: 1
@@ -41,7 +41,7 @@ spring:
           content-type: application/json
           destination: order-service_topic
           group: order-service_general-send_pg
-        pay-result-notify:
+        payResultNotify:
           consumer:
             concurrency: 4
             max-attempts: 1
@@ -109,7 +109,7 @@ congomall:
     version: 1.0.0
   cache:
     redis:
-      prefix: '${spring.application.name}:'
+      prefix: ''
       value-timeout: 50000
 
 feign:

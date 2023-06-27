@@ -29,10 +29,10 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/member/*": {
-        target: "http://127.0.0.1:8009",
+        target: "http://127.0.0.1:8000",
       },
       "/goods/*": {
-        target: "http://127.0.0.1:8009",
+        target: "http://127.0.0.1:8000",
       },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

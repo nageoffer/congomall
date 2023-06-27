@@ -30,7 +30,7 @@ spring:
         port: 8719
     stream:
       bindings:
-        output:
+        pay-output:
           content-type: application/json
           destination: pay-service_topic
           group: pay-service_general-send_pg

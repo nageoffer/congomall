@@ -35,7 +35,7 @@ import java.util.List;
  * @github <a href="https://github.com/opengoofy" />
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
-@FeignClient("product-service")
+@FeignClient(value = "product-service", url = "${congomall.aggregation.remote-url:}")
 public interface ProductStockRemoteService {
     
     /**

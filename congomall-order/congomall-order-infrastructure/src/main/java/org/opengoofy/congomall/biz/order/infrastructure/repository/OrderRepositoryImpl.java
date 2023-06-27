@@ -192,6 +192,14 @@ public class OrderRepositoryImpl implements OrderRepository {
     public PageResponse<Order> pageQueryOrder(String userId, PageRequest pageRequest) {
         LambdaQueryWrapper<OrderDO> queryWrapper = Wrappers.lambdaQuery(OrderDO.class).eq(OrderDO::getCustomerUserId, userId);
         Page<OrderDO> orderDOPage = orderMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()), queryWrapper);
-        return PageUtil.convert(orderDOPage, Order.class);
+        PageResponse<Order> actualResult = PageUtil.convert(orderDOPage, Order.class);
+        actualResult.convert(each -> {
+            LambdaQueryWrapper<OrderItemDO> lambdaQueryWrapper = Wrappers.lambdaQuery(OrderItemDO.class)
+                    .eq(OrderItemDO::getOrderSn, each.getOrderSn());
+            List<OrderItemDO> orderItemList = orderItemMapper.selectList(lambdaQueryWrapper);
+            each.setOrderProducts(BeanUtil.convert(orderItemList, OrderProduct.class));
+            return each;
+        });
+        return actualResult;
     }
 }

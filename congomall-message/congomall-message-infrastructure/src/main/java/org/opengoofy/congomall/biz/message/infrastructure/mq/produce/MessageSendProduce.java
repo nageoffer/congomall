@@ -43,7 +43,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MessageSendProduce {
     
-    private final MessageChannel output;
+    private final MessageChannel messageOutput;
     
     /**
      * 邮箱消息发送
@@ -60,7 +60,7 @@ public class MessageSendProduce {
         long startTime = SystemClock.now();
         boolean sendResult = false;
         try {
-            sendResult = output.send(message, 2000L);
+            sendResult = messageOutput.send(message, 2000L);
         } finally {
             log.info("邮箱消息发送，发送状态: {}, Keys: {}, 执行时间: {} ms, 消息内容: {}", sendResult, keys, SystemClock.now() - startTime, JSON.toJSONString(mailMessageSendEvent));
         }

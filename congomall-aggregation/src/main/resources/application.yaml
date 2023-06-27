@@ -1,0 +1,367 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+server:
+  port: 8000
+
+spring:
+  application:
+    name: aggregation-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8686
+        port: 8719
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    stream:
+      bindings:
+        # Pay Service
+        payOutput:
+          content-type: application/json
+          destination: pay-service_topic
+          group: pay-service_general-send_pg
+        # Order Service
+        delayCloseOrder:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: order-service_topic
+          group: order-service_delay-close-order_cg
+        orderOutput:
+          content-type: application/json
+          destination: order-service_topic
+          group: order-service_general-send_pg
+        payResultNotify:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: pay-service_topic
+          group: order-service_pay-result-notify_cg
+        # Message Service
+        mailSend:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: message-center_topic
+          group: message-center_mail-send_cg
+        messageOutput:
+          content-type: application/json
+          destination: message-center_topic
+          group: message-center_general-send_pg
+        # User Service
+        userInput:
+          consumer:
+            concurrency: 4
+            max-attempts: 1
+          content-type: application/json
+          destination: customer-user_topic
+          group: customer-user_operation-log_cg
+        userOutput:
+          content-type: application/json
+          destination: customer-user_topic
+          group: customer-user_general-send_pg
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+        bindings:
+          # Order Service
+          delayCloseOrder:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: order-service_delay-close-order_tag
+          orderOutput:
+            producer:
+              sync: true
+          payResultNotify:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: pay-service_pay-result-notify_tag
+          # Message Service
+          mailSend:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: common_message-center_mail-send_tag
+          # User Service
+          userInput:
+            consumer:
+              delay-level-when-next-consume: -1
+              tags: customer-user_operation-log_tag
+  shardingsphere:
+    datasource:
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+        password: root
+        jdbc-url: jdbc:mysql://${date-source.domain:localhost}:3306/congomall_manager?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+      names: ds-0
+    props:
+      sql-show: true
+    rules:
+      encrypt:
+        encryptors:
+          # User Service
+          customer-user-encryptor:
+            props:
+              aes-key-value: ADbisulBtxnnKFoW
+            type: AES
+        tables:
+          # User Service
+          customer_user:
+            columns:
+              mail:
+                cipher-column: mail
+                encryptor-name: customer-user-encryptor
+              phone:
+                cipher-column: phone
+                encryptor-name: customer-user-encryptor
+          receive_address:
+            columns:
+              phone:
+                cipher-column: phone
+                encryptor-name: customer-user-encryptor
+              detail_address:
+                cipher-column: detail_address
+                encryptor-name: customer-user-encryptor
+      sharding:
+        sharding-algorithms:
+          # Cart Service
+          cart-item_sharding_by_mod:
+            props:
+              sharding-count: 16
+            type: HASH_MOD
+          # Product Service
+          product_sharding_by_mod_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.product.infrastructure.algorithm.ProductSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+          product-sku_sharding_by_mod_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.product.infrastructure.algorithm.ProductSkuSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+          product-comment_sharding_by_mod:
+            props:
+              sharding-count: 16
+            type: HASH_MOD
+          # User Service
+          user-sharding_by_mod:
+            props:
+              sharding-count: 16
+            type: HASH_MOD
+          # Message Service
+          message-snowflake_date_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.message.infrastructure.algorithm.SnowflakeDateShardingAlgorithm
+              strategy: complex
+            type: CLASS_BASED
+          # Order Service
+          order-item_sharding_by_mod:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+          order_snowflake-service_algorithm:
+            props:
+              algorithmClassName: org.opengoofy.congomall.biz.order.infrastructure.algorithm.OrderSnowflakeServiceShardingAlgorithm
+              sharding-count: 16
+              strategy: complex
+            type: CLASS_BASED
+        tables:
+          # Product Service
+          cart_item:
+            actual-data-nodes: ds-0.cart_item_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: cart-item_sharding_by_mod
+                sharding-column: customer_user_id
+          # Product Service
+          product_spu:
+            actual-data-nodes: ds-0.product_spu_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: product_sharding_by_mod_algorithm
+                sharding-columns: brand_id,id
+          product_sku:
+            actual-data-nodes: ds-0.product_sku_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: product-sku_sharding_by_mod_algorithm
+                sharding-columns: brand_id,product_id
+          product_comment:
+            actual-data-nodes: ds-0.product_comment_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: product-comment_sharding_by_mod
+                sharding-column: product_id
+          # User Service
+          customer_user:
+            actual-data-nodes: ds-0.customer_user_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: user-sharding_by_mod
+                sharding-column: id
+          operation_log:
+            actual-data-nodes: ds-0.operation_log_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: user-sharding_by_mod
+                sharding-column: customer_user_id
+          receive_address:
+            actual-data-nodes: ds-0.receive_address_$->{0..15}
+            table-strategy:
+              standard:
+                sharding-algorithm-name: user-sharding_by_mod
+                sharding-column: customer_user_id
+          # Message Service
+          send_record:
+            actual-data-nodes: ds-0.send_record_$->{2023..2026}_m$->{1..12}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: message-snowflake_date_algorithm
+                sharding-columns: create_time,msg_id
+          send_record_extend:
+            actual-data-nodes: ds-0.send_record_extend_$->{2023..2026}_m$->{1..12}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: message-snowflake_date_algorithm
+                sharding-columns: create_time,msg_id
+          # Order Message
+          order_info:
+            actual-data-nodes: ds-0.order_info_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: order_snowflake-service_algorithm
+                sharding-columns: customer_user_id,order_sn
+          order_item:
+            actual-data-nodes: ds-0.order_item_$->{0..15}
+            table-strategy:
+              complex:
+                sharding-algorithm-name: order_snowflake-service_algorithm
+                sharding-columns: customer_user_id,order_sn
+
+  dynamic:
+    thread-pool:
+      default-executor:
+        active-alarm: 80
+        alarm: false
+        allow-core-thread-time-out: true
+        blocking-queue: ResizableCapacityLinkedBlockingQueue
+        capacity-alarm: 80
+        core-pool-size: 20
+        execute-time-out: 100
+        keep-alive-time: 9999
+        maximum-pool-size: 40
+        queue-capacity: 4096
+        rejected-handler: AbortPolicy
+
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    password: XERZPMCFAIDMBXNY
+    port: 25
+    protocol: smtp
+    username: congomall@163.com
+
+congomall:
+  fastjson:
+    safa-mode: true
+  swagger:
+    contact:
+      name: chen.ma
+    description: Aggregation Service
+    title: Aggregation Service
+    version: 1.0.0
+  bff:
+    qps-count: 1
+  aggregation:
+    remote-url: http://127.0.0.1:${server.port}
+
+jetcache:
+  areaInCacheName: false
+  local:
+    default:
+      type: linkedhashmap
+      keyConvertor: fastjson2
+  remote:
+    default:
+      type: redis.springdata
+      keyConvertor: fastjson2
+      keyPrefix: 'congomall-aggregation:'
+      valueEncoder: KRYO5
+      valueDecoder: KRYO5
+      defaultExpireInMillis: 5000
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: HEADERS
+        connectTimeout: 5000
+        readTimeout: 5000
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+customer:
+  user:
+    register:
+      verify:
+        sender: congomall@163.com
+        template-id: userRegisterVerification
+
+
+geetest:
+  captcha-id: '????????'
+  private-key: '??'
+
+seata:
+  application-id: ${spring.application.name}
+  enable-auto-data-source-proxy: false
+  service:
+    grouplist:
+      seata-server: 127.0.0.1:8091
+    vgroup-mapping:
+      my-tx-group: seata-server
+  tx-service-group: my-tx-group
+  use-jdk-proxy: true

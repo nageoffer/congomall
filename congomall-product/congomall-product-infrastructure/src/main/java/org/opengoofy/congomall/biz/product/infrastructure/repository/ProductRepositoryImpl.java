@@ -17,11 +17,12 @@
 
 package org.opengoofy.congomall.biz.product.infrastructure.repository;
 
+import cn.hippo4j.core.executor.support.ThreadPoolBuilder;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.opengoofy.congomall.biz.product.domain.aggregate.Product;
 import org.opengoofy.congomall.biz.product.domain.aggregate.ProductPageQuery;
@@ -56,13 +57,18 @@ import java.util.stream.Collectors;
  * @公众号 马丁玩编程，关注回复：资料，领取后端技术专家成长手册
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepository {
     
     private final ProductSpuMapper productSpuMapper;
     private final ProductBrandMapper productBrandMapper;
     private final ProductSkuMapper productSkuMapper;
-    private final ThreadPoolExecutor productThreadPoolExecutor;
+    
+    private ThreadPoolExecutor productThreadPoolExecutor = ThreadPoolBuilder.builder()
+            .threadFactory("product-executor")
+            .dynamicPool()
+            .build();
+    ;
     
     @Override
     @SneakyThrows

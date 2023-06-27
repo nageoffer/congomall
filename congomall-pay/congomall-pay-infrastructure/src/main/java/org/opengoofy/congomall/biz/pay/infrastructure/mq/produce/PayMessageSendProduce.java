@@ -44,7 +44,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PayMessageSendProduce {
     
-    private final MessageChannel output;
+    private final MessageChannel payOutput;
     
     /**
      * 支付消息通用发送
@@ -61,7 +61,7 @@ public class PayMessageSendProduce {
         long startTime = SystemClock.now();
         boolean sendResult = false;
         try {
-            sendResult = output.send(message, 2000L);
+            sendResult = payOutput.send(message, 2000L);
         } finally {
             log.info("支付结果通知消息发送，发送状态：{}，Keys：{}，执行时间：{} ms，消息内容：{}", sendResult, keys, SystemClock.now() - startTime, JSON.toJSONString(event));
         }

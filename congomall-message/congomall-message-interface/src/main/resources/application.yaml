@@ -37,7 +37,7 @@ spring:
           content-type: application/json
           destination: message-center_topic
           group: message-center_mail-send_cg
-        output:
+        message-output:
           content-type: application/json
           destination: message-center_topic
           group: message-center_general-send_pg
@@ -88,7 +88,7 @@ congomall:
     version: 1.0.0
   cache:
     redis:
-      prefix: '${spring.application.name}:'
+      prefix: ''
       value-timeout: 50000
 
 mybatis-plus:

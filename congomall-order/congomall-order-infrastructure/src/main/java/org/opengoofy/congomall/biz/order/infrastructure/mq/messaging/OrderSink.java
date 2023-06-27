@@ -29,7 +29,7 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface OrderSink {
     
-    String DELAY_CLOSE_ORDER = "delay-close-order";
+    String DELAY_CLOSE_ORDER = "delayCloseOrder";
     
     /**
      * 延迟关闭订单
@@ -37,7 +37,7 @@ public interface OrderSink {
     @Input(OrderSink.DELAY_CLOSE_ORDER)
     SubscribableChannel delayCloseOrder();
     
-    String PAY_RESULT_NOTIFY = "pay-result-notify";
+    String PAY_RESULT_NOTIFY = "payResultNotify";
     
     /**
      * 支付结果通知

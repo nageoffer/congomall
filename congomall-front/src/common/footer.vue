@@ -17,7 +17,7 @@
               <a
                 class="c3"
                 target="_blank"
-                href="https://magestack.cn/course/flow-monitor/what.html"
+                href="https://magestack.cn/planet.html"
                 >商城专栏</a
               >
             </li>
@@ -25,7 +25,7 @@
               <a
                 class="c3"
                 target="_blank"
-                href="https://magestack.cn/preparation/video.html"
+                href="https://magestack.cn/congomall/preparation/video.html"
                 >视频教学</a
               >
             </li>
@@ -43,7 +43,7 @@
               <a
                 class="c3"
                 target="_blank"
-                href="https://github.com/opengoofy/congomall"
+                href="https://github.com/opengoofy/congomall/tree/main/congomall-front"
                 >项目前端</a
               >
             </li>
@@ -100,10 +100,18 @@
               >
             </li>
             <li class="c2">
+              <a
+                class="c3"
+                target="_blank"
+                href="https://gitee.com/opengoofy/12306"
+                >12306铁路购票系统</a
+              >
+            </li>
+            <!-- <li class="c2">
               <a class="c3" target="_blank" href="https://github.com/opengoofy"
                 >待开发...</a
               >
-            </li>
+            </li> -->
           </ul>
         </ul>
         <!-- <ul class="c0">
@@ -153,7 +161,7 @@
           <li class="tel">
             <a
               class="c5"
-              href="https://magestack.cn/preparation/group.html"
+              href="https://magestack.cn/congomall/preparation/group.html"
               target="_blank"
               >点击加交流群</a
             >
@@ -226,7 +234,7 @@ export default {
       });
     },
     open3() {
-      window.open("https://magestack.cn/preparation/group.html");
+      window.open("https://magestack.cn/congomall/preparation/group.html");
     },
     open4() {
       this.$notify.info({
