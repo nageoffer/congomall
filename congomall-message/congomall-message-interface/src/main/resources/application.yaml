@@ -30,14 +30,14 @@ spring:
         port: 8719
     stream:
       bindings:
-        mail-send:
+        mailSend:
           consumer:
             concurrency: 4
             max-attempts: 1
           content-type: application/json
           destination: message-center_topic
           group: message-center_mail-send_cg
-        message-output:
+        messageOutput:
           content-type: application/json
           destination: message-center_topic
           group: message-center_general-send_pg
