@@ -37,7 +37,7 @@ spring:
           content-type: application/json
           destination: order-service_topic
           group: order-service_delay-close-order_cg
-        output:
+        orderOutput:
           content-type: application/json
           destination: order-service_topic
           group: order-service_general-send_pg
@@ -50,14 +50,14 @@ spring:
           group: order-service_pay-result-notify_cg
       rocketmq:
         bindings:
-          delay-close-order:
+          delayCloseOrder:
             consumer:
               delay-level-when-next-consume: -1
               tags: order-service_delay-close-order_tag
-          output:
+          orderOutput:
             producer:
               sync: true
-          pay-result-notify:
+          payResultNotify:
             consumer:
               delay-level-when-next-consume: -1
               tags: pay-service_pay-result-notify_tag

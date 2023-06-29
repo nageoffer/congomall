@@ -43,7 +43,7 @@ spring:
           group: message-center_general-send_pg
       rocketmq:
         bindings:
-          mail-send:
+          mailSend:
             consumer:
               delay-level-when-next-consume: -1
               tags: common_message-center_mail-send_tag
