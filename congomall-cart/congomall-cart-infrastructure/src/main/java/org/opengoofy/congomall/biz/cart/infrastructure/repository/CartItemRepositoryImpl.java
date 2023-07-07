@@ -68,7 +68,7 @@ public class CartItemRepositoryImpl implements CartItemRepository {
     public PageResponse<CartItem> pageQueryCartItem(String userId, PageRequest pageRequest) {
         LambdaQueryWrapper<CartItemDO> queryWrapper = Wrappers.lambdaQuery(CartItemDO.class)
                 .eq(CartItemDO::getCustomerUserId, userId);
-        Page<CartItemDO> selectPage = cartItemMapper.selectPage(new Page(pageRequest.getCurrent(), pageRequest.getSize()), queryWrapper);
+        Page<CartItemDO> selectPage = cartItemMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()), queryWrapper);
         return PageUtil.convert(selectPage, CartItem.class);
     }
     
