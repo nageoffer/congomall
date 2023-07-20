@@ -34,6 +34,21 @@ DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正�
 - 基于 Agent 开发字节码流量监控，监控项目接口 QPS、响应时间和异常请求等核心指标。
 - 掌握常用设计模式实战场景，策略、责任链、装饰器、观察者以及适配器等设计模式。
 
+### 🛒 拿个offer 组织项目
+
+---
+
+组织简介：拿个offer - 开源&项目实战，🚀 助力你在校招或社招上拿个offer。
+
+目前组织下已支持业务、中间件等多种类型项目，项目列表如下：
+
+| Project                                         | Gitee                                                        | GitHub                                                       | Intro                      |
+|-------------------------------------------------| ------------------------------------------------------------ | ------------------------------------------------------------ |----------------------------|
+| [刚果商城](https://gitee.com/nageoffer/congomall)   | [![star](https://gitee.com/nageoffer/congomall/badge/star.svg?theme=white)](https://gitee.com/nageoffer/congomall/stargazers) | [![](https://img.shields.io/github/stars/nageoffer/congomall?color=green&style=social)](https://github.com/nageoffer/congomall) | 企业级 TOC 商城，基于 DDD 领域驱动模型开发 |
+| [Hippo4j](https://github.com/opengoofy/hippo4j) | [![star](https://gitee.com/opengoofy/hippo4j/badge/star.svg?theme=white)](https://gitee.com/opengoofy/hippo4j/stargazers) | [![](https://img.shields.io/github/stars/opengoofy/hippo4j?color=green&style=social)](https://github.com/opengoofy/hippo4j) | 异步线程池框架，支持线程池动态变更&监控&报警    |
+| [12306](https://gitee.com/nageoffer/12306)      | [![star](https://gitee.com/nageoffer/12306/badge/star.svg?theme=white)](https://gitee.com/nageoffer/12306/stargazers) | [![](https://img.shields.io/github/stars/nageoffer/12306?color=green&style=social)](https://github.com/nageoffer/12306) | 完成高仿铁路 12306系统，帮助学生主打就业的项目 |
+
+
 ### 🤩 联系我
 
 ---
