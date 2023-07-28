@@ -28,7 +28,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableCreateCacheAnnotation
 @EnableMethodCache(basePackages = "org.opengoofy.congomall.bff")
-@MapperScan("org.opengoofy.congomall.bff.biz.dao.mapper")
+@MapperScan("org.opengoofy.congomall.biz.bff.dao.mapper")
 @EnableFeignClients("org.opengoofy.congomall.biz.bff.remote")
 @SpringBootApplication(scanBasePackages = "org.opengoofy.congomall.biz.bff")
 public class BFFApplication {
