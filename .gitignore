@@ -31,6 +31,7 @@ congomall-framework-all/congomall-flow-monitor-agent/dist
 /nbdist/
 /.nb-gradle/
 build/
+!congomall-front/build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
