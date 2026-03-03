@@ -11,9 +11,9 @@
 参照商城系统原型，推出用户、消息、商品、订单、优惠券、支付、网关、购物车等业务模块，通过商城系统中复杂场景，给出对应解决方案。使用
 DDD 模型开发系统功能，帮助对 DDD 一知半解的开发者树立正确地开发思路。
 
-> 如果对开源感兴趣，可以关注马哥的中间件项目：动态线程池框架 [Hippo4j](https://github.com/opengoofy/hippo4j)。6.2kStar，43家企业使用。
+> 📢 新项目
 >
-> 有几位同学参与 Hippo4j 的贡献后，将这段经历写到了简历上，都拿了不错的大厂offer。
+> [Ragent AI](https://nageoffer.com/ragent) —— 企业级 Agentic RAG 项目，拿个 offer 社群在 AI 领域的首个开源作品。架构设计、代码实现保持一贯的高标准，适合写进校招/社招简历。毕竟现在哪家公司不关注 AI？
 
 ![](https://images-machen.oss-cn-beijing.aliyuncs.com/1673165270664-5d0c4381-96ef-427b-a58d-9b21140eabe0-20230306173625527.png)
 
